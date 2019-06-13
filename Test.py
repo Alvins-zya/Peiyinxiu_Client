@@ -8,6 +8,6 @@ repo.index.add(['*.py'])
 repo.index.commit('2019年6月13日19:08:00')
 remote = repo.remote()
 remote.push('master')
-input('输入任意键结束:\n')
+input('=====配音秀客户端功能脚本上传结束====\n输入任意键结束:\n')
 
 
