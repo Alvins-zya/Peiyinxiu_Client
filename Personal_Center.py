@@ -2426,7 +2426,7 @@ class Setting():
         Gift_setting = OP.find_id('com.happyteam.dubbingshow:id/textPraise').text
         try:
             toast = OP.wait_toast('//android.widget.Toast')
-            print(toast)
+            print(Gift_setting,toast)
         except(NoSuchElementException,TimeoutException):
             pass
         time.sleep(2)
@@ -2434,7 +2434,7 @@ class Setting():
         Comment_setting = OP.find_id('com.happyteam.dubbingshow:id/textComment').text
         try:
             toast = OP.wait_toast('//android.widget.Toast')
-            print(toast)
+            print(Comment_setting,toast)
         except(NoSuchElementException,TimeoutException):
             pass
         time.sleep(2)
@@ -2442,7 +2442,7 @@ class Setting():
         Fans_setting = OP.find_id('com.happyteam.dubbingshow:id/textFans').text
         try:
             toast = OP.wait_toast('//android.widget.Toast')
-            print(toast)
+            print(Fans_setting,toast)
         except(NoSuchElementException,TimeoutException):
             pass
         time.sleep(2)
@@ -2524,6 +2524,7 @@ class Setting():
 
         '''意见反馈'''
         OP.find_id('com.happyteam.dubbingshow:id/viewReport').click()
+        time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/editContent').send_keys("测试")
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/btn_send').click()

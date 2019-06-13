@@ -9,26 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import NoAlertPresentException,TimeoutException,NoSuchElementException
 
-#获取当前项目的根路径
-PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
-desired_caps={
-                'platformName': 'Android',
-                'deviceName': '95SSG6DANNAQINEM',
-                'udid': '95SSG6DANNAQINEM',
-                'platformVersion': '5.1',
-                'appPackage': 'com.happyteam.dubbingshow',
-                'appActivity': 'ui.StartActivity',
-                'noReset': True,
-                'unicodeKeyboard': True,
-                'resetKeyboard': True,
-                'newCommandTimeout': 300,
-                'dontStopAppOnReset': True,
-                'automationName': 'UiAutomator2',
-                'systemPort' : '8200'
-              }
-
-#启动APP
-driver = webdriver.Remote('http://localhost:4740/wd/hub',desired_caps)
 
 
 # 获取屏幕宽(x)/高(y)

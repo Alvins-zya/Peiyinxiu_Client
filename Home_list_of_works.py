@@ -516,8 +516,7 @@ class Home_Hot():
                 OP.find_id('com.happyteam.dubbingshow:id/reprint').click()
                 time.sleep(2)
                 try:
-                    toast = OP.wait_toast('//android.widget.Toast')
-                    print(toast)
+                    OP.wait_toast('//android.widget.Toast')
                     try:
                         OP.find_id('com.happyteam.dubbingshow:id/reprint')
                         print("转发失败，请检查网络！！！")
@@ -529,7 +528,6 @@ class Home_Hot():
                 time.sleep(2)
             except:
                 print("未显示转发弹窗")
-                OP.back()
             time.sleep(1)
             print("点击曝光")
             OP.find_id('com.happyteam.dubbingshow:id/exposure').click()
@@ -596,6 +594,7 @@ class Home_Hot():
             OP.back()
         except:
             print("视频详情加载失败")
+        time.sleep(2)
 
 
     '''礼物榜'''

@@ -47,12 +47,12 @@ def fuyong(i):
     elif i == "语聊":
         OP.find_xpath('语聊').click()
         time.sleep(5)
-        Chat().Into_chat()
-        Chat().banner()
-        Chat().Chat_List()
-        Chat().chat_personal()
-        Chat().create_chat()
-        Chat().enter_chat()
+        # Chat().Into_chat()
+        # Chat().banner()
+        # Chat().Chat_List()
+        # Chat().chat_personal()
+        # Chat().create_chat()
+        # Chat().enter_chat()
         OP.back()
     elif i == "曝光区":
         OP.find_xpath('曝光区').click()
@@ -1243,11 +1243,7 @@ class Exposure():
             OP.find_id('com.happyteam.dubbingshow:id/editContent').send_keys("赞一个!")
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/btn_send').click()
-            try:
-                toast = OP.wait_toast('//android.widget.Toast')
-                print(toast)
-            except(TimeoutException,NoSuchElementException):
-                pass
+            time.sleep(10)
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/btn_send')
                 print("评论发送失败")
