@@ -1,8 +1,10 @@
 #coding = utf-8
 #防止中文显示乱码
 #coding = gb18030
+'''
+配音秀客户端功能脚本上传封装
+'''
 from git import Repo
-
 repo = Repo.init('E:\Peiyinxiu_appium\Peiyinxiu_Client')
 repo.index.add(['*.py'])
 repo.index.commit('2019年6月13日19:08:00')
