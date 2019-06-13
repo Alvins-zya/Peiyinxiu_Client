@@ -3,17 +3,12 @@
 #coding = gb18030
 
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from appium import webdriver
-from logging import log
-import os,time
-from devices import device,dev
-import devices
+import os
+from Peiyinxiu_Client.devices import device,dev
+
 class BaseOperate():
     def __init__(self):
         self.driver = device()
-
     def back(self):
         '''
         返回键

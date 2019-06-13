@@ -2422,7 +2422,7 @@ class Chat():
     def Into_chat(self):
         time.sleep(2)
         try:
-            OP.wait_id('com.happyteam.dubbingshow:id/item_theme_bg')
+            OP.wait_id('com.happyteam.dubbingshow:id/item_theme_image')
         except(NoSuchElementException,TimeoutException):
             print('语聊界面界面加载失败')
             device().quit()
@@ -2432,7 +2432,7 @@ class Chat():
         OP.find_id('com.happyteam.dubbingshow:id/img').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/titlebar')
-            time.sleep(2)
+            time.sleep(4)
             OP.back()
         except(NoSuchElementException,TimeoutException):
             print('banner详情加载失败')
@@ -2440,6 +2440,8 @@ class Chat():
 
     '''榜单'''
     def List(self):
+
+        OP.find_id('com.happyteam.dubbingshow:id/rl_all').c
         try:
             OP.wait_xpath('收入榜')
             OP.wait_xpath('收入榜').click()
