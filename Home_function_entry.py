@@ -10,8 +10,8 @@ from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
 #获取当前项目的根路径
 PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
-from Operate import BaseOperate
-from devices import device
+from Peiyinxiu_Client.Operate import BaseOperate
+from Peiyinxiu_Client.devices import device
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]
@@ -2440,158 +2440,138 @@ class Chat():
 
     '''榜单'''
     def List(self):
-
-        OP.find_id('com.happyteam.dubbingshow:id/rl_all').c
-        try:
-            OP.wait_xpath('收入榜')
-            OP.wait_xpath('收入榜').click()
-            try:
-                OP.wait_id('com.happyteam.dubbingshow:id/user_img1')
-                OP.find_id('com.happyteam.dubbingshow:id/user_img1').click()
-                try:
-                    OP.wait_id('com.happyteam.dubbingshow:id/fanscount')
-                    time.sleep(2)
-                    OP.back()
-                except(NoSuchElementException,TimeoutException):
-                    print('空间加载失败')
-                    time.sleep(1)
-                    OP.back()
-                time.sleep(2)
-                print('获取榜单用户名称、钻石额度')
-                Count1_list = OP.find_ids('com.happyteam.dubbingshow:id/count1')
-                List_day  = []
-                for i in range(len(Count1_list)):
-                    Name1 = OP.find_ids('com.happyteam.dubbingshow:id/name1')[i].text
-                    Count1 =OP.find_ids('com.happyteam.dubbingshow:id/count1')[i].text
-                    Name2 = OP.find_ids('com.happyteam.dubbingshow:id/name1')[i].text
-                    Count2 = OP.find_ids('com.happyteam.dubbingshow:id/count1')[i].text
-                    Name3 = OP.find_ids('com.happyteam.dubbingshow:id/name1')[i].text
-                    Count3 = OP.find_ids('com.happyteam.dubbingshow:id/count1')[i].text
-                    List_day.append(Name1)
-                    List_day.append(Count1)
-                    List_day.append(Name2)
-                    List_day.append(Count2)
-                    List_day.append(Name3)
-                    List_day.append(Count3)
-                    time.sleep(1)
-                print(List_day)
-                time.sleep(2)
-                OP.back()
-            except(NoSuchElementException,TimeoutException):
-                print('收入榜加载失败')
-                time.sleep(2)
-                OP.back()
-        except(NoSuchElementException,TimeoutException):
-            pass
+        OP.find_id('com.happyteam.dubbingshow:id/rl_all').click()
+        OP.wait_id('com.happyteam.dubbingshow:id/title')
+        Title = OP.find_id('com.happyteam.dubbingshow:id/title').text
         time.sleep(2)
-        try:
-            OP.wait_xpath('贡献榜')
-            OP.wait_xpath('贡献榜').click()
+        if Title == '收入榜':
+            OP.find_xpath('收入榜')
+            print('收入榜')
+            time.sleep(1)
+            OP.wait_id('com.happyteam.dubbingshow:id/user_img1')
+            OP.find_id('com.happyteam.dubbingshow:id/user_img1').click()
             try:
-                OP.wait_id('com.happyteam.dubbingshow:id/user_img1')
-                OP.find_id('com.happyteam.dubbingshow:id/user_img1').click()
-                try:
-                    OP.wait_id('com.happyteam.dubbingshow:id/fanscount')
-                    time.sleep(2)
-                    OP.back()
-                except(NoSuchElementException,TimeoutException):
-                    print('空间加载失败')
-                    time.sleep(1)
-                    OP.back()
-                time.sleep(2)
-                '''获取榜单用户名称、钻石额度'''
-                Count1_list = OP.find_ids('com.happyteam.dubbingshow:id/count1')
-                List_day  = []
-                for i in range(len(Count1_list)):
-                    Name1 = OP.find_id('com.happyteam.dubbingshow:id/name1')[i].text
-                    Count1 =OP.find_id('com.happyteam.dubbingshow:id/count1')[i].text
-                    Name2 = OP.find_id('com.happyteam.dubbingshow:id/name1')[i].text
-                    Count2 = OP.find_id('com.happyteam.dubbingshow:id/count1')[i].text
-                    Name3 = OP.find_id('com.happyteam.dubbingshow:id/name1')[i].text
-                    Count3 = OP.find_id('com.happyteam.dubbingshow:id/count1')[i].text
-                    List_day.append(Name1)
-                    List_day.append(Count1)
-                    List_day.append(Name2)
-                    List_day.append(Count2)
-                    List_day.append(Name3)
-                    List_day.append(Count3)
-                    time.sleep(1)
-                print(List_day)
-            except(NoSuchElementException,TimeoutException):
-                print('贡献榜加载失败')
+                OP.wait_id('com.happyteam.dubbingshow:id/fanscount')
                 time.sleep(2)
                 OP.back()
-        except(NoSuchElementException,TimeoutException):
-            pass
-        time.sleep(2)
-        try:
-            OP.wait_xpath('等级榜')
-            OP.wait_xpath()('等级榜').click()
+            except(NoSuchElementException, TimeoutException):
+                print('空间加载失败')
+                time.sleep(1)
+                OP.back()
+            time.sleep(2)
+            print('获取榜单用户名称、钻石额度')
+            Count1_list = OP.find_ids('com.happyteam.dubbingshow:id/count1')
+            List_day = []
+            for i in range(len(Count1_list)):
+                Name1 = OP.find_ids('com.happyteam.dubbingshow:id/name1')[i].text
+                Count1 = OP.find_ids('com.happyteam.dubbingshow:id/count1')[i].text
+                Name2 = OP.find_ids('com.happyteam.dubbingshow:id/name1')[i].text
+                Count2 = OP.find_ids('com.happyteam.dubbingshow:id/count1')[i].text
+                Name3 = OP.find_ids('com.happyteam.dubbingshow:id/name1')[i].text
+                Count3 = OP.find_ids('com.happyteam.dubbingshow:id/count1')[i].text
+                List_day.append(Name1)
+                List_day.append(Count1)
+                List_day.append(Name2)
+                List_day.append(Count2)
+                List_day.append(Name3)
+                List_day.append(Count3)
+                time.sleep(1)
+            print(List_day)
+            time.sleep(2)
+            OP.back()
+            time.sleep(2)
+        elif Title =='贡献榜':
+            OP.find_xpath('贡献榜')
+            print('贡献榜')
+            OP.wait_id('com.happyteam.dubbingshow:id/user_img1')
+            OP.find_id('com.happyteam.dubbingshow:id/user_img1').click()
             try:
-                OP.wait_id()()('com.happyteam.dubbingshow:id/user_head')
-                OP.find_id('com.happyteam.dubbingshow:id/user_head').click()
-                try:
-                    OP.wait_id()()('com.happyteam.dubbingshow:id/fanscount')
-                    time.sleep(2)
-                    OP.back()
-                except(NoSuchElementException,TimeoutException):
-                    print('空间加载失败')
-                    time.sleep(1)
-                    OP.back()
-                time.sleep(2)
-                '''获取榜单用户名称'''
-                User_name_list = OP.find_id('com.happyteam.dubbingshow:id/user_name')
-                Name_list = []
-                for i in range(len(User_name_list)):
-                    Name = OP.find_id('com.happyteam.dubbingshow:id/user_name')[i].text
-                    count = OP.find_id('com.happyteam.dubbingshow:id/tv_count')[i].text
-                    Name_list.append(Name)
-                    Name_list.append(count)
-                    time.sleep(1)
-                print(Name_list)
-                time.sleep(2)
-                '''上滑'''
-                for i in range(5):
-                    OP.swip_up()
-                    time.sleep(3)
-                OP.back()
-                time.sleep(2)
-            except(NoSuchElementException,TimeoutException):
-                print('等级榜加载失败')
+                OP.wait_id('com.happyteam.dubbingshow:id/fanscount')
                 time.sleep(2)
                 OP.back()
-        except(NoSuchElementException,TimeoutException):
-            pass
-        time.sleep(2)
+            except(NoSuchElementException, TimeoutException):
+                print('空间加载失败')
+                time.sleep(1)
+                OP.back()
+            time.sleep(2)
+            '''获取榜单用户名称、钻石额度'''
+            Count1_list = OP.find_ids('com.happyteam.dubbingshow:id/count1')
+            List_day = []
+            for i in range(len(Count1_list)):
+                Name1 = OP.find_id('com.happyteam.dubbingshow:id/name1')[i].text
+                Count1 = OP.find_id('com.happyteam.dubbingshow:id/count1')[i].text
+                Name2 = OP.find_id('com.happyteam.dubbingshow:id/name1')[i].text
+                Count2 = OP.find_id('com.happyteam.dubbingshow:id/count1')[i].text
+                Name3 = OP.find_id('com.happyteam.dubbingshow:id/name1')[i].text
+                Count3 = OP.find_id('com.happyteam.dubbingshow:id/count1')[i].text
+                List_day.append(Name1)
+                List_day.append(Count1)
+                List_day.append(Name2)
+                List_day.append(Count2)
+                List_day.append(Name3)
+                List_day.append(Count3)
+                time.sleep(1)
+            print(List_day)
+            time.sleep(2)
+            OP.back()
+            time.sleep(2)
+        elif Title=='等级榜':
+            OP.find_xpath('等级榜')
+            print('等级榜')
+            OP.wait_id('com.happyteam.dubbingshow:id/user_head')
+            OP.find_id('com.happyteam.dubbingshow:id/user_head').click()
+            try:
+                OP.wait_id()()('com.happyteam.dubbingshow:id/fanscount')
+                time.sleep(2)
+                OP.back()
+            except(NoSuchElementException, TimeoutException):
+                print('空间加载失败')
+                time.sleep(1)
+                OP.back()
+            time.sleep(2)
+            '''获取榜单用户名称'''
+            User_name_list = OP.find_id('com.happyteam.dubbingshow:id/user_name')
+            Name_list = []
+            for i in range(len(User_name_list)):
+                Name = OP.find_id('com.happyteam.dubbingshow:id/user_name')[i].text
+                count = OP.find_id('com.happyteam.dubbingshow:id/tv_count')[i].text
+                Name_list.append(Name)
+                Name_list.append(count)
+                time.sleep(1)
+            print(Name_list)
+            time.sleep(2)
+            '''上滑'''
+            for i in range(5):
+                OP.swip_up()
+                time.sleep(3)
+            OP.back()
+            time.sleep(2)
+        else:
+            print('界面加载失败')
 
     '''语聊房间列表'''
     def Chat_List(self):
         '''获取当前界面语聊房间信息'''
-        user_names = OP.find_ids('com.happyteam.dubbingshow:id/item_user_name')
+        user_names = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')
         Chat_list = []
         for  i in range(len(user_names)):
-            user_name = OP.find_ids('com.happyteam.dubbingshow:id/item_user_name')[i].text
             chat_name = OP.find_ids('com.happyteam.dubbingshow:id/item_title')[i].text
-            chat_count = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')[i].text
+            num_count = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')[i].text
             chat_type = OP.find_ids('com.happyteam.dubbingshow:id/item_state_text')[i].text
-            Chat_list.append('用户名:')
-            Chat_list.append(user_name)
             Chat_list.append('语聊房间名称:')
             Chat_list.append(chat_name)
             Chat_list.append('房间用户数量')
-            Chat_list.append(chat_count)
+            Chat_list.append(num_count)
             Chat_list.append('房间类型')
             Chat_list.append(chat_type)
-            user_name1 = OP.find_ids('com.happyteam.dubbingshow:id/item_user_name1')[i].text
+            time.sleep(1)
             chat_name1 = OP.find_ids('com.happyteam.dubbingshow:id/item_title1')[i].text
-            chat_count1 = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number1')[i].text
+            num_count1 = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number1')[i].text
             chat_type1 = OP.find_ids('com.happyteam.dubbingshow:id/item_state_text1')[i].text
-            Chat_list.append('用户名:')
-            Chat_list.append(user_name1)
             Chat_list.append('语聊房间名称:')
             Chat_list.append(chat_name1)
             Chat_list.append('房间用户数量')
-            Chat_list.append(chat_count1)
+            Chat_list.append(num_count1)
             Chat_list.append('房间类型')
             Chat_list.append(chat_type1)
             time.sleep(1)
@@ -2677,7 +2657,7 @@ class Chat():
                 photos = OP.find_ids('com.happyteam.dubbingshow:id/photo_wall_item_photo')
                 num = random.randint(0,int(len(photos)))
                 OP.find_ids('com.happyteam.dubbingshow:id/photo_wall_item_photo')[num].click()
-                time.sleep(4)
+                time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/confirm').click()
                 time.sleep(4)
                 print ('输入标题')
