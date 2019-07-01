@@ -73,7 +73,7 @@ class BaseOperate():
         :param xpath:
         :return:
         '''
-        xpath_elemnt = ("//*[@text = '%s']"%xpath)
+        xpath_elemnt = ("//*[@* = '%s']"%xpath)
         el = self.driver.find_element_by_xpath(xpath_elemnt)
         return el
     def find_class(self,id):
@@ -109,7 +109,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        xpath_elemnt = ("//*[@text = '%s']"%xpath)
+        xpath_elemnt = ("//*[@* = '%s']"%xpath)
         element = WebDriverWait(self.driver, 30).until(lambda x: self.driver.find_element_by_xpath(xpath_elemnt))
         return element
     def wait_toast(self,xpath):
