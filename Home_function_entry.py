@@ -54,6 +54,8 @@ def fuyong(i):
         Chat().chat_personal()
         Chat().create_chat()
         Chat().enter_chat()
+        Chat().chat_New()
+        Chat().chat_follow()
         OP.back()
     elif i == "曝光区":
         OP.find_xpath('曝光区').click()
@@ -317,7 +319,6 @@ def online_pia():
             OP.back()
         except(NoSuchElementException,TimeoutError):
             print("在线Pia戏界面跳转失败")
-
 
 '''有声漫画'''
 class Sound_Cartoon():
@@ -3172,6 +3173,74 @@ class Chat():
             time.sleep(2)
         except(NoSuchElementException,TimeoutException):
             print('语聊房间加载失败')
+
+    '''语聊房间最新列表'''
+    def chat_New(self):
+        OP.find_id('com.happyteam.dubbingshow:id/tab2').click()
+        try:
+            OP.wait_id('com.happyteam.dubbingshow:id/item_title')
+            chats = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')
+            chat_list = []
+            for i in range(len(chats)):
+                chat_name = OP.find_ids('com.happyteam.dubbingshow:id/item_title')[i].text
+                user_count  = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')[i].text
+                chat_list.append(chat_name)
+                chat_list.append(user_count)
+                time.sleep(0.5)
+            print(chat_list)
+            time.sleep(2)
+            for i in range(3):
+                OP.swip_up()
+                time.sleep(4)
+                OP.find_id('com.happyteam.dubbingshow:id/item_title').click()
+                time.sleep(2)
+                try:
+                    OP.find_xpath('该房间的语聊已结束')
+                    time.sleep(2)
+                    OP.find_id('com.happyteam.dubbingshow:id/home_close').click()
+                    print('语聊房间已关闭')
+                except(NoSuchElementException,TimeoutException):
+                    OP.wait_id('com.happyteam.dubbingshow:id/home_microphone')
+                    time.sleep(2)
+                    OP.back()
+                    time.sleep(1)
+                    OP.find_id('com.happyteam.dubbingshow:id/btnSubmit')
+            time.sleep(2)
+        except:
+            print('语聊最新列表未显示房间信息')
+
+    '''语聊房间关注列表'''
+    def chat_follow(self):
+        OP.find_id('com.happyteam.dubbingshow:id/tab3').click()
+        time.sleep(2)
+        try:
+            OP.find_xpath('您关注的秀友都还没有创建房间哦')
+            print('暂无关注用户创建语聊')
+            time.sleep(2)
+            print('推荐房间')
+            chats = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')
+            chat_list = []
+            for i in range(len(chats)):
+                chat_name = OP.find_ids('com.happyteam.dubbingshow:id/item_title')[i].text
+                user_count = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')[i].text
+                chat_list.append(chat_name)
+                chat_list.append(user_count)
+                time.sleep(0.5)
+            print(chat_list)
+        except:
+            print('显示有关注用户语聊间')
+            time.sleep(1)
+            chats = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')
+            chat_list = []
+            for i in range(len(chats)):
+                chat_name = OP.find_ids('com.happyteam.dubbingshow:id/item_title')[i].text
+                user_count = OP.find_ids('com.happyteam.dubbingshow:id/item_user_number')[i].text
+                chat_list.append(chat_name)
+                chat_list.append(user_count)
+                time.sleep(0.5)
+            print(chat_list)
+            time.sleep(2)
+
 
 
 if __name__=="__main__":
