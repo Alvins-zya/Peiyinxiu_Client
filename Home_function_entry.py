@@ -114,9 +114,6 @@ def Enter_list():
         time.sleep(4)
 
 
-
-
-
 '''点击在线pia戏'''
 def online_pia():
         try:
