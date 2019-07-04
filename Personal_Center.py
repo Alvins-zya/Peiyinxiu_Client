@@ -44,20 +44,24 @@ class My_Zoom():
         print("点击等级")
         OP.find_id('com.happyteam.dubbingshow:id/img_level').click()
         time.sleep(2)
-        yanyi = OP.find_id('com.happyteam.dubbingshow:id/tv_perform').text
-        time.sleep(2)
-        Y_Empirical_value = OP.find_id('com.happyteam.dubbingshow:id/tv_perform_max').text
-        time.sleep(2)
-        Y_My_experience = OP.find_id('com.happyteam.dubbingshow:id/tv_progress').text
-        print(yanyi, "升级所需经验值:", Y_Empirical_value, "当前经验值:", Y_My_experience)
-        zhizhuo = OP.find_id('com.happyteam.dubbingshow:id/tv_script').text
-        time.sleep(2)
-        Z_Empirical_value = OP.find_id('com.happyteam.dubbingshow:id/tv_script_max').text
-        time.sleep(2)
-        Z_My_experience = OP.find_id('com.happyteam.dubbingshow:id/tv_progress1').text
-        print(zhizhuo, "升级所需经验值:", Z_Empirical_value, "当前经验值:", Z_My_experience)
-        time.sleep(2)
-        OP.back()
+        try:
+            OP.wait_id('com.happyteam.dubbingshow:id/tv_perform')
+            yanyi = OP.find_id('com.happyteam.dubbingshow:id/tv_perform').text
+            time.sleep(2)
+            Y_Empirical_value = OP.find_id('com.happyteam.dubbingshow:id/tv_perform_max').text
+            time.sleep(2)
+            Y_My_experience = OP.find_id('com.happyteam.dubbingshow:id/tv_progress').text
+            print(yanyi, "升级所需经验值:", Y_Empirical_value, "当前经验值:", Y_My_experience)
+            zhizhuo = OP.find_id('com.happyteam.dubbingshow:id/tv_script').text
+            time.sleep(2)
+            Z_Empirical_value = OP.find_id('com.happyteam.dubbingshow:id/tv_script_max').text
+            time.sleep(2)
+            Z_My_experience = OP.find_id('com.happyteam.dubbingshow:id/tv_progress1').text
+            print(zhizhuo, "升级所需经验值:", Z_Empirical_value, "当前经验值:", Z_My_experience)
+            time.sleep(2)
+            OP.back()
+        except:
+            OP.back()
 
     '''相册'''
     def photo(self):
@@ -125,8 +129,7 @@ class My_Zoom():
         print("保存修改")
         OP.find_id('com.happyteam.dubbingshow:id/tv_right').click()
         try:
-            OP.wait_toast('//android.widget.Toast')
-            save_toast = OP.find_xpath('//android.widget.Toast').text
+            save_toast = OP.wait_toast('//android.widget.Toast')
             print(save_toast)
         except(NoSuchElementException,TimeoutException):
             pass
@@ -157,7 +160,7 @@ class My_Zoom():
             fans_user_name = OP.find_ids('com.happyteam.dubbingshow:id/username')[1].text
             OP.find_ids('com.happyteam.dubbingshow:id/username')[1].click()
             try:
-                OP.wait_id('com.happyteam.dubbingshow:id/tv_level')
+                OP.wait_id('com.happyteam.dubbingshow:id/fanscount')
                 print("空间加载成功")
                 fans_zoom_user_name = OP.find_id('com.happyteam.dubbingshow:id/username').text
                 if fans_user_name == fans_zoom_user_name:
@@ -187,7 +190,7 @@ class My_Zoom():
         time.sleep(2)
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-            follow_count = OP.find_ids('com.happytema.dubbingshow:id/username')
+            follow_count = OP.find_ids('com.happyteam.dubbingshow:id/username')
             '''获取关注用户信息'''
             Follow_list = []
             for follow in range(len(follow_count)):
@@ -273,6 +276,11 @@ class My_Zoom():
         works = OP.find_id('com.happyteam.dubbingshow:id/single_text').text
         print(works)
         time.sleep(2)
+        title_name = OP.find_id('com.happyteam.dubbingshow:id/title').text
+        work_look = OP.find_id('com.happyteam.dubbingshow:id/look').text
+        work_gift = OP.find_id('com.happyteam.dubbingshow:id/like').text
+        print('作品名称:',title_name,'作品播放量:',work_look,'作品礼物值:',work_gift)
+        time.sleep(2)
         try:
             OP.find_id('com.happyteam.dubbingshow:id/privacytype')
             print('私密作品')
@@ -285,8 +293,7 @@ class My_Zoom():
             time.sleep(3)
             OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
             try:
-                OP.wait_toast('//android.widget.Toast')
-                toast = OP.find_xpath('//android.widget.Toast').text
+                toast = OP.wait_toast('//android.widget.Toast')
                 print(toast)
             except:
                 pass
@@ -321,7 +328,7 @@ class My_Zoom():
                     OP.find_id('com.happyteam.dubbingshow:id/photo_wall_item_photo').click()
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/confirm').click()
-                except(NoSuchElementException, TimeoutError):
+                except(NoSuchElementException, TimeoutException):
                     OP.back()
                 time.sleep(2)
                 worker_name = OP.find_id('com.happyteam.dubbingshow:id/title').text
@@ -341,7 +348,7 @@ class My_Zoom():
                     OP.find_id('com.happyteam.dubbingshow:id/tv').click()
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/tv_right').click()
-                except(NoSuchElementException, TimeoutError):
+                except(NoSuchElementException, TimeoutException):
                     pass
                 time.sleep(2)
                 print('保存修改')
@@ -351,7 +358,7 @@ class My_Zoom():
                     OP.wait_id('com.happyteam.dubbingshow:id/userhead')
                     new_works_name = OP.find_id('com.happyteam.dubbingshow:id/tv_video_detail_title').text
                     print(new_works_name)
-                except(NoSuchElementException, TimeoutError):
+                except(NoSuchElementException, TimeoutException):
                     OP.back()
             except(TimeoutException, NoSuchElementException):
                 pass
@@ -393,8 +400,7 @@ class My_Zoom():
         time.sleep(2)
         TouchAction(devc).press(x=0.5 * x, y=0.81 * y).release().perform()
         try:
-            OP.wait_toast('//android.widget.Toast')
-            Toast = OP.find_xpath('//android.widget.Toast').text
+            Toast = OP.wait_toast('//android.widget.Toast')
             print(Toast)
             time.sleep(1)
             check1 = '配音秀：私密作品不可以置顶哦~'
@@ -454,6 +460,7 @@ class My_Zoom():
             OP.find_id('com.happyteam.dubbingshow:id/choice').click()
             time.sleep(2)
             OP.find_xpath('完成').click()
+            time.sleep(2)
         except:
             print("无可添加作品")
             OP.back()
@@ -480,8 +487,7 @@ class My_Zoom():
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/tv_right').click()
                     try:
-                        OP.wait_toast('//android.widget.Toast')
-                        add_works_toast = OP.find_xpath('//android.widget.Toast').text
+                        add_works_toast = OP.wait_toast('//android.widget.Toast')
                         print(add_works_toast)
                     except:
                         pass
@@ -513,8 +519,7 @@ class My_Zoom():
                 OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
                 time.sleep(2)
                 try:
-                    OP.wait_toast('//android.widget.Toast')
-                    toast = OP.find_xpath('//android.widget.Toast').text
+                    toast = OP.wait_toast('//android.widget.Toast')
                     print(toast)
                 except:
                     pass
@@ -619,8 +624,7 @@ class My_Zoom():
             time.sleep(2)
             TouchAction(devc).press(x=0.5 * x, y=0.729 * y).release().perform()
             try:
-                OP.wait_toast('//android.widget.Toast')
-                open_toast = OP.find_xpath('//android.widget.Toast').text
+                open_toast = OP.wait_toast('//android.widget.Toast')
                 print(open_toast)
             except(NoSuchElementException, TimeoutException):
                 try:
@@ -639,8 +643,7 @@ class My_Zoom():
             time.sleep(2)
             TouchAction(devc).press(x=0.5 * x, y=0.809 * y).release().perform()
             try:
-                OP.wait_toast('//android.widget.Toast')
-                zhiding_toast = OP.find_xpath('//android.widget.Toast').text
+                zhiding_toast = OP.wait_toast('//android.widget.Toast')
                 toast_check = "置顶成功"
                 if zhiding_toast == toast_check:
                     print(zhiding_toast)
@@ -669,7 +672,7 @@ class My_Zoom():
         source_count = OP.find_id('com.happyteam.dubbingshow:id/source_text').text
         print(source_count)
         time.sleep(2)
-        OP.find_id('com.happyteam.dubbingshow:id/source_tab').click()
+        OP.find_id('com.happyteam.dubbingshow:id/source_text').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/imgSource')
             OP.find_id('com.happyteam.dubbingshow:id/imgSource').click()
@@ -797,7 +800,7 @@ class My_Zoom():
             time.sleep(4)
 
             print("帖子转发")
-            OP.find_id('com.happyteam.dubbingshow:id/action').click()
+            OP.find_ids('com.happyteam.dubbingshow:id/action')[-1].click()
             time.sleep(2)
             TouchAction(devc).press(x=0.5 * x, y=0.802 * y).release().perform()
             try:
