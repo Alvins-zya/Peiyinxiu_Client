@@ -19,7 +19,6 @@ PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 devs = Test3.get_conn_dev()
 
 def get_version():
-    print(devs)
     version = []
     for i in range(len(devs)):
         platformVersion = os.popen('adb -s %s shell getprop ro.build.version.release'%devs[i]).read()
