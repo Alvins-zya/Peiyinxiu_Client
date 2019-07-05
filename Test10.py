@@ -1,72 +1,79 @@
-# -*- coding:utf-8 -*-
-from appium import webdriver
-import subprocess
-import time
+# coding = utf-8
+# 防止中文显示乱码
+# coding = gb18030
+
+# import random
 import os
 import re
-import yaml
-# import login_Activity
-import threading
-from selenium.webdriver.support.ui import WebDriverWait
+import subprocess
+from appium import webdriver
+from Peiyinxiu_Client import Test3
+# import time
+# from selenium.webdriver.support.ui import WebDriverWait
+from appium.webdriver.common.touch_action import TouchAction
 
+# from selenium.common.exceptions import NoAlertPresentException,TimeoutException,NoSuchElementException
+# 获取当前项目的根路径
+PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 
-PATH=lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
+devs = Test3.get_conn_dev()
 
-
-desired_caps = {}
-desired_caps['platformName'] = 'Android'
-desired_caps['platformVersion'] = '4.4'
-desired_caps['deviceName'] = 'h'
-# desired_caps['app'] = PATH('C:\\Users\\butel\\Desktop\\hvs_s175_v2.6.68.310-201709111846.apk')
-desired_caps['appPackage'] = 'com.happyteam.dubbingshow'
-desired_caps['appActivity'] = 'ui.StartActivity'
-desired_caps['appWaitPackage'] = 'com.happyteam.dubbingshow'
-desired_caps['unicodeKeyboard'] = 'True'
-desired_caps['resetKeyboard'] = 'True'
-
-
-def get_conn_dev():
-    p = os.popen('adb devices')
-    outstr = p.read()
-    connectdeviceid = re.findall(r'(\w+)\s+device\s', outstr)
-    return connectdeviceid
-
-subprocess.call('start /b taskkill /f /t /im node.exe', shell=True, stdout=open('E:\log', 'w'), stderr=subprocess.STDOUT)
-ip = get_conn_dev()
-tt = []
-
-
-def sever(ip):
-    for i in range(len(ip)):
-        host = '127.0.0.1'
-        cmd = 'appium -a ' + host + ' -p ' + str(4723 + 2 * i) + ' -U ' + ip[i]
-        print (cmd)
-        time.sleep(2)
-        # 注释掉的
-        # subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        subprocess.call(cmd, shell=True, stdout=open('E:\log', 'w'), stderr=subprocess.STDOUT)
-        time.sleep(5)
-        driver = webdriver.Remote('http://localhost:' + str(4723 + 2 * i) + '/wd/hub', desired_caps)
-        hh = Ni(driver)
-        t = threading.Thread(target=hh.login)
-        tt.append(t)
+def get_version():
+    print(devs)
+    version = []
+    for i in range(len(devs)):
+        platformVersion = os.popen('adb -s %s shell getprop ro.build.version.release'%devs[i]).read()
+        PV = re.sub('\r|\n','',platformVersion)
+        version.append(PV)
+    return version
 
 
 
+def start_APP():
+    for dev in range(len(devs)):
+        D = devs[dev]
+        PV = get_version()[dev]
+        desired_caps = {}
+        desired_caps['platformName'] = 'Android'
+        desired_caps['deviceName'] = D
+        desired_caps['udid'] = D
+        desired_caps['platformVersion'] = PV
+        desired_caps['appPackage'] = 'com.happyteam.dubbingshow'
+        desired_caps['appActivity'] = 'ui.StartActivity'
+        desired_caps['appWaitPackage'] = 'com.happyteam.dubbingshow'
+        desired_caps['noReset'] = True
+        desired_caps['unicodeKeyboard'] = True
+        desired_caps['ignoreUnimportantViews'] = True
+        desired_caps['dontStopAppOnReset'] = True
+        desired_caps['newCommandTimeout'] = 10000
+        desired_caps['automationName'] = 'Uiautomator2'
+        desired_caps['systemPort'] = 8200
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        driver.launch_app()
 
-class Ni():
-    def __init__(self, driver):
-        self.driver = driver
 
-    def login(self):
-        time.sleep(5)
-        print(111111111)
-        self.driver.quit()
+# def devices_test():
+#     desired_caps = {}
+#     desired_caps['platformName'] = 'Android'
+#     desired_caps['deviceName'] = '6c77030'
+#     desired_caps['udid'] = '6c77030'
+#     desired_caps['platformVersion'] = '7.1.1'
+#     desired_caps['appPackage'] = 'com.happyteam.dubbingshow'
+#     desired_caps['appActivity'] = 'ui.StartActivity'
+#     desired_caps['appWaitPackage'] = 'com.happyteam.dubbingshow'
+#     desired_caps['noReset'] = True
+#     desired_caps['unicodeKeyboard'] = True
+#     desired_caps['ignoreUnimportantViews'] = True
+#     desired_caps['dontStopAppOnReset'] = True
+#     desired_caps['newCommandTimeout'] = 10000
+#     desired_caps['automationName'] = 'UiAutomator2'
+#     desired_caps['systemPort'] = 8112
+#     try:
+#         driver = webdriver.Remote('http://localhost:4720/wd/hub', desired_caps)
+#         return driver
+#     except:
+#         print('NO driver!!')
 
-
-if __name__ == '__main__':
-    sever(ip)
-    time.sleep(2)
-    for i in tt:
-        i.start()
-
+if __name__=="__main__":
+    Test3.start_server()
+    start_APP()

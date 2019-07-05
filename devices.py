@@ -5,13 +5,13 @@
 # import random
 import os
 from appium import webdriver
+from Peiyinxiu_Client import Test3
 # import time
 # from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
 # from selenium.common.exceptions import NoAlertPresentException,TimeoutException,NoSuchElementException
 #获取当前项目的根路径
 PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
-
 
 
 dev = 'XPU4C17219014451'
