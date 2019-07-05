@@ -1,51 +1,64 @@
 #coding = utf-8
-#防止中文显示乱码
-#coding = gb18030
+import subprocess
+import re
+import os
+from time import ctime
 
-import random,os
-from appium import webdriver
-import time
-from selenium.webdriver.support.ui import WebDriverWait
-from appium.webdriver.common.touch_action import TouchAction
-from selenium.common.exceptions import NoAlertPresentException,TimeoutException,NoSuchElementException
-'''R11'''
-#获取当前项目的根路径
-PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
-desired_caps={
-                'platformName': 'Android',
-                'deviceName': '6c77030',
-                'udid': '6c77030',
-                'platformVersion': '7.1.1',
-                'appPackage': 'com.happyteam.dubbingshow',
-                'appActivity': 'ui.StartActivity',
-                'noReset': True,
-                'unicodeKeyboard': True,
-                'resetKeyboard': True,
-                'newCommandTimeout': 300,
-                'dontStopAppOnReset': True,
-                'automationName': 'UiAutomator2'
-                # 'systemPort' : '8080'
-              }
+import multiprocessing  # 导入多进程模块
 
-#启动APP
-driver = webdriver.Remote('http://localhost:4790/wd/hub',desired_caps)
+def get_conn_dev():
+    connectdeviceid = []
+    p = os.popen('adb devices')
+    outstr = p.read()
+    connectdeviceid = re.findall(r'(\w+)\s+device\s', outstr)
+    return connectdeviceid
 
-def result():
-    driver.launch_app()
-    try:
-        WebDriverWait(driver, 20).until(lambda driver: driver.find_element_by_id('com.happyteam.dubbingshow:id/task_box'))
-        os.system('adb -s 6c77030  shell am force-stop com.happyteam.dubbingshow')
-        return True
-    except(NoSuchElementException,TimeoutException):
-        os.system('adb -s 6c77030 shell am force-stop com.happyteam.dubbingshow')
-        return False
-    time.sleep(1)
+def appium_start(host, port,select_d):
+    bootstrap_port = str(port + 1)
 
-def Test():
-    for i in range(200):
-        print(i,result())
+    # /b是不打开cmd命令窗口
+
+    cmd = 'start  appium -a ' + host + ' -p ' + str(port) + ' -bp ' + str(bootstrap_port) + ' -U ' + str(select_d)
+
+    print('%s at %s' % (cmd, ctime()))
+
+    # a是追加写入的方式
+
+    subprocess.Popen(cmd, shell=True, stdout=open('E:/log' + str(port) + '.log', 'a'), stderr=subprocess.STDOUT)
 
 
+# 构建appium进程组
 
-if __name__=="__main__":
-    Test()
+appium_process = []
+
+# 加载appium进程
+
+for i in range(2):
+    host = '127.0.0.1'
+
+    port = 4723 + 2 * i
+
+    dev = get_conn_dev()
+    select_d = dev[i]
+
+    # target指向方法，args指向参数，且必须是一个元组的形式
+
+    appium = multiprocessing.Process(target=appium_start, args=(host, port,select_d))
+
+    # 将进程从变量appium加载到进程内
+
+    appium_process.append(appium)
+    #
+    # clost_cmd = 'taskkill /F /IM node.exe'
+    # subprocess.Popen(clost_cmd, shell=True)
+
+if __name__ == '__main__':
+
+    # 并发启动appium服务，for循环开启多个appium服务，join主进程等待子进程结束
+
+    for appium in appium_process:
+        appium.start()
+
+    for appium in appium_process:
+        appium.join()
+
