@@ -9,11 +9,13 @@ from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
 #获取当前项目的根路径
 # PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
-from Operate import BaseOperate
-from devices import device
+from Peiyinxiu_Client.Operate import BaseOperate
+from Peiyinxiu_Client.devices import device
+from pprint import pprint
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]
+devc = device()
 '''首页关注'''
 class Home_Follow():
     def start_app(self):
@@ -59,10 +61,54 @@ class Home_Follow():
             time.sleep(2)
             OP.back()
         time.sleep(2)
-        print('上滑关注列表')
-        OP.swip_up()
-        time.sleep(4)
+        print('推荐关注')
+        for i in range(5):
+            try:
+                OP.find_id('com.happyteam.dubbingshow:id/iwant')
+                time.sleep(2)
+                OP.find_id('com.happyteam.dubbingshow:id/content').click()
+                try:
+                    OP.wait_id('com.happyteam.dubbingshow:id/fanscount')
+                    time.sleep(2)
+                    OP.back()
+                except:
+                    pass
+                time.sleep(2)
+                list = []
+                contents = OP.find_ids('com.happyteam.dubbingshow:id/content')
+                for i in range(len(contents)):
+                    content = OP.find_ids('com.happyteam.dubbingshow:id/content')[i].text
+                    user = OP.find_ids('com.happyteam.dubbingshow:id/textView')[i].text
+                    list.append(user)
+                    list.append(content)
+                    time.sleep(1)
+                print(list)
+                time.sleep(2)
+                OP.find_id('com.happyteam.dubbingshow:id/follow').click()
+                try:
+                    toast = OP.wait_toast('//android.widget.Toast')
+                    print(toast)
+                except:
+                    pass
+                time.sleep(2)
+                OP.find_id('com.happyteam.dubbingshow:id/iwant').click()
+                time.sleep(2)
+                try:
+                    OP.find_id('com.happyteam.dubbingshow:id/btnSubmit')
+                    OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+                    time.sleep(2)
+                except:
+                    OP.wait_id('com.happyteam.dubbingshow:id/now_money_month')
+                    print('未购买会员')
+                    time.sleep(1)
+                    OP.back()
+                time.sleep(2)
+                break
+            except:
+                devc.swipe(0.5 * x, 0.85 * y, 0.5 * x, 0.4 * y, 700)
+            time.sleep(2)
 
+        time.sleep(2)
         print('素材')
         for i in range(10):
             try:
@@ -98,9 +144,9 @@ class Home_Follow():
                         pass
                 break
             except(NoSuchElementException,TimeoutException):
-                pass
-            OP.swip_up()
-            time.sleep(4)
+                OP.swip_up()
+                time.sleep(4)
+
         time.sleep(2)
 
         print('帖子')
@@ -140,12 +186,13 @@ class Home_Follow():
                     OP.back()
                 break
             except(NoSuchElementException,TimeoutException):
-                pass
-            OP.swip_up()
-            time.sleep(4)
+                OP.swip_up()
+                time.sleep(4)
+
         print('视频')
         for i in range(10):
             try:
+                OP.find_id('com.happyteam.dubbingshow:id/play')
                 OP.find_id('com.happyteam.dubbingshow:id/play').click()
                 print("点击播放视频")
                 time.sleep(5)
@@ -155,9 +202,8 @@ class Home_Follow():
                 time.sleep(2)
                 break
             except:
-                pass
-            OP.swip_up()
-            time.sleep(4)
+                OP.swip_up()
+                time.sleep(4)
 
         '''分享'''
         for i in range(10):
@@ -374,5 +420,5 @@ if __name__=="__main__":
     F = Home_Follow()
     F.start_app()
     F.Follows()
-    F.Live_news()
+    # F.Live_news()
     F.Follow_list()

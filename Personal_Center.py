@@ -150,6 +150,23 @@ class My_Zoom():
         OP.find_id('com.happyteam.dubbingshow:id/fanscount').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/userhead')
+            print('会员涨粉')
+            OP.find_id('com.happyteam.dubbingshow:id/iwant').click()
+            time.sleep(2)
+            try:
+                OP.find_id('com.happyteam.dubbingshow:id/btnSubmit')
+                content = OP.find_id('com.happyteam.dubbingshow:id/txtContent').text
+                print(content)
+                OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+            except:
+                try:
+                    OP.find_id('com.happyteam.dubbingshow:id/now_money_month')
+                    print("未购买会员")
+                    time.sleep(2)
+                    OP.back()
+                except:
+                    pass
+            time.sleep(2)
             fans_count = OP.find_ids('com.happyteam.dubbingshow:id/username')
             fans_list = []
             for fan in range(len(fans_count)):
@@ -730,19 +747,25 @@ class My_Zoom():
         Forward.click()
         try:
             '''作品封面'''
-            OP.wait_id('com.happyteam.dubbingshow:id/filmBg')
+            OP.wait_id('com.happyteam.dubbingshow:id/item_theme_bg')
             time.sleep(2)
-            Works_cover = OP.find_id('com.happyteam.dubbingshow:id/filmBg')
+            Works_cover = OP.find_id('com.happyteam.dubbingshow:id/item_theme_bg')
             Works_cover.click()
-            '''视频详情中的礼物按钮'''
-            OP.wait_id('com.happyteam.dubbingshow:id/gift')
-            time.sleep(5)
-            OP.back()
-            print("删除转发作品")
-            TouchAction(devc).long_press(Works_cover).wait(2000).perform()
-            time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-            time.sleep(2)
+            try:
+                Toast = OP.wait_toast('//android.widget.Toast')
+                print(Toast)
+                time.sleep(2)
+            except:
+                '''视频详情中的礼物按钮'''
+                OP.wait_id('com.happyteam.dubbingshow:id/gift')
+                time.sleep(5)
+                OP.back()
+                time.sleep(2)
+                print("删除转发作品")
+                TouchAction(devc).long_press(Works_cover).wait(2000).perform()
+                time.sleep(2)
+                OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+                time.sleep(2)
         except(NoSuchElementException, TimeoutException):
             try:
                 OP.find_xpath('你还没有转发过作品~首页有很多大神哦~"')
@@ -760,14 +783,13 @@ class My_Zoom():
         Post.click()
         try:
             OP.wait_download('com.happyteam.dubbingshow:id/action')
-            '''帖子内容'''
-            print('上滑帖子列表')
             OP.swip_up()
-            time.sleep(5)
+            time.sleep(2)
+            '''帖子内容'''
             content = OP.find_id('com.happyteam.dubbingshow:id/content').text
             print(content)
             time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/content').click()
+            OP.find_id('com.happyteam.dubbingshow:id/comment').click()
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/tag')
             except(TimeoutException, NoSuchElementException):
@@ -800,7 +822,9 @@ class My_Zoom():
             time.sleep(4)
 
             print("帖子转发")
-            OP.find_ids('com.happyteam.dubbingshow:id/action')[-1].click()
+            OP.swip_down()
+            time.sleep(2)
+            OP.find_id('com.happyteam.dubbingshow:id/action').click()
             time.sleep(2)
             TouchAction(devc).press(x=0.5 * x, y=0.802 * y).release().perform()
             try:
@@ -825,7 +849,7 @@ class My_Zoom():
             print("帖子列表为空")
         time.sleep(2)
         for i in range(3):
-            OP.swip_down()
+            OP.swip_up()
             time.sleep(2)
         time.sleep(4)
         Post_count = OP.find_id('com.happyteam.dubbingshow:id/more_text').text
@@ -845,7 +869,7 @@ class My_Zoom():
             time.sleep(2)
         except:
             try:
-                OP.find_xpath('你还没有保存过任何直播喔~')
+                OP.find_xpath('你还未保存过任何聊天室的音频哦~')
             except:
                 pass
         time.sleep(2)
@@ -1470,8 +1494,7 @@ class Notice_center():
                 '''点击进入视频详情'''
                 OP.find_id('com.happyteam.dubbingshow:id/play').click()
                 try:
-                    OP.wait_toast('//android.widget.Toast')
-                    tip = OP.find_xpath('//android.widget.Toast').text
+                    tip = OP.wait_toast('//android.widget.Toast')
                     print(tip)
                 except(NoSuchElementException, TimeoutException):
                     try:
@@ -1634,8 +1657,7 @@ class Notice_center():
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/btn_send').click()
             try:
-                OP.wait_xpath('//android.widget.Toast')
-                com_tips =  OP.find_xpath('//android.widget.Toast').text
+                com_tips = OP.wait_xpath('//android.widget.Toast')
                 check = "作品已删除"
                 if com_tips == check:
                     print(com_tips)
@@ -1674,8 +1696,7 @@ class Notice_center():
                 '''点击进入帖子详情'''
                 OP.find_id('com.happyteam.dubbingshow:id/reply').click()
                 try:
-                    OP.wait_xpath('//android.widget.Toast')
-                    tie_tips = OP.find_xpath('//android.widget.Taost').text
+                    tie_tips = OP.wait_xpath('//android.widget.Toast')
                     print(tie_tips)
                 except(NoSuchElementException,TimeoutException):
                     try:
@@ -1736,7 +1757,7 @@ class Notice_center():
         '''点击进入好友列表'''
         OP.find_id('com.happyteam.dubbingshow:id/right_icon1').click()
         try:
-            OP.wait_id('com.happyteam.dubbingshow:id/filter_edit')
+            OP.wait_id('com.happyteam.dubbingshow:id/name')
             '''获取关注列表用户信息'''
             name_list = []
             follow_user = OP.find_ids('com.happyteam.dubbingshow:id/name')
@@ -1749,7 +1770,7 @@ class Notice_center():
             '''搜索用户'''
             OP.find_id('com.happyteam.dubbingshow:id/filter_edit').click()
             time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/filter_edit').send_keys("15296542")
+            OP.find_id('com.happyteam.dubbingshow:id/filter_edit').send_keys("16685645")
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
             try:
@@ -1879,7 +1900,6 @@ class Notice_center():
                     print("社团列表未显示有社团")
                     time.sleep(2)
                     OP.back()
-
             except(NoSuchElementException,TimeoutException):
                 print("未搜索到指定用户")
                 OP.back()
@@ -1918,7 +1938,7 @@ class Creative_center():
         '''点击草稿箱'''
         OP.find_id('com.happyteam.dubbingshow:id/draft').click()
         try:
-            OP.wait_download('com.happyteam.dubbingshow:id/upload')
+            OP.wait_id('com.happyteam.dubbingshow:id/upload')
             '''显示作品时间及作品名称'''
             Names = OP.find_ids('com.happyteam.dubbingshow:id/from')
             for i in range(len(Names)):
@@ -2076,7 +2096,7 @@ class Creative_center():
                     OP.back()
         except(NoSuchElementException,TimeoutException):
             try:
-                OP.find_id('您暂时还没有保存过草稿箱')
+                OP.find_xpath('您暂时还没有保存过草稿')
                 print("草稿箱为空")
                 OP.back()
             except:
