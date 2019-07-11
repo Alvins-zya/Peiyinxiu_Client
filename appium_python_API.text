@@ -1,5 +1,13 @@
 appium_python_API
+<<<<<<< HEAD
 测试
+=======
+
+
+
+
+
+>>>>>>> 780d8f9459aba6fc84879f44739e0985ba1c3c3e
 1.contexts
 contexts(self):
 
