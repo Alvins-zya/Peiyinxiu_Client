@@ -53,9 +53,9 @@ def fuyong(i):
         # Chat().Chat_List()
         # Chat().chat_personal()
         # Chat().create_chat()
-        Chat().enter_chat()
-        Chat().chat_New()
-        Chat().chat_follow()
+        # Chat().enter_chat()
+        # Chat().chat_New()
+        # Chat().chat_follow()
         OP.back()
     elif i == "曝光区":
         OP.find_xpath('曝光区').click()
