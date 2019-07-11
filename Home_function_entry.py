@@ -49,10 +49,10 @@ def fuyong(i):
         OP.find_xpath('语聊').click()
         time.sleep(5)
         Chat().Into_chat()
-        Chat().banner()
-        Chat().Chat_List()
-        Chat().chat_personal()
-        Chat().create_chat()
+        # Chat().banner()
+        # Chat().Chat_List()
+        # Chat().chat_personal()
+        # Chat().create_chat()
         Chat().enter_chat()
         Chat().chat_New()
         Chat().chat_follow()
@@ -2395,7 +2395,7 @@ class Label():
         time.sleep(3)
         try:
             toast = OP.wait_toast('//android.widget.Toast')
-            print(toast.text)
+            print(toast)
         except(NoSuchElementException,TimeoutException):
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/gift')
@@ -2430,7 +2430,7 @@ class Chat():
             OP.wait_id('com.happyteam.dubbingshow:id/item_theme_image')
         except(NoSuchElementException,TimeoutException):
             print('语聊界面界面加载失败')
-            device().quit()
+            devc.quit()
         time.sleep(2)
     '''语聊banner'''
     def banner(self):
@@ -2526,7 +2526,7 @@ class Chat():
             OP.wait_id('com.happyteam.dubbingshow:id/user_head')
             OP.find_id('com.happyteam.dubbingshow:id/user_head').click()
             try:
-                OP.wait_id()()('com.happyteam.dubbingshow:id/fanscount')
+                OP.wait_id('com.happyteam.dubbingshow:id/fanscount')
                 time.sleep(2)
                 OP.back()
             except(NoSuchElementException, TimeoutException):
