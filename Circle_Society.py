@@ -1141,27 +1141,6 @@ class Corporation():
                         time.sleep(1)
                         OP.back()
                     time.sleep(2)
-                    print("设置成员权限")
-                    try:
-                        OP.find_id('com.happyteam.dubbingshow:id/more').click()
-                        time.sleep(2)
-                        OP.find_id('com.happyteam.dubbingshow:id/check_box1').click()
-                        time.sleep(2)
-                        OP.find_id('com.happyteam.dubbingshow:id/check_box2').click()
-                        time.sleep(2)
-                        OP.find_id('com.happyteam.dubbingshow:id/save').click()
-                        try:
-                            toast= OP.wait_toast('//android.widget.Toast')
-                            print(toast)
-                        except:
-                            try:
-                                OP.find_id('com.happyteam.dubbingshow:id/save')
-                                time.sleep(1)
-                                OP.back()
-                            except:
-                                pass
-                    except:
-                        print("非社长身份，未显示设置权限按钮")
                 except(TimeoutException, NoSuchElementException):
                     print("成员列表加载失败")
             except(TimeoutException,NoSuchElementException):
