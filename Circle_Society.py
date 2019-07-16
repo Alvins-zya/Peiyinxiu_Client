@@ -897,124 +897,124 @@ class Corporation():
     '''我的社团'''
     def Corp_My(self):
         time.sleep(2)
-        try:
-            OP.find_id('com.happyteam.dubbingshow:id/read')
-        except:
-            print("暂未加入社团")
-        time.sleep(2)
-        num = [0,1,2]
-        for i in num:
-            try:
-                OP.find_ids('com.happyteam.dubbingshow:id/rl_all')[i].click()
-                time.sleep(2)
-                OP.find_id('com.happyteam.dubbingshow:id/editContent').send_keys("测试一下")
-                time.sleep(2)
-                OP.find_id('com.happyteam.dubbingshow:id/btn_send').click()
-                try:
-                    OP.wait_id('com.happyteam.dubbingshow:id/btn_send')
-                    time.sleep(2)
-                    OP.back()
-                except(TimeoutException,NoSuchElementException):
-                    print("消息发送成功")
-                    OP.back()
-            except:
-                pass
-        time.sleep(2)
-        print("点击全部已读")
-        OP.find_id('com.happyteam.dubbingshow:id/read').click()
-        time.sleep(2)
-        print("点击进入社团")
-        OP.find_ids('com.happyteam.dubbingshow:id/rl_all')[0].click()
-        time.sleep(2)
-        print("发送语音")
-        OP.find_id('com.happyteam.dubbingshow:id/btn_change_input_mode').click()
-        time.sleep(1)
-        voice = OP.find_id('com.happyteam.dubbingshow:id/btn_record_voice')
-        TouchAction(devc).long_press(voice,duration=10000).wait(5000).perform()
-        time.sleep(2)
-        try:
-            OP.wait_id('com.happyteam.dubbingshow:id/btn_play_sound')
-            print('点击播放语音')
-            OP.find_id('com.happyteam.dubbingshow:id/btn_play_sound').click()
-            time.sleep(3)
-        except(NoSuchElementException,TimeoutException):
-            pass
-        time.sleep(2)
-        print('发送图片')
-        Action = OP.find_id('com.happyteam.dubbingshow:id/show_action')
-        Action.click()
-        time.sleep(2)
-        print("点击相册")
-        OP.find_id('com.happyteam.dubbingshow:id/photo').click()
-        time.sleep(2)
-        '''随机选择图片'''
-        Photos = OP.find_ids('com.happyteam.dubbingshow:id/cb_select_tag')
-        Select_photo = random.randint(0,int(len(Photos)))
-        time.sleep(2)
-        OP.find_ids('com.happyteam.dubbingshow:id/cb_select_tag')[Select_photo].click()
-        time.sleep(2)
-        OP.find_id('com.happyteam.dubbingshow:id/next_step_tv').click()
-        try:
-            OP.wait_id('com.happyteam.dubbingshow:id/btn_record_voice')
-        except:
-            print('未返回到聊天详情界面')
-        time.sleep(2)
-        print('发送作品')
-        Action.click()
-        time.sleep(2)
-        OP.find_id('com.happyteam.dubbingshow:id/film').click()
-        try:
-            OP.wait_id('com.happyteam.dubbingshow:id/filmBg')
-            time.sleep(2)
-            '''随机选择作品'''
-            Films = OP.find_ids('com.happyteam.dubbingshow:id/filmBg')
-            Select_film = random.randint(0,int(len(Films)-2))
-            OP.find_ids('com.happyteam.dubbingshow:id/filmBg')[Select_film].click()
-            time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/btnSelect').click()
-            OP.wait_id('com.happyteam.dubbingshow:id/btn_record_voice')
-        except(NoSuchElementException,TimeoutException):
-            print("作品列表加载失败")
-            time.sleep(1)
-            OP.back()
-        time.sleep(3)
-        print('发红包')
-        Action.click()
-        time.sleep(2)
-        OP.find_id('com.happyteam.dubbingshow:id/redpacket').click()
-        time.sleep(2)
-        OP.find_id('com.happyteam.dubbingshow:id/cash_num').send_keys("1")
-        time.sleep(2)
-        OP.find_id('com.happyteam.dubbingshow:id/people_num').send_keys("1")
-        time.sleep(2)
-        OP.find_id('com.happyteam.dubbingshow:id/generate_red_packet').click()
-        time.sleep(2)
-        OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-        try:
-            OP.find_id('com.happyteam.dubbingshow:id/generate_red_packet')
-            time.sleep(2)
-            print("钻石不足")
-            time.sleep(2)
-            OP.back()
-        except:
-            pass
-        time.sleep(2)
-        try:
-            OP.find_id('com.happyteam.dubbingshow:id/red_packet')
-            time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/red_packet').click()
-            time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/open_red_packet_btn').click()
-            try:
-                OP.wait_id('com.happyteam.dubbingshow:id/user_head')
-                time.sleep(2)
-                OP.find_id('com.happyteam.dubbingshow:id/red_packet_detail_close_btn').click()
-            except(TimeoutException,NoSuchElementException):
-                print("红包领取失败")
-        except(NoSuchElementException,TimeoutException):
-            print("无红包")
-        time.sleep(2)
-        OP.back()
+        # try:
+        #     OP.find_id('com.happyteam.dubbingshow:id/read')
+        # except:
+        #     print("暂未加入社团")
+        # time.sleep(2)
+        # num = [0,1,2]
+        # for i in num:
+        #     try:
+        #         OP.find_ids('com.happyteam.dubbingshow:id/rl_all')[i].click()
+        #         time.sleep(2)
+        #         OP.find_id('com.happyteam.dubbingshow:id/editContent').send_keys("测试一下")
+        #         time.sleep(2)
+        #         OP.find_id('com.happyteam.dubbingshow:id/btn_send').click()
+        #         try:
+        #             OP.wait_id('com.happyteam.dubbingshow:id/btn_send')
+        #             time.sleep(2)
+        #             OP.back()
+        #         except(TimeoutException,NoSuchElementException):
+        #             print("消息发送成功")
+        #             OP.back()
+        #     except:
+        #         pass
+        # time.sleep(2)
+        # print("点击全部已读")
+        # OP.find_id('com.happyteam.dubbingshow:id/read').click()
+        # time.sleep(2)
+        # print("点击进入社团")
+        # OP.find_ids('com.happyteam.dubbingshow:id/rl_all')[0].click()
+        # time.sleep(2)
+        # print("发送语音")
+        # OP.find_id('com.happyteam.dubbingshow:id/btn_change_input_mode').click()
+        # time.sleep(1)
+        # voice = OP.find_id('com.happyteam.dubbingshow:id/btn_record_voice')
+        # TouchAction(devc).long_press(voice,duration=10000).wait(5000).perform()
+        # time.sleep(2)
+        # try:
+        #     OP.wait_id('com.happyteam.dubbingshow:id/btn_play_sound')
+        #     print('点击播放语音')
+        #     OP.find_id('com.happyteam.dubbingshow:id/btn_play_sound').click()
+        #     time.sleep(3)
+        # except(NoSuchElementException,TimeoutException):
+        #     pass
+        # time.sleep(2)
+        # print('发送图片')
+        # Action = OP.find_id('com.happyteam.dubbingshow:id/show_action')
+        # Action.click()
+        # time.sleep(2)
+        # print("点击相册")
+        # OP.find_id('com.happyteam.dubbingshow:id/photo').click()
+        # time.sleep(2)
+        # '''随机选择图片'''
+        # Photos = OP.find_ids('com.happyteam.dubbingshow:id/cb_select_tag')
+        # Select_photo = random.randint(0,int(len(Photos)))
+        # time.sleep(2)
+        # OP.find_ids('com.happyteam.dubbingshow:id/cb_select_tag')[Select_photo].click()
+        # time.sleep(2)
+        # OP.find_id('com.happyteam.dubbingshow:id/next_step_tv').click()
+        # try:
+        #     OP.wait_id('com.happyteam.dubbingshow:id/btn_record_voice')
+        # except:
+        #     print('未返回到聊天详情界面')
+        # time.sleep(2)
+        # print('发送作品')
+        # Action.click()
+        # time.sleep(2)
+        # OP.find_id('com.happyteam.dubbingshow:id/film').click()
+        # try:
+        #     OP.wait_id('com.happyteam.dubbingshow:id/filmBg')
+        #     time.sleep(2)
+        #     '''随机选择作品'''
+        #     Films = OP.find_ids('com.happyteam.dubbingshow:id/filmBg')
+        #     Select_film = random.randint(0,int(len(Films)-2))
+        #     OP.find_ids('com.happyteam.dubbingshow:id/filmBg')[Select_film].click()
+        #     time.sleep(2)
+        #     OP.find_id('com.happyteam.dubbingshow:id/btnSelect').click()
+        #     OP.wait_id('com.happyteam.dubbingshow:id/btn_record_voice')
+        # except(NoSuchElementException,TimeoutException):
+        #     print("作品列表加载失败")
+        #     time.sleep(1)
+        #     OP.back()
+        # time.sleep(3)
+        # print('发红包')
+        # Action.click()
+        # time.sleep(2)
+        # OP.find_id('com.happyteam.dubbingshow:id/redpacket').click()
+        # time.sleep(2)
+        # OP.find_id('com.happyteam.dubbingshow:id/cash_num').send_keys("1")
+        # time.sleep(2)
+        # OP.find_id('com.happyteam.dubbingshow:id/people_num').send_keys("1")
+        # time.sleep(2)
+        # OP.find_id('com.happyteam.dubbingshow:id/generate_red_packet').click()
+        # time.sleep(2)
+        # OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+        # try:
+        #     OP.find_id('com.happyteam.dubbingshow:id/generate_red_packet')
+        #     time.sleep(2)
+        #     print("钻石不足")
+        #     time.sleep(2)
+        #     OP.back()
+        # except:
+        #     pass
+        # time.sleep(2)
+        # try:
+        #     OP.find_id('com.happyteam.dubbingshow:id/red_packet')
+        #     time.sleep(2)
+        #     OP.find_id('com.happyteam.dubbingshow:id/red_packet').click()
+        #     time.sleep(2)
+        #     OP.find_id('com.happyteam.dubbingshow:id/open_red_packet_btn').click()
+        #     try:
+        #         OP.wait_id('com.happyteam.dubbingshow:id/user_head')
+        #         time.sleep(2)
+        #         OP.find_id('com.happyteam.dubbingshow:id/red_packet_detail_close_btn').click()
+        #     except(TimeoutException,NoSuchElementException):
+        #         print("红包领取失败")
+        # except(NoSuchElementException,TimeoutException):
+        #     print("无红包")
+        # time.sleep(2)
+        # OP.back()
         time.sleep(2)
         OP.find_ids('com.happyteam.dubbingshow:id/rl_all')[0].click()
         time.sleep(2)
@@ -1043,15 +1043,43 @@ class Corporation():
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/brief_content').send_keys("暂时没有写简介哦~")
                 time.sleep(2)
-                Tv_num = random.randint(1,20)
-                for i in range(2):
-                    OP.find_ids('com.happyteam.dubbingshow:id/tv')[Tv_num].click()
+                OP.find_xpath('更多频道').click()
+                try:
+                    OP.wait_id('com.happyteam.dubbingshow:id/tv')
+                    try:
+                        OP.find_id('com.happyteam.dubbingshow:id/close')
+                        OP.find_id('com.happyteam.dubbingshow:id/close').click()
+                    except:
+                        pass
+                    time.sleep(2)
+                    Tv_num = random.randint(1,20)
+                    name = OP.find_ids('com.happyteam.dubbingshow:id/tv')[Tv_num].text
+                    print(name)
                     time.sleep(1)
+                    OP.find_ids('com.happyteam.dubbingshow:id/tv')[Tv_num].click()
+                    time.sleep(2)
+                    OP.find_id('com.happyteam.dubbingshow:id/tv_right').click()
+                    time.sleep(2)
+                except:
+                    print('更多频道界面加载失败')
+                    time.sleep(1)
+                    OP.back()
                 time.sleep(2)
-                OP.back()
+                OP.find_id('com.happyteam.dubbingshow:id/tv_right').click()
+                try:
+                    toast = OP.wait_toast('//android.widget.Toast')
+                    print(toast)
+                except:
+                    try:
+                        OP.find_xpath('更多频道')
+                        time.sleep(2)
+                        OP.back()
+                        time.sleep(2)
+                        OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+                        print("社团资料修改失败")
+                    except:
+                        pass
                 time.sleep(2)
-                OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-                print("社团资料修改失败")
             except(TimeoutException,NoSuchElementException):
                 print("社团编辑资料界面加载失败")
                 time.sleep(1)
@@ -1125,15 +1153,6 @@ class Corporation():
                             except:
                                 pass
                             time.sleep(2)
-                            print('移除成员')
-                            user = OP.find_id('com.happyteam.dubbingshow:id/tospace')
-                            time.sleep(1)
-                            TouchAction(devc).long_press(user, duration=3000).release().perform()
-                            time.sleep(2)
-                            content = OP.find_id('com.happyteam.dubbingshow:id/txtContent').text
-                            print(content)
-                            time.sleep(1)
-                            OP.back()
                         except:
                             print('非社长，成员未显示权限设置')
                     except(TimeoutException, NoSuchElementException):
@@ -1204,9 +1223,11 @@ class Corporation():
                         long_touch = OP.find_id('com.happyteam.dubbingshow:id/img')
                         TouchAction(devc).long_press(long_touch,3000).release().perform()
                         OP.find_id('com.happyteam.dubbingshow:id/tv_zhiding').click()
-                        time.sleep(1)
-                        shangyi_toast = OP.find_id('com.happyteam.dubbingshow:id/tv_zhiding').text
-                        print(shangyi_toast)
+                        try:
+                            shangyi_toast = OP.wait_toast('//android.widget.Toast')
+                            print(shangyi_toast)
+                        except:
+                            pass
                         time.sleep(2)
                         TouchAction(devc).long_press(long_touch, 2500).release().perform()
                         time.sleep(1)
@@ -1475,9 +1496,8 @@ class Corporation():
 
         print("点击社团更多")
         try:
-            Corp_count = OP.find_id('com.happyteam.dubbingshow:id/society_count').text
-            print(Corp_count)
-            OP.find_id('com.happyteam.dubbingshow:id/society_count').click()
+            OP.find_id('com.happyteam.dubbingshow:id/more_img')
+            OP.find_id('com.happyteam.dubbingshow:id/more_img').click()
             time.sleep(2)
             print("上滑列表")
             for i in range(5):
@@ -1531,6 +1551,6 @@ if __name__=="__main__":
     # Tiezi_home.Posting()
     Soc.Communitys()
     Corp.Corp_Home()
-    Corp.Corp_Search()
+    # Corp.Corp_Search()
     Corp.Corp_My()
     Corp.Corp_Recommend()
