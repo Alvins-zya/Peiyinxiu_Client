@@ -14,7 +14,7 @@ from appium.webdriver.common.touch_action import TouchAction
 PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
 
 
-dev = 'b490dce3'
+dev = '32c1c46a'
 
 
 def device():
@@ -22,7 +22,7 @@ def device():
     desired_caps['platformName'] ='Android'
     desired_caps['deviceName'] = dev
     desired_caps['udid'] = dev
-    desired_caps['platformVersion'] = '7.1.2'
+    desired_caps['platformVersion'] = '9.0'
     desired_caps['appPackage'] = 'com.happyteam.dubbingshow'
     desired_caps['appActivity'] = 'ui.StartActivity'
     desired_caps['appWaitPackage'] = 'com.happyteam.dubbingshow'
@@ -35,33 +35,7 @@ def device():
     desired_caps['systemPort'] = 8200
 
     try:
-        driver = webdriver.Remote('http://localhost:4740/wd/hub', desired_caps)
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
         return driver
     except:
         print('NO driver!!')
-
-# def devices_test():
-#     desired_caps = {}
-#     desired_caps['platformName'] = 'Android'
-#     desired_caps['deviceName'] = '6c77030'
-#     desired_caps['udid'] = '6c77030'
-#     desired_caps['platformVersion'] = '7.1.1'
-#     desired_caps['appPackage'] = 'com.happyteam.dubbingshow'
-#     desired_caps['appActivity'] = 'ui.StartActivity'
-#     desired_caps['appWaitPackage'] = 'com.happyteam.dubbingshow'
-#     desired_caps['noReset'] = True
-#     desired_caps['unicodeKeyboard'] = True
-#     desired_caps['ignoreUnimportantViews'] = True
-#     desired_caps['dontStopAppOnReset'] = True
-#     desired_caps['newCommandTimeout'] = 10000
-#     desired_caps['automationName'] = 'UiAutomator2'
-#     desired_caps['systemPort'] = 8112
-#     try:
-#         driver = webdriver.Remote('http://localhost:4720/wd/hub', desired_caps)
-#         return driver
-#     except:
-#         print('NO driver!!')
-
-# if __name__=="__main__":
-#     device()
-#     devices_test()

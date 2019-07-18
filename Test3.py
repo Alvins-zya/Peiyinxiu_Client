@@ -1,65 +1,86 @@
-#coding = utf-8
-import subprocess
-import re
-import os
-from time import ctime
+import os,re
+import threading
+import multiprocessing
+from appium import webdriver
+from Peiyinxiu_Client.Multithreading import get_conn_dev
+from selenium.webdriver.support.ui import WebDriverWait
 import time
 
-import multiprocessing  # 导入多进程模块
-
-def get_conn_dev():
-    connectdeviceid = []
-    p = os.popen('adb devices')
-    outstr = p.read()
-    connectdeviceid = re.findall(r'(\w+)\s+device\s', outstr)
-    return connectdeviceid
-
-def appium_start(host, port,select_d):
-    bootstrap_port = str(port + 1)
-
-    '''
-    start /b appium -a ' + host + ' -p ' + str(port) + ' -bp ' + str(bootstrap_port) + ' -U ' + str(select_d)
-     /b 不显示cmd窗口
-    '''
-    cmd = 'start  appium -a ' + host + ' -p ' + str(port) + ' -bp ' + str(bootstrap_port) + ' -U ' + str(select_d)
-
-    print('%s at %s' % (cmd, ctime()))
-
-    # a是追加写入的方式
-
-    subprocess.Popen(cmd, shell=True, stdout=open('E:/log' + str(port) + '.log', 'a'), stderr=subprocess.STDOUT)
 
 
-def start_server():
-    # 构建appium进程组
 
-    appium_process = []
-
-    # 加载appium进程
-    dev = get_conn_dev()
-    for i in range(len(dev)):
-        host = '127.0.0.1'
-
-        port = 4723 + 2 * i
+D = get_conn_dev()
 
 
-        select_d = dev[i]
+def get_version():
+    version = []
+    for i in range(len(D)):
+        platformVersion = os.popen('adb -s %s shell getprop ro.build.version.release'%D[i]).read()
+        PV = re.sub('\r|\n','',platformVersion)
+        version.append(PV)
+    return version
 
-        # target指向方法，args指向参数，且必须是一个元组的形式
+P = get_version()
+class ConcurrentExecution:
 
-        appium = multiprocessing.Process(target=appium_start, args=(host, port,select_d))
+    def __init__(self):
+        self.driver_device = D
+        self.driver_Platversion = P
+        self.driver_port = [4723,4725,4727,4729,4781,4783]
 
-        # 将进程从变量appium加载到进程内
+    def android_driver(self, i):
+        driver_list = []
+        desired_caps = {}
+        desired_caps['platformName'] = 'Android'
+        desired_caps['deviceName'] = self.driver_device[i]
+        desired_caps['udid'] = self.driver_device[i]
+        desired_caps['platformVersion'] = self.driver_Platversion[i]
+        desired_caps['appPackage'] = 'com.happyteam.dubbingshow'
+        desired_caps['appActivity'] = 'ui.StartActivity'
+        desired_caps['appWaitPackage'] = 'com.happyteam.dubbingshow'
+        desired_caps['noReset'] = True
+        desired_caps['unicodeKeyboard'] = True
+        desired_caps['ignoreUnimportantViews'] = True
+        desired_caps['dontStopAppOnReset'] = True
+        desired_caps['newCommandTimeout'] = 10000
+        desired_caps['automationName'] = 'Uiautomator2'
+        desired_caps['systemPort'] = 8200
+        driver = webdriver.Remote("http://127.0.0.1:%s/wd/hub"%(self.driver_port[i]), desired_caps)
+        driver_list.append(driver)
+        WebDriverWait(driver, 20).until(lambda driver: driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2'))
+        driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2').click()
+        print('===结束===')
+        return driver_list
 
-        appium_process.append(appium)
-        #
-        # clost_cmd = 'taskkill /F /IM node.exe'
-        # subprocess.Popen(clost_cmd, shell=True)
-    # 并发启动appium服务，for循环开启多个appium服务，join主进程等待子进程结束
-    for appium in appium_process:
-        appium.start()
 
-    for appium in appium_process:
-        appium.join()
+    def start_appium_server(self, j):
+        """
+         启动appium服务器
+         :return:
+        """
+        os.system("appium -p {0}".format(self.driver_port[j]))
+    def run(self):
+        self.driver = ConcurrentExecution.android_driver
+        print(self.driver)
+        # WebDriverWait(self.driver, 20).until(lambda driver: self.driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2'))
+        # self.driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2').click()
+
+
+
+
+
+if __name__ == '__main__':
+   obj = ConcurrentExecution()
+   counts = len(D)
+   for j in range(counts): #启动服务
+        th = threading.Thread(target=obj.start_appium_server,args=(j,))
+        th.start()
+
+
+   for i in range(counts): #运行
+       t = multiprocessing.Process(target=obj.android_driver, args=(i,))
+       t.start()
+
+
 
 

@@ -416,9 +416,9 @@ class Home_Follow():
         except(TimeoutException,NoSuchElementException):
             pass
 
-if __name__=="__main__":
-    F = Home_Follow()
-    F.start_app()
-    F.Follows()
-    # F.Live_news()
-    F.Follow_list()
+# if __name__=="__main__":
+#     F = Home_Follow()
+#     F.start_app()
+#     F.Follows()
+#     # F.Live_news()
+#     F.Follow_list()
