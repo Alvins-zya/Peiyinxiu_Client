@@ -47,9 +47,9 @@ class ConcurrentExecution:
         desired_caps['systemPort'] = 8200
         driver = webdriver.Remote("http://127.0.0.1:%s/wd/hub"%(self.driver_port[i]), desired_caps)
         driver_list.append(driver)
-        WebDriverWait(driver, 20).until(lambda driver: driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2'))
-        driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2').click()
-        print('===结束===')
+        # WebDriverWait(driver, 20).until(lambda driver: driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2'))
+        # driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2').click()
+        # print('===结束===')
         return driver_list
 
 
@@ -59,8 +59,8 @@ class ConcurrentExecution:
          :return:
         """
         os.system("appium -p {0}".format(self.driver_port[j]))
-    def run(self):
-        self.driver = ConcurrentExecution.android_driver
+    def run(self,i):
+        self.driver = ConcurrentExecution.android_driver()[i]
         print(self.driver)
         # WebDriverWait(self.driver, 20).until(lambda driver: self.driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2'))
         # self.driver.find_element_by_id('com.happyteam.dubbingshow:id/film_img2').click()
