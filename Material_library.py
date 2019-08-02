@@ -258,7 +258,6 @@ class Libery():
 
             # 删除弹窗中点击确认按钮
             OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-            time.sleep(2)
             try:
                 toast = OP.wait_toast('//android.widget.Toast')
                 print(toast)
@@ -536,9 +535,7 @@ class Libery():
             OP.wait_id('com.happyteam.dubbingshow:id/top_img')
             OP.find_id('com.happyteam.dubbingshow:id/top_img').click()
         except:
-            OP.swip_down()
-            time.sleep(4)
-            OP.find_id('com.happyteam.dubbingshow:id/top_img').click()
+           pass
         time.sleep(2)
 
         print("点击合作分类")
@@ -624,7 +621,11 @@ class Libery():
 
         time.sleep(2)
         print("点击热搜词")
-        OP.find_ids('com.happyteam.dubbingshow:id/textView1')[1].click()
+        try:
+            OP.find_ids('com.happyteam.dubbingshow:id/textView1')[1]
+            OP.find_ids('com.happyteam.dubbingshow:id/textView1')[1].click()
+        except:
+            pass
         time.sleep(2)
         print("点击搜索框清除按钮")
         OP.find_id('com.happyteam.dubbingshow:id/btnClear').click()
@@ -813,16 +814,11 @@ class Libery():
                     OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
                     time.sleep(2)
                     try:
-                        OP.wait_download('com.happyteam.dubbingshow:id/dashang')
+                        OP.wait_download('com.happyteam.dubbingshow:id/exposure')
                         print("作品上传成功")
-                        OP.find_id('com.happyteam.dubbingshow:id/submit').click()
                         time.sleep(2)
-                        try:
-                            OP.find_id('com.happyteam.dubbingshow:id/cancle')
-                            print("奖励5000金币")
-                            OP.find_id('com.happyteam.dubbingshow:id/cancle').click()
-                        except:
-                            pass
+                        OP.find_id('com.happyteam.dubbingshow:id/close').click()
+                        time.sleep(2)
                     except(NoSuchElementException,TimeoutException):
                         OP.find_id('com.happyteam.dubbingshow:id/txtContent')
                         el = OP.find_id('com.happyteam.dubbingshow:id/txtContent').text
@@ -832,13 +828,14 @@ class Libery():
                         print("保存草稿箱")
                         time.sleep(2)
                         OP.find_id('com.happyteam.dubbingshow:id/saveToDraft').click()
+                        time.sleep(2)
                 except(NoSuchElementException,TimeoutException):
                     print("预览界面->上传界面跳转失败")
             except(NoSuchElementException,TimeoutException):
                 print("配音界面跳转失败")
         except(NoSuchElementException,TimeoutException):
             print("素材下载失败！")
-        time.sleep(1)
+        time.sleep(2)
 
         print("点击我的")
         OP.find_xpath('我的').click()

@@ -351,6 +351,7 @@ class Sound_Cartoon():
     '''声漫集详情'''
     def Comics_collection(self):
         print("点击进入漫画集详情界面")
+        OP.wait_id('com.happyteam.dubbingshow:id/imgHead')
         OP.find_ids('com.happyteam.dubbingshow:id/imgHead')[0].click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/start_play')
@@ -381,15 +382,18 @@ class Sound_Cartoon():
         time.sleep(2)
         print("点击提供商")
         OP.find_id('com.happyteam.dubbingshow:id/img').click()
-        time.sleep(3)
-        OP.back()
-        time.sleep(5)
+        try:
+            OP.wait_not_id('com.happyteam.dubbingshow:id/num_one')
+            time.sleep(1)
+            OP.back()
+        except:
+            pass
+        time.sleep(1)
         try:
             OP.find_id('com.happyteam.dubbingshow:id/start_play')
         except:
             OP.back()
         time.sleep(2)
-
         print("点击声漫制作社团排行榜")
         OP.find_id('com.happyteam.dubbingshow:id/num_one').click()
         try:
@@ -2726,18 +2730,32 @@ class Chat():
                 try:
                     OP.wait_id('com.happyteam.dubbingshow:id/userhead')
                     print ('麦克风静音')
+                    time.sleep(1)
                     OP.find_id('com.happyteam.dubbingshow:id/home_microphone1').click()
                     time.sleep(2)
                     OP.find_xpath('静音').click()
                     time.sleep(2)
                     OP.wait_xpath('结束静音').click()
                     print ('开启排麦')
+                    time.sleep(2)
                     OP.find_xpath('开启排麦').click()
                     time.sleep(2)
                     OP.back()
                     time.sleep(2)
                     print ('修改公告')
+                    time.sleep(2)
+                    try:
+                        OP.find_id('com.happyteam.dubbingshow:id/pack_up')
+                        content = OP.find_id('com.happyteam.dubbingshow:id/marquee').text
+                        print(content)
+                        time.sleep(2)
+                        OP.find_id('com.happyteam.dubbingshow:id/pack_up').click()
+                    except:
+                        pass
+                    time.sleep(2)
                     OP.find_xpath('com.happyteam.dubbingshow:id/tv').click()
+                    time.sleep(2)
+                    OP.find_id('com.happyteam.dubbingshow:id/marquee').click()
                     time.sleep(2)
                     content = "江南可采莲，莲叶何田田，鱼戏莲叶间。鱼戏莲叶东，鱼戏莲叶西，鱼戏莲叶南，鱼戏莲叶北。"
                     OP.find_id('com.happyteam.dubbingshow:id/notice_content').clear()
@@ -2745,6 +2763,8 @@ class Chat():
                     OP.find_id('com.happyteam.dubbingshow:id/notice_content').send_keys(content)
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/btn_sure').click()
+                    time.sleep(2)
+                    OP.find_id('com.happyteam.dubbingshow:id/pack_up').click()
                     time.sleep(2)
                     print ('添加音乐')
                     OP.find_id('com.happyteam.dubbingshow:id/function_joke_articles').click()
@@ -3066,7 +3086,7 @@ class Chat():
                     OP.find_id('com.happyteam.dubbingshow:id/home_close').click()
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/check_box').click()
-                    time.sleep(1)
+                    time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/outLive').click()
                     time.sleep(2)
                 except(NoSuchElementException,TimeoutException):
@@ -3104,7 +3124,13 @@ class Chat():
             print(hot_value)
             print('累计人数')
             time.sleep(1)
+            try:
+                OP.find_id('com.happyteam.dubbingshow:id/pack_up')
+                OP.find_id('com.happyteam.dubbingshow:id/pack_up').click()
+            except:
+                pass
             online_count = OP.find_id('com.happyteam.dubbingshow:id/count').text
+            print(online_count)
             time.sleep(2)
             print('连麦人及礼物值')
             names = OP.find_ids('com.happyteam.dubbingshow:id/gift_value')
@@ -3200,9 +3226,9 @@ class Chat():
                     OP.wait_id('com.happyteam.dubbingshow:id/home_microphone')
                     time.sleep(2)
                     OP.back()
-                    time.sleep(1)
-                    OP.find_id('com.happyteam.dubbingshow:id/btnSubmit')
-            time.sleep(2)
+                    time.sleep(2)
+                    OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+                    time.sleep(2)
         except:
             print('语聊最新列表未显示房间信息')
 
