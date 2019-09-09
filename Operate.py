@@ -1,7 +1,7 @@
 #coding = utf-8
 #防止中文显示乱码
 #coding = gb18030
-
+import time
 from selenium.webdriver.support.ui import WebDriverWait
 import os
 from Peiyinxiu_Client.devices import device,dev
@@ -169,3 +169,12 @@ class BaseOperate():
         '''
         element = WebDriverWait(self.driver, 30).until(lambda x: self.driver.find_elements_by_id(id))
         return element
+
+    def screenshot(self):
+        '''
+        获取屏幕截图，检查UI显示
+        :return:
+        '''
+        tm = time.strftime("%Y-%m-%d_%H_%M_%S",time.localtime(time.time()))
+        type = '.png'
+        self.driver.get_screenshot_as_file("E:\\screenshots\\"+tm+type)

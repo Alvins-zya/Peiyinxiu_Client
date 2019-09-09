@@ -8,8 +8,8 @@ function:Login
 import os
 import time
 from appium.webdriver.common.touch_action import TouchAction
-from devices import device,dev
-from Operate import BaseOperate
+from Peiyinxiu_Client.devices import device,dev
+from Peiyinxiu_Client.Operate import BaseOperate
 
 OP = BaseOperate()
 x = OP.touch()[0]
@@ -21,7 +21,13 @@ class Login():
     def __init__(self):
         pass
     def Main_interface(self):
-        OP.wait_download('com.happyteam.dubbingshow:id/phone')
+        OP.wait_download('com.happyteam.dubbingshow:id/btnSubmit')
+        print('显示温馨提示弹窗')
+        content = OP.find_id('com.happyteam.dubbingshow:id/txtContent').text
+        print(content)
+        time.sleep(2)
+        OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+        time.sleep(2)
         print('手机号登录')
         OP.find_id('com.happyteam.dubbingshow:id/phone').click()
         time.sleep(2)
@@ -243,6 +249,7 @@ class Login():
                 print(login_toast)
             else:
                 print('微博登录失败，请检查！')
+                OP.back()
         except:
             try:
                 OP.find_xpath('手机号或者邮箱')

@@ -984,7 +984,7 @@ class Home_Hot():
         time.sleep(1)
         OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
         try:
-            OP.wait_id('com.happyteam.dubbingshow:id/iv_source')
+            OP.wait_id('com.happyteam.dubbingshow:id/title_tv')
             title = OP.find_ids('com.happyteam.dubbingshow:id/title_tv')
             for i in range(len(title)):
                 OP.find_ids('com.happyteam.dubbingshow:id/title_tv')[i].click()
@@ -992,10 +992,10 @@ class Home_Hot():
                     OP.wait_id('com.happyteam.dubbingshow:id/tv_source_title')
                     time.sleep(2)
                     OP.back()
-                except(NoSuchElementException,TimeoutError):
+                except(NoSuchElementException,TimeoutException):
                     print('素材详情列表跳转失败')
                 time.sleep(2)
-        except(NoSuchElementException,TimeoutError):
+        except(NoSuchElementException,TimeoutException):
             print('搜索失败')
         time.sleep(2)
         OP.back()
@@ -1003,14 +1003,14 @@ class Home_Hot():
 def run():
     H = Home_Hot()
     H.Home_load()
-    H.Home_List()
-    H.Open_Video()
-    H.Play_video()
-    H.Comment()
-    H.share()
-    H.Gift_List()
-    H.Dubbing()
-    H.Swip()
+    # H.Home_List()
+    # H.Open_Video()
+    # H.Play_video()
+    # H.Comment()
+    # H.share()
+    # H.Gift_List()
+    # H.Dubbing()
+    # H.Swip()
     H.Search()
     # try:
     #

@@ -43,7 +43,7 @@ def fuyong(i):
     elif i == "在线pia戏":
         OP.find_xpath('在线pia戏').click()
         time.sleep(10)
-        online_pia()
+        # online_pia()
         OP.back()
     elif i == "语聊":
         OP.find_xpath('语聊').click()
@@ -52,8 +52,8 @@ def fuyong(i):
         Chat().banner()
         Chat().Chat_List()
         Chat().chat_personal()
-        Chat().create_chat()
         Chat().enter_chat()
+        Chat().create_chat()
         Chat().chat_New()
         Chat().chat_follow()
         OP.back()
@@ -2652,6 +2652,113 @@ class Chat():
             time.sleep(2)
             OP.back()
 
+    '''进入他人语聊房间'''
+
+    def enter_chat(self):
+        OP.find_id('com.happyteam.dubbingshow:id/item_theme_image').click()
+        try:
+            OP.wait_id('com.happyteam.dubbingshow:id/comfirm')
+            OP.find_id('com.happyteam.dubbingshow:id/comfirm').click()
+        except:
+            pass
+        time.sleep(2)
+        try:
+            OP.wait_id('com.happyteam.dubbingshow:id/function_send_gift')
+        except(NoSuchElementException, TimeoutException):
+            print('语聊房间加载失败')
+        print('关注主播')
+        OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
+        time.sleep(2)
+        try:
+            OP.wait_id('com.happyteam.dubbingshow:id/gift_single_role_name')
+            OP.find_id('com.happyteam.dubbingshow:id/gift_single_role_name').click()
+            time.sleep(2)
+            OP.wait_xpath('关注')
+            OP.find_id('com.happyteam.dubbingshow:id/btn_follow').click()
+        except:
+            pass
+        time.sleep(2)
+        OP.find_id('com.happyteam.dubbingshow:id/icon_close').click()
+        time.sleep(1)
+        OP.back()
+        time.sleep(2)
+        print('热度值')
+        time.sleep(1)
+        hot_value = OP.find_id('com.happyteam.dubbingshow:id/gift_value_count').text
+        print(hot_value)
+        print('累计人数')
+        time.sleep(1)
+        try:
+            OP.find_id('com.happyteam.dubbingshow:id/pack_up')
+            OP.find_id('com.happyteam.dubbingshow:id/pack_up').click()
+        except:
+            pass
+        online_count = OP.find_id('com.happyteam.dubbingshow:id/count').text
+        print(online_count)
+        time.sleep(2)
+        print('连麦人及礼物值')
+        names = OP.find_ids('com.happyteam.dubbingshow:id/gift_value')
+        num = len(names)
+        if num == 8:
+            list = []
+            for i in range(len(names)):
+                name = OP.find_ids('com.happyteam.dubbingshow:id/name')[i].text
+                list.append(name)
+                time.sleep(1)
+            print(list)
+        else:
+            print('连麦人数不足8人，暂不统计')
+        time.sleep(2)
+        print('榜单')
+        OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
+        time.sleep(3)
+        value = OP.find_id('com.happyteam.dubbingshow:id/tv_rank').text
+        print(value)
+        time.sleep(1)
+        OP.find_id('com.happyteam.dubbingshow:id/tv_rank').click()
+        try:
+            OP.wait_id('com.happyteam.dubbingshow:id/list_title')
+            print('送礼用户列表')
+            time.sleep(2)
+            names = OP.find_ids('com.happyteam.dubbingshow:id/textView')
+            name_list = []
+            for i in range(len(names)):
+                name = OP.find_ids('com.happyteam.dubbingshow:id/textView')[i].text
+                name_list.append(name)
+                time.sleep(1)
+            print(name_list)
+            time.sleep(2)
+            OP.find_id('com.happyteam.dubbingshow:id/gift_img').click()
+            time.sleep(2)
+            gifts = OP.find_ids('com.happyteam.dubbingshow:id/text1')
+            list = []
+            for i in range(len(gifts)):
+                name = OP.find_ids('com.happyteam.dubbingshow:id/text1')[i].text
+                count = OP.find_ids('com.happyteam.dubbingshow:id/text2')[i].text
+                list.append(name)
+                list.append(count)
+                time.sleep(0.5)
+            print(list)
+            time.sleep(2)
+            OP.back()
+            time.sleep(2)
+            '''返回房间'''
+            OP.back()
+            time.sleep(2)
+        except(NoSuchElementException, TimeoutException):
+            print('送礼列表加载失败')
+            OP.back()
+        time.sleep(2)
+        print('切换直播间')
+        for i in range(10):
+            OP.swip_left()
+            time.sleep(4)
+        print('退出语聊')
+        OP.back()
+        time.sleep(2)
+        OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+        time.sleep(2)
+
     '''创建语聊'''
     def create_chat(self):
         print ('创建语聊')
@@ -2766,60 +2873,60 @@ class Chat():
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/pack_up').click()
                     time.sleep(2)
-                    print ('添加音乐')
-                    OP.find_id('com.happyteam.dubbingshow:id/function_joke_articles').click()
-                    time.sleep(2)
-                    try:
-                        OP.find_id('com.happyteam.dubbingshow:id/add_music').click()
-                        time.sleep(5)
-                        print('网络导入')
-                        OP.find_id('com.happyteam.dubbingshow:id/internet').click()
-                        time.sleep(2)
-                        '''获取列表音乐名'''
-                        OP.find_id('com.happyteam.dubbingshow:id/title').click()
-                        time.sleep(5)
-                        Musics = OP.find_ids('com.happyteam.dubbingshow:id/music_name')
-                        Music_list = []
-                        for i in range(len(Musics)):
-                            Name = OP.find_ids('com.happyteam.dubbingshow:id/music_name')[i].text
-                            Music_list.append(Name)
-                            time.sleep(1)
-                        print(Music_list)
-                        time.sleep(2)
-                        print('下载音乐')
-                        Loads = OP.find_ids('com.happyteam.dubbingshow:id/load')
-                        for i in range(len(Loads)):
-                            OP.find_ids('com.happyteam.dubbingshow:id/load')[i].click()
-                            time.sleep(1)
-                        time.sleep(4)
-                        print('返回类型列表')
-                        OP.find_id('com.happyteam.dubbingshow:id/back').click()
-                        time.sleep(4)
-                        print('返回已下载音乐列表')
-                        OP.find_id('com.happyteam.dubbingshow:id/back').click()
-                        time.sleep(4)
-                        OP.find_ids('com.happyteam.dubbingshow:id/add_music')[1].click()
-                        time.sleep(4)
-                        print('返回语聊房间')
-                        OP.find_id('com.happyteam.dubbingshow:id/back').click()
-                        time.sleep(2)
-                        try:
-                            OP.find_id('com.happyteam.dubbingshow:id/play')
-                            OP.find_id('com.happyteam.dubbingshow:id/play').click()
-                            time.sleep(2)
-                            OP.back()
-                        except:
-                            OP.back()
-                        time.sleep(2)
-                    except:
-                        '''点击编辑按钮'''
-                        OP.find_id('com.happyteam.dubbingshow:id/modify').click()
-                        time.sleep(2)
-                        OP.find_id('com.happyteam.dubbingshow:id/delete')
-                        OP.find_id('com.happyteam.dubbingshow:id/delete').click()
-                        time.sleep(2)
-                        '''收起音乐列表'''
-                        OP.back()
+                    # print ('添加音乐')
+                    # OP.find_id('com.happyteam.dubbingshow:id/function_joke_articles').click()
+                    # time.sleep(2)
+                    # try:
+                    #     OP.find_id('com.happyteam.dubbingshow:id/add_music').click()
+                    #     time.sleep(5)
+                    #     print('网络导入')
+                    #     OP.find_id('com.happyteam.dubbingshow:id/internet').click()
+                    #     time.sleep(2)
+                    #     '''获取列表音乐名'''
+                    #     OP.find_id('com.happyteam.dubbingshow:id/title').click()
+                    #     time.sleep(5)
+                    #     Musics = OP.find_ids('com.happyteam.dubbingshow:id/music_name')
+                    #     Music_list = []
+                    #     for i in range(len(Musics)):
+                    #         Name = OP.find_ids('com.happyteam.dubbingshow:id/music_name')[i].text
+                    #         Music_list.append(Name)
+                    #         time.sleep(1)
+                    #     print(Music_list)
+                    #     time.sleep(2)
+                    #     print('下载音乐')
+                    #     Loads = OP.find_ids('com.happyteam.dubbingshow:id/load')
+                    #     for i in range(len(Loads)):
+                    #         OP.find_ids('com.happyteam.dubbingshow:id/load')[i].click()
+                    #         time.sleep(1)
+                    #     time.sleep(4)
+                    #     print('返回类型列表')
+                    #     OP.find_id('com.happyteam.dubbingshow:id/back').click()
+                    #     time.sleep(4)
+                    #     print('返回已下载音乐列表')
+                    #     OP.find_id('com.happyteam.dubbingshow:id/back').click()
+                    #     time.sleep(4)
+                    #     OP.find_ids('com.happyteam.dubbingshow:id/add_music')[1].click()
+                    #     time.sleep(4)
+                    #     print('返回语聊房间')
+                    #     OP.find_id('com.happyteam.dubbingshow:id/back').click()
+                    #     time.sleep(2)
+                    #     try:
+                    #         OP.find_id('com.happyteam.dubbingshow:id/play')
+                    #         OP.find_id('com.happyteam.dubbingshow:id/play').click()
+                    #         time.sleep(2)
+                    #         OP.back()
+                    #     except:
+                    #         OP.back()
+                    #     time.sleep(2)
+                    # except:
+                    #     '''点击编辑按钮'''
+                    #     OP.find_id('com.happyteam.dubbingshow:id/modify').click()
+                    #     time.sleep(2)
+                    #     OP.find_id('com.happyteam.dubbingshow:id/delete')
+                    #     OP.find_id('com.happyteam.dubbingshow:id/delete').click()
+                    #     time.sleep(2)
+                    #     '''收起音乐列表'''
+                    #     OP.back()
                     time.sleep(2)
                     print ('发红包')
                     OP.find_id('com.happyteam.dubbingshow:id/function_more').click()
@@ -3097,105 +3204,7 @@ class Chat():
                 OP.back()
         time.sleep(2)
 
-    '''进入他人语聊房间'''
-    def enter_chat(self):
-        OP.find_id('com.happyteam.dubbingshow:id/item_theme_image').click()
-        try:
-            OP.wait_id('com.happyteam.dubbingshow:id/function_send_gift')
-            print('关注主播')
-            OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
-            time.sleep(2)
-            try:
-                OP.wait_id('com.happyteam.dubbingshow:id/gift_single_role_name')
-                OP.find_id('com.happyteam.dubbingshow:id/gift_single_role_name').click()
-                time.sleep(2)
-                OP.wait_xpath('关注')
-                OP.find_id('com.happyteam.dubbingshow:id/btn_follow').click()
-            except:
-                pass
-            time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/icon_close').click()
-            time.sleep(1)
-            OP.back()
-            time.sleep(2)
-            print('热度值')
-            time.sleep(1)
-            hot_value = OP.find_id('com.happyteam.dubbingshow:id/gift_value_count').text
-            print(hot_value)
-            print('累计人数')
-            time.sleep(1)
-            try:
-                OP.find_id('com.happyteam.dubbingshow:id/pack_up')
-                OP.find_id('com.happyteam.dubbingshow:id/pack_up').click()
-            except:
-                pass
-            online_count = OP.find_id('com.happyteam.dubbingshow:id/count').text
-            print(online_count)
-            time.sleep(2)
-            print('连麦人及礼物值')
-            names = OP.find_ids('com.happyteam.dubbingshow:id/gift_value')
-            num = len(names)
-            if num == 8:
-                list = []
-                for i in range(len(names)):
-                    name = OP.find_ids('com.happyteam.dubbingshow:id/name')[i].text
-                    list.append(name)
-                    time.sleep(1)
-                print(list)
-            else:
-                print('连麦人数不足8人，暂不统计')
-            time.sleep(2)
-            print('榜单')
-            OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
-            time.sleep(3)
-            value = OP.find_id('com.happyteam.dubbingshow:id/tv_rank').text
-            print(value)
-            time.sleep(1)
-            OP.find_id('com.happyteam.dubbingshow:id/tv_rank').click()
-            try:
-                OP.wait_id('com.happyteam.dubbingshow:id/list_title')
-                print('送礼用户列表')
-                time.sleep(2)
-                names = OP.find_ids('com.happyteam.dubbingshow:id/textView')
-                name_list = []
-                for  i in range(len(names)):
-                    name = OP.find_ids('com.happyteam.dubbingshow:id/textView')[i].text
-                    name_list.append(name)
-                    time.sleep(1)
-                print(name_list)
-                time.sleep(2)
-                OP.find_id('com.happyteam.dubbingshow:id/gift_img').click()
-                time.sleep(2)
-                gifts = OP.find_ids('com.happyteam.dubbingshow:id/text1')
-                list =[]
-                for i in range(len(gifts)):
-                    name = OP.find_ids('com.happyteam.dubbingshow:id/text1')[i].text
-                    count = OP.find_ids('com.happyteam.dubbingshow:id/text2')[i].text
-                    list.append(name)
-                    list.append(count)
-                    time.sleep(0.5)
-                print(list)
-                time.sleep(2)
-                OP.back()
-                time.sleep(2)
-                '''返回房间'''
-                OP.back()
-                time.sleep(2)
-            except(NoSuchElementException,TimeoutException):
-                print('送礼列表加载失败')
-                OP.back()
-            time.sleep(2)
-            print('切换直播间')
-            for i in range(10):
-                OP.swip_left()
-                time.sleep(4)
-            print('退出语聊')
-            OP.back()
-            time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-            time.sleep(2)
-        except(NoSuchElementException,TimeoutException):
-            print('语聊房间加载失败')
+
 
     '''语聊房间最新列表'''
     def chat_New(self):
