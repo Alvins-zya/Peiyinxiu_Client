@@ -3,9 +3,7 @@
 #coding = gb18030
 import random
 import os
-from appium import webdriver
 import time
-from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
 #获取当前项目的根路径
@@ -13,6 +11,7 @@ PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
 from Peiyinxiu_Client.Operate import BaseOperate
 from Peiyinxiu_Client.devices import device
 from pprint import pprint
+from Interface.USER import API
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]
@@ -20,36 +19,37 @@ devc = device()
 def fuyong(i):
     print(i)
     if i == "有声漫画":
-        OP.find_xpath('有声漫画').click()
+        # OP.find_xpath('有声漫画').click()
         time.sleep(5)
-        FC=Sound_Cartoon()
-        FC.Cartoon()
-        FC.Comics_collection()
-        FC.Cartoon_details()
-        FC.Newest()
-        FC.Play_video()
-        OP.back()
+        # FC=Sound_Cartoon()
+        # FC.Cartoon()
+        # FC.Comics_collection()
+        # FC.Cartoon_details()
+        # FC.Newest()
+        # FC.Play_video()
+        # OP.back()
     elif i == "附近":
-        OP.find_xpath('附近').click()
+        # OP.find_xpath('附近').click()
         time.sleep(5)
-        Nearby().Near()
-        OP.back()
+        # Nearby().Near()
+        # OP.back()
     elif i == "频道":
         OP.find_xpath('频道').click()
         time.sleep(5)
         Label().Label_list()
-        Label().Hot_label()
-        OP.back()
+        # Label().Hot_label()
+        # OP.back()
     elif i == "在线pia戏":
-        OP.find_xpath('在线pia戏').click()
+        # OP.find_xpath('在线pia戏').click()
         time.sleep(10)
         # online_pia()
-        OP.back()
+        # OP.back()
     elif i == "语聊":
         OP.find_xpath('语聊').click()
         time.sleep(5)
         Chat().Into_chat()
-        Chat().banner()
+        # Chat().banner()
+        # Chat().List()
         Chat().Chat_List()
         Chat().chat_personal()
         Chat().enter_chat()
@@ -58,23 +58,23 @@ def fuyong(i):
         Chat().chat_follow()
         OP.back()
     elif i == "曝光区":
-        OP.find_xpath('曝光区').click()
+        # OP.find_xpath('曝光区').click()
         time.sleep(5)
-        Exposure().Exposure_area()
-        OP.back()
+        # Exposure().Exposure_area()
+        # OP.back()
     elif i == "排行榜":
-        OP.find_xpath('排行榜').click()
+        # OP.find_xpath('排行榜').click()
         time.sleep(5)
-        Ranking_List().Rank()
-        Ranking_List().RichRank()
-        Ranking_List().LiveRank()
-        Ranking_List().SocietyRank()
-        Ranking_List().SourceRank()
-        Ranking_List().Film()
-        Ranking_List().Commentary()
-        Ranking_List().Potential()
-        Ranking_List().SocietyFilm()
-        OP.back()
+        # Ranking_List().Rank()
+        # Ranking_List().RichRank()
+        # Ranking_List().LiveRank()
+        # Ranking_List().SocietyRank()
+        # Ranking_List().SourceRank()
+        # Ranking_List().Film()
+        # Ranking_List().Commentary()
+        # Ranking_List().Potential()
+        # Ranking_List().SocietyFilm()
+        # OP.back()
     else:
         pass
     time.sleep(2)
@@ -2655,6 +2655,7 @@ class Chat():
     '''进入他人语聊房间'''
 
     def enter_chat(self):
+
         OP.find_id('com.happyteam.dubbingshow:id/item_theme_image').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/comfirm')

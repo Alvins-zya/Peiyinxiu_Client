@@ -11,7 +11,9 @@ from selenium.common.exceptions import TimeoutException,NoSuchElementException
 PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 from Peiyinxiu_Client.Operate import BaseOperate
 from Peiyinxiu_Client.devices import device
+import Interface.USER.API
 from pprint import pprint
+from math import ceil
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]
@@ -20,6 +22,9 @@ devc = device()
 '''个人空间'''
 class My_Zoom():
     '''个人等级'''
+    def __init__(self):
+        self.API = Interface.USER.API
+
     def Grade(self):
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/task_box')
@@ -28,20 +33,54 @@ class My_Zoom():
             print('应用启动失败')
         OP.find_id('com.happyteam.dubbingshow:id/mineTab').click()
         time.sleep(2)
-        print("点击头像进入个人空间")
+        name = OP.find_id('com.happyteam.dubbingshow:id/username').text
+        check_name = "撸串"
+        if name == check_name:
+            pass
+        else:
+            print('测试账号错误，请切换！！')
+            device().close_app()
+        time.sleep(2)
+        #获取关注、粉丝、作品、求合作、素材、更多tab中显示的数量
+        Follows_count = OP.find_id('com.happyteam.dubbingshow:id/followed_count').text
+        Follows_average = ceil(int(Follows_count))
+        time.sleep(1)
+        Fans_count = OP.find_id('com.happyteam.dubbingshow:id/fans_count').text
+        Fans_average = ceil(int(Fans_count))
+        time.sleep(1)
+        production_count = OP.find_id('com.happyteam.dubbingshow:id/production_count').text
+        Production_average = ceil(int(production_count))
+        time.sleep(1)
+        Cooperation_count = OP.find_id('com.happyteam.dubbingshow:id/invitation_count').text
+        Cooperation_average = ceil(int(Cooperation_count))
+        time.sleep(1)
+        Sources_count = OP.find_id('com.happyteam.dubbingshow:id/source_count').text
+        Sources_average = ceil(int(Sources_count))
+        time.sleep(1)
+        More_count = OP.find_id('com.happyteam.dubbingshow:id/transpond_count').text
+        More_average = ceil(int(More_count))
+        time.sleep(2)
+        # print("点击头像进入个人空间")
         OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/content')
-            print("空间加载成功")
+            # print("空间加载成功")
         except(NoSuchElementException,TimeoutException):
-            pass
-        try:
-            OP.find_id('com.happyteam.dubbingshow:id/btn_reload').click()
-            OP.wait_id('com.happyteam.dubbingshow:id/content')
-        except:
-            pass
+            try:
+                OP.find_id('com.happyteam.dubbingshow:id/btn_reload').click()
+                OP.wait_id('com.happyteam.dubbingshow:id/content')
+            except:
+                pass
         time.sleep(2)
-        print("点击等级")
+        Follow_list = []
+        for i in range(1,Fans_average+1):
+            count = self.API.Person_Follow('16685645',i)
+            Follow_list.append(count)
+        Follow_sum = 0
+        for x in Follow_list:
+            Follow_sum += x
+        print(Follow_sum)
+        # print("点击等级")
         OP.find_id('com.happyteam.dubbingshow:id/img_level').click()
         time.sleep(2)
         try:
