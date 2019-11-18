@@ -63,9 +63,9 @@ def fuyong(i):
         # Exposure().Exposure_area()
         # OP.back()
     elif i == "排行榜":
-        # OP.find_xpath('排行榜').click()
+        OP.find_xpath('排行榜').click()
         time.sleep(5)
-        # Ranking_List().Rank()
+        Ranking_List().Rank()
         # Ranking_List().RichRank()
         # Ranking_List().LiveRank()
         # Ranking_List().SocietyRank()

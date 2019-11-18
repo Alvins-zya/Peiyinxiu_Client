@@ -42,270 +42,148 @@ class Libery():
         time.sleep(2)
     '''声音鉴定'''
     def Sound_warning(self):
-        try:
-            '''点击声鉴按钮'''
-            OP.find_id('com.happyteam.dubbingshow:id/sj')
-            OP.find_id('com.happyteam.dubbingshow:id/sj').click()
-            time.sleep(1)
 
-            '''
-            判断是否显示的是声鉴结果页面，是则点击重新鉴定按钮
-            '''
-            try:
-                OP.find_id('com.happyteam.dubbingshow:id/reIndetify')
-                OP.find_id('com.happyteam.dubbingshow:id/reIndetify').click()
-            except:
-                pass
-            time.sleep(1)
-
-            '''
-            选择性别男
-            '''
-            OP.find_id('com.happyteam.dubbingshow:id/boy').click()
-            time.sleep(1)
-
-            '''
-            选择性别女
-            '''
-            OP.find_id('com.happyteam.dubbingshow:id/girl').click()
-            time.sleep(1)
-
-            '''
-            循环三次点击换一个按钮
-            '''
-            for i in range(3):
-                OP.find_id('com.happyteam.dubbingshow:id/change').click()
-
-            '''
-            点击配音按钮
-            '''
-            OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
-            time.sleep(2)
-
-            '''
-            若显示权限弹窗，则点击允许
-            '''
-            try:
-                OP.wait_xpath('允许')
-                OP.find_xpath('允许').click()
-                time.sleep(2)
-            except:
-                pass
-
-            '''
-            点击录音按钮，录制10秒进入声鉴结果界面
-            '''
-            OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
-            time.sleep(20)
-            OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
-
-
-            '''
-            等待跳转至声鉴结果界面
-            '''
-            for i in range(5):
-                try:
-                    OP.wait_xpath('您的声鉴报告')
-                    print('跳转至声鉴结果界面')
-                    break
-                except(NoSuchElementException,TimeoutException):
-                    print('界面跳转失败')
-                    time.sleep(1)
-                    OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
-                    time.sleep(10)
-                    OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
-                time.sleep(1)
-
-            time.sleep(2)
-            '''获取视频标题'''
-            Name = OP.find_id('com.happyteam.dubbingshow:id/title').text
-            print(Name)
-            time.sleep(2)
-            '''播放视频'''
-            OP.find_id('com.happyteam.dubbingshow:id/play').click()
-            time.sleep(5)
-            device().keyevent(3)
-            time.sleep(2)
-            device().launch_app()
-            time.sleep(2)
-            '''点击素材来源'''
-            OP.find_id('com.happyteam.dubbingshow:id/source_from').click()
-            try:
-                OP.wait_id('com.happyteam.dubbingshow:id/txtKeyword')
-                time.sleep(2)
-                OP.back()
-            except(NoSuchElementException, TimeoutException):
-                pass
-            '''
-            点击配音按钮进入配音界面
-            '''
-            for i in range(5):
-                OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
-                try:
-                    OP.wait_download('com.happyteam.dubbingshow:id/action')
-                    time.sleep(1)
-                    OP.back()
-                    time.sleep(1)
-                    OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-                    break
-                except(NoSuchElementException,TimeoutException):
-                    try:
-                        OP.find_id('com.happyteam.dubbingshow:id/action1')
-                        OP.find_id('com.happyteam.dubbingshow:id/action1').click()
-                        time.sleep(1)
-                        OP.back()
-                        time.sleep(1)
-                        OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-                        break
-                    except:
-                        print('素材下载失败')
-                time.sleep(2)
-            '''上滑加载列表'''
-            for i in range(3):
-                OP.swip_up()
-                time.sleep(3)
-                Names = OP.find_ids('com.happyteam.dubbingshow:id/title')
-                Name_list = []
-                for i in range(len(Names)):
-                    name = OP.find_ids('com.happyteam.dubbingshow:id/title')[i].text
-                    Name_list.append(name)
-                    time.sleep(1)
-                print(Name_list)
-                time.sleep(2)
-            '''
-            返回到素材库界面
-            '''
-            OP.back()
-        except :
-            print('素材库加载失败')
-            time.sleep(1)
-            device().close()
-            time.sleep(1)
-            device().quit()
-
-    '''我的收藏'''
-    def My_collection(self):
-        '''
-        防止收藏界面为空，先收藏素材
-        '''
-        try:
-            # 选择素材列表第一个素材进入
-            OP.find_id('com.happyteam.dubbingshow:id/tv_source_title').click()
-            OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-            # 点击收藏按钮
-            OP.find_id('com.happyteam.dubbingshow:id/shouchang_tv_fake').click()
-            time.sleep(2)
-            OP.back()  # 返回素材库界面
-            time.sleep(2)
-
-            # 切换至男角色素材列表界面
-            OP.find_id('com.happyteam.dubbingshow:id/boy').click()
-            time.sleep(2)
-
-            # 选择素材列表第一个素材进入
-            OP.find_id('com.happyteam.dubbingshow:id/tv_source_title').click()
-            OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-            time.sleep(2)
-
-            # 点击收藏按钮
-            OP.find_id('com.happyteam.dubbingshow:id/shouchang_tv_fake').click()
-            time.sleep(1)
-            OP.back()  # 返回素材库界面
-        except(NoSuchElementException,TimeoutException):
-            '''素材详情界面加载失败，返回素材库界面'''
-            pass
-        time.sleep(2)
-
-        try:
-            #点击进入我的收藏
-            OP.find_id('com.happyteam.dubbingshow:id/collection').click()
-            time.sleep(1)
-
-            try:
-                # 点击进入素材详情界面
-                OP.find_id('com.happyteam.dubbingshow:id/iv_source').click()
-                OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-                print('进入素材预览界面')
-                time.sleep(5)
-                OP.back()  # 返回我的收藏界面
-            except:
-                OP.back()  # 素材详情界面加载失败，返回我的收藏界面
-                time.sleep(1)
-
-            #获取当前界面素材名称
-            Source_list = OP.find_ids('com.happyteam.dubbingshow:id/tv_source_title')
-            Source_name = []
-            for i in range(len(Source_list)):
-                Name = OP.find_ids('com.happyteam.dubbingshow:id/tv_source_title')[i].text
-                Source_name.append(Name)
-                time.sleep(0.5)
-            print(Source_name)
-            time.sleep(2)
-
-            # 定位收藏列表，选择第一个长按删除
-            el = OP.find_ids('com.happyteam.dubbingshow:id/iv_source')[0]
-            TouchAction(devc).long_press(el).wait(2000).perform()
-            time.sleep(2)
-
-            # 删除弹窗中点击取消按钮
-            OP.find_id('com.happyteam.dubbingshow:id/btnCancel').click()
-            time.sleep(4)
-
-            # 再次长按列表第一个素材
-            el = OP.find_id('com.happyteam.dubbingshow:id/iv_source')
-            TouchAction(devc).long_press(el).wait(2000).perform()
-            time.sleep(2)
-
-            # 删除弹窗中点击确认按钮
-            OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-            try:
-                toast = OP.wait_toast('//android.widget.Toast')
-                print(toast)
-            except(NoSuchElementException,TimeoutException):
-                pass
-            time.sleep(2)
-
-            # 点击全部删除按钮
-            OP.find_id('com.happyteam.dubbingshow:id/delete').click()
-            time.sleep(1)
-
-            # 勾选素材
-            OP.find_id('com.happyteam.dubbingshow:id/choice').click()
-            time.sleep(1)
-            OP.find_id('com.happyteam.dubbingshow:id/choice').click()
-            time.sleep(1)
-
-            # 点击全选按钮
-            OP.find_id('com.happyteam.dubbingshow:id/deleteAll').click()
-            time.sleep(1)
-
-            # 点击取消全选
-            OP.find_id('com.happyteam.dubbingshow:id/deleteAll').click()
-            time.sleep(1)
-
-            #批量删除
-            OP.find_id('com.happyteam.dubbingshow:id/choice').click()
-            time.sleep(1)
-            OP.find_id('com.happyteam.dubbingshow:id/toDelete').click()
-            time.sleep(1)
-            OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-            try:
-                toast = OP.wait_toast('//android.widget.Toast')
-                print(toast)
-            except(NoSuchElementException, TimeoutException):
-                pass
-            time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/cancel').click()
-            time.sleep(2)
-            #退出收藏列表界面
-            OP.back()
-        except:
-            OP.find_xpath('您还没有收藏任何素材哦~')
-            print("我的收藏为空")
-            time.sleep(1)
-            OP.back()  # 返回素材列表界面
+        '''点击声鉴按钮'''
+        OP.find_id('com.happyteam.dubbingshow:id/sj')
+        OP.find_id('com.happyteam.dubbingshow:id/sj').click()
         time.sleep(1)
 
+        '''
+        判断是否显示的是声鉴结果页面，是则点击重新鉴定按钮
+        '''
+        try:
+            OP.find_id('com.happyteam.dubbingshow:id/reIndetify')
+            OP.find_id('com.happyteam.dubbingshow:id/reIndetify').click()
+        except:
+            pass
+        time.sleep(1)
+
+        '''
+        选择性别男
+        '''
+        OP.find_id('com.happyteam.dubbingshow:id/boy').click()
+        time.sleep(1)
+
+        '''
+        选择性别女
+        '''
+        OP.find_id('com.happyteam.dubbingshow:id/girl').click()
+        time.sleep(1)
+
+        '''
+        循环三次点击换一个按钮
+        '''
+        for i in range(3):
+            OP.find_id('com.happyteam.dubbingshow:id/change').click()
+        OP.back()
+        time.sleep(2)
+
+        #     '''
+        #     点击配音按钮
+        #     '''
+        #     OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
+        #     time.sleep(2)
+        #
+        #     '''
+        #     若显示权限弹窗，则点击允许
+        #     '''
+        #     try:
+        #         OP.wait_xpath('允许')
+        #         OP.find_xpath('允许').click()
+        #         time.sleep(2)
+        #     except:
+        #         pass
+        #
+        #     '''
+        #     点击录音按钮，录制10秒进入声鉴结果界面
+        #     '''
+        #     OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
+        #     time.sleep(20)
+        #     OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
+        #
+        #
+        #     '''
+        #     等待跳转至声鉴结果界面
+        #     '''
+        #     for i in range(5):
+        #         try:
+        #             OP.wait_xpath('您的声鉴报告')
+        #             print('跳转至声鉴结果界面')
+        #             break
+        #         except(NoSuchElementException,TimeoutException):
+        #             print('界面跳转失败')
+        #             time.sleep(1)
+        #             OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
+        #             time.sleep(10)
+        #             OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
+        #         time.sleep(1)
+        #
+        #     time.sleep(2)
+        #     '''获取视频标题'''
+        #     Name = OP.find_id('com.happyteam.dubbingshow:id/title').text
+        #     print(Name)
+        #     time.sleep(2)
+        #     '''播放视频'''
+        #     OP.find_id('com.happyteam.dubbingshow:id/play').click()
+        #     time.sleep(5)
+        #     device().keyevent(3)
+        #     time.sleep(2)
+        #     device().launch_app()
+        #     time.sleep(2)
+        #     '''点击素材来源'''
+        #     OP.find_id('com.happyteam.dubbingshow:id/source_from').click()
+        #     try:
+        #         OP.wait_id('com.happyteam.dubbingshow:id/txtKeyword')
+        #         time.sleep(2)
+        #         OP.back()
+        #     except(NoSuchElementException, TimeoutException):
+        #         pass
+        #     '''
+        #     点击配音按钮进入配音界面
+        #     '''
+        #     for i in range(5):
+        #         OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
+        #         try:
+        #             OP.wait_download('com.happyteam.dubbingshow:id/action')
+        #             time.sleep(1)
+        #             OP.back()
+        #             time.sleep(1)
+        #             OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+        #             break
+        #         except(NoSuchElementException,TimeoutException):
+        #             try:
+        #                 OP.find_id('com.happyteam.dubbingshow:id/action1')
+        #                 OP.find_id('com.happyteam.dubbingshow:id/action1').click()
+        #                 time.sleep(1)
+        #                 OP.back()
+        #                 time.sleep(1)
+        #                 OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+        #                 break
+        #             except:
+        #                 print('素材下载失败')
+        #         time.sleep(2)
+        #     '''上滑加载列表'''
+        #     for i in range(3):
+        #         OP.swip_up()
+        #         time.sleep(3)
+        #         Names = OP.find_ids('com.happyteam.dubbingshow:id/title')
+        #         Name_list = []
+        #         for i in range(len(Names)):
+        #             name = OP.find_ids('com.happyteam.dubbingshow:id/title')[i].text
+        #             Name_list.append(name)
+        #             time.sleep(1)
+        #         print(Name_list)
+        #         time.sleep(2)
+        #     '''
+        #     返回到素材库界面
+        #     '''
+        #     OP.back()
+        # except :
+        #     print('素材库加载失败')
+        #     time.sleep(1)
+        #     device().close()
+        #     time.sleep(1)
+        #     device().quit()
 
     '''分类列表'''
     def classification(self):
@@ -316,49 +194,62 @@ class Libery():
             time.sleep(1)
             OP.find_ids('com.happyteam.dubbingshow:id/img')[i].click()
             try:
-                OP.wait_id('com.happyteam.dubbingshow:id/iv_pic1')
+                OP.wait_id('com.happyteam.dubbingshow:id/tv')
+                '''获取合集界面中素材频道列表'''
+                TVs = OP.find_ids('com.happyteam.dubbingshow:id/tv')
+                Tv_Name_list = []
+                for i in range(len(TVs)):
+                    Tv_name = OP.find_ids('com.happyteam.dubbingshow:id/tv')[i].text
+                    Tv_Name_list.append(Tv_name)
+                print(Tv_Name_list)
+
+                '''点击进入素材频道详情界面再返回'''
                 time.sleep(1)
-                OP.find_xpath('最近更新').click()
+                for i in range(len(TVs)):
+                    OP.find_ids('com.happyteam.dubbingshow:id/tv')[i].click()
+                    OP.wait_id('com.happyteam.dubbingshow:id/tag_name')
+                    time.sleep(2)
+                    OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
+                    time.sleep(2)
+
+                '''点击热门频道标签'''
+                time.sleep(1)
+                OP.find_id('com.happyteam.dubbingshow:id/tv1').click()
+                OP.wait_id('com.happyteam.dubbingshow:id/txtTitle')
+                while True:
+                    count = OP.find_ids('com.happyteam.dubbingshow:id/rank_pos')[-1].text
+                    OP.swip_up()
+                    time.sleep(2)
+                    count1 = OP.find_ids('com.happyteam.dubbingshow:id/rank_pos')[-1].text
+                    if count ==count1:
+                        break
+                    else:
+                        OP.swip_up()
+                    time.sleep(2)
+                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
                 time.sleep(2)
-                OP.find_xpath('最新上架').click()
-                time.sleep(2)
+
+                '''点击筛选条件选项'''
                 Tv_list = OP.find_ids('com.happyteam.dubbingshow:id/types_name')
-                for i in range(len(Tv_list)):
-                    i -= 1
+                for i in reversed(range(len(Tv_list))):
                     OP.find_ids('com.happyteam.dubbingshow:id/types_name')[i].click()
                     time.sleep(2)
 
-                # 点击图片
-                OP.find_id('com.happyteam.dubbingshow:id/iv_pic1').click()
-                try:
-                    OP.wait_id('com.happyteam.dubbingshow:id/iv_movie')
-                    Tv_list = OP.find_ids('com.happyteam.dubbingshow:id/types_name')
-                    for i in range(len(Tv_list)):
-                        i -= 1
-                        OP.find_ids('com.happyteam.dubbingshow:id/types_name')[i].click()
-                        time.sleep(2)
-
-                    OP.back()
-                    OP.find_id('com.happyteam.dubbingshow:id/iv_pic1').click()
-                    time.sleep(3)
-                    # 点击进入素材详情
-                    OP.find_id('com.happyteam.dubbingshow:id/iv_source').click()
-                    OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-                    time.sleep(5)
-                    OP.back()  # 返回剧集列表界面
-                    time.sleep(2)
-                except(NoSuchElementException, TimeoutException):
-                    OP.back()
+                # 点击进入素材详情
+                OP.find_id('com.happyteam.dubbingshow:id/iv_source').click()
+                OP.wait_id('com.happyteam.dubbingshow:id/userhead')
+                time.sleep(5)
+                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
                 time.sleep(2)
-                OP.back()  # 返回电影分类界面
+                '''退出合辑详情界面'''
+                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
                 time.sleep(2)
-                OP.back()  # 返回素材库界面
             except:
-                print ('剧集详情加载失败')
+                print (name,'详情加载失败')
                 time.sleep(2)
                 OP.back()
 
-    '''素材列表'''
+    '''素材库界面素材列表'''
     def Material_list(self):
         OP.wait_xpath('男')
         print("点击角色男")
@@ -378,7 +269,7 @@ class Libery():
         time.sleep(2)
 
         print("点击收录")
-        OP.find_xpath('最新收录').click()
+        OP.find_xpath('最新').click()
         time.sleep(2)
 
         print("点击不限")
@@ -398,7 +289,7 @@ class Libery():
         time.sleep(2)
 
 
-        num =random.randint(1,10)
+        num =random.randint(5,10)
         print("上滑:",num,"次")
         for i in range(num):
             #上滑
@@ -417,7 +308,6 @@ class Libery():
         try:
             OP.find_id('com.happyteam.dubbingshow:id/userhead')
             time.sleep(5)
-
             print("点击头像进入个人空间")
             OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
             try:
@@ -429,10 +319,13 @@ class Libery():
                 time.sleep(1)
 
             time.sleep(2)
-            print ('素材来源')
-            OP.find_id('com.happyteam.dubbingshow:id/source_from').click()
+            '''素材频道标签'''
             try:
-                OP.wait_id('com.happyteam.dubbingshow:id/iv_source')
+                OP.find_id('com.happyteam.dubbingshow:id/types_name').click()
+                OP.wait_id('com.happyteam.dubbingshow:id/tag_name')
+                time.sleep(2)
+                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
+                time.sleep(2)
                 '''获取素材标题'''
                 Source_names = OP.find_ids('com.happyteam.dubbingshow:id/tv_source_title')
                 Name_list = []
@@ -441,22 +334,21 @@ class Libery():
                     Name_list.append(Name)
                     time.sleep(0.5)
                 print (Name_list)
-                time.sleep(1)
-                '''返回素材视频详情'''
-                OP.back()
             except(NoSuchElementException,TimeoutException):
-                print ('界面加载失败')
+                print ('该素材暂无素材频道标签')
                 time.sleep(2)
-                OP.back()
             time.sleep(2)
 
-            try:
-                OP.find_id('com.happyteam.dubbingshow:id/rank_img')
-                OP.find_id('com.happyteam.dubbingshow:id/rank_img').click()
-                print("点击排行榜用户头像进入视频详情")
+
+            user_name = OP.find_id('com.happyteam.dubbingshow:id/name1').text
+            name = '未上榜'
+            if user_name == name:
+                print('该素材暂无用户配音')
+            else:
+                OP.find_id('com.happyteam.dubbingshow:id/name1').click()
                 OP.wait_id('com.happyteam.dubbingshow:id/gift')
-                time.sleep(4)
-                OP.back()
+                time.sleep(2)
+                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
                 time.sleep(2)
                 '''上滑排行榜'''
                 OP.swip_up()
@@ -464,21 +356,23 @@ class Libery():
                 User_name = OP.find_ids('com.happyteam.dubbingshow:id/title')
                 Name_list = []
                 for i in range(len(User_name)):
-                    Name = OP.find_ids('com.happyteam.dubbingshow:id/title')[i].text
+                    Name = OP.find_ids('com.happyteam.dubbingshow:id/nickname')[i].text
                     Play_count = OP.find_ids('com.happyteam.dubbingshow:id/play_count')[i].text
                     Name_list.append(Name)
                     Name_list.append(Play_count)
                     time.sleep(1)
                 print (Name_list)
                 time.sleep(2)
-            except(NoSuchElementException,TimeoutException):
-                time.sleep(2)
-                OP.back()
+
+            '''点击收藏按钮'''
+            OP.find_xpath('收藏').click()
+            try:
+                toast = OP.wait_toast('//android.widget.Toast')
+                print(toast)
+            except:
+                pass
             time.sleep(1)
 
-            print("点击收藏按钮")
-            OP.find_xpath('收藏').click()
-            time.sleep(1)
 
             print("转发按钮")
             OP.find_id('com.happyteam.dubbingshow:id/zhuanfa_fake').click()
@@ -539,6 +433,7 @@ class Libery():
         time.sleep(2)
 
         print("点击合作分类")
+        OP.swip_down()
         OP.find_xpath('合作').click()
         time.sleep(2)
 
@@ -586,68 +481,60 @@ class Libery():
         OP.find_id('com.happyteam.dubbingshow:id/tv_search').click()
         time.sleep(2)
         print("点击热搜榜")
-        OP.find_id('com.happyteam.dubbingshow:id/hothead').click()
+        OP.find_id('com.happyteam.dubbingshow:id/tv1').click()
         time.sleep(2)
+        OP.wait_id('com.happyteam.dubbingshow:id/txtTitle')
+        '''获取热搜榜信息'''
+        list = OP.find_ids('com.happyteam.dubbingshow:id/rank_name')
+        Name_list = []
+        for i in range(len(list)):
+            Name = OP.find_ids('com.happyteam.dubbingshow:rank_name')[i].text
+            count = OP.find_ids('com.happyteam.dubbingshow:id/rank_count')[i].text
+            Name_list.append(Name)
+            Name_list.append(count)
+            time.sleep(0.5)
+        print(Name_list)
+        time.sleep(2)
+        OP.find_id('com.happyteam.dubbingshow:id/tv').click()
         try:
-            OP.wait_id('com.happyteam.dubbingshow:id/rank')
-            '''获取热搜榜信息'''
-            list = OP.find_ids('com.happyteam.dubbingshow:id/name')
-            Name_list = []
-            for i in range(len(list)):
-                Name = OP.find_ids('com.happyteam.dubbingshow:id/name')[i].text
-                Name_list.append(Name)
-                time.sleep(0.5)
-            print (Name_list)
+            OP.find_id('com.happyteam.dubbingshow:id/img_bottom')
             time.sleep(2)
-            print("点击排行榜第二个")
-            OP.find_xpath('2 nd').click()
+            '''点击搜索框清除按钮'''
+            OP.find_id('com.happyteam.dubbingshow:id/btnClear').click()
+        except(NoSuchElementException, TimeoutException):
             try:
-                OP.wait_id('com.happyteam.dubbingshow:id/iv_source')
-                print("点击进入素材详情")
-                OP.find_id('com.happyteam.dubbingshow:id/tv_source_title').click()
-                OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-                time.sleep(5)
-                OP.back()
-                time.sleep(2)
-                print("点击搜索框清除按钮")
-                OP.find_id('com.happyteam.dubbingshow:id/btnClear').click()
-            except(NoSuchElementException,TimeoutException):
-                print ('界面跳转失败')
+                OP.find_id('com.happyteam.dubbingshow:id/iv_source')
+            except:
+                print('搜索无结果')
                 OP.find_id('com.happyteam.dubbingshow:id/btnClear')
+        time.sleep(2)
 
-        except(NoSuchElementException,TimeoutException):
-            print ('界面跳转失败')
-            OP.find_id('com.happyteam.dubbingshow:id/btnClear')
-
-        time.sleep(2)
-        print("点击热搜词")
-        try:
-            OP.find_ids('com.happyteam.dubbingshow:id/textView1')[1]
-            OP.find_ids('com.happyteam.dubbingshow:id/textView1')[1].click()
-        except:
-            pass
-        time.sleep(2)
-        print("点击搜索框清除按钮")
-        OP.find_id('com.happyteam.dubbingshow:id/btnClear').click()
+        '''点击更多热点'''
+        OP.find_id('com.happyteam.dubbingshow:id/tv1').click()
+        OP.wait_id('com.happyteam.dubbingshow:id/txtTitle')
+        Names = OP.find_ids('com.happyteam.dubbingshow:id/rank_name')
+        Name_list = []
+        count_list = []
+        for i in range(len(Names)):
+            name = OP.find_ids('com.happyteam.dubbingshow:id/rank_name')[i].text
+            count = OP.find_ids('com.happyteam.dubbingshow:id/rank_count')[i].text
+            Name_list.append(name)
+            count_list.append(count)
+            time.sleep(0.5)
+        list = dict(zip(Name_list,count_list))
+        print(list)
         time.sleep(1)
-        OP.find_ids('com.happyteam.dubbingshow:id/textView2')[1].click()
+        OP.back()
         time.sleep(2)
-        print("点击搜索框清除按钮")
-        OP.find_id('com.happyteam.dubbingshow:id/btnClear').click()
-        time.sleep(1)
         try:
             OP.find_xpath('全部搜索记录')
-            print("点击全部搜索记录")
             OP.find_xpath('全部搜索记录').click()
             time.sleep(1)
-            print("点击清除历史记录")
-            OP.find_xpath('清除历史记录').click()
+            OP.find_xpath('清空历史记录').click()
             time.sleep(1)
-            print("返回素材库")
             OP.back()
         except:
-            print("点击清除历史记录")
-            OP.find_xpath('清除历史记录').click()
+            OP.find_xpath('清空历史记录').click()
             time.sleep(1)
             print("返回素材库")
             OP.back()
@@ -814,7 +701,7 @@ class Libery():
                     OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
                     time.sleep(2)
                     try:
-                        OP.wait_download('com.happyteam.dubbingshow:id/exposure')
+                        OP.wait_xpath('上传作品成功！')
                         print("作品上传成功")
                         time.sleep(2)
                         OP.find_id('com.happyteam.dubbingshow:id/close').click()
@@ -828,7 +715,10 @@ class Libery():
                         print("保存草稿箱")
                         time.sleep(2)
                         OP.find_id('com.happyteam.dubbingshow:id/saveToDraft').click()
-                        time.sleep(2)
+                        time.sleep(1)
+                        OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+                        save_toast = OP.wait_toast('//android.widget.toast')
+                        print(save_toast)
                 except(NoSuchElementException,TimeoutException):
                     print("预览界面->上传界面跳转失败")
             except(NoSuchElementException,TimeoutException):
@@ -924,7 +814,6 @@ if __name__=="__main__":
     L = Libery()
     L.Libery_list()
     # L.Sound_warning()
-    L.My_collection()
     L.classification()
     L.Material_list()
     L.Search_source()

@@ -877,7 +877,8 @@ class Home_Hot():
                 try:
                     OP.wait_id('com.happyteam.dubbingshow:id/fanscount')
                     time.sleep(3)
-                    OP.back()
+                    OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
+                    time.sleep(2)
                 except(NoSuchElementException,TimeoutError):
                     print('空间加载失败')
                     time.sleep(2)
@@ -891,16 +892,16 @@ class Home_Hot():
                 time.sleep(2)
             except(NoSuchElementException,TimeoutError):
                 pass
-            print('上滑切换视频')
+            print('上滑作品列表')
             for i in range(10):
                 OP.swip_up()
                 time.sleep(2)
             time.sleep(2)
         except(NoSuchElementException,TimeoutError):
             print('搜索结果为空')
-        time.sleep(2)
+        time.sleep(3)
         print('用户搜索')
-        OP.find_id('com.happyteam.dubbingshow:id/ll_user').click()
+        OP.find_id('com.happyteam.dubbingshow:id/tv_user').click()
         time.sleep(4)
         try:
             OP.find_id('com.happyteam.dubbingshow:id/userhead')
@@ -1003,14 +1004,14 @@ class Home_Hot():
 def run():
     H = Home_Hot()
     H.Home_load()
-    # H.Home_List()
-    # H.Open_Video()
-    # H.Play_video()
-    # H.Comment()
-    # H.share()
-    # H.Gift_List()
-    # H.Dubbing()
-    # H.Swip()
+    H.Home_List()
+    H.Open_Video()
+    H.Play_video()
+    H.Comment()
+    H.share()
+    H.Gift_List()
+    H.Dubbing()
+    H.Swip()
     H.Search()
     # try:
     #
