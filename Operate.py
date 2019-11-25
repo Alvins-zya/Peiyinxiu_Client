@@ -160,6 +160,24 @@ class BaseOperate():
         xpath_elemnt = ("//android.widget.TextView[@text = '%s']" % xpath)
         el =  self.driver.find_elements_by_xpath(xpath_elemnt)
         return el
+    def find_xpaths_class(self,xpath):
+        '''
+        获取原生的xpath控件列表
+        :param xpath:
+        :return:
+        '''
+        xpath_elemnts = self.driver.find_elements_by_xpath(xpath)
+        return xpath_elemnts
+
+    def find_xpath_class(self,xpath):
+        '''
+        使用原生的单个xpath控件
+        :param xpath:
+        :return:
+        '''
+        xpath_element = self.driver.find_element_by_xpath(xpath)
+        return xpath_element
+
 
     def wait_ids(self,id):
         '''

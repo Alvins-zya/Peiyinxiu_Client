@@ -191,63 +191,66 @@ class Libery():
         for i in range(len(Classify)):
             Name = OP.find_ids('com.happyteam.dubbingshow:id/tv')[i].text
             print (Name)
+            time.sleep(2)
+            for x in range(3):
+                OP.find_ids('com.happyteam.dubbingshow:id/img')[i].click()
+                try:
+                    OP.wait_id('com.happyteam.dubbingshow:id/tv')
+                    break
+                except:
+                    print (name,'详情加载失败')
+                    time.sleep(2)
+                    OP.back()
+            time.sleep(2)
+            '''获取合集界面中素材频道列表'''
+            TVs = OP.find_ids('com.happyteam.dubbingshow:id/tv')
+            Tv_Name_list = []
+            for i in range(len(TVs)):
+                Tv_name = OP.find_ids('com.happyteam.dubbingshow:id/tv')[i].text
+                Tv_Name_list.append(Tv_name)
+            print(Tv_Name_list)
+
+            '''点击进入素材频道详情界面再返回'''
             time.sleep(1)
-            OP.find_ids('com.happyteam.dubbingshow:id/img')[i].click()
-            try:
-                OP.wait_id('com.happyteam.dubbingshow:id/tv')
-                '''获取合集界面中素材频道列表'''
-                TVs = OP.find_ids('com.happyteam.dubbingshow:id/tv')
-                Tv_Name_list = []
-                for i in range(len(TVs)):
-                    Tv_name = OP.find_ids('com.happyteam.dubbingshow:id/tv')[i].text
-                    Tv_Name_list.append(Tv_name)
-                print(Tv_Name_list)
+            for i in range(len(TVs)):
+                OP.find_ids('com.happyteam.dubbingshow:id/tv')[i].click()
+                OP.wait_id('com.happyteam.dubbingshow:id/tag_name')
+                time.sleep(2)
+                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
+                time.sleep(2)
 
-                '''点击进入素材频道详情界面再返回'''
-                time.sleep(1)
-                for i in range(len(TVs)):
-                    OP.find_ids('com.happyteam.dubbingshow:id/tv')[i].click()
-                    OP.wait_id('com.happyteam.dubbingshow:id/tag_name')
-                    time.sleep(2)
-                    OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
-                    time.sleep(2)
-
-                '''点击热门频道标签'''
-                time.sleep(1)
-                OP.find_id('com.happyteam.dubbingshow:id/tv1').click()
-                OP.wait_id('com.happyteam.dubbingshow:id/txtTitle')
-                while True:
-                    count = OP.find_ids('com.happyteam.dubbingshow:id/rank_pos')[-1].text
+            '''点击热门频道标签'''
+            time.sleep(1)
+            OP.find_id('com.happyteam.dubbingshow:id/tv1').click()
+            OP.wait_id('com.happyteam.dubbingshow:id/txtTitle')
+            while True:
+                count = OP.find_ids('com.happyteam.dubbingshow:id/rank_pos')[-1].text
+                OP.swip_up()
+                time.sleep(2)
+                count1 = OP.find_ids('com.happyteam.dubbingshow:id/rank_pos')[-1].text
+                if count == count1:
+                    break
+                else:
                     OP.swip_up()
-                    time.sleep(2)
-                    count1 = OP.find_ids('com.happyteam.dubbingshow:id/rank_pos')[-1].text
-                    if count ==count1:
-                        break
-                    else:
-                        OP.swip_up()
-                    time.sleep(2)
-                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
-                time.sleep(2)
+                time.sleep(1)
+            OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
+            time.sleep(2)
 
-                '''点击筛选条件选项'''
-                Tv_list = OP.find_ids('com.happyteam.dubbingshow:id/types_name')
-                for i in reversed(range(len(Tv_list))):
-                    OP.find_ids('com.happyteam.dubbingshow:id/types_name')[i].click()
-                    time.sleep(2)
+            '''点击筛选条件选项'''
+            Tv_list = OP.find_ids('com.happyteam.dubbingshow:id/types_name')
+            for i in reversed(range(len(Tv_list))):
+                OP.find_ids('com.happyteam.dubbingshow:id/types_name')[i].click()
+                time.sleep(1)
 
-                # 点击进入素材详情
-                OP.find_id('com.happyteam.dubbingshow:id/iv_source').click()
-                OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-                time.sleep(5)
-                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
-                time.sleep(2)
-                '''退出合辑详情界面'''
-                OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
-                time.sleep(2)
-            except:
-                print (name,'详情加载失败')
-                time.sleep(2)
-                OP.back()
+            # 点击进入素材详情
+            OP.find_id('com.happyteam.dubbingshow:id/iv_source').click()
+            OP.wait_id('com.happyteam.dubbingshow:id/userhead')
+            time.sleep(5)
+            OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
+            time.sleep(2)
+            '''退出合辑详情界面'''
+            OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
+            time.sleep(2)
 
     '''素材库界面素材列表'''
     def Material_list(self):
@@ -477,26 +480,13 @@ class Libery():
 
     '''素材库搜索素材'''
     def Search_source(self):
-        print("点击素材库中的搜索")
+        '''点击素材库中的搜索'''
         OP.find_id('com.happyteam.dubbingshow:id/tv_search').click()
-        time.sleep(2)
-        print("点击热搜榜")
-        OP.find_id('com.happyteam.dubbingshow:id/tv1').click()
-        time.sleep(2)
-        OP.wait_id('com.happyteam.dubbingshow:id/txtTitle')
-        '''获取热搜榜信息'''
-        list = OP.find_ids('com.happyteam.dubbingshow:id/rank_name')
-        Name_list = []
-        for i in range(len(list)):
-            Name = OP.find_ids('com.happyteam.dubbingshow:rank_name')[i].text
-            count = OP.find_ids('com.happyteam.dubbingshow:id/rank_count')[i].text
-            Name_list.append(Name)
-            Name_list.append(count)
-            time.sleep(0.5)
-        print(Name_list)
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/tv').click()
         try:
+            OP.wait_id('com.happyteam.dubbingshow:id/rl_left2')
+            '''显示素材剧集列表'''
             OP.find_id('com.happyteam.dubbingshow:id/img_bottom')
             time.sleep(2)
             '''点击搜索框清除按钮'''
@@ -504,6 +494,8 @@ class Libery():
         except(NoSuchElementException, TimeoutException):
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/iv_source')
+                time.sleep(1)
+                OP.find_id('com.happyteam.dubbingshow:id/btnClear').click()
             except:
                 print('搜索无结果')
                 OP.find_id('com.happyteam.dubbingshow:id/btnClear')
@@ -526,18 +518,9 @@ class Libery():
         time.sleep(1)
         OP.back()
         time.sleep(2)
-        try:
-            OP.find_xpath('全部搜索记录')
-            OP.find_xpath('全部搜索记录').click()
-            time.sleep(1)
-            OP.find_xpath('清空历史记录').click()
-            time.sleep(1)
-            OP.back()
-        except:
-            OP.find_xpath('清空历史记录').click()
-            time.sleep(1)
-            print("返回素材库")
-            OP.back()
+        '''清空搜索历史记录'''
+        OP.find_id('com.happyteam.dubbingshow:id/clear').click()
+        OP.back()
         time.sleep(2)
 
     '''合作广场'''
@@ -698,8 +681,6 @@ class Libery():
                     print("点击上传作品")
                     OP.find_id('com.happyteam.dubbingshow:id/uploadbtn').click()
                     time.sleep(2)
-                    OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-                    time.sleep(2)
                     try:
                         OP.wait_xpath('上传作品成功！')
                         print("作品上传成功")
@@ -813,7 +794,7 @@ class Libery():
 if __name__=="__main__":
     L = Libery()
     L.Libery_list()
-    # L.Sound_warning()
+    L.Sound_warning()
     L.classification()
     L.Material_list()
     L.Search_source()
