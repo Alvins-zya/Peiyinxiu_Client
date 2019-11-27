@@ -85,6 +85,14 @@ class BaseOperate():
         el = self.driver.find_element_by_class_name(id)
         return el
 
+    def finds_class(self,classes):
+        '''
+        查找复数的class
+        :return:
+        '''
+        el = self.driver.find_elements_by_class_name(classes)
+        return el
+
     def wait_id(self,id):
         '''
         等待元素
