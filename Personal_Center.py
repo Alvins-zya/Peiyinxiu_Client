@@ -2,16 +2,14 @@
 # Time  ：2019年03月26日
 # coding = utf-8
 import random
-from appium import webdriver
 import time
-from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
 # 获取当前项目的根路径
 PATH = lambda p: os.path.abspath(os.path.join(os.path.dirname(__file__), p))
 from Peiyinxiu_Client.Operate import BaseOperate
 from Peiyinxiu_Client.devices import device
-import Interface.USER.API
+import Peiyinxiu_Client.API
 from pprint import pprint
 from math import ceil
 OP = BaseOperate()
@@ -23,7 +21,7 @@ devc = device()
 class My_Zoom():
     '''个人等级'''
     def __init__(self):
-        self.API = Interface.USER.API
+        self.API = Peiyinxiu_Client.API
 
     def Grade(self):
         try:

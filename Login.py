@@ -5,16 +5,15 @@ time:2019年6月3日
 function:Login
 
 New:
-time:2019年9月29日
-function:新增接口返回数据结果与UI界面获取数据结果对比功能
-
+time:2019年12月5日15:12:02
+function:优化首次启动时界面UI显示
 '''
 import os
 import time
 from appium.webdriver.common.touch_action import TouchAction
 from Peiyinxiu_Client.devices import device,dev
 from Peiyinxiu_Client.Operate import BaseOperate
-import Interface.USER.API
+ # import Peiyinxiu_Client.API
 
 OP = BaseOperate()
 x = OP.touch()[0]
@@ -23,11 +22,21 @@ touch = device()
 D = dev
 
 class Login():
-    def __init__(self):
-        self.API = Interface.USER.API
+    # def __init__(self):
+    #     self.API = Peiyinxiu_Client.API
     def Main_interface(self):
-        OP.wait_download('com.happyteam.dubbingshow:id/btnSubmit')
-        print('显示温馨提示弹窗')
+        OP.wait_download('com.happyteam.dubbingshow:id/save')
+        OP.find_id('com.happyteam.dubbingshow:id/man').click()
+        time.sleep(2)
+        OP.find_id('com.happyteam.dubbingshow:id/women').click()
+        time.sleep(2)
+        for i in reversed(range(1,9)):
+            OP.find_id('com.happyteam.dubbingshow:id/text%s'%(i)).click()
+            age_name = OP.find_id('com.happyteam.dubbingshow:id/text%s'%(i)).text
+            print(age_name)
+        time.sleep(2)
+        OP.find_id('com.happyteam.dubbingshow:id/save').click()
+        time.sleep(2)
         content = OP.find_id('com.happyteam.dubbingshow:id/txtContent').text
         print(content)
         time.sleep(2)
@@ -38,6 +47,11 @@ class Login():
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
         time.sleep(2)
+        OP.find_id('com.happyteam.dubbingshow:id/ivMineTab').click()
+        time.sleep(2)
+        OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
+        time.sleep(2)
+        TouchAction(touch).press(x=0.5 * x, y=0.44 * y).release().perform()
         print('手机号登录')
         OP.find_id('com.happyteam.dubbingshow:id/phone').click()
         time.sleep(2)
@@ -59,7 +73,7 @@ class Login():
         #获取UI界面中的国家count
         country_number = len(country_name)
         #截取接口返回国家数量，与UI界面中的country_number一直，进行对比
-        country_list = self.API.get_country('', 0)
+        # country_list = self.API.get_country('', 0)
         Interface_country_name = country_list[0]#国家列表
         # Interface_country_code = country_list[1]#区号列表
         # print(Interface_country_name)
@@ -76,7 +90,7 @@ class Login():
         time.sleep(1)
         OP.find_id('com.happyteam.dubbingshow:id/btn_search').click()
         time.sleep(2)
-        Interface_search_country = self.API.Search_country('zg')
+        # Interface_search_country = self.API.Search_country('zg')
         OP.wait_xpath('中国')
         UI_country_name = OP.find_id('com.happyteam.dubbingshow:id/username').text
         if Interface_search_country == UI_country_name:
@@ -150,7 +164,7 @@ class Login():
                 time.sleep(1)
                 OP.find_id('com.happyteam.dubbingshow:id/tv_login').click()
                 time.sleep(4)
-                login_info = self.API.Login_history('18655449538','123456')
+                # login_info = self.API.Login_history('18655449538','123456')
                 print(login_info)
                 time.sleep(2)
                 TouchAction(touch).press(x = 0.5*x,y= 0.3*y).release().perform()

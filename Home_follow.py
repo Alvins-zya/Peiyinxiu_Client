@@ -1,17 +1,22 @@
 #coding = utf-8
 #防止中文显示乱码
 #coding = gb18030
+'''
+author:Alvins.zhu
+time:2019年6月3日
+
+New:
+time:2019年12月5日15:12:02
+function:暂无
+'''
+
+
 import random
-# from appium import webdriver
 import time
-# from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
-#获取当前项目的根路径
-# PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
 from Peiyinxiu_Client.Operate import BaseOperate
 from Peiyinxiu_Client.devices import device
-from pprint import pprint
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]

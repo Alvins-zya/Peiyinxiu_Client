@@ -38,7 +38,7 @@ class BaseOperate():
 
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
-        self.driver.swipe(0.5 * x, 0.3 * y, 0.5 * x, 0.8 * y, 300)
+        self.driver.swipe(0.5 * x, 0.3 * y, 0.5 * x, 0.8 * y, 500)
 
     def swip_left(self):
         '''

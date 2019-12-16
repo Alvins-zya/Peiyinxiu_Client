@@ -1,6 +1,16 @@
 #coding = utf-8
 #防止中文显示乱码
 #coding = gb18030
+'''
+author:Alvins.zhu
+time:2019年6月3日
+function:Login
+
+New:
+time:2019年12月5日15:12:47
+function:暂无
+'''
+
 import random
 from appium import webdriver
 import time
@@ -794,9 +804,9 @@ class Libery():
 if __name__=="__main__":
     L = Libery()
     L.Libery_list()
-    L.Sound_warning()
-    L.classification()
-    L.Material_list()
+    # L.Sound_warning()
+    # L.classification()
+    # L.Material_list()
     L.Search_source()
     L.Cooperation_square()
     print ('====结束====')

@@ -1,7 +1,14 @@
 #coding = utf-8
 #防止中文显示乱码
 #coding = gb18030
+'''
+author:Alvins.zhu
+time:2019年6月3日
 
+New:
+time:2019年12月5日15:12:02
+function:暂无
+'''
 import random
 import os,threading
 # from appium import webdriver
