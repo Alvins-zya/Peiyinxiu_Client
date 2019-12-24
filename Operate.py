@@ -128,7 +128,10 @@ class BaseOperate():
         toast_element = '%s'%xpath
         WebDriverWait(self.driver, 10,0.01).until(lambda x: self.driver.find_element_by_xpath(toast_element))
         toast = self.driver.find_element_by_xpath(toast_element).text
-        return toast
+        if toast ==True:
+            return toast
+        else:
+            print('未定位toast')
 
     def wait_download(self,id):
         '''

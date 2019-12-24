@@ -1801,14 +1801,14 @@ class Person_senter():
         info = json.loads(reqs.text)
         get_data = info['data']
         # pprint(get_data)
-        GOLD1 = [x['fanscount'] for x in get_data]
-        print(GOLD1)
+        GOLD1 = get_data['gold']
+        GOlD2 = get_data['gold2']
+        return GOLD1,GOlD2
 
 
 
 
-
-if __name__=="__main__":
+# if __name__=="__main__":
 #     Search_country('zg')
     # get_country('',0)
     # Phone_login('18072702677','123456')
@@ -1863,4 +1863,4 @@ if __name__=="__main__":
     # Person_senter().On_the_list()
     # Person_senter().My_flims()
     # Person_senter().P_sources()
-    Person_senter().gold()
+    # Person_senter().gold()
