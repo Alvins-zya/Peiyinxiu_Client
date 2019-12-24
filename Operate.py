@@ -204,3 +204,14 @@ class BaseOperate():
         tm = time.strftime("%Y-%m-%d_%H_%M_%S",time.localtime(time.time()))
         type = '.png'
         self.driver.get_screenshot_as_file("E:\\screenshots\\"+tm+type)
+
+    def search_id(self,id):
+        '''
+        查找当前界面是否存在某个ID控件
+        :return:
+        '''
+        elemets = self.driver.page_source
+        if id in elemets:
+            return True
+        else:
+            return False

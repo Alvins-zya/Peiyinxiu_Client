@@ -14,11 +14,21 @@ from pprint import pprint
 from itertools import chain
 import random
 import time
+from urllib.parse import quote
 from urllib import request
 import ssl
 from urllib import parse
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 time = int(round(time.time()*1000))#视频列表（detail_list）接口中的t参数
+
+Appkey = '193dd7cc7845df55'
+Token = '3889d15834f814edec30e9aa4695bb2f'
+UserId = '16685645'
+Sign_code = 'd62bcbe08764808e'
+Header =  {'Content-Tyoe': 'application:json',
+           'User-Agent': 'dubbingshow/9.5.470/866177036554730(android7.1.1;OPPO%20R11;25;1080*1920;official)'}
+
+
 '''
 获取国家手机区号列表信息
 '''
@@ -76,6 +86,7 @@ def Search_country(country):
     resq = requests.get(req_url,params=req_data,headers = req_headers)
     get_info = json.loads(resq.text)
     get_data = get_info['data'][0]['name']#获取接口返回的msg内容
+    # print(get_data)
     return get_data
 
 '''
@@ -1597,11 +1608,36 @@ class Person_senter():
 
         print(Names)
 
+
+    '''
+    空间中的作品搜索
+    '''
+    def Zoom_search(self,name):
+        Name = quote(name) #需要进行url编码才能正常MD5加密
+        data = 'appkey=%s&keyword=%s&pg=1&searchUserId=%s&token=%s&userId=%s|%s'%(Appkey,Name,UserId,Token,UserId,Sign_code)
+        sign = hashlib.md5(data.encode('utf-8')).hexdigest()
+        print(sign)
+
+        req_url = 'http://a.api1.peiyinxiu.com/Api/Film/SearchFilms'
+
+        req_data = {
+            'appkey' : Appkey,
+            'keyword' : name,
+            'pg' : 1,
+            'searchUserId' : UserId,
+            'token' : Token,
+            'userId' : UserId,
+            'sign' : sign
+        }
+        reqs = requests.get(req_url,params=req_data,headers = Header)
+        print(reqs.json())
+
+
     '''
     个人中心关注用户数量统计对比
     '''
 
-    def Person_Follow(spaceID, pg):
+    def Person_Follow(self,spaceID, pg):
         data = 'appkey=193dd7cc7845df55&chat=0&keyword=&pg=%s&spaceUserId=%s&token=824f319949e8ae6269556ed101fe88eb&userId=16685645|d62bcbe08764808e' % (pg, spaceID)
 
         sign = hashlib.md5(data.encode('UTF-8')).hexdigest()
@@ -1672,27 +1708,22 @@ class Person_senter():
 
     '''上榜记录列表'''
     def On_the_list(self):
-        data = 'appkey=193dd7cc7845df55&pg=1&spaceUserId=16685645&token=86492cea0f6605d6d788007ac70fe&userId=16685645|d62bcbe08764808e'
+        data = 'appkey=%s&pg=1&spaceUserId=%s&token=%s&userId=%s|%s'%(Appkey,UserId,Token,UserId,Sign_code)
 
         sign = hashlib.md5(data.encode('utf-8')).hexdigest()
-
-        req_header = {
-            'Content-Tyoe': 'application:json',
-            'User-Agent': 'dubbingshow/9.5.470/866177036554730(android7.1.1;OPPO%20R11;25;1080*1920;official)'
-        }
 
         req_url = 'http://a.api1.peiyinxiu.com/Api/RankingList/GetUserRankingRecord'
 
         req_data = {
-            'appkey':'193dd7cc7845df55',
+            'appkey':Appkey,
             'pg': 1,
-            'spaceUserId': 16685645,
-            'token': '86492cea0f6605d6d788007ac70fe',
-            'userId':16685645,
+            'spaceUserId': UserId,
+            'token': Token,
+            'userId':UserId,
             'sign': sign
         }
 
-        reqs = requests.get(req_url, params= req_data, headers = req_header)
+        reqs = requests.get(req_url, params= req_data, headers = Header)
 
         info = json.loads(reqs.text)
 
@@ -1702,28 +1733,23 @@ class Person_senter():
     个人作品
     '''
     def My_flims(self):
-        data = 'appkey=193dd7cc7845df55&pg=1&spaceUserId=16685645&token=ae710f54f00fa97c18fd52d2942f4d2c&type=0&userId=16685645|d62bcbe08764808e'
+        data = 'appkey=%s&pg=1&spaceUserId=%s&token=%s&type=0&userId=%s|%s'%(Appkey,UserId,Token,UserId,Sign_code)
 
         sign = hashlib.md5(data.encode('utf-8')).hexdigest()
-
-        req_header = {
-            'Content-Type': 'application:json',
-            'User-Agent': 'dubbingshow/9.5.470/866177036554730(android7.1.1;OPPO%20R11;25;1080*1920;official)'
-        }
 
         req_url = 'http://a.api1.peiyinxiu.com/Api/Film/GetMyFilms'
 
         req_data = {
-            'appkey': '193dd7cc7845df55',
+            'appkey': Appkey,
             'pg': 1,
-            'spaceUserId': 16685645,
-            'token': 'ae710f54f00fa97c18fd52d2942f4d2c',
+            'spaceUserId': UserId,
+            'token': Token,
             'type': 0,
-            'userId': 16685645,
+            'userId': UserId,
             'sign': sign
         }
 
-        reqs = requests.get(req_url, params=req_data, headers=req_header)
+        reqs = requests.get(req_url, params=req_data, headers=Header)
 
         info = json.loads(reqs.text)
 
@@ -1731,16 +1757,59 @@ class Person_senter():
 
         Title = [x['title'] for x in datas]
 
-        print(Title)
+        return Title
+
+    '''素材列表'''
+    def P_sources(self):
+        data = 'appkey=%s&v=9.7.492&suid=%s&uid=%s&id=0&isFilter=0&token=%s|%s'%(Appkey,UserId,UserId,Token,Sign_code)
+        print(data)
+
+        sign = hashlib.md5(data.encode('UTF-8')).hexdigest()
+
+        req_url = 'http://a.api.peiyinxiu.com/v3.0/GetMySourceList'
+
+        req_data = {
+            'appkey':Appkey,
+            'v' : '9.7.492',
+            'suid' : UserId,
+            'uid' : UserId,
+            'id' : 0,
+            'isFilter' : 0,
+            'token' : Token,
+            'sign' : sign
+        }
+
+        reqs = requests.get(req_url, params= req_data, headers = Header)
+        print(reqs.text)
 
 
+    '''获取钻石和金币余额'''
+    def gold(self):
+        data ='appkey=%s&spaceUserId=%s&token=%s&userId=%s|%s'%(Appkey,UserId,Token,UserId,Sign_code)
+        sign = hashlib.md5(data.encode('utf-8')).hexdigest()
+        req_url = 'http://a.api1.peiyinxiu.com/Api/user/GetMyInfo'
+        req_data = {
+            'appkey' :Appkey,
+            'spaceUserId' : UserId,
+            'token' : Token,
+            'userId' : UserId,
+            'sign' : sign
+        }
+
+        reqs = requests.get(req_url, params= req_data, headers = Header)
+        # print(reqs.text)
+        info = json.loads(reqs.text)
+        get_data = info['data']
+        # pprint(get_data)
+        GOLD1 = [x['fanscount'] for x in get_data]
+        print(GOLD1)
 
 
 
 
 
 if __name__=="__main__":
-    # Search_country('zg')
+#     Search_country('zg')
     # get_country('',0)
     # Phone_login('18072702677','123456')
     # Home_works()
@@ -1787,7 +1856,11 @@ if __name__=="__main__":
     # test()
     # Login_history('18655449538','1234567')
     # Person_senter().My_flims()
-    # Person_Follow()
+    # Person_senter().Person_Follow('16685645','1')
+    # Person_senter().Zoom_search('过')
     # Person_senter().My_fans()
     # Person_senter().Unions()
-    Person_senter().On_the_list()
+    # Person_senter().On_the_list()
+    # Person_senter().My_flims()
+    # Person_senter().P_sources()
+    Person_senter().gold()
