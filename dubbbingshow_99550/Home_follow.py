@@ -15,8 +15,8 @@ import random
 import time
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
-from Peiyinxiu_Client.Operate import BaseOperate
-from Peiyinxiu_Client.devices import device
+from Peiyinxiu_Client.dubbbingshow_99550.Operate import BaseOperate
+from Peiyinxiu_Client.dubbbingshow_99550.devices import device
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]
@@ -201,9 +201,7 @@ class Home_Follow():
                 OP.find_id('com.happyteam.dubbingshow:id/play').click()
                 print("点击播放视频")
                 time.sleep(5)
-                device().keyevent(3)
-                time.sleep(2)
-                device().launch_app()
+                devc.background_app(3)
                 time.sleep(2)
                 break
             except:
@@ -222,7 +220,7 @@ class Home_Follow():
         OP.find_id('com.happyteam.dubbingshow:id/item_attention_share_num').click()
         print("点击朋友圈")
         time.sleep(2)
-        TouchAction(device()).press(x=0.12 * x, y=0.68 * y).release().perform()
+        TouchAction(devc).press(x=0.12 * x, y=0.68 * y).release().perform()
         time.sleep(4)
         try:
             OP.wait_xpath('帐号')
@@ -245,7 +243,7 @@ class Home_Follow():
         OP.find_id('com.happyteam.dubbingshow:id/item_attention_share_num').click()
         time.sleep(2)
         print("点击QQ空间")
-        TouchAction(device()).press(x=0.49 * x, y=0.68 * y).release().perform()
+        TouchAction(devc).press(x=0.49 * x, y=0.68 * y).release().perform()
         time.sleep(5)
         try:
             OP.wait_xpath('发表')
@@ -262,7 +260,7 @@ class Home_Follow():
         OP.find_id('com.happyteam.dubbingshow:id/item_attention_share_num').click()
         time.sleep(2)
         print("点击新浪")
-        TouchAction(device()).press(x=0.68 * x, y=0.68 * y).release().perform()
+        TouchAction(devc).press(x=0.68 * x, y=0.68 * y).release().perform()
         time.sleep(2)
         try:
             OP.find_id('确定')
@@ -295,7 +293,7 @@ class Home_Follow():
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/item_attention_share_num').click()
         time.sleep(2)
-        TouchAction(device()).press(x=0.12 * x, y=0.83 * y).release().perform()
+        TouchAction(devc).press(x=0.12 * x, y=0.83 * y).release().perform()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/filter_edit')
             print("进入私信列表界面")
@@ -337,7 +335,7 @@ class Home_Follow():
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/item_attention_share_num').click()
         time.sleep(2)
-        TouchAction(device()).press(x=0.31 * x, y=0.83 * y).release().perform()
+        TouchAction(devc).press(x=0.31 * x, y=0.83 * y).release().perform()
         try:
             toast = OP.wait_toast('//android.widget.Toast')
             print(toast)
@@ -353,7 +351,7 @@ class Home_Follow():
         print("点击转发")
         OP.find_id('com.happyteam.dubbingshow:id/item_attention_share_num').click()
         time.sleep(2)
-        TouchAction(device()).press(x=0.88 * x, y=0.83 * y).release().perform()
+        TouchAction(devc).press(x=0.88 * x, y=0.83 * y).release().perform()
         try:
             OP.find_id('com.happyteam.dubbingshow:id/reprint')
             OP.find_id('com.happyteam.dubbingshow:id/content').send_keys("不错，转发了！")

@@ -3,9 +3,9 @@
 #coding = gb18030
 import time
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
-from Peiyinxiu_Client.Operate import BaseOperate
-from Peiyinxiu_Client.devices import device
-from pprint import pprint
+from Peiyinxiu_Client.dubbbingshow_99550.Operate import BaseOperate
+from Peiyinxiu_Client.dubbbingshow_99550.devices import device
+
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]

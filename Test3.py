@@ -2,12 +2,8 @@ import os,re
 import threading
 import multiprocessing
 from appium import webdriver
-from Peiyinxiu_Client.Multithreading import get_conn_dev
+from Peiyinxiu_Client import get_conn_dev
 from selenium.webdriver.support.ui import WebDriverWait
-import time
-
-
-
 
 D = get_conn_dev()
 

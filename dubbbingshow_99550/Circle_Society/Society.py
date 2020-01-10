@@ -6,8 +6,8 @@ import random
 import time
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
-from Peiyinxiu_Client.Operate import BaseOperate
-from Peiyinxiu_Client.devices import device
+from Peiyinxiu_Client.dubbbingshow_99550.Operate import BaseOperate
+from Peiyinxiu_Client.dubbbingshow_99550.devices import device
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]
@@ -22,7 +22,7 @@ class Corporation():
         OP.find_id('com.happyteam.dubbingshow:id/society').click()
         try:
             OP.wait_xpath('我的社团')
-            OP.screenshot()
+
         except(TimeoutException,NoSuchElementException):
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/btnReload').click()
@@ -55,7 +55,7 @@ class Corporation():
             except:
                 pass
         except:
-            OP.screenshot()
+
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
         try:
@@ -67,7 +67,7 @@ class Corporation():
         if Corp_name == check_name:
             pass
         else:
-            OP.screenshot()
+
             time.sleep(1)
             OP.back()
             print("未搜索到指定社团")
@@ -75,11 +75,11 @@ class Corporation():
         OP.find_id('com.happyteam.dubbingshow:id/username').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/membercount')
-            OP.screenshot()
+
             time.sleep(2)
             OP.back()
         except(TimeoutException,NoSuchElementException):
-            OP.screenshot()
+
             time.sleep(2)
             OP.back()
         time.sleep(2)
@@ -102,11 +102,12 @@ class Corporation():
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/btn_send').click()
                 try:
-                    OP.wait_id('com.happyteam.dubbingshow:id/btn_send')
+                    OP.wait_id('com.happyteam.dubbingshow:id/editContent')
                     time.sleep(2)
+                    print("消息发送成功")
                     OP.back()
                 except(TimeoutException,NoSuchElementException):
-                    print("消息发送成功")
+                    time.sleep(1)
                     OP.back()
             except:
                 pass
@@ -140,9 +141,9 @@ class Corporation():
         time.sleep(2)
         '''随机选择图片'''
         Photos = OP.find_ids('com.happyteam.dubbingshow:id/cb_select_tag')
-        Select_photo = random.randint(0,int(len(Photos)))
+        Select_photo = random.randint(0,int(len(Photos)-1))
         time.sleep(2)
-        OP.screenshot()
+
         time.sleep(1)
         OP.find_ids('com.happyteam.dubbingshow:id/cb_select_tag')[Select_photo].click()
         time.sleep(2)
@@ -151,7 +152,7 @@ class Corporation():
             OP.wait_id('com.happyteam.dubbingshow:id/btn_record_voice')
         except:
             print('未返回到聊天详情界面')
-            OP.screenshot()
+
         time.sleep(2)
         print('发送作品')
         Action.click()
@@ -159,7 +160,7 @@ class Corporation():
         OP.find_id('com.happyteam.dubbingshow:id/film').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/filmBg')
-            OP.screenshot()
+
             time.sleep(2)
             '''随机选择作品'''
             Films = OP.find_ids('com.happyteam.dubbingshow:id/filmBg')
@@ -184,7 +185,7 @@ class Corporation():
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/generate_red_packet').click()
         time.sleep(2)
-        OP.screenshot()
+
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
         try:
@@ -208,10 +209,10 @@ class Corporation():
                 OP.find_id('com.happyteam.dubbingshow:id/red_packet_detail_close_btn').click()
             except(TimeoutException,NoSuchElementException):
                 print("红包领取失败")
-                OP.screenshot()
+
         except(NoSuchElementException,TimeoutException):
             print("无红包")
-            OP.screenshot()
+
         time.sleep(2)
         OP.back()
         time.sleep(2)
@@ -224,7 +225,7 @@ class Corporation():
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/userHead')
             except(TimeoutException,NoSuchElementException):
-                OP.screenshot()
+
             time.sleep(2)
             try:
                 OP.find_xpath('可以分配权限给其他成员啦！')
@@ -237,7 +238,7 @@ class Corporation():
             OP.find_id('com.happyteam.dubbingshow:id/edit_profile').click()
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/society_name')
-                OP.screenshot()
+
                 Society_name = random.randint(0x4E00, 0x9FBF)
                 OP.find_id('com.happyteam.dubbingshow:id/society_name').send_keys(Society_name)
                 time.sleep(2)
@@ -252,7 +253,7 @@ class Corporation():
                     except:
                         pass
                     time.sleep(2)
-                    OP.screenshot()
+
                     time.sleep(2)
                     Tv_num = random.randint(1,20)
                     name = OP.find_ids('com.happyteam.dubbingshow:id/tv')[Tv_num].text
@@ -265,7 +266,7 @@ class Corporation():
                 except:
                     print('更多频道界面加载失败')
                     time.sleep(1)
-                    OP.screenshot()
+
                     time.sleep(1)
                     OP.back()
                 time.sleep(2)
@@ -281,14 +282,14 @@ class Corporation():
                         time.sleep(2)
                         OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
                         print("社团资料修改失败")
-                        OP.screenshot()
+
                     except:
                         pass
                 time.sleep(2)
             except(TimeoutException,NoSuchElementException):
                 print("社团编辑资料界面加载失败")
                 time.sleep(1)
-                OP.screenshot()
+
                 OP.back()
             time.sleep(2)
             Member_count = OP.find_id('com.happyteam.dubbingshow:id/member').text
@@ -719,7 +720,7 @@ class Corporation():
         OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/membercount')
-            OP.screenshot()
+
             time.sleep(2)
             OP.back()
         except(TimeoutException, NoSuchElementException):
@@ -743,7 +744,7 @@ class Corporation():
         for i in range(5):
             OP.swip_up()
             time.sleep(4)
-            OP.screenshot()
+
             time.sleep(2)
 
 

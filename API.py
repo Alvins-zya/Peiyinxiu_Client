@@ -14,7 +14,7 @@ from pprint import pprint
 from itertools import chain
 import random
 import time
-from urllib.parse import quote
+from urllib import parse
 from urllib import request
 import ssl
 from urllib import parse
@@ -29,9 +29,7 @@ Header =  {'Content-Tyoe': 'application:json',
            'User-Agent': 'dubbingshow/9.5.470/866177036554730(android7.1.1;OPPO%20R11;25;1080*1920;official)'}
 
 
-'''
-获取国家手机区号列表信息
-'''
+'''获取国家手机区号列表信息'''
 def get_country(token, UserID):
     data = 'appkey=193dd7cc7845df55&token=%s&userId=%s|d62bcbe08764808e' % (token, UserID)
     signs = hashlib.md5(data.encode(encoding='UTF-8')).hexdigest()
@@ -64,10 +62,7 @@ def get_country(token, UserID):
     return name,code
 
 
-'''
-国家区号搜索
-
-'''
+'''国家区号搜索'''
 def Search_country(country):
     data = 'appkey=193dd7cc7845df55&keywords=%s&token=&userId=0|d62bcbe08764808e'%(country)
     sign = hashlib.md5(data.encode(encoding='UTF-8')).hexdigest()
@@ -89,11 +84,8 @@ def Search_country(country):
     # print(get_data)
     return get_data
 
-'''
-用户手机号登录获取用户登录记录信息
 
-'''
-
+'''用户手机号登录获取用户登录记录信息'''
 def Login_history(phone,password):
     hmd5 = hashlib.md5(password.encode(encoding='UTF-8')).hexdigest()
     '''
@@ -127,11 +119,10 @@ def Login_history(phone,password):
     '''
     L = list(chain.from_iterable(zip(nick_name,user_id)))
     return L
-'''
-手机号登录
-'''
 
-def Phone_login():
+
+'''手机号登录'''
+def Phone_login(phone,password):
     data = 'accessToken=E10ADC3949BA59ABBE56E057F20F883E&appkey=193dd7cc7845df55&countryCode=86&mobile=18072702677&token=&type=6&uid=4655861&userId=0|d62bcbe08764808e'
     sign = hashlib.md5(data.encode('UTF-8')).hexdigest()
     req_url = "http://a.api1.peiyinxiu.com/api/User/Login"
@@ -153,9 +144,7 @@ def Phone_login():
     resq = requests.post(req_url,params = req_data,headers = req_headers)
     print(resq.text)
 
-'''
-获取首页作品列表数据
-'''
+'''获取首页作品列表数据'''
 def Home_works():
     data = 'appkey=193dd7cc7845df55&area=0&bannerGroupId=0&eventMaxId=0&gps=&isDrop=1&pg=1&t=1198&token=&userId=0|d62bcbe08764808e'
     sign = hashlib.md5(data.encode('UTF-8')).hexdigest()
@@ -189,13 +178,7 @@ def Home_works():
 
 
 
-
-
-
-
-'''
-语聊列表中房间列表数据获取
-'''
+'''语聊列表中房间列表数据获取'''
 class Chat():
     def __init__(self):
         pass
@@ -451,10 +434,7 @@ class Chat():
 
 
 
-'''
-频道列表主界面信息获取
-
-'''
+'''频道列表主界面信息获取'''
 class Channel():
     def __init__(self):
         pass
@@ -730,11 +710,7 @@ class Channel():
         Video_titles = [x ['title'] for x in datas]
         print(Video_titles)
 
-'''
-
-首页排行榜
-
-'''
+'''首页排行榜'''
 class Leaderboard():
     '''
     首页进入排行榜后获取标签榜的tagID
@@ -1124,9 +1100,7 @@ class Leaderboard():
         print(Titles)
 
 
-'''
-首页有声漫画
-'''
+'''首页有声漫画'''
 class Comic():
     '''
     有声漫画推荐界面列表信息
@@ -1377,10 +1351,7 @@ class Comic():
         print(Title)
 
 
-'''
-首页曝光区
-'''
-
+'''首页曝光区'''
 def Exposure():
 
     data = 'appkey=193dd7cc7845df55&pg=1&token=3ef54a1b9978d185d943b03edc47f552&userId=16685645|d62bcbe08764808e'
@@ -1414,54 +1385,45 @@ def Exposure():
     print(Title)
 
 
-'''
-data 坐标参数里的逗号被编码，导致无法请求成功，待解决。
-'''
+'''首页附近data 坐标参数里的逗号被编码，导致无法请求成功，待解决。(暂传坐标为空)'''
 def Near():
 
-    data = 'appkey=193dd7cc7845df55&gps=120.094985,30.308165&pg=1&t=0&token=ae710f54f00fa97c18fd52d2942f4d2c&userId=16685645|d62bcbe08764808e'
+    data = 'appkey=193dd7cc7845df55&gps=&pg=1&t=656&token=ae710f54f00fa97c18fd52d2942f4d2c&userId=16685645|d62bcbe08764808e'
 
     sign = hashlib.md5(data.encode('utf-8')).hexdigest()
 
     req_header = {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
         'Accept-Charset': 'utf-8',
         'User-Agent': 'dubbingshow/9.5.470/866177036554730(android7.1.1;OPPO%20R11;25;1080*1920;official)'
     }
 
     req_url = 'http://a.api1.peiyinxiu.com/Api/film/GetNearList?'
-
     req_data = {
         'appkey': '193dd7cc7845df55',
-        'gps': '120.094985,30.308165',
+        'gps': '',
         'pg': '1',
-        't': '0',
+        't': '656',
         'token': 'ae710f54f00fa97c18fd52d2942f4d2c',
         'userId': '16685645',
         'sign': sign
     }
-    # params = parse.urlencode(req_data)
-    # reqs = request.urlopen('http://a.api1.peiyinxiu.com/Api/film/GetNearList?%s' %(params))
-    # print(reqs.read().decode('utf-8'))
+
     reqs = requests.get(req_url, params= req_data, headers = req_header)
-    print(reqs.text)
+    # print(reqs.text)
 
-    # info = json.loads(reqs.text)
-    #
-    # datas = info['data']
-    #
-    # Title = [x ['title'] for x in datas]
-    #
-    # print(Title)
+    info = json.loads(reqs.text)
+
+    datas = info['data']
+
+    Title = [x ['title'] for x in datas]
+
+    print(Title)
 
 
-'''
-素材库合作广场
-'''
+'''素材库合作广场'''
 class Coopera():
-    '''
-    获取广场界面中待合作作品名称信息
-    '''
+    '''获取广场界面中待合作作品名称信息'''
     def Square(self):
 
         data = 'appkey=193dd7cc7845df55&pg=1&roleGender=0&token=ae710f54f00fa97c18fd52d2942f4d2c&userGender=0&userId=16685645|d62bcbe08764808e'
@@ -1495,9 +1457,7 @@ class Coopera():
 
         print(Title)
 
-    '''
-    获取合作广场热门tab下作品名称信息
-    '''
+    '''获取合作广场热门tab下作品名称信息'''
     def Hot(self):
 
         data = 'appkey=193dd7cc7845df55&pg=1&roleGender=0&token=ae710f54f00fa97c18fd52d2942f4d2c&userGender=0&userId=16685645|d62bcbe08764808e'
@@ -1531,9 +1491,7 @@ class Coopera():
 
         print(Title)
 
-    '''
-    合作广场我的界面作品名称信息
-    '''
+    '''合作广场我的界面作品名称信息'''
     def My(self):
 
         data = 'appkey=193dd7cc7845df55&cid=0&from=1&token=ae710f54f00fa97c18fd52d2942f4d2c&userId=16685645|d62bcbe08764808e'
@@ -1569,13 +1527,9 @@ class Coopera():
 
 
 
-'''
-个人中心
-'''
+'''个人中心'''
 class Person_senter():
-    '''
-    粉丝列表用户名称获取
-    '''
+    '''粉丝列表用户名称获取'''
     def My_fans(self):
         data = 'appkey=193dd7cc7845df55&id=0&spaceUserId=16685645&token=824f319949e8ae6269556ed101fe88eb&userId=16685645|d62bcbe08764808e'
 
@@ -1609,9 +1563,7 @@ class Person_senter():
         print(Names)
 
 
-    '''
-    空间中的作品搜索
-    '''
+    '''空间中的作品搜索'''
     def Zoom_search(self,name):
         Name = quote(name) #需要进行url编码才能正常MD5加密
         data = 'appkey=%s&keyword=%s&pg=1&searchUserId=%s&token=%s&userId=%s|%s'%(Appkey,Name,UserId,Token,UserId,Sign_code)
@@ -1633,10 +1585,7 @@ class Person_senter():
         print(reqs.json())
 
 
-    '''
-    个人中心关注用户数量统计对比
-    '''
-
+    '''个人中心关注用户数量统计对比'''
     def Person_Follow(self,spaceID, pg):
         data = 'appkey=193dd7cc7845df55&chat=0&keyword=&pg=%s&spaceUserId=%s&token=824f319949e8ae6269556ed101fe88eb&userId=16685645|d62bcbe08764808e' % (pg, spaceID)
 
@@ -1671,9 +1620,7 @@ class Person_senter():
 
 
 
-    '''
-    社团列表信息获取
-    '''
+    '''社团列表信息获取'''
     def Unions(self):
         data = 'appkey=193dd7cc7845df55&pg=1&spaceUserId=16685645&token=824f319949e8ae6269556ed101fe88eb&userId=16685645|d62bcbe08764808e'
 
@@ -1728,10 +1675,10 @@ class Person_senter():
         info = json.loads(reqs.text)
 
         lists = info['data']['list']
-        print(len(lists))
-    '''
-    个人作品
-    '''
+        Count = len(lists)
+        return Count
+
+    '''个人作品'''
     def My_flims(self):
         data = 'appkey=%s&pg=1&spaceUserId=%s&token=%s&type=0&userId=%s|%s'%(Appkey,UserId,Token,UserId,Sign_code)
 
@@ -1805,11 +1752,38 @@ class Person_senter():
         GOlD2 = get_data['gold2']
         return GOLD1,GOlD2
 
+    '''CP作品列表'''
+    def CP_work_list(self):
+        data = 'appkey=193dd7cc7845df55&pg=1&spaceUserId=152126607&token=cdc37115bbf173343fdcf5054f6703c8&userId=152126607|d62bcbe08764808e'
+        sign = hashlib.md5(data.encode('utf-8')).hexdigest()
+
+        req_url = 'http://101.37.152.245:9094/Api/User/GetCPFilmList'
+
+        req_data = {
+            'appkey' : Appkey,
+            'pg' : 1,
+            'spaceUserId':'152126607',
+            'token' : 'cdc37115bbf173343fdcf5054f6703c8',
+            'userId':152126607,
+            'sign' : sign
+
+        }
+
+        reqs = requests.get(req_url,params=req_data,headers = Header)
+
+        # pprint(reqs.json())
+        info = json.loads(reqs.text)
+        get_data = info['data']['film_list']
+        # pprint(get_data)
+        film = [x['film_id'] for x in get_data]
+        for item in get_data:
+            for x in item:
+                print(item[x])
 
 
 
-# if __name__=="__main__":
-#     Search_country('zg')
+if __name__=="__main__":
+    # Search_country('zg')
     # get_country('',0)
     # Phone_login('18072702677','123456')
     # Home_works()
@@ -1864,3 +1838,4 @@ class Person_senter():
     # Person_senter().My_flims()
     # Person_senter().P_sources()
     # Person_senter().gold()
+    Person_senter().CP_work_list()

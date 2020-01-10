@@ -1,10 +1,10 @@
 #coding=utf-8
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
-from Peiyinxiu_Client.Operate import BaseOperate
-from Peiyinxiu_Client.devices import device
+from Peiyinxiu_Client.dubbbingshow_99550.Operate import BaseOperate
+from Peiyinxiu_Client.dubbbingshow_99550.devices import device
 import time
-from pprint import pprint
+
 OP = BaseOperate()
 x = OP.touch()[0]
 y = OP.touch()[1]
@@ -19,7 +19,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/history').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/title')
-            OP.screenshot()
+
             time.sleep(2)
             titles = OP.find_ids('com.happyteam.dubbingshow:id/title')
             print("当前页帖子数量:", len(titles))
@@ -29,14 +29,14 @@ class Home_Circle():
                 time.sleep(2)
                 try:
                     OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-                    OP.screenshot()
+
                     time.sleep(2)
                     OP.back()
                 except(TimeoutException, NoSuchElementException):
                     try:
                         OP.find_id('com.happyteam.dubbingshow:id/btnReload')
                         time.sleep(1)
-                        OP.screenshot()
+
                         print("帖子详情加载失败")
                         OP.back()
                     except:
@@ -53,7 +53,7 @@ class Home_Circle():
                     print("点击历史清空按钮")
                     OP.find_id('com.happyteam.dubbingshow:id/tv_right').click()
                     time.sleep(2)
-                    OP.screenshot()
+
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
                 except:
@@ -62,7 +62,7 @@ class Home_Circle():
                 OP.back()
             except:
                 time.sleep(1)
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
                 time.sleep(2)
@@ -70,11 +70,11 @@ class Home_Circle():
             try:
                 Tip = OP.find_id('com.happyteam.dubbingshow:id/empty_text').text
                 print(Tip)
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
             except:
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
                 time.sleep(2)
@@ -84,14 +84,14 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/tv_key_word_help').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/tv')
-            OP.screenshot()
+
             time.sleep(2)
         except(TimeoutException, NoSuchElementException):
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/btnReload')
                 OP.find_id('com.happyteam.dubbingshow:id/btnReload').click()
                 OP.wait_id('com.happyteam.dubbingshow:id/tv')
-                OP.screenshot()
+
                 time.sleep(2)
             except:
                 pass
@@ -114,7 +114,7 @@ class Home_Circle():
         time.sleep(2)
         try:
             OP.find_id('com.happyteam.dubbingshow:id/title')
-            OP.screenshot()
+
             time.sleep(2)
             Titles = OP.find_ids('com.happyteam.dubbingshow:id/title')
             for i in range(len(Titles)):
@@ -141,7 +141,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
         try:
             OP.wait_xpath('搜索结果')
-            OP.screenshot()
+
             time.sleep(2)
             try:
                 Topics_name = OP.find_id('com.happyteam.dubbingshow:id/title').text
@@ -167,7 +167,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/send').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/image_tie')
-            OP.screenshot()
+
             time.sleep(1)
             OP.back()
         except(TimeoutException,NoSuchElementException):
@@ -179,14 +179,14 @@ class Home_Circle():
         OP.find_ids('com.happyteam.dubbingshow:id/userhead')[0].click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/tv_level')
-            OP.screenshot()
+
             time.sleep(2)
             Zoom_name = OP.find_id('com.happyteam.dubbingshow:id/username').text
             print("个人空间用户名称：", Zoom_name)
             time.sleep(2)
             OP.back()
         except(TimeoutException,NoSuchElementException):
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/btnReload').click()
             try:
@@ -211,14 +211,14 @@ class Home_Circle():
         OP.find_ids('com.happyteam.dubbingshow:id/content')[0].click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/editContent')
-            OP.screenshot()
+
             time.sleep(2)
             detail_Text = OP.find_id('com.happyteam.dubbingshow:id/content').text
             print("帖子内容：", detail_Text)
             time.sleep(2)
             OP.back()
         except(TimeoutException,NoSuchElementException):
-            OP.screenshot()
+
             time.sleep(2)
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/btnReload')
@@ -243,7 +243,7 @@ class Home_Circle():
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/action').click()
         time.sleep(1)
-        OP.screenshot()
+
         time.sleep(2)
         OP.back()
         time.sleep(2)
@@ -253,7 +253,7 @@ class Home_Circle():
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/img3').click()
                 time.sleep(2)
-                OP.screenshot()
+
                 time.sleep(2)
                 print("左滑切换图片")
                 OP.swip_left()
@@ -266,7 +266,7 @@ class Home_Circle():
                 try:
                     OP.find_id('com.happyteam.dubbingshow:id/img1').click()
                     time.sleep(2)
-                    OP.screenshot()
+
                     time.sleep(2)
                     OP.back()
                     break
@@ -277,7 +277,7 @@ class Home_Circle():
             time.sleep(1)
             while i ==9:
                 print("未找到图文帖")
-                OP.screenshot()
+
                 time.sleep(2)
                 break
         time.sleep(2)
@@ -287,7 +287,7 @@ class Home_Circle():
                 OP.find_id('com.happyteam.dubbingshow:id/playBtn').click()
                 try:
                     OP.wait_id('com.happyteam.dubbingshow:id/gift')
-                    OP.screenshot()
+
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/gift').click()
                     time.sleep(2)
@@ -313,7 +313,7 @@ class Home_Circle():
         for i in range(10):
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/play').click()
-                OP.screenshot()
+
                 time.sleep(2)
                 time.sleep(5)
                 devc.keyevent(3)
@@ -333,7 +333,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/newsTab').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/tv_key_word_help')
-            OP.screenshot()
+
             time.sleep(2)
         except(TimeoutException,NoSuchElementException):
             print("未回到圈子首页顶部")
@@ -346,13 +346,11 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/tv_key_word_help').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/tv')
-            OP.screenshot()
+
             time.sleep(2)
         except(TimeoutException, NoSuchElementException):
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/btnReload')
-                time.sleep(1)
-                OP.screenshot()
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/btnReload').click()
                 OP.wait_id('com.happyteam.dubbingshow:id/tv')
@@ -364,7 +362,6 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
         try:
             OP.wait_xpath('搜索结果')
-            OP.screenshot()
             time.sleep(2)
             titles = OP.find_ids('com.happyteam.dubbingshow:id/title')
             list = []
@@ -379,7 +376,7 @@ class Home_Circle():
             OP.find_ids('com.happyteam.dubbingshow:id/title')[check].click()
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/img_subscribe')
-                OP.screenshot()
+
                 time.sleep(2)
             except:
                 pass
@@ -388,7 +385,7 @@ class Home_Circle():
             try:
                 OP.find_xpath('热门话题')
                 print("搜索失败")
-                OP.screenshot()
+
                 time.sleep(2)
                 time.sleep(1)
                 OP.back()
@@ -400,7 +397,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/img_subscribe').click()
         try:
             toast = OP.wait_toast('//android.widget.Toast')
-            OP.screenshot()
+
             time.sleep(2)
             print(toast)
         except:
@@ -408,7 +405,7 @@ class Home_Circle():
         time.sleep(2)
         print("切换tab")
         time.sleep(10)
-        OP.screenshot()
+
         time.sleep(2)
         OP.find_xpath('热门').click()
         time.sleep(4)
@@ -417,7 +414,7 @@ class Home_Circle():
         for i in range(10):
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/img3').click()
-                OP.screenshot()
+
                 time.sleep(2)
                 time.sleep(2)
                 print("左滑切换图片")
@@ -449,7 +446,7 @@ class Home_Circle():
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/playBtn').click()
                 OP.wait_id('com.happyteam.dubbingshow:id/gift')
-                OP.screenshot()
+
                 time.sleep(2)
                 try:
                     OP.find_id('com.happyteam.dubbingshow:id/gift')
@@ -478,7 +475,7 @@ class Home_Circle():
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/play').click()
                 time.sleep(5)
-                OP.screenshot()
+
                 time.sleep(2)
                 devc.keyevent(3)
                 time.sleep(3)
@@ -498,7 +495,7 @@ class Home_Circle():
         for i in range(10):
             OP.swip_up()
             time.sleep(4)
-            OP.screenshot()
+
             time.sleep(2)
         time.sleep(2)
     '''发帖'''
@@ -506,24 +503,24 @@ class Home_Circle():
         print("发布帖子")
         OP.find_id('com.happyteam.dubbingshow:id/send').click()
         time.sleep(2)
-        OP.screenshot()
+
         time.sleep(2)
         print("发布图文帖")
         OP.find_id('com.happyteam.dubbingshow:id/image_tie').click()
         time.sleep(4)
-        OP.screenshot()
+
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/content').send_keys("就是想发个帖子！")
         time.sleep(2)
         print("点击添加图片")
         OP.find_id('com.happyteam.dubbingshow:id/pic').click()
         time.sleep(2)
-        OP.screenshot()
+
         time.sleep(2)
         print("选择相册")
         OP.find_id('com.happyteam.dubbingshow:id/tv_photo').click()
         time.sleep(3)
-        OP.screenshot()
+
         time.sleep(2)
         print("选择图片")
         OP.find_ids('com.happyteam.dubbingshow:id/cb_select_tag')[0].click()
@@ -534,7 +531,7 @@ class Home_Circle():
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/next_step_tv').click()
         time.sleep(2)
-        OP.screenshot()
+
         time.sleep(2)
         print("删除已添加的图片")
         OP.find_id('com.happyteam.dubbingshow:id/del').click()
@@ -543,13 +540,13 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/add_topic').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/tv')
-            OP.screenshot()
+
             time.sleep(2)
         except(TimeoutException,NoSuchElementException):
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/btnReload').click()
                 OP.wait_id('com.happyteam.dubbingshow:id/tv')
-                OP.screenshot()
+
                 time.sleep(2)
             except:
                 pass
@@ -559,14 +556,14 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/title')
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/title').click()
         except(TimeoutException,NoSuchElementException):
             time.sleep(1)
             OP.back()
             time.sleep(2)
-            OP.screenshot()
+
             time.sleep(2)
             devc.close_app()
         time.sleep(2)
@@ -574,7 +571,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/at').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/filter_edit').click()
             time.sleep(1)
@@ -585,7 +582,7 @@ class Home_Circle():
             OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
         except(TimeoutException,NoSuchElementException):
             time.sleep(1)
-            OP.screenshot()
+
             time.sleep(2)
             OP.back()
         time.sleep(2)
@@ -593,13 +590,13 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/right_icon1').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/img_subscribe')
-            OP.screenshot()
+
             time.sleep(2)
         except(TimeoutException,NoSuchElementException):
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/right_icon1')
                 time.sleep(1)
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
             except:
@@ -616,11 +613,11 @@ class Home_Circle():
             time.sleep(2)
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-                OP.screenshot()
+
                 time.sleep(2)
             except:
                 print("未显示删除弹窗")
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
         except(TimeoutException,NoSuchElementException):
@@ -633,14 +630,14 @@ class Home_Circle():
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/voice_tie').click()
         time.sleep(2)
-        OP.screenshot()
+
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/content').send_keys("就是想发个帖子！")
         time.sleep(2)
         print("点击录音")
         OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
         time.sleep(5)
-        OP.screenshot()
+
         time.sleep(2)
         devc.keyevent(3)
         time.sleep(2)
@@ -649,7 +646,7 @@ class Home_Circle():
         print("点击试听")
         OP.find_id('com.happyteam.dubbingshow:id/review').click()
         time.sleep(3)
-        OP.screenshot()
+
         time.sleep(2)
         devc.keyevent(3)
         time.sleep(2)
@@ -661,7 +658,7 @@ class Home_Circle():
         print("点击录音")
         OP.find_id('com.happyteam.dubbingshow:id/dubbing').click()
         time.sleep(10)
-        OP.screenshot()
+
         time.sleep(2)
         devc.keyevent(3)
         time.sleep(2)
@@ -671,20 +668,20 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/tv_right').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/play')
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/content').send_keys("就是发帖子了！")
             time.sleep(2)
             print("更换语音帖封面")
             OP.find_id('com.happyteam.dubbingshow:id/change_cover').click()
             time.sleep(1)
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/tv_photo').click()
             time.sleep(3)
             OP.find_id('com.happyteam.dubbingshow:id/photo_wall_item_photo').click()
             time.sleep(5)
-            OP.screenshot()
+
             time.sleep(2)
             print("点击播放语音")
             OP.find_id('com.happyteam.dubbingshow:id/play').click()
@@ -698,14 +695,14 @@ class Home_Circle():
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/tv')
                 time.sleep(2)
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/et_key_word').send_keys("我自己的话题")
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/com.happyteam.dubbingshow:id/btnSearch').click()
                 try:
                     OP.wait_id('com.happyteam.dubbingshow:id/title')
-                    OP.screenshot()
+
                     time.sleep(2)
                     OP.find_id('com.happyteam.dubbingshow:id/title').click()
                     time.sleep(2)
@@ -713,13 +710,13 @@ class Home_Circle():
                     time.sleep(1)
                     OP.back()
                     time.sleep(2)
-                    OP.screenshot()
+
                     time.sleep(2)
             except(TimeoutException,NoSuchElementException):
                 try:
                     OP.find_id('com.happyteam.dubbingshow:id/btnReload').click()
                     OP.wait_id('com.happyteam.dubbingshow:id/tv')
-                    OP.screenshot()
+
                     time.sleep(2)
                     OP.find_xpath('我自己的话题').click()
                     time.sleep(2)
@@ -727,7 +724,7 @@ class Home_Circle():
                     try:
                         OP.find_id('com.happyteam.dubbingshow:id/btnReload')
                         print("话题列表加载失败")
-                        OP.screenshot()
+
                         time.sleep(2)
                         devc.close_app()
                     except:
@@ -739,7 +736,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/at').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/filter_edit').click()
             time.sleep(1)
@@ -748,20 +745,20 @@ class Home_Circle():
             OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
                 time.sleep(2)
             except(NoSuchElementException,TimeoutException):
                 print("搜索失败")
                 time.sleep(1)
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
         except(NoSuchElementException,TimeoutException):
             print("关注列表加载失败")
             time.sleep(1)
-            OP.screenshot()
+
             time.sleep(2)
             OP.back()
         time.sleep(2)
@@ -769,7 +766,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/right_icon1').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/img_subscribe')
-            OP.screenshot()
+
             time.sleep(2)
         except(NoSuchElementException,TimeoutException):
             try:
@@ -777,7 +774,7 @@ class Home_Circle():
                 time.sleep(2)
                 OP.back()
                 time.sleep(1)
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/btnBack').click()
                 time.sleep(1)
@@ -789,7 +786,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/content').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/editContent')
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/right_icon1').click()
             time.sleep(2)
@@ -799,7 +796,7 @@ class Home_Circle():
                 OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
             except(NoSuchElementException,TimeoutException):
                 print("未显示删除弹窗")
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
                 time.sleep(2)
@@ -814,7 +811,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/film_tie').click()
         time.sleep(3)
         print("输入内容")
-        OP.screenshot()
+
         time.sleep(2)
         OP.find_id('com.happyteam.dubbingshow:id/content').send_keys("就是想发个帖子！")
         time.sleep(2)
@@ -822,14 +819,14 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/add_img').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/filmBg')
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/filter_edit').send_keys("配音")
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/filmBg')
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/filmBg').click()
                 time.sleep(2)
@@ -860,7 +857,7 @@ class Home_Circle():
             OP.find_id('com.happyteam.dubbingshow:id/btnSearch').click()
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/title')
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/title').click()
             except(NoSuchElementException,TimeoutException):
@@ -870,7 +867,7 @@ class Home_Circle():
             try:
                 OP.find_id('com.happyteam.dubbingshow:id/btnReload')
                 print("话题列表加载失败")
-                OP.screenshot()
+
                 time.sleep(2)
                 devc.close_app()
             except:
@@ -881,7 +878,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/at').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/filter_edit').click()
             time.sleep(1)
@@ -890,19 +887,19 @@ class Home_Circle():
             OP.find_id(('com.happyteam.dubbingshow:id/btnSearch')).click()
             try:
                 OP.wait_id('com.happyteam.dubbingshow:id/userhead')
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/userhead').click()
             except(NoSuchElementException,TimeoutException):
                 print("搜索失败")
                 time.sleep(1)
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
         except(NoSuchElementException,TimeoutException):
             print("关注列表加载失败")
             time.sleep(1)
-            OP.screenshot()
+
             time.sleep(2)
             OP.back()
         time.sleep(2)
@@ -911,7 +908,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/right_icon1').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/img_subscribe')
-            OP.screenshot()
+
             time.sleep(2)
         except(NoSuchElementException,TimeoutException):
             try:
@@ -926,7 +923,7 @@ class Home_Circle():
         OP.find_id('com.happyteam.dubbingshow:id/content').click()
         try:
             OP.wait_id('com.happyteam.dubbingshow:id/editContent')
-            OP.screenshot()
+
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/right_icon1').click()
             time.sleep(2)
@@ -937,7 +934,7 @@ class Home_Circle():
             except(NoSuchElementException,TimeoutException):
                 print("未显示删除弹窗")
                 time.sleep(2)
-                OP.screenshot()
+
                 time.sleep(2)
                 OP.back()
                 time.sleep(2)
