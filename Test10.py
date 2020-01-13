@@ -7,7 +7,7 @@ def test():
     Chat_notices()
     time.sleep(2)
     device()
-    time.sleep(2)
+    time.sleep(3)
 
 
 if __name__=="__main__":
