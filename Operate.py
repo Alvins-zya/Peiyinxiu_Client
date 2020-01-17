@@ -5,7 +5,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 import os
 from Peiyinxiu_Client.devices import device,dev
-
 class BaseOperate():
     def __init__(self):
         self.driver = device()
@@ -100,7 +99,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver,30).until_not(lambda x: self.driver.find_element_by_id(id))
+        element = WebDriverWait(self.driver,50).until_not(lambda x: self.driver.find_element_by_id(id))
         return element
 
     def wait_xpath(self,xpath):

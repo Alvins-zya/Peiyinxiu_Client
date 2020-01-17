@@ -2,7 +2,7 @@
 #防止中文显示乱码
 #coding = gb18030
 import random
-# from appium import webdriver
+from appium import webdriver
 import time
 # from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
@@ -11,6 +11,7 @@ from selenium.common.exceptions import TimeoutException,NoSuchElementException
 # PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
 from Operate import BaseOperate
 from devices import device
+devc = device()
 OP = BaseOperate()
 
 class Dubbin():
@@ -146,9 +147,13 @@ class Dubbin():
                 except:
                     pass
             try:
-                OP.wait_download('com.happyteam.dubbingshow:id/action')
+                OP.wait_id('com.happyteam.dubbingshow:id/action')
+                time.sleep(2)
                 OP.find_id('com.happyteam.dubbingshow:id/action').click()
+                OP.wait_not_id('com.happyteam.dubbingshow:id/action')
+                devc.background_app(3)
                 OP.wait_download('com.happyteam.dubbingshow:id/vol')
+
             except:
                 pass
             time.sleep(2)
@@ -166,12 +171,9 @@ class Dubbin():
                 pass
             time.sleep(2)
             OP.find_id('com.happyteam.dubbingshow:id/uploadbtn').click()
-            time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-            time.sleep(2)
             try:
-                OP.wait_download('com.happyteam.dubbingshow:id/submit')
-                OP.find_id('com.happyteam.dubbingshow:id/submit').click()
+                OP.wait_download('com.happyteam.dubbingshow:id/close')
+                OP.find_id('com.happyteam.dubbingshow:id/close').click()
             except:
                 pass
             time.sleep(2)
