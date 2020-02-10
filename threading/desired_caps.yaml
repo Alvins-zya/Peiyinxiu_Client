@@ -1,0 +1,19 @@
+- desc: 设备名称_雷电,appium启动服务端口号_4723
+  port: 4723
+  desired_caps:
+    platformName: Android
+    deviceName: 4ebc78fd
+    appPackage: com.happyteam.dubbingshow
+    noReset:  !!bool True
+    udid: 4ebc78fd
+    appActivity: ui.StartActivity
+
+- desc: 设备名称_夜神,appium启动服务端口号_4725
+  port: 4725
+  desired_caps:
+    platformName: Android
+    deviceName: f249f9f2
+    appPackage: com.happyteam.dubbingshow
+    noReset:  !!bool True
+    udid: f249f9f2
+    appActivity: ui.StartActivity
