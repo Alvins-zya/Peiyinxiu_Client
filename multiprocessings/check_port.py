@@ -43,10 +43,10 @@ def release_port(port):
         os.popen(cmd_kill)
     else:
         print('port %s is available!' % port)
-# #
-# if __name__=="__main__":
-#     host = '127.0.0.1'
-#     port = 4723
-#     check_port(host,port)
-#     time.sleep(2)
-#     release_port(port)
+#
+if __name__=="__main__":
+    host = '127.0.0.1'
+    port = 4725
+    check_port(host,port)
+    time.sleep(2)
+    release_port(port)

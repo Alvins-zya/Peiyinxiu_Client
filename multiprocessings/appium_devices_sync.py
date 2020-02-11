@@ -3,9 +3,9 @@
 create on 2020年2月9日
 @author: Alvin_zhu
 '''
-from multiprocessing.mulit_appium import appium_start
-from multiprocessing.multi_devices_sync import appium_desired
-from multiprocessing.check_port import *
+from multiprocessings.mulit_appium import appium_start
+from multiprocessings.multi_devices_sync import appium_desired
+from multiprocessings.check_port import *
 from time import sleep
 import multiprocessing
 
