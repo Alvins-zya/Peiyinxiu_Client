@@ -76,5 +76,5 @@ def devices_start_sync():
 if __name__=='__main__':
     # appium_start_sync()
 
-    devices_start_sync()
+    # devices_start_sync()
 
