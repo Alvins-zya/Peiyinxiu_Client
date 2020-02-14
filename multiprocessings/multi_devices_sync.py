@@ -41,14 +41,14 @@ def appium_desired(udid,port):
     print('1111')
     return driver
 
-desired_process = []
-
-for i in range(len(devices_list)):
-    port = 4723 + 2 *i
-
-    desired = multiprocessing.Process(target= appium_desired, args= (devices_list[i],port))
-
-    desired_process.append(desired)
+# desired_process = []
+#
+# for i in range(len(devices_list)):
+#     port = 4723 + 2 *i
+#
+#     desired = multiprocessing.Process(target= appium_desired, args= (devices_list[i],port))
+#
+#     desired_process.append(desired)
 
 
 

@@ -15,18 +15,17 @@ def check_port(host,port):
         s.connect((host,port))
         s.shutdown(2)
     except OSError as msg:
-        print('port %s is available!' % port)
+        print('%s 端口没有被其他服务占用，可以使用' % port)
         print(msg)
-        return True
+
     else:
-        print('port %s already be in use!' % port)
-        return False
+        print('%s 端口被其他服务占用了!' % port)
 
 
 
 def release_port(port):
 
-    cmd_find = 'netstat -aon | findstr %s' % port
+    cmd_find = 'netstat -aon | findstr %s' % (port)
     print(cmd_find)
 
     result = os.popen(cmd_find).read()
@@ -36,9 +35,9 @@ def release_port(port):
         start = i + len('LISTENING') + 7
         end = result.index('\n')
         pid = result[start:end]
-        print(pid)
-        time.sleep(2)
-        cmd_kill = 'taskkill -f -pid %s' % pid
+        print('pid: ', pid)
+        time.sleep(1)
+        cmd_kill ='taskkill -f -pid %s' % (pid)
         print(cmd_kill)
         os.popen(cmd_kill)
     else:
@@ -46,7 +45,7 @@ def release_port(port):
 #
 if __name__=="__main__":
     host = '127.0.0.1'
-    port = 4723
+    port = 4725
     check_port(host,port)
-    # time.sleep(2)
-    # release_port(port)
+    time.sleep(2)
+    release_port(port)

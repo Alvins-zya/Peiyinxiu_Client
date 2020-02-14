@@ -11,12 +11,12 @@ import multiprocessing
 
 devices_list = ['4ebc78fd', 'f249f9f2']
 
-def start_appium_action(host,port):
+def start_appium_action(host,port,udid):
 
 
     if check_port(host,port):
 
-        appium_start(host,port)
+        appium_start(host,port,udid)
 
         return True
 
@@ -25,11 +25,6 @@ def start_appium_action(host,port):
         print('appium %s start failed!' % port)
 
         return False
-
-def start_devices_action(udid,port):
-
-    appium_desired(udid,port)
-
 
 def appium_start_sync():
 
@@ -40,7 +35,7 @@ def appium_start_sync():
 
         port = 4723 +2*i
 
-        appium = multiprocessing.Process(target=start_appium_action,args=(host,port))
+        appium = multiprocessing.Process(target=start_appium_action,args=(host,port,devices_list[i]))
 
         appium_process.append(appium)
 
@@ -51,6 +46,10 @@ def appium_start_sync():
         appium.join()
 
     sleep(2)
+
+def start_devices_action(udid,port):
+
+    appium_desired(udid,port)
 
 def devices_start_sync():
 
@@ -76,5 +75,5 @@ def devices_start_sync():
 if __name__=='__main__':
     # appium_start_sync()
 
-    # devices_start_sync()
+    devices_start_sync()
 
