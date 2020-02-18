@@ -9,7 +9,7 @@ from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
 #获取当前项目的根路径
 # PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
-from Operate import BaseOperate
+from dubbbingshow_99550.Operate import BaseOperate
 from devices import device
 OP = BaseOperate()
 
@@ -133,7 +133,7 @@ class Dubbin():
                 try:
                     OP.wait_download('com.happyteam.dubbingshow:id/vol')
                 except(NoSuchElementException, TimeoutException):
-                    device().quit()
+                    print('跳转失败')
                 OP.wait_download('com.happyteam.dubbingshow:id/play_button')
                 time.sleep(4)
                 OP.back()
@@ -180,13 +180,13 @@ class Dubbin():
             print("=======结束========")
 
 
-if __name__=="__main__":
-    Dubbin().start_app()
-    Dubbin().start_dub()
-    i = 1
-    while i == True:
-        Dubbin().Dubbing_again()
-    device().quit()
+# if __name__=="__main__":
+#     Dubbin().start_app()
+#     Dubbin().start_dub()
+#     i = 1
+#     while i == True:
+#         Dubbin().Dubbing_again()
+#     device().quit()
 
         # mailserver = "smtp.qq.com"  # 邮箱服务器地址
         # username_send = '406096917@qq.com'  # 邮箱用户名
