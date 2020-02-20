@@ -1,0 +1,13 @@
+platformName: Android
+platformVersion: 10.0.0
+deviceName: 4ebc78fd
+appPackage: com.happyteam.dubbingshow
+appActivity: ui.StartActivity
+noReset: True
+unicodeKeyboard: True
+resetKeyboard: True
+ip: 127.0.0.1
+port: 4723
+
+
+

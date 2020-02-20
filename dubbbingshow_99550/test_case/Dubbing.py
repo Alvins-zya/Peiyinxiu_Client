@@ -1,34 +1,36 @@
 #coding = utf-8
 #防止中文显示乱码
 #coding = gb18030
-import random
 # from appium import webdriver
 import time
 # from selenium.webdriver.support.ui import WebDriverWait
-from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
 #获取当前项目的根路径
 # PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
-from dubbbingshow_99550.Operate import BaseOperate
-from devices import device
-OP = BaseOperate()
+from dubbbingshow_99550.operate.Driver_Operate import BaseOperate
+#
+# OP = BaseOperate
 
 class Dubbin():
+
+    def __init__(self,udid,port):
+        self.D = BaseOperate(udid,port)
+
     def start_app(self):
         try:
-            OP.wait_id('com.happyteam.dubbingshow:id/task_box')
+            self.D.wait_id('com.happyteam.dubbingshow:id/task_box')
             print('===开始===')
         except:
             print('应用启动失败')
     def start_dub(self):
-        OP.find_id('com.happyteam.dubbingshow:id/btn_more').click()
+        self.D.find_id('com.happyteam.dubbingshow:id/btn_more').click()
         try:
-            OP.wait_id('com.happyteam.dubbingshow:id/iv_source')
+            self.D.wait_id('com.happyteam.dubbingshow:id/iv_source')
         except(NoSuchElementException, TimeoutException):
             try:
-                OP.find_id('com.happyteam.dubbingshow:id/Reload').click()
+                self.D.find_id('com.happyteam.dubbingshow:id/Reload').click()
                 try:
-                    OP.wait_id('com.happyteam.dubbingshow:id/iv_source')
+                    self.D.wait_id('com.happyteam.dubbingshow:id/iv_source')
                 except(NoSuchElementException, TimeoutException):
                     pass
             except(NoSuchElementException, TimeoutException):
@@ -36,89 +38,89 @@ class Dubbin():
         time.sleep(4)
 
     def Dubbing_again(self):
-            OP.find_id('com.happyteam.dubbingshow:id/iv_source').click()
+            self.D.find_id('com.happyteam.dubbingshow:id/iv_source').click()
             try:
-                OP.wait_xpath('素材预览')
+                self.D.wait_xpath('素材预览')
             except(NoSuchElementException, TimeoutException):
                 try:
-                    OP.find_id('com.happyteam.dubbingshow:id/Reload').click()
+                    self.D.find_id('com.happyteam.dubbingshow:id/Reload').click()
                     try:
-                        OP.wait_xpath("立即配音")
+                        self.D.wait_xpath("立即配音")
                     except(NoSuchElementException, TimeoutException):
                         pass
                 except(NoSuchElementException, TimeoutException):
                     pass
             time.sleep(2)
             try:
-                OP.find_id('com.happyteam.dubbingshow:id/yinpin')
-                OP.find_xpath("立即配音").click()
-                OP.wait_id('com.happyteam.dubbingshow:id/roleall')
-                OP.find_id('com.happyteam.dubbingshow:id/roleall').click()
+                self.D.find_id('com.happyteam.dubbingshow:id/yinpin')
+                self.D.find_xpath("立即配音").click()
+                self.D.wait_id('com.happyteam.dubbingshow:id/roleall')
+                self.D.find_id('com.happyteam.dubbingshow:id/roleall').click()
             except(NoSuchElementException, TimeoutException):
                 try:
-                    OP.find_xpath("立即配音").click()
-                    OP.wait_id('com.happyteam.dubbingshow:id/action')
+                    self.D.find_xpath("立即配音").click()
+                    self.D.wait_id('com.happyteam.dubbingshow:id/action')
                 except(NoSuchElementException, TimeoutException):
                     pass
             time.sleep(2)
             print('台词编辑')
-            OP.find_id('com.happyteam.dubbingshow:id/edit_subtitle').click()
+            self.D.find_id('com.happyteam.dubbingshow:id/edit_subtitle').click()
             time.sleep(2)
-            content = OP.find_id('com.happyteam.dubbingshow:id/content_editor').text
+            content = self.D.find_id('com.happyteam.dubbingshow:id/content_editor').text
             time.sleep(1)
-            OP.find_id('com.happyteam.dubbingshow:id/content_editor').clear()
+            self.D.find_id('com.happyteam.dubbingshow:id/content_editor').clear()
             time.sleep(1)
-            OP.find_id('com.happyteam.dubbingshow:id/content_editor').send_keys(content+'。')
+            self.D.find_id('com.happyteam.dubbingshow:id/content_editor').send_keys(content+'。')
             time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/complete').click()
+            self.D.find_id('com.happyteam.dubbingshow:id/complete').click()
             time.sleep(4)
             print('开启实况')
-            OP.find_id('com.happyteam.dubbingshow:id/living').click()
+            self.D.find_id('com.happyteam.dubbingshow:id/living').click()
             time.sleep(2)
             try:
-                OP.find_xpath('始终允许')
-                OP.find_xpath('始终允许').click()
+                self.D.find_xpath('始终允许')
+                self.D.find_xpath('始终允许').click()
             except:
                 try:
-                    OP.find_xpath('允许')
-                    OP.find_xpath('允许').click()
+                    self.D.find_xpath('允许')
+                    self.D.find_xpath('允许').click()
                 except:
                     pass
             time.sleep(2)
             try:
-                OP.wait_id('com.happyteam.dubbingshow:id/cameraView2')
+                self.D.wait_id('com.happyteam.dubbingshow:id/cameraView2')
                 print('实况开启成功')
                 time.sleep(1)
                 print('关闭实况')
-                OP.find_id('com.happyteam.dubbingshow:id/living').click()
+                self.D.find_id('com.happyteam.dubbingshow:id/living').click()
             except:
                 print('实况开启失败')
             time.sleep(2)
 
             try:
-                OP.find_id('com.happyteam.dubbingshow:id/script_container')
+                self.D.find_id('com.happyteam.dubbingshow:id/script_container')
                 print('点击台词列表')
                 time.sleep(1)
-                OP.find_id('com.happyteam.dubbingshow:id/script_container').click()
+                self.D.find_id('com.happyteam.dubbingshow:id/script_container').click()
                 time.sleep(2)
                 try:
-                    OP.find_id('com.happyteam.dubbingshow:id/txtContent')
-                    content = OP.find_id('com.happyteam.dubbingshow:id/txtContent').text
+                    self.D.find_id('com.happyteam.dubbingshow:id/txtContent')
+                    content = self.D.find_id('com.happyteam.dubbingshow:id/txtContent').text
                     print(content)
                     time.sleep(1)
-                    OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+                    self.D.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
                 except:
                     pass
                 time.sleep(2)
-                srt = OP.find_ids('com.happyteam.dubbingshow:id/titleTextView')
-                OP.back()
+                srt = self.D.find_ids('com.happyteam.dubbingshow:id/titleTextView')
+                self.D.back()
                 time.sleep(1)
                 for i in range(len(srt)):
-                    OP.find_id('com.happyteam.dubbingshow:id/script_container').click()
+                    self.D.find_id('com.happyteam.dubbingshow:id/script_container').click()
                     time.sleep(2)
-                    OP.find_ids('com.happyteam.dubbingshow:id/titleTextView')[i].click()
+                    self.D.find_ids('com.happyteam.dubbingshow:id/titleTextView')[i].click()
                     try:
-                        OP.wait_id('com.happyteam.dubbingshow:id/action')
+                        self.D.wait_id('com.happyteam.dubbingshow:id/action')
                     except:
                         print('未返回到配音界面')
                     time.sleep(2)
@@ -129,55 +131,60 @@ class Dubbin():
             '''循环'''
             for i in range(1):
                 print("循环第", i + 1, "次")
-                OP.find_id('com.happyteam.dubbingshow:id/action').click()
+                self.D.find_id('com.happyteam.dubbingshow:id/action').click()
                 try:
-                    OP.wait_download('com.happyteam.dubbingshow:id/vol')
+                    self.D.wait_download('com.happyteam.dubbingshow:id/vol')
                 except(NoSuchElementException, TimeoutException):
                     print('跳转失败')
-                OP.wait_download('com.happyteam.dubbingshow:id/play_button')
+                self.D.wait_download('com.happyteam.dubbingshow:id/play_button')
                 time.sleep(4)
-                OP.back()
+                self.D.back()
                 time.sleep(4)
-                OP.find_id('com.happyteam.dubbingshow:id/withdraw').click()
+                self.D.find_id('com.happyteam.dubbingshow:id/withdraw').click()
                 time.sleep(4)
                 try:
-                    OP.find_id('com.happyteam.dubbingshow:id/review')
-                    OP.find_id('com.happyteam.dubbingshow:id/review').click()
+                    self.D.find_id('com.happyteam.dubbingshow:id/review')
+                    self.D.find_id('com.happyteam.dubbingshow:id/review').click()
                 except:
                     pass
             try:
-                OP.wait_download('com.happyteam.dubbingshow:id/action')
-                OP.find_id('com.happyteam.dubbingshow:id/action').click()
-                OP.wait_download('com.happyteam.dubbingshow:id/vol')
+                self.D.wait_download('com.happyteam.dubbingshow:id/action')
+                self.D.find_id('com.happyteam.dubbingshow:id/action').click()
+                self.D.wait_download('com.happyteam.dubbingshow:id/vol')
             except:
                 pass
             time.sleep(2)
             print('点击字幕开关')
-            OP.find_id('com.happyteam.dubbingshow:id/add_subtitle_cb').click()
+            self.D.find_id('com.happyteam.dubbingshow:id/add_subtitle_cb').click()
             time.sleep(4)
-            OP.find_id('com.happyteam.dubbingshow:id/complete').click()
+            self.D.find_id('com.happyteam.dubbingshow:id/complete').click()
             try:
-                OP.wait_download('com.happyteam.dubbingshow:id/uploadbtn')
+                self.D.wait_download('com.happyteam.dubbingshow:id/uploadbtn')
                 try:
-                    OP.find_id('com.happyteam.dubbingshow:id/private_top_tv')
+                    self.D.find_id('com.happyteam.dubbingshow:id/private_top_tv')
                 except:
-                    OP.find_id('com.happyteam.dubbingshow:id/pri_switch_tv').click()
+                    self.D.find_id('com.happyteam.dubbingshow:id/pri_switch_tv').click()
             except:
                 pass
             time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/uploadbtn').click()
+            self.D.find_id('com.happyteam.dubbingshow:id/uploadbtn').click()
             time.sleep(2)
-            OP.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
+            self.D.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
             time.sleep(2)
             try:
-                OP.wait_download('com.happyteam.dubbingshow:id/submit')
-                OP.find_id('com.happyteam.dubbingshow:id/submit').click()
+                self.D.wait_download('com.happyteam.dubbingshow:id/submit')
+                self.D.find_id('com.happyteam.dubbingshow:id/submit').click()
             except:
                 pass
             time.sleep(2)
-            OP.swip_down()
+            self.D.swip_down()
             time.sleep(3)
             print("=======结束========")
+
+    def start(self):
+        self.start_app()
+        self.start_dub()
+        self.Dubbing_again()
 
 
 # if __name__=="__main__":

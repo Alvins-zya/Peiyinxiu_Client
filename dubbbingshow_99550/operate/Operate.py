@@ -4,7 +4,7 @@
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 import os,re
-from dubbbingshow_99550.devices import device,dev
+from Peiyinxiu_Client.dubbbingshow_99550.devices import device,dev
 
 class BaseOperate():
     def __init__(self):
