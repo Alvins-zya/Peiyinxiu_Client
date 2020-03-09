@@ -13,8 +13,8 @@ from dubbbingshow_99550.operate.Driver_Operate import BaseOperate
 
 class Dubbin():
 
-    def __init__(self,udid,port):
-        self.D = BaseOperate(udid,port)
+    def __init__(self,udid,port,systemport):
+        self.D = BaseOperate(udid,port,systemport)
 
     def start_app(self):
         try:
@@ -55,6 +55,7 @@ class Dubbin():
                 self.D.find_id('com.happyteam.dubbingshow:id/yinpin')
                 self.D.find_xpath("立即配音").click()
                 self.D.wait_id('com.happyteam.dubbingshow:id/roleall')
+                time.sleep(2)
                 self.D.find_id('com.happyteam.dubbingshow:id/roleall').click()
             except(NoSuchElementException, TimeoutException):
                 try:
@@ -132,6 +133,17 @@ class Dubbin():
             for i in range(1):
                 print("循环第", i + 1, "次")
                 self.D.find_id('com.happyteam.dubbingshow:id/action').click()
+                time.sleep(2)
+                try:
+                    self.D.find_id('com.happyteam.dubbingshow:id/next')
+                    time.sleep(1)
+                    self.D.find_id('com.happyteam.dubbingshow:id/next').click()
+                    time.sleep(2)
+                    self.D.find_id('com.android.packageinstaller:id/permission_allow_button').click()
+                    time.sleep(2)
+                    self.D.find_id('com.happyteam.dubbingshow:id/action').click()
+                except:
+                    pass
                 try:
                     self.D.wait_download('com.happyteam.dubbingshow:id/vol')
                 except(NoSuchElementException, TimeoutException):
@@ -169,11 +181,9 @@ class Dubbin():
             time.sleep(2)
             self.D.find_id('com.happyteam.dubbingshow:id/uploadbtn').click()
             time.sleep(2)
-            self.D.find_id('com.happyteam.dubbingshow:id/btnSubmit').click()
-            time.sleep(2)
             try:
-                self.D.wait_download('com.happyteam.dubbingshow:id/submit')
-                self.D.find_id('com.happyteam.dubbingshow:id/submit').click()
+                self.D.wait_load('上传作品成功！')
+                self.D.find_id('com.happyteam.dubbingshow:id/close').click()
             except:
                 pass
             time.sleep(2)
