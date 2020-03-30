@@ -5,10 +5,11 @@ create on 2020年2月18日
 '''
 from appium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import os
 import re
 import time
-from dubbbingshow_99550.Public.devices import appium_desired
+from Dubbing_910.Public.devices import appium_desired
 
 class BaseOperate():
     def __init__(self,udid,port,systemport):
@@ -111,7 +112,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver, 50, 0.1).until(lambda x: self.driver.find_element_by_id(id))
+        element = WebDriverWait(self.driver, 100).until(lambda x: self.driver.find_element_by_id(id))
         return element
 
     def wait_not_id(self, id):
@@ -161,6 +162,14 @@ class BaseOperate():
         xpath_elemnt = ("//*[@text = '%s']" % xpath)
         element = WebDriverWait(self.driver, 60).until(lambda x: self.driver.find_element_by_xpath(xpath_elemnt))
         return element
+
+    def wait_sys(self,system):
+        '''
+        等待系统权限弹窗
+        '''
+        loc = ("xpath","//*[@text = '%s']"%(system))
+        el = WebDriverWait(self.driver,5).until(EC.presence_of_element_located(loc))
+        el.click()
 
     def find_ids(self, id):
         '''
@@ -227,5 +236,11 @@ class BaseOperate():
             return True
         else:
             return False
+
+    def Background(self):
+        self.driver.background_app(3)
+
+    def Quit(self):
+        self.driver.quit()
 
 

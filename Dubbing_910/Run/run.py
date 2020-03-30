@@ -3,14 +3,12 @@
 create on 2020年2月9日
 @author: Alvin_zhu
 '''
-# from dubbbingshow_99550.Public.devices import appium_desired
+
 import multiprocessing
 import threading
-# from dubbbingshow_99550.operate.Operate import BaseOperate
-# from dubbbingshow_99550.test_case import Dubbing
 
-from dubbbingshow_99550.test_case import *
-from dubbbingshow_99550.Public.devices_list import get_conn_dev
+from Dubbing_910.Test_case.Dubbing import Dub
+from Dubbing_910.Public.devices_list import get_conn_dev
 
 devices_list = get_conn_dev()
 
@@ -18,8 +16,8 @@ def start_devices_action(udid,port,systemport):
 
     # appium_desired(udid,port)
 
-    s = Dubbin(udid,port,systemport)
-    s.start()
+    s = Dub(udid,port,systemport)
+    s.Dub_start()
 
 
 

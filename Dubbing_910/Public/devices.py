@@ -24,8 +24,10 @@ def appium_desired(udid,port,systemport):
     desired_caps['noReset'] = data['noReset']
     desired_caps['ignoreUnimportantViews'] = True
     desired_caps['dontStopAppOnReset'] = True
-    desired_caps['newCommandTimeout'] = 100000
-    # desired_caps['automationName'] = 'Uiautomator2'
+    desired_caps['newCommandTimeout'] = 10000
+    desired_caps['automationName'] = 'Uiautomator2'
+    # desired_caps['unicodeKeyboard'] = True
+    desired_caps['resetKeyboard'] = True
     desired_caps['normalizeTagNames'] = True
     desired_caps['systemPort'] = systemport
     print('appium port: %s start run %s at %s' % (port, udid ,ctime()))
