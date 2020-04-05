@@ -1,4 +1,8 @@
 #coding = utf-8
+'''
+author: Alvin_zhu
+time: 2020年4月5日
+'''
 from Dubbing_910.operate.Driver_Operate import BaseOperate
 from Dubbing_910.Public.devices import appium_desired
 from appium.webdriver.common.touch_action import TouchAction
