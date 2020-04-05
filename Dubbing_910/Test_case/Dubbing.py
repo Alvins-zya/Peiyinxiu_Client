@@ -61,7 +61,7 @@ class Dub():
                 #     self.D.find_id(id+'roleall').click()
                 # except:
                 #     pass
-                # time.sleep(2)
+                time.sleep(2)
                 time.sleep(2)
                 self.D.find_id(id+'action').click()
                 time.sleep(2)
@@ -131,10 +131,4 @@ class Dub():
             print(self.dev)
         time.sleep(2)
         self.D.Quit()
-
-
-
-
-
-
 
