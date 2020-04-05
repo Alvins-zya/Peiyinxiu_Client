@@ -1,21 +1,21 @@
 #coding = utf-8
-import yaml
-from dubbbingshow_99550.Public.devices import appium_desired
-from selenium.webdriver.support.ui import WebDriverWait
-from appium import webdriver
-from dubbbingshow_99550.operate.Driver_Operate import BaseOperate
+import unittest
 
-class Dubbing():
-    def __init__(self,udid,port):
-        self.D = BaseOperate(udid,port)
 
-    def dubbing(self):
-        try:
-            WebDriverWait(self.D,30).until(lambda x:self.D.find_id('com.happyteam.dubbingshow:id/task_box'))
-            print('===开始===')
-        except:
-            print('应用启动失败')
-        self.D.find_id('com.happyteam.dubbingshow:id/btn_more').click()
+class TestStringMethods(unittest.TestCase):
 
-    def start(self):
-        self.dubbing()
+    def test_upper(self):
+        self.assertEqual('foo'.upper(),'FOO')
+
+    def test_isupper(self):
+        self.assertTrue('FOO'.isupper())
+        self.assertFalse('Foo'.isupper())
+
+    def test_split(self):
+        s = 'hello world'
+        self.assertEqual(s.split(),['hello','world'])
+        with self.assertRaises(TypeError):
+            s.split(2)
+
+if __name__=='__main__':
+    unittest.main()
