@@ -4,11 +4,10 @@ create on 2020年2月9日
 @author: Alvin_zhu
 '''
 
-import multiprocessing
 import threading
 
 from Dubbing_910.Test_case.Dubbing import Dub
-from Dubbing_910.Public.devices_list import get_conn_dev
+from Public import get_conn_dev
 
 devices_list = get_conn_dev()
 

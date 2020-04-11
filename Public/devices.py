@@ -8,7 +8,7 @@ from appium import webdriver
 import yaml
 from time import ctime
 
-with open('D:\GIT\Peiyinxiu_Client\dubbbingshow_99550\Public\devices_caps.yaml', 'r')as file:
+with open('/dubbbingshow_99550/Public/devices_caps.yaml', 'r')as file:
     data = yaml.load(file,Loader=yaml.FullLoader)
 
 

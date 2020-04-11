@@ -3,13 +3,12 @@
 create on 2020年2月18日
 @author : Alvin_zhu
 '''
-from appium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
 import re
 import time
-from Dubbing_910.Public.devices import appium_desired
+from Public import appium_desired
 
 class BaseOperate():
     def __init__(self,udid,port,systemport):
