@@ -1,21 +1,12 @@
 #coding = utf-8
-import unittest
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    filename='log.log',
+                    datefmt='%Y/%m/%d %H:%M:%S',
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-
-class TestStringMethods(unittest.TestCase):
-
-    def test_upper(self):
-        self.assertEqual('foo'.upper(),'FOO')
-
-    def test_isupper(self):
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('Foo'.isupper())
-
-    def test_split(self):
-        s = 'hello world'
-        self.assertEqual(s.split(),['hello','world'])
-        with self.assertRaises(TypeError):
-            s.split(2)
-
-if __name__=='__main__':
-    unittest.main()
+logger.info("T")
+logger.debug('DEBUG')
+logger.warning('warning')
+logger.info('Finish')

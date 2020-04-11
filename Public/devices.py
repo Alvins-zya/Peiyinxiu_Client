@@ -7,18 +7,24 @@ appium 自动化测试-多进程并发测试
 from appium import webdriver
 import yaml
 from time import ctime
+import logging
+import logging.config
+# CON_LOG = '../config/log.conf'
+# logging.config.fileConfig(CON_LOG)
+# logging = logging.getLogger()
+with open('D:\GIT\Peiyinxiu_Client\Public\devices_caps.yaml', 'r')as file:
+    data = yaml.load(file, Loader=yaml.FullLoader)
 
-with open('/dubbbingshow_99550/Public/devices_caps.yaml', 'r')as file:
-    data = yaml.load(file,Loader=yaml.FullLoader)
+
+def appium_desired():
 
 
-def appium_desired(udid,port,systemport):
     desired_caps = {}
 
     desired_caps['platformName'] = data['platformName']
     desired_caps['platformVersion'] = data['platformVersion']
-    desired_caps['deviceName'] = udid
-    desired_caps['udid'] = udid
+    desired_caps['deviceName'] = data['deviceName']
+    desired_caps['udid'] = data['deviceName']
     desired_caps['appPackage'] = data['appPackage']
     desired_caps['appActivity'] = data['appActivity']
     desired_caps['noReset'] = data['noReset']
@@ -29,11 +35,10 @@ def appium_desired(udid,port,systemport):
     # desired_caps['unicodeKeyboard'] = True
     desired_caps['resetKeyboard'] = True
     desired_caps['normalizeTagNames'] = True
-    desired_caps['systemPort'] = systemport
-    print('appium port: %s start run %s at %s' % (port, udid ,ctime()))
-    print(systemport)
+    desired_caps['systemPort'] = 8100
+    # print('appium port: %s start run %s at %s' % (port, udid ,ctime()))
 
-    driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(port) +'/wd/hub', desired_caps)
+    # logging.info("启动APP...")
+    driver = webdriver.Remote('http://localhost' + ':' + '4723' +'/wd/hub', desired_caps)
     return driver
-
 

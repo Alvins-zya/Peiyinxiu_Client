@@ -8,12 +8,13 @@ from selenium.webdriver.support import expected_conditions as EC
 import os
 import re
 import time
-from Public import appium_desired
+from Public.devices import appium_desired
+from Public.devices_list import get_conn_dev
 
 class BaseOperate():
-    def __init__(self,udid,port,systemport):
-        self.driver = appium_desired(udid,port,systemport)
-        self.dev = udid
+    def __init__(self):
+        self.driver = appium_desired()
+        self.dev = get_conn_dev()
 
     def back(self):
         '''
@@ -22,14 +23,21 @@ class BaseOperate():
         '''
         os.system('adb -s %s shell input keyevent 4' % (self.dev))
 
-    def touch(self):
+    def touch_X(self):
         # x = self.driver.get_window_size()['width']
         # y = self.driver.get_window_size()['height']
         out = os.popen("adb -s %s shell wm size" % (self.dev)).read()
         m = re.search(r'(\d+)x(\d+)', out)
-        y = ("{height}".format(height=m.group(2)))
+        # y = ("{height}".format(height=m.group(2)))
         x = ("{width}".format(width=m.group(1)))
-        return int(x), int(y)
+        return int(x)
+
+    def touch_Y(self):
+        out = os.popen("adb -s %s shell wm size" % (self.dev)).read()
+        m = re.search(r'(\d+)x(\d+)', out)
+        y = ("{height}".format(height=m.group(2)))
+        # x = ("{width}".format(width=m.group(1)))
+        return int(y)
 
     def swip_up(self):
         '''

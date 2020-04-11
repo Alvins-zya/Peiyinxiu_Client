@@ -30,7 +30,6 @@ def appium_desired(udid,port,systemport):
     desired_caps['systemPort'] = systemport
     print('appium port: %s start run %s at %s' % (port, udid ,ctime()))
     print(systemport)
-
     driver = webdriver.Remote('http://' + str(data['ip']) + ':' + str(port) +'/wd/hub', desired_caps)
     return driver
 
