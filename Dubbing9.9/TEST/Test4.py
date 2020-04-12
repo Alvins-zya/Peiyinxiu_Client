@@ -10,16 +10,21 @@
 # logger.debug('DEBUG')
 # logger.warning('warning')
 # logger.info('Finish')
-import unittest
-class test(unittest.TestCase):
-    def test1(self):
-        '''
-        111111
-        '''
-        a = '哈哈哈'
-        b = '哈哈哈'
-        self.assertEqual(a,b,msg="文案错误")
+# import unittest
+# class test(unittest.TestCase):
+#     def test1(self):
+#         '''
+#         111111
+#         '''
+#         a = '哈哈哈'
+#         b = '哈哈哈'
+#         self.assertEqual(a,b,msg="文案错误")
+#
+#
+# if __name__=="__main__":
+#     unittest.main()
+from random import randint
 
-
-if __name__=="__main__":
-    unittest.main()
+num = ['1']
+i = randint(0,len(num))
+print(i)

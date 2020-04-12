@@ -1,6 +1,7 @@
 #coding = utf-8
 import time
 import unittest
+from random import random, randint
 
 from appium.webdriver.common.touch_action import TouchAction
 
@@ -137,6 +138,7 @@ class Dub(Dubbing):
             pass
         time.sleep(2)
 
+
     def test10_action(self):
         try:
             self.driver.find_id(soucred_id + 'play')
@@ -180,6 +182,141 @@ class Dub(Dubbing):
         self.driver.back()
         time.sleep(2)
     def test15(self):
+        #重录
+        self.driver.find_id(soucred_id + 'review').click()
+        self.driver.wait_id(soucred_id + 'play')
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.back()
+        time.sleep(2)
+
+    def test16(self):
+        #回撤重录
+        self.driver.find_id(soucred_id + 'withdraw').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.back()
+        time.sleep(2)
+        while True:
+            try:
+                self.driver.find_id(soucred_id + 'scirpt')
+                self.driver.find_id(soucred_id + 'scirpt').click()
+                time.sleep(2)
+                self.driver.wait_id(soucred_id + 'titleTextView')
+                count = self.driver.find_ids(soucred_id + 'titleTextView')
+                if count == 1:
+                    self.driver.find_id(soucred_id + 'titleTextView').click()
+                else:
+                    I  = randint(0,len(count))
+                    self.driver.find_ids(soucred_id + 'titleTextView')[I].click()
+                    time.sleep(2)
+                break
+            except:
+                self.driver.find_id(soucred_id + 'withdraw').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+
+
+    def test17(self):
+        #编辑字幕
+        self.driver.find_id(soucred_id + 'edit_subtitle').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'content_editor').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'content_editor').send_keys('台词编辑')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'complete').click()
+        time.sleep(2)
+        tip = self.driver.find_id(soucred_id + 'txtContent').text
+        tip_check = '修改台词将移除当前的配音进度'
+        self.assertEqual(tip_check,tip,msg="提示文案错误")
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'withdraw')
+            print('台词编辑保存失败')
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+
+    def test18(self):
+        #实况录制
+        while True:
+            try:
+                self.driver.find_id(soucred_id + 'living')
+                break
+            except:
+                self.driver.find_id(soucred_id + 'withdraw').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'living').click()
+        time.sleep(4)
+        try:
+            self.driver.find_id(soucred_id + 'cameraView2')
+        except:
+            print("实况开启失败")
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+
+    def test19(self):
+        #实况录制后返回预览界面，点击预览原声
+        self.driver.find_id(soucred_id + 'play').click()
+        self.driver.wait_download(soucred_id + 'play')
+
+    def test20(self):
+        #编辑台词后重新录制实况
+        self.driver.find_id(soucred_id + 'edit_subtitle').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'content_editor').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'content_editor').send_keys('台词编辑')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'complete').click()
+        time.sleep(2)
+        tip = self.driver.find_id(soucred_id + 'txtContent').text
+        tip_check = '修改台词将移除当前的配音进度'
+        self.assertEqual(tip_check, tip, msg="提示文案错误")
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'withdraw')
+            print('台词编辑保存失败')
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+
+    def test21(self):
+        #点击配音按钮直接重录实况
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+
+
+
+
+
+
+
+
 
 
 
