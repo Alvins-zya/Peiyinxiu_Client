@@ -12,12 +12,11 @@ import logging.config
 # CON_LOG = '../config/log.conf'
 # logging.config.fileConfig(CON_LOG)
 # logging = logging.getLogger()
-with open('D:\GIT\Peiyinxiu_Client\Public\devices_caps.yaml', 'r')as file:
+with open('..\Public\devices_caps.yaml', 'r')as file:
     data = yaml.load(file, Loader=yaml.FullLoader)
 
 
 def appium_desired():
-
 
     desired_caps = {}
 
