@@ -12,7 +12,7 @@ soucred_id = 'com.happyteam.dubbingshow:id/'
 
 class Dub(Dubbing):
 
-    def test1_touche_dubbing(self):
+    def test1_double_source(self):
         try:
             self.driver.find_id(soucred_id + 'yinpin')
             self.driver.find_id(soucred_id + 'dubbing_fake').click()
@@ -28,6 +28,7 @@ class Dub(Dubbing):
             self.driver.find_id(soucred_id + 'subtitleView').click()
         except:
             pass
+
 
     def test3_headset(self):
         # 背景音
@@ -59,7 +60,6 @@ class Dub(Dubbing):
                 self.driver.wait_sys("始终允许")
             except:
                 self.driver.wait_sys("允许")
-
         except:
             pass
         time.sleep(2)
@@ -314,14 +314,25 @@ class start_dubbing(Dubbing):
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
         time.sleep(2)
+        self.driver.back()
+        time.sleep(2)
+
+    def test13(self):
+        #点击录制普通作品
+        self.driver.find_id(soucred_id + 'living').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+
+
 
 
 class Dub_preview(Dubbing):
     def test1_preview(self):
         # 配音预览界面
-        self.driver.wait_download(soucred_id + 'title')
-        self.driver.Background()
-        time.sleep(2)
+
 
 
 class Dub_upload(Dubbing):
