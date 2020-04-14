@@ -280,6 +280,16 @@ class Test_script(Dubbing):
         #修改台词
         self.driver.find_id(soucred_id + 'edit_subtitle').click()
         time.sleep(2)
+        self.driver.find_id(soucred_id + 'content_editor').send_keys('台词修改')
+    def test5(self):
+        #清空台词
+        self.driver.find_id(soucred_id + 'edit_subtitle').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'content_editor').clear()
+    def test6(self):
+        #特殊符号
+        self.driver.find_id(soucred_id + 'edit_subtitle').click()
+        time.sleep(2)
         self.driver.find_id(soucred_id + 'content_editor')
 
     def test7_HD(self):
