@@ -10,28 +10,15 @@
 # logger.debug('DEBUG')
 # logger.warning('warning')
 # logger.info('Finish')
-import unittest
-class test(unittest.TestCase):
+import time
+import datetime
+def test():
 
-    def test1(self):
-        num = '1'
-        num1 ='1'
-        if num == num1:
-            return True
-        else:
-            return False
-    # role = test1(self=None)
-    result = test1(self=None)
-    print(result)
-    @unittest.skipIf(result,u'True不执行')
-    def test2(self):
-        print('11111')
-    @unittest.skipUnless(result,u'False执行')
-    def test3(self):
-        print('2222')
+    try:
+        i = 1
+    except Exception as e:
+        print(e,'h')
 
-
-
-if __name__=="__main__":
-    unittest.main()
+if __name__=='__main__':
+    test()
 

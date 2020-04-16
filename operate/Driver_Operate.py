@@ -147,7 +147,7 @@ class BaseOperate():
         :return:
         '''
         toast_element = '%s' % xpath
-        WebDriverWait(self.driver, 10, 0.05).until(lambda x: self.driver.find_element_by_xpath(toast_element))
+        WebDriverWait(self.driver, 5).until(lambda x: self.driver.find_element_by_xpath(toast_element))
         toast = self.driver.find_element_by_xpath(toast_element)
         return toast.text
 

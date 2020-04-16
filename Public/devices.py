@@ -22,8 +22,10 @@ def appium_desired():
 
     desired_caps['platformName'] = data['platformName']
     desired_caps['platformVersion'] = data['platformVersion']
-    desired_caps['deviceName'] = data['deviceName']
-    desired_caps['udid'] = data['deviceName']
+    # desired_caps['deviceName'] = data['deviceName']
+    # desired_caps['udid'] = data['deviceName']
+    desired_caps['deviceName'] = '32c1c46a'
+    desired_caps['udid'] = '32c1c46a'
     desired_caps['appPackage'] = data['appPackage']
     desired_caps['appActivity'] = data['appActivity']
     desired_caps['noReset'] = data['noReset']
@@ -31,13 +33,13 @@ def appium_desired():
     desired_caps['dontStopAppOnReset'] = True
     desired_caps['newCommandTimeout'] = 10000
     desired_caps['automationName'] = 'Uiautomator2'
-    # desired_caps['unicodeKeyboard'] = True
+    desired_caps['unicodeKeyboard'] = True
     desired_caps['resetKeyboard'] = True
     desired_caps['normalizeTagNames'] = True
     desired_caps['systemPort'] = 8100
     # print('appium port: %s start run %s at %s' % (port, udid ,ctime()))
 
     # logging.info("启动APP...")
-    driver = webdriver.Remote('http://localhost' + ':' + '4723' +'/wd/hub', desired_caps)
+    driver = webdriver.Remote('http://localhost' + ':' + '4725' +'/wd/hub', desired_caps)
     return driver
 
