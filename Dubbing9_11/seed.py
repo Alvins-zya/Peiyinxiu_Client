@@ -791,14 +791,206 @@ class preview_video(Dubbing):
         time.sleep(2)
         self.assertFalse(el, msg='降噪开关关闭后，返回配音界面再进预览界面，没有保留开关状态')
         time.sleep(2)
-
-class preview_voice(Dubbing):
+#预览界面人声
+class preview(Dubbing):
 
     def test_a(self):
         #调节人声音量
-        TouchAction(driver).press(x=265, y=1220).move_to(x=406, y=1442).release().perform()
+        el = self.driver.find_id(soucred_id + 'vol').get_attribute('checked')
+        self.assertTrue(el,msg='进入配音预览界面后未默认选中人声选项')
+        time.sleep(2)
+        TouchAction(self.driver).press(x=265, y=1220).move_to(x=406, y=1442).release().perform()#调大音量
         time.sleep(4)
-        TouchAction(driver).press(x=393, y=1430).move_to(x=115, y=1430).release().perform()
+        TouchAction(self.driver).press(x=393, y=1430).move_to(x=115, y=1430).release().perform()#调小音量
+        time.sleep(4)
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+
+    def test_b(self):
+        #声音校准
+        self.driver.find_id(soucred_id + 'trim').click()
+        time.sleep(2)
+        el = self.driver.find_id(soucred_id + 'trim').get_attribute('checked')
+        self.assertTrue(el,msg='点击校准后未显示选中状态')
+        time.sleep(2)
+        TouchAction(self.driver).press(x=262, y=1236).move_to(x=112, y=1314).release().perform()#提前播放人声进度
+        self.driver.wait_download(soucred_id + 'play_button')
+        TouchAction(self.driver).press(x=131, y=1323).move_to(x=418, y=1327).release().perform()#延后播放人声进度
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+
+    def test_c(self):
+        #人声变声调节
+        self.driver.find_id(soucred_id + 'pitch').click()
+        time.sleep(2)
+        el = self.driver.find_id(soucred_id + 'pitch').get_attribute('checked')
+        self.assertTrue(el,msg='点击变声后未显示选中状态')
+        time.sleep(2)
+        TouchAction(self.driver).press(x=265, y=1236).move_to(x=112, y=1298).release().perform()#人声声线加粗
+        self.driver.wait_download(soucred_id + 'play_button')
+        TouchAction(self.driver).press(x=144, y=1302).move_to(x=387, y=1292).release().perform()#人声声线变细
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+
+    def test_d(self):
+        #人声混响调节
+        self.driver.find_id(soucred_id + 'fx').click()
+        time.sleep(2)
+        el = self.driver.find_id(soucred_id + 'fx').get_attribute('checked')
+        self.assertTrue(el,msg='点击人声混响后未显示选中状态')
+        time.sleep(2)
+        TouchAction(self.driver).press(x=106, y=1595).move_to(x=97, y=1261).release().perform()#增加混响效果值
+        time.sleep(2)
+        TouchAction(self.driver).press(x=272, y=1579).move_to(x=268, y=1264).release().perform()#增加空间效果值
+        time.sleep(2)
+        TouchAction(self.driver).press(x=446, y=1626).move_to(x=446, y=1252).release().perform()#增加回声效果值
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+        TouchAction(driver).press(x=97, y=1261).move_to(x=100, y=1620).release().perform()#减小混响效果值
+        time.sleep(2)
+        TouchAction(driver).press(x=268, y=1258).move_to(x=268, y=1626).release().perform()#减小空间效果值
+        time.sleep(2)
+        TouchAction(driver).press(x=449, y=1245).move_to(x=443, y=1636).release().perform()#减小回声效果值
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+
+    def test_e(self):
+        #返回配音界面后再进入配音预览界面，查看人声选项默认状态
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'complete').click()
+        self.driver.wait_id(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+        el = self.driver.find_id(soucred_id + 'vol').get_attribute('checked')
+        self.assertTrue(el,msg='返回配音界面再进预览界面，人声选项没有恢复默认状态')
+
+    def test_f(self):
+        #背景音音量调节
+        TouchAction(self.driver).press(x=655, y=1348).move_to(x=955, y=1302).release().perform()#增大背景音音量
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+        TouchAction(self.driver).press(x=955, y=1405).move_to(x=640, y=1339).release().perform()#减小背景音音量
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+        TouchAction(driver).press(x=662, y=1402).move_to(x=905, y=1255).release().perform()
+        time.sleep(2)
+        #关闭背景音音量
+        self.driver.find_id(soucred_id + 'voice_open').click()
+        el = self.driver.find_id(soucred_id + 'voice_open').get_attribute('checked')
+        self.assertTrue(el,msg='状态点击背景音关闭按钮后，状态没有显示关闭')
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+
+    def test_g(self):
+        #背景音音乐列表
+        count = self.driver.find_id(soucred_id + 'tvBgCount').text
+        if count >1:
+            self.driver.find_id(soucred_id + 'imgBgCount').click()
+            TouchAction(self.driver).tap(x=565, y=1058).perform()
+        else:
+            print('背景音数量少于2，不做切换')
+        time.sleep(2)
+    def test_h(self):
+        #背景音混响调节
+        self.driver.find_id(soucred_id + 'bgfx').click()
+        time.sleep(2)
+        el = self.driver.find_id(soucred_id + 'bgfx').get_attribute('chedked')
+        self.assertTrue(el,msg='状态点击背景音混响按钮后，状态没有显示选中')
+        time.sleep(2)
+        #增加混响效果
+        TouchAction(self.driver).press(x=640, y=1636).move_to(x=643, y=1261).release().perform()
+        time.sleep(2)
+        TouchAction(self.driver).press(x=808, y=1648).move_to(x=815, y=1255).release().perform()
+        time.sleep(2)
+        TouchAction(self.driver).press(x=986, y=1642).move_to(x=980, y=1258).release().perform()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+        #减小混响效果
+        TouchAction(self.driver).press(x=640, y=1161).move_to(x=637, y=1645).release().perform()
+        time.sleep(2)
+        TouchAction(self.driver).press(x=805, y=1180).move_to(x=805, y=1639).release().perform()
+        time.sleep(2)
+        TouchAction(self.driver).press(x=986, y=1177).move_to(x=980, y=1636).release().perform()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+
+    def test_i(self):
+        #下载系统推荐背景音音乐
+        self.driver.find_id(soucred_id + 'bgvol').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'imgBgCount').click()
+        time.sleep(2)
+        TouchAction(self.driver).tap(x=552, y=2182).perform()
+        self.driver.wait_id(soucred_id + 'btnRight')
+        while True:
+            try:
+                self.driver.find_id(soucred_id + 'btnDownload')
+                self.driver.find_id(soucred_id + 'btnDownload').click()
+                try:
+                    toast = self.driver.wait_toast('//android.widget.Toast')
+                    print(toast)
+                    break
+                except:
+                    pass
+            except:
+                break
+            time.sleep(2)
+    def test_j(self):
+        #随机选中背景音音乐
+        count = self.driver.find_ids(soucred_id + 'title')
+        select = randint(0,len(count))
+        self.driver.find_ids(soucred_id + 'title')[select].click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnRight').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+        TouchAction(self.driver).press(x=56, y=1021).move_to(x=684, y=1024).release().perform()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'play_button').click()
+        self.driver.wait_download(soucred_id + 'play_button')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+
+    def test_k(self):
+        #上滑加载背景音音乐列表并点击下载按钮
+        for i in range(10):
+            self.driver.swip_up()
+            time.sleep(2)
+        while True:
+            try:
+                self.driver.find_id(soucred_id + 'btnDownload')
+                self.driver.find_id(soucred_id + 'btnDownload').click()
+                try:
+                    toast = self.driver.wait_toast('//android.widget.Toast')
+                    print(toast)
+                    break
+                except:
+                    pass
+            except:
+                break
+            time.sleep(2)
+
+
+
+
+
+
 
 
 
