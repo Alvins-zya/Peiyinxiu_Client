@@ -591,7 +591,7 @@ class Test_g_Record(Dubbing):
         time.sleep(2)
 
     def test_m(self):
-        # 重录
+        # 重新录制
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.wait_id(soucred_id + 'play')
         self.driver.find_id(soucred_id + 'action').click()
