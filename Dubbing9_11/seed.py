@@ -1,7 +1,7 @@
 # coding = utf-8
 import time
 import unittest
-from random import random, randint
+import random
 import datetime
 
 from appium.webdriver.common.touch_action import TouchAction
@@ -11,7 +11,7 @@ from Dubbing9_11.parent import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
 
 
-class Dub(Dubbing):
+class Test_a_Dub(Dubbing):
     # 点击进入配音界面
     def test0(self):
         #进入素材库
@@ -173,7 +173,7 @@ class Dub(Dubbing):
 
 
 
-class background_music(Dubbing):
+class Test_b_Music(Dubbing):
     # 配音界面背景音开关
     def test0(self):
         self.driver.find_id(soucred_id + 'headset').click()
@@ -187,7 +187,7 @@ class background_music(Dubbing):
         except:
             print('已连接耳机')
 
-class living(Dubbing):
+class Test_c_living(Dubbing):
     #实况功能测试
     def test0(self):
         # 开启实况权限检查
@@ -230,7 +230,7 @@ class living(Dubbing):
 
 
 
-class script(Dubbing):
+class Test_d_script(Dubbing):
     #台词功能测试
     def test0(self):
         # 点击进入台词列表
@@ -397,7 +397,7 @@ class script(Dubbing):
         self.driver.find_id(soucred_id + 'titleTextView').click()
         time.sleep(3)
 
-class video_HD(Dubbing):
+class Test_e_video_HD(Dubbing):
     def test0(self):
         #非高清素材
         HD_check = self.driver.find_id(soucred_id + 'swtich_hd').text
@@ -417,7 +417,7 @@ class video_HD(Dubbing):
         else:
             pass
 
-class Play_vido(Dubbing):
+class Test_f_Play_vido(Dubbing):
     def test0(self):
         #完整的预览视频
         self.driver.find_id(soucred_id + 'play').click()
@@ -448,7 +448,7 @@ class Play_vido(Dubbing):
             print('未恢复到默认状态')
             self.driver.Quit()
 
-class Record(Dubbing):
+class Test_g_Record(Dubbing):
     def test_a(self):
         # 录音权限
         self.driver.find_id(soucred_id + 'action').click()
@@ -494,7 +494,7 @@ class Record(Dubbing):
             self.driver.find_id(soucred_id + 'play').click()
             self.driver.wait_download(soucred_id + 'play')
             time2 = datetime.datetime.now()
-            time_result = int(time2) - int(time1)
+            time_result = time2 - time1
             time_video = self.driver.find_id(soucred_id + 'video_time').text
             print('视频时间：',time_video,'实际播放时间：',time_result)
             time.sleep(2)
@@ -529,7 +529,6 @@ class Record(Dubbing):
     def test_g(self):
         #试听过程中应用退到后台再启动
         self.driver.find_id(soucred_id + 'review').click()
-        time.sleep(2)
         self.driver.Background()
         self.driver.wait_id(soucred_id + 'review')
         time.sleep(2)
@@ -731,7 +730,7 @@ class Record(Dubbing):
 
 
 
-class preview_video(Dubbing):
+class Test_h_preview_video(Dubbing):
     def test1(self):
         #播放完整的视频
         self.driver.find_id(soucred_id + 'play_button').click()
@@ -791,9 +790,9 @@ class preview_video(Dubbing):
         time.sleep(2)
         self.assertFalse(el, msg='降噪开关关闭后，返回配音界面再进预览界面，没有保留开关状态')
         time.sleep(2)
-#预览界面人声
-class preview(Dubbing):
 
+class Test_i_preview(Dubbing):
+    # 预览界面人声
     def test_a(self):
         #调节人声音量
         el = self.driver.find_id(soucred_id + 'vol').get_attribute('checked')
@@ -985,33 +984,170 @@ class preview(Dubbing):
             except:
                 break
             time.sleep(2)
+    def test_l(self):
+        #选择任意音乐后返回预览界面
+        self.driver.find_id(soucred_id + 'title').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnRight').click()
+        self.driver.wait_id(soucred_id + 'play_button')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'complete').click()
+        self.driver.wait_id(soucred_id + 'clear_voice')
+        time.sleep(2)
+
+    def test_m(self):
+        #预览界面返回配音界面后重新录制
+        self.driver.find_id(soucred_id + 'back').click()
+        self.driver.wait_id(soucred_id + 'review')
+        TouchAction(self.driver).press(x=232, y=1612).move_to(x=766, y=1612).release().perform()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        time.sleep(2)
 
 
-
-
-
-
-
-
-
-class upload(Dubbing):
-    def test2_complete(self):
+class Test_j_upload(Dubbing):
+    def test_a(self):
+        #预览界面点击完成
         self.driver.find_xpath('完成').click()
         self.driver.wait_id(soucred_id + 'txtTitle')
         time.sleep(2)
 
-    def test3_privacy(self):
-        # 私密开关
-        self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+    def test_b(self):
+        #修改作品封面-视频截图
+        self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
+        time.sleep(2)
+        TouchAction(self.driver).tap(x=541, y=1715).perform()
+        time.sleep(2)
+        TouchAction(self.driver).press(x=36, y=824).move_to(x=476, y=826).release().perform()
+        time.sleep(4)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
+        time.sleep(2)
+        # 选择视频截图
+        TouchAction(self.driver).tap(x=541, y=1715).perform()
+        time.sleep(2)
+        TouchAction(self.driver).press(x=36, y=824).move_to(x=476, y=826).release().perform()
+        time.sleep(4)
+        self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(2)
 
-    def test8_upload(self):
+    def test_c(self):
+        #切换封面后返回预览界面再进入上传界面选择视频封面更换
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_xpath('完成').click()
+        self.driver.wait_id(soucred_id + 'btn_setting_cover_tip')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
+        time.sleep(2)
+        # 选择视频截图
+        TouchAction(self.driver).tap(x=541, y=1715).perform()
+        time.sleep(2)
+        TouchAction(self.driver).press(x=36, y=824).move_to(x=476, y=826).release().perform()
+        time.sleep(4)
+        self.driver.find_id(soucred_id + 'complete').click()
+        time.sleep(2)
+
+    def test_d(self):
+        #修改作品封面-拍照
+        self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
+        time.sleep(2)
+        TouchAction(self.driver).tap(x=527, y=1870).perform()
+        self.driver.wait_id('com.android.camera:id/shutter_button')
+        self.driver.find_id('com.android.camera:id/shutter_button').click()
+        time.sleep(4)
+        self.driver.find_id('com.android.camera:id/done_button').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'confirm').click()
+        time.sleep(2)
+
+    def test_e(self):
+        #修改作品封面-拍照-拍照以后点击取消
+        self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
+        time.sleep(2)
+        TouchAction(self.driver).tap(x=533, y=1856).perform()
+        self.driver.wait_id('com.android.camera:id/shutter_button')
+        self.driver.find_id('com.android.camera:id/shutter_button').click()
+        time.sleep(4)
+        self.driver.find_id('com.android.camera:id/done_button').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+    def test_f(self):
+        #修改作品封面-相册
+        self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
+        TouchAction(self.driver).tap(x=557, y=1996).perform()
+        time.sleep(2)
+        photo_count = self.driver.find_ids(soucred_id + 'photo_wall_item_photo')
+        select = randint(0,len(photo_count))
+        self.driver.find_ids(soucred_id + 'photo_wall_item_photo')[select].click()
+        time.sleep(3)
+        self.driver.find_id(soucred_id + 'confirm').click()
+        time.sleep(2)
+
+    def test_g(self):
+        #标题名称-输入30个字符
+        self.driver.find_id(soucred_id + 'title').send_keys('123456789012345678901234567890')
+        time.sleep(2)
+        char = self.driver.find_id(soucred_id + 'title').text
+        char_check = '123456789012345678901234567890'
+        count_check = '30'
+        self.assertEqual(char,char_check,msg='标题内容与“123456789012345678901234567890”对比不一致')
+        time.sleep(2)
+
+    def test_h(self):
+        #标题名称-清空标题
+        self.driver.find_id(soucred_id + 'title').clear()
+        num = self.driver.find_id(soucred_id + 'title_count').text
+        check = '0/30'
+        self.assertEqual(num,check,msg='标题未清空')
+        time.sleep(2)
+
+    def test_i(self):
+        # 上传界面标签显示检查
+        try:
+            self.driver.find_xpath('添加')
+        except:
+            self.driver.find_id(soucred_id + 'tv1').click()
+        time.sleep(2)
+        self.driver.find_xpath('添加').click()
+        self.driver.wait_id(soucred_id + 'edit_text')
+        try:
+            self.driver.find_id(soucred_id + 'tv')
+        except:
+            print('未显示热门标签')
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_xpath('添加').click()
+            self.driver.wait_id(soucred_id + 'edit_text')
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'tv1')
+            self.driver.find_id(soucred_id + 'tv1').click()
+        except:
+            pass
+        time.sleep(2)
+        hot_lable = self.driver.find_ids(soucred_id + 'tv')
+        select =random.randint(0,len(hot_lable))
+        self.driver.find_ids(soucred_id + 'tv')[select].click()
+        time.sleep(2)
+        label_name = self.driver.find_id(soucred_id + 'tv1').text
+        self.driver.find_id(soucred_id + 'tv_right').click()
+        time.sleep(2)
+        label_check = self.driver.find_id(soucred_id + 'tv1').text
+        self.assertEqual(label_name,label_check,msg='标签对比不一致，%s,%s'%(label_name,label_check))
+        time.sleep(2)
+class Test_k_Upload(Dubbing):
+    def test_a(self):
+        #点击上传按钮
         self.driver.find_id(soucred_id + 'uploadbtn').click()
         time.sleep(2)
-
-    def test9_over(self):
         self.driver.wait_id(soucred_id + 'down')
         print('上传成功')
+
 
 
 if __name__ == "__main__":

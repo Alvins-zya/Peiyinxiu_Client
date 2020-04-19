@@ -13,12 +13,11 @@
 import time
 import datetime
 def test():
-
-    try:
-        i = 1
-    except Exception as e:
-        print(e,'h')
-
+    time1 = datetime.datetime.now()
+    time.sleep(5)
+    time2 = datetime.datetime.now()
+    time_result = time2 - time1
+    print('实际播放时间：', time_result)
 if __name__=='__main__':
     test()
 
