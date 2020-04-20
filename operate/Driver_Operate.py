@@ -5,6 +5,7 @@ create on 2020年2月18日
 '''
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from appium.webdriver.common.touch_action import TouchAction
 import os
 import re
 import time
@@ -26,14 +27,14 @@ class BaseOperate():
     def touch_X(self):
         # x = self.driver.get_window_size()['width']
         # y = self.driver.get_window_size()['height']
-        out = os.popen("adb -s %s shell wm size" % (self.dev)).read()
+        out = os.popen("adb -s %s shell wm size" % (self.dev[0])).read()
         m = re.search(r'(\d+)x(\d+)', out)
         # y = ("{height}".format(height=m.group(2)))
         x = ("{width}".format(width=m.group(1)))
         return int(x)
 
     def touch_Y(self):
-        out = os.popen("adb -s %s shell wm size" % (self.dev)).read()
+        out = os.popen("adb -s %s shell wm size" % (self.dev[0])).read()
         m = re.search(r'(\d+)x(\d+)', out)
         y = ("{height}".format(height=m.group(2)))
         # x = ("{width}".format(width=m.group(1)))
@@ -76,6 +77,20 @@ class BaseOperate():
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
         self.driver.swipe(0.4 * x, 0.8 * y, 0.8 * x, 0.4 * y, 300)
+
+    def swip_move(self,start_x,start_y,end_x,end_y):
+        '''
+        根据提供的x、y坐标进行坐标滑动
+        '''
+        self.driver.swipe(start_x,start_y,end_x,end_y,duration=1000)
+
+    def Long_Touche(self,El):
+        '''
+        控件长按
+        '''
+        TouchAction(self.driver).long_press(El,duration=2000).release().perform()
+
+
 
     def find_id(self, id):
         '''

@@ -4,7 +4,7 @@ import unittest
 import random
 import datetime
 
-from appium.webdriver.common.touch_action import TouchAction
+
 
 from Dubbing9_11.parent import Dubbing
 
@@ -200,14 +200,17 @@ class Test_c_living(Dubbing):
             self.driver.find_id(soucred_id + 'close').click()
             time.sleep(2)
             self.driver.find_id(soucred_id + 'living').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'next').click()
-            time.sleep(2)
+            time.sleep(1)
             try:
                 self.driver.wait_sys("始终允许")
             except:
                 self.driver.wait_sys("允许")
         except:
+            try:
+                self.driver.wait_sys("始终允许")
+            except:
+                self.driver.wait_sys("允许")
+        else:
             pass
         time.sleep(2)
         try:
@@ -430,7 +433,7 @@ class Test_f_Play_vido(Dubbing):
             self.driver.find_id(soucred_id + 'play')
             pass
         except:
-            self.driver.find_class('tv.danmaku.ijk.media.SurfaceRenderView').click()
+            self.driver.Background()
             self.driver.wait_download(soucred_id + 'play')
             T =self.driver.find_id(soucred_id + 'video_time').text
             T_check = '00:00'
@@ -442,6 +445,7 @@ class Test_f_Play_vido(Dubbing):
         self.driver.find_id(soucred_id + 'play').click()
         self.driver.Background()
         self.driver.wait_id(soucred_id + 'play')
+        time.sleep(2)
         try:
             self.driver.find_id(soucred_id + 'living')
         except:
@@ -489,15 +493,14 @@ class Test_g_Record(Dubbing):
 
     def test_d(self):
         # 在完整录制后的基础上点击原声试听，查看视频播放是否从头开始播放
-        for i in range(3):
-            time1 = datetime.datetime.now()
-            self.driver.find_id(soucred_id + 'play').click()
-            self.driver.wait_download(soucred_id + 'play')
-            time2 = datetime.datetime.now()
-            time_result = time2 - time1
-            time_video = self.driver.find_id(soucred_id + 'video_time').text
-            print('视频时间：',time_video,'实际播放时间：',time_result)
-            time.sleep(2)
+        time1 = datetime.datetime.now()
+        self.driver.find_id(soucred_id + 'play').click()
+        self.driver.wait_download(soucred_id + 'play')
+        time2 = datetime.datetime.now()
+        time_result = time2 - time1
+        time_video = self.driver.find_id(soucred_id + 'video_time').text
+        print('视频时间：',time_video,'实际播放时间：',time_result)
+        time.sleep(2)
 
 
     def test_e(self):
@@ -511,7 +514,7 @@ class Test_g_Record(Dubbing):
         #试听过程中点击提交进入预览界面
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.find_id(soucred_id + 'complete').click()
-        time.sleep(10)
+        time.sleep(1)
         self.driver.Background()
         time.sleep(2)
         try:
@@ -536,7 +539,7 @@ class Test_g_Record(Dubbing):
     def test_h(self):
         #试听过程中，点击退出配音界面
         self.driver.find_id(soucred_id + 'review').click()
-        time.sleep(2)
+        time.sleep(1)
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
         tip = self.driver.find_id(soucred_id + 'txtContent').text
@@ -557,6 +560,7 @@ class Test_g_Record(Dubbing):
     def test_j(self):
         #录制过程中暂停
         self.driver.find_id(soucred_id + 'action').click()
+        time.sleep(3)
         self.driver.Background()
         time.sleep(2)
         try:
@@ -577,8 +581,8 @@ class Test_g_Record(Dubbing):
         # 手动拖音轨
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
-        TouchAction(self.driver).press(x=self.x * 0.24, y=self.y * 0.71).move_to(x=self.x * 0.81,
-                                                                                 y=self.y * 0.71).release().perform()
+        time.sleep(2)
+        self.driver.swip_move(int(self.x*0.24),int(self.y*0.71),int(self.x*0.81),int(self.y*0.71))
         time.sleep(2)
         # 点击预览视频
         self.driver.find_id(soucred_id + 'play').click()
@@ -604,7 +608,7 @@ class Test_g_Record(Dubbing):
     def test_n(self):
         # 回撤重录
         el = self.driver.find_id(soucred_id + 'withdraw')
-        TouchAction(self.driver).long_press(el,duration= 2000).release().perform()
+        self.driver.Long_Touche(el)
         time.sleep(2)
         self.driver.find_id(soucred_id + 'scirpt')
         self.driver.find_id(soucred_id + 'scirpt').click()
@@ -772,12 +776,13 @@ class Test_h_preview_video(Dubbing):
     def test3(self):
         #降噪开关
         el = self.driver.find_id(soucred_id + 'clear_voice').get_attribute('checked')
-        if el == True:
+        state_check = 'true'
+        if el == state_check:
             print('降噪默认开启')
         else:
             print('降噪默认关闭')
         time.sleep(2)
-        if el == True:
+        if el == state_check:
             self.driver.find_id(soucred_id + 'clear_voice').click()
         else:
             pass
@@ -788,19 +793,32 @@ class Test_h_preview_video(Dubbing):
         self.driver.wait_id(soucred_id + 'title')
         self.driver.Background()
         time.sleep(2)
-        self.assertFalse(el, msg='降噪开关关闭后，返回配音界面再进预览界面，没有保留开关状态')
+        el1 = self.driver.find_id(soucred_id + 'clear_voice').get_attribute('checked')
+        if el1 ==state_check:
+            self.assertFalse(el1, msg='降噪开关关闭后，返回配音界面再进预览界面，没有保留开关状态')
+        else:
+            pass
         time.sleep(2)
 
 class Test_i_preview(Dubbing):
     # 预览界面人声
     def test_a(self):
         #调节人声音量
+        self.x = self.driver.touch_X()
+        self.y = self.driver.touch_Y()
         el = self.driver.find_id(soucred_id + 'vol').get_attribute('checked')
         self.assertTrue(el,msg='进入配音预览界面后未默认选中人声选项')
         time.sleep(2)
-        TouchAction(self.driver).press(x=265, y=1220).move_to(x=406, y=1442).release().perform()#调大音量
-        time.sleep(4)
-        TouchAction(self.driver).press(x=393, y=1430).move_to(x=115, y=1430).release().perform()#调小音量
+        if self.y ==1920:
+            self.driver.swip_move(int(self.x * 0.24), int(self.y * 0.592), int(self.x * 0.37), int(self.y * 0.718))#调大音量
+            time.sleep(2)
+            self.driver.swip_move(int(self.x * 0.37), int(self.y * 0.718), int(self.x * 0.115),int(self.y * 0.628))  # 调大音量
+        elif self.y >2250:
+            self.driver.swip_move(x=265, y=1220).move_to(x=406, y=1442).release().perform()#调大音量
+            time.sleep(4)
+            self.driver.swip_move(x=393, y=1430).move_to(x=115, y=1430).release().perform() # 调小音量
+        else:
+            pass
         time.sleep(4)
         self.driver.find_id(soucred_id + 'play_button').click()
         self.driver.wait_download(soucred_id + 'play_button')

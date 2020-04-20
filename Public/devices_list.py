@@ -11,3 +11,4 @@ def get_conn_dev():
     outstr = p.read()
     connectdeviceid = re.findall(r'(\w+)\s+device\s', outstr)
     return connectdeviceid
+

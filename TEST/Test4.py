@@ -10,14 +10,23 @@
 # logger.debug('DEBUG')
 # logger.warning('warning')
 # logger.info('Finish')
-import time
-import datetime
-def test():
-    time1 = datetime.datetime.now()
-    time.sleep(5)
-    time2 = datetime.datetime.now()
-    time_result = time2 - time1
-    print('实际播放时间：', time_result)
+import os
+import re
+from Public.devices_list import get_conn_dev
+
+class BaseOperate():
+    def __init__(self):
+        self.dev = get_conn_dev()
+
+    def touch_X(self):
+        # x = self.driver.get_window_size()['width']
+        # y = self.driver.get_window_size()['height']
+        out = os.popen("adb -s %s shell wm size" % (self.dev[0])).read()
+        m = re.search(r'(\d+)x(\d+)', out)
+        # y = ("{height}".format(height=m.group(2)))
+        x = ("{width}".format(width=m.group(1)))
+        print(x)
 if __name__=='__main__':
-    test()
+    BaseOperate().touch_X()
+
 
