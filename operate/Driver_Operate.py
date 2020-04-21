@@ -22,7 +22,7 @@ class BaseOperate():
         返回键
         :return:
         '''
-        os.system('adb -s %s shell input keyevent 4' % (self.dev))
+        os.system('adb -s %s shell input keyevent 4' % (self.dev[0]))
 
     def touch_X(self):
         # x = self.driver.get_window_size()['width']

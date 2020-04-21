@@ -14,19 +14,8 @@ import os
 import re
 from Public.devices_list import get_conn_dev
 
-class BaseOperate():
-    def __init__(self):
-        self.dev = get_conn_dev()
-
-    def touch_X(self):
-        # x = self.driver.get_window_size()['width']
-        # y = self.driver.get_window_size()['height']
-        out = os.popen("adb -s %s shell wm size" % (self.dev[0])).read()
-        m = re.search(r'(\d+)x(\d+)', out)
-        # y = ("{height}".format(height=m.group(2)))
-        x = ("{width}".format(width=m.group(1)))
-        print(x)
-if __name__=='__main__':
-    BaseOperate().touch_X()
+num = ['1','2']
+for i in reversed(len(num)):
+    print(i)
 
 
