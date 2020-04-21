@@ -10,6 +10,8 @@ class Dubbing(unittest.TestCase):
     def setUpClass(self):
         warnings.simplefilter('ignore',ResourceWarning)
         self.driver = BaseOperate()
+        self.x = self.driver.touch_X()
+        self.y = self.driver.touch_Y()
 
     @classmethod
     def tearDownClass(self):

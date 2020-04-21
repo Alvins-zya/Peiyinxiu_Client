@@ -82,7 +82,7 @@ class BaseOperate():
         '''
         根据提供的x、y坐标进行坐标滑动
         '''
-        self.driver.swipe(start_x,start_y,end_x,end_y,duration=1000)
+        self.driver.swipe(int(start_x),int(start_y),int(end_x),int(end_y),duration=1000)
 
     def Long_Touche(self,El):
         '''
@@ -90,6 +90,11 @@ class BaseOperate():
         '''
         TouchAction(self.driver).long_press(El,duration=2000).release().perform()
 
+    def tap(self,x,y):
+        '''
+        坐标点击
+        '''
+        TouchAction(self.driver).tap(int(x),int(y)).perform()
 
 
     def find_id(self, id):

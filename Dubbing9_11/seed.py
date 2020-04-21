@@ -804,19 +804,17 @@ class Test_i_preview(Dubbing):
     # 预览界面人声
     def test_a(self):
         #调节人声音量
-        self.x = self.driver.touch_X()
-        self.y = self.driver.touch_Y()
         el = self.driver.find_id(soucred_id + 'vol').get_attribute('checked')
         self.assertTrue(el,msg='进入配音预览界面后未默认选中人声选项')
         time.sleep(2)
         if self.y ==1920:
-            self.driver.swip_move(int(self.x * 0.24), int(self.y * 0.592), int(self.x * 0.37), int(self.y * 0.718))#调大音量
-            time.sleep(2)
-            self.driver.swip_move(int(self.x * 0.37), int(self.y * 0.718), int(self.x * 0.115),int(self.y * 0.628))  # 调大音量
-        elif self.y >2250:
-            self.driver.swip_move(x=265, y=1220).move_to(x=406, y=1442).release().perform()#调大音量
+            self.driver.swip_move(self.x * 0.24, self.y * 0.592,self.x * 0.37, self.y * 0.718)#调大音量
             time.sleep(4)
-            self.driver.swip_move(x=393, y=1430).move_to(x=115, y=1430).release().perform() # 调小音量
+            self.driver.swip_move(self.x * 0.37, self.y * 0.718,self.x * 0.115,self.y * 0.628)  # 调大音量
+        elif self.y >2250:
+            self.driver.swip_move(self.x*0.245, self.y*0.535,self.x*0.376, self.y*0.633)#调大音量
+            time.sleep(4)
+            self.driver.swip_move(self.x*0.364,self.y*0.627,self.x*0.107,self.y*0.627)# 调小音量
         else:
             pass
         time.sleep(4)
@@ -831,9 +829,16 @@ class Test_i_preview(Dubbing):
         el = self.driver.find_id(soucred_id + 'trim').get_attribute('checked')
         self.assertTrue(el,msg='点击校准后未显示选中状态')
         time.sleep(2)
-        TouchAction(self.driver).press(x=262, y=1236).move_to(x=112, y=1314).release().perform()#提前播放人声进度
-        self.driver.wait_download(soucred_id + 'play_button')
-        TouchAction(self.driver).press(x=131, y=1323).move_to(x=418, y=1327).release().perform()#延后播放人声进度
+        if self.y == 1920:
+            self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37,self.y * 0.718)  # 提前播放人声进度
+            self.driver.wait_download(soucred_id + 'play_button')
+            self.driver.swip_move(self.x * 0.37,self.y * 0.718, self.x * 0.115,self.y * 0.628)  # 延后播放人声进度
+        elif self.y >2250:
+            self.driver.swip_move(self.x * 0.245,self.y * 0.535, self.x * 0.376, self.y * 0.633)  # 提前播放人声进度
+            self.driver.wait_download(soucred_id + 'play_button')
+            self.driver.swip_move(self.x * 0.364, self.y * 0.627, self.x * 0.107,self.y * 0.627)  # 延后播放人声进度
+        else:
+            pass
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
 
@@ -844,9 +849,16 @@ class Test_i_preview(Dubbing):
         el = self.driver.find_id(soucred_id + 'pitch').get_attribute('checked')
         self.assertTrue(el,msg='点击变声后未显示选中状态')
         time.sleep(2)
-        TouchAction(self.driver).press(x=265, y=1236).move_to(x=112, y=1298).release().perform()#人声声线加粗
-        self.driver.wait_download(soucred_id + 'play_button')
-        TouchAction(self.driver).press(x=144, y=1302).move_to(x=387, y=1292).release().perform()#人声声线变细
+        if self.y == 1920:
+            self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37,self.y * 0.718)  # #人声声线加粗
+            self.driver.wait_download(soucred_id + 'play_button')
+            self.driver.swip_move(self.x * 0.37, self.y * 0.718,self.x * 0.115,self.y * 0.628)  #人声声线变细
+        elif self.y >2250:
+            self.driver.swip_move(self.x * 0.245, self.y * 0.535, int(self.x * 0.376,self.y * 0.633)  #人声声线加粗
+            self.driver.wait_download(soucred_id + 'play_button')
+            self.driver.swip_move(self.x * 0.364, self.y * 0.627, self.x * 0.107,self.y * 0.627)  #人声声线变细
+        else:
+            pass
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
 
@@ -857,24 +869,46 @@ class Test_i_preview(Dubbing):
         el = self.driver.find_id(soucred_id + 'fx').get_attribute('checked')
         self.assertTrue(el,msg='点击人声混响后未显示选中状态')
         time.sleep(2)
-        TouchAction(self.driver).press(x=106, y=1595).move_to(x=97, y=1261).release().perform()#增加混响效果值
-        time.sleep(2)
-        TouchAction(self.driver).press(x=272, y=1579).move_to(x=268, y=1264).release().perform()#增加空间效果值
-        time.sleep(2)
-        TouchAction(self.driver).press(x=446, y=1626).move_to(x=446, y=1252).release().perform()#增加回声效果值
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'play_button').click()
-        self.driver.wait_download(soucred_id + 'play_button')
-        time.sleep(2)
-        TouchAction(driver).press(x=97, y=1261).move_to(x=100, y=1620).release().perform()#减小混响效果值
-        time.sleep(2)
-        TouchAction(driver).press(x=268, y=1258).move_to(x=268, y=1626).release().perform()#减小空间效果值
-        time.sleep(2)
-        TouchAction(driver).press(x=449, y=1245).move_to(x=443, y=1636).release().perform()#减小回声效果值
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'play_button').click()
-        self.driver.wait_download(soucred_id + 'play_button')
-        time.sleep(2)
+        if self.y == 1920:
+            self.driver.swip_move(self.x*0.093,self.y*0.8,self.x*0.093,self.y*0.59)#增加混响效果值
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.254,self.y*0.8,self.x*0.254,self.y*0.59)#增加空间效果值
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.419,self.y*0.8,self.x*0.419,self.y*0.59)#增加回声效果值
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.093,self.y*0.59,self.x*0.093,self.y*0.8)#减小混响效果值
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.254,self.y*0.59,self.x*0.254,self.y*0.8)#减小空间效果值
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.419,self.y*0.59,self.x*0.419,self.y*0.8)#减小回声效果值
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+        elif self.y >2250:
+            self.driver.swip_move(self.x*0.098,self.y*0.7,self.x*0.098,self.y*0.553)#增加混响效果值
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.252,self.y*0.7,self.x*0.252,self.y*0.553)#增加空间效果值
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.413,self.y*0.7,self.x*0.413,self.y*0.553)#增加回声效果值
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.098,self.y*0.553,self.x*0.098,self.y*0.7)#减小混响效果值
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.252,self.y*0.553,self.x*0.252,self.y*0.7)#减小空间效果值
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.413,self.y*0.553,self.x*0.413,self.y*0.7)#减小回声效果值
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+        else:
+            pass
 
     def test_e(self):
         #返回配音界面后再进入配音预览界面，查看人声选项默认状态
@@ -889,15 +923,25 @@ class Test_i_preview(Dubbing):
 
     def test_f(self):
         #背景音音量调节
-        TouchAction(self.driver).press(x=655, y=1348).move_to(x=955, y=1302).release().perform()#增大背景音音量
-        self.driver.find_id(soucred_id + 'play_button').click()
-        self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
-        TouchAction(self.driver).press(x=955, y=1405).move_to(x=640, y=1339).release().perform()#减小背景音音量
-        self.driver.find_id(soucred_id + 'play_button').click()
-        self.driver.wait_download(soucred_id + 'play_button')
-        time.sleep(2)
-        TouchAction(driver).press(x=662, y=1402).move_to(x=905, y=1255).release().perform()
+        if self.y == 1920:
+            self.driver.swip_move(self.x*0.632,self.y*0.62,self.x*0.893,self.y*0.67)#增大背景音音量
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.893,self.y*0.67,self.x*0.632,self.y*0.62)#减小背景音音量
+            time.sleep(2)
+            self.driver.swip_move(self.x * 0.632, self.y * 0.62, self.x * 0.893, self.y * 0.67)  # 增大背景音音量
+        elif self.y > 2250:
+            self.driver.swip_move(self.x*0.607,self.y*0.591,self.x*0.884,self.y*0.571)#增大背景音音量
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.884,self.y*0.571,self.x*0.607,self.y*0.591)#减小背景音音量
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.607,self.y*0.591,self.x*0.884,self.y*0.571)#增大背景音音量
+        else:
+            pass
         time.sleep(2)
         #关闭背景音音量
         self.driver.find_id(soucred_id + 'voice_open').click()
@@ -908,14 +952,19 @@ class Test_i_preview(Dubbing):
         time.sleep(2)
 
     def test_g(self):
-        #背景音音乐列表
+        #背景音音乐列表中选择其它音乐
         count = self.driver.find_id(soucred_id + 'tvBgCount').text
         if count >1:
             self.driver.find_id(soucred_id + 'imgBgCount').click()
-            TouchAction(self.driver).tap(x=565, y=1058).perform()
+            if self.y==1920:
+                self.driver.tap(self.x*0.5,self.y*0.469)
+            elif self.y > 2250:
+                self.driver.tap(self.x*0.5,self.y*0.464)
+            else:
+                pass
         else:
             print('背景音数量少于2，不做切换')
-        time.sleep(2)
+        time.sleep(4)
     def test_h(self):
         #背景音混响调节
         self.driver.find_id(soucred_id + 'bgfx').click()
@@ -923,23 +972,47 @@ class Test_i_preview(Dubbing):
         el = self.driver.find_id(soucred_id + 'bgfx').get_attribute('chedked')
         self.assertTrue(el,msg='状态点击背景音混响按钮后，状态没有显示选中')
         time.sleep(2)
-        #增加混响效果
-        TouchAction(self.driver).press(x=640, y=1636).move_to(x=643, y=1261).release().perform()
-        time.sleep(2)
-        TouchAction(self.driver).press(x=808, y=1648).move_to(x=815, y=1255).release().perform()
-        time.sleep(2)
-        TouchAction(self.driver).press(x=986, y=1642).move_to(x=980, y=1258).release().perform()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'play_button').click()
-        self.driver.wait_download(soucred_id + 'play_button')
-        time.sleep(2)
-        #减小混响效果
-        TouchAction(self.driver).press(x=640, y=1161).move_to(x=637, y=1645).release().perform()
-        time.sleep(2)
-        TouchAction(self.driver).press(x=805, y=1180).move_to(x=805, y=1639).release().perform()
-        time.sleep(2)
-        TouchAction(self.driver).press(x=986, y=1177).move_to(x=980, y=1636).release().perform()
-        time.sleep(2)
+        if self.y == 1920:
+            #增加混响效果
+            self.driver.swip_move(self.x*0.588, self.y*0.8, self.x*0.588, self.y*0.59)
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.75, self.y*0.8, self.x*0.75, self.y*0.59)
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.91, self.y*0.8, self.x*0.91, self.y*0.59)
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+            #减小背景音混响效果
+            self.driver.swip_move(self.x*0.588, self.y*0.59, self.x*0.588, self.y*0.8)
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.75, self.y*0.59, self.x*0.75, self.y*0.8)
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.91, self.y*0.59, self.x*0.91, self.y*0.8)
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+        elif self.y > 2250:
+            #增加混响效果
+            TouchAction(self.driver).press(x=640, y=1636).move_to(x=643, y=1261).release().perform()
+            time.sleep(2)
+            TouchAction(self.driver).press(x=808, y=1648).move_to(x=815, y=1255).release().perform()
+            time.sleep(2)
+            TouchAction(self.driver).press(x=986, y=1642).move_to(x=980, y=1258).release().perform()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'play_button').click()
+            self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
+            #减小混响效果
+            TouchAction(self.driver).press(x=640, y=1161).move_to(x=637, y=1645).release().perform()
+            time.sleep(2)
+            TouchAction(self.driver).press(x=805, y=1180).move_to(x=805, y=1639).release().perform()
+            time.sleep(2)
+            TouchAction(self.driver).press(x=986, y=1177).move_to(x=980, y=1636).release().perform()
+            time.sleep(2)
+        else:
+            pass
         self.driver.find_id(soucred_id + 'play_button').click()
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
@@ -950,7 +1023,12 @@ class Test_i_preview(Dubbing):
         time.sleep(2)
         self.driver.find_id(soucred_id + 'imgBgCount').click()
         time.sleep(2)
-        TouchAction(self.driver).tap(x=552, y=2182).perform()
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.519, self.y * 0.803)
+        elif self.y > 2250:
+            self.driver.tap(self.x*0.51, self.y*0.96)
+        else:
+            pass
         self.driver.wait_id(soucred_id + 'btnRight')
         while True:
             try:
@@ -976,7 +1054,13 @@ class Test_i_preview(Dubbing):
         self.driver.find_id(soucred_id + 'play_button').click()
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
-        TouchAction(self.driver).press(x=56, y=1021).move_to(x=684, y=1024).release().perform()
+        #选中音乐后进入音乐试听界面，拖动视频进度条
+        if self.y ==1920:
+            self.driver.swip_move(self.x*0.052,self.y*0.487,self.x*0.704,self.y*0.487)
+        elif self.y > 2250:
+            self.driver.swip_move(self.x*0.052,self.y*0.448,self.x*0.633,self.y*0.448)
+        else:
+            pass
         time.sleep(2)
         self.driver.find_id(soucred_id + 'play_button').click()
         self.driver.wait_download(soucred_id + 'play_button')
@@ -1017,7 +1101,12 @@ class Test_i_preview(Dubbing):
         #预览界面返回配音界面后重新录制
         self.driver.find_id(soucred_id + 'back').click()
         self.driver.wait_id(soucred_id + 'review')
-        TouchAction(self.driver).press(x=232, y=1612).move_to(x=766, y=1612).release().perform()
+        if self.y == 1920:
+            self.driver.swip_move(self.x*0.204,self.y*0.651,self.x*0.741,self.y*0.651)
+        elif self.y > 2250:
+            self.driver.swip_move(self.x*0.215,self.y*0.707,self.x*0.709,self.y*0.707)
+        else:
+            pass
         time.sleep(2)
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
@@ -1035,18 +1124,32 @@ class Test_j_upload(Dubbing):
         #修改作品封面-视频截图
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
-        TouchAction(self.driver).tap(x=541, y=1715).perform()
-        time.sleep(2)
-        TouchAction(self.driver).press(x=36, y=824).move_to(x=476, y=826).release().perform()
+        if self.y == 1920:
+            self.driver.tap(self.x*0.5,self.y*0.708)
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.37,self.y*0.422,self.x*0.74,self.y*0.422)
+        elif self.y > 2250:
+            self.driver.tap(self.x*0.5,self.y*0.752)
+            time.sleep(2)
+            self.driver.swip_move(self.x*0.033,self.y*0.361,self.x*0.441,self.y*0.361)
+        else:
+            pass
         time.sleep(4)
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
         # 选择视频截图
-        TouchAction(self.driver).tap(x=541, y=1715).perform()
-        time.sleep(2)
-        TouchAction(self.driver).press(x=36, y=824).move_to(x=476, y=826).release().perform()
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.708)
+            time.sleep(2)
+            self.driver.swip_move(self.x * 0.37, self.y * 0.422, self.x * 0.74, self.y * 0.422)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.752)
+            time.sleep(2)
+            self.driver.swip_move(self.x * 0.033, self.y * 0.361, self.x * 0.441, self.y * 0.361)
+        else:
+            pass
         time.sleep(4)
         self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(2)
@@ -1061,9 +1164,16 @@ class Test_j_upload(Dubbing):
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
         # 选择视频截图
-        TouchAction(self.driver).tap(x=541, y=1715).perform()
-        time.sleep(2)
-        TouchAction(self.driver).press(x=36, y=824).move_to(x=476, y=826).release().perform()
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.708)
+            time.sleep(2)
+            self.driver.swip_move(self.x * 0.37, self.y * 0.422, self.x * 0.74, self.y * 0.422)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.752)
+            time.sleep(2)
+            self.driver.swip_move(self.x * 0.033, self.y * 0.361, self.x * 0.441, self.y * 0.361)
+        else:
+            pass
         time.sleep(4)
         self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(2)
@@ -1072,12 +1182,28 @@ class Test_j_upload(Dubbing):
         #修改作品封面-拍照
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
-        TouchAction(self.driver).tap(x=527, y=1870).perform()
-        self.driver.wait_id('com.android.camera:id/shutter_button')
-        self.driver.find_id('com.android.camera:id/shutter_button').click()
-        time.sleep(4)
-        self.driver.find_id('com.android.camera:id/done_button').click()
-        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.755)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.82)
+        else:
+            pass
+        time.sleep(5)
+        try:
+            #米5
+            self.driver.find_id('com.android.camera:id/v9_camera_picker')
+            self.driver.find_id('com.android.camera:id/v9_camera_picker').click()
+            time.sleep(5)
+            self.driver.find_id('com.android.camera:id/inten_done_apply').click()
+        except:
+            #VivoX21
+            self.driver.find_id('com.android.camera:id/shutter_button')
+            self.driver.find_id('com.android.camera:id/shutter_button').click()
+            time.sleep(4)
+            self.driver.find_id('com.android.camera:id/done_button').click()
+            time.sleep(4)
+        except:
+            pass
         self.driver.find_id(soucred_id + 'confirm').click()
         time.sleep(2)
 
@@ -1085,19 +1211,43 @@ class Test_j_upload(Dubbing):
         #修改作品封面-拍照-拍照以后点击取消
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
-        TouchAction(self.driver).tap(x=533, y=1856).perform()
-        self.driver.wait_id('com.android.camera:id/shutter_button')
-        self.driver.find_id('com.android.camera:id/shutter_button').click()
-        time.sleep(4)
-        self.driver.find_id('com.android.camera:id/done_button').click()
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.755)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.82)
+        else:
+            pass
+        time.sleep(5)
+        try:
+            # 米5
+            self.driver.find_id('com.android.camera:id/v9_camera_picker')
+            self.driver.find_id('com.android.camera:id/v9_camera_picker').click()
+            time.sleep(5)
+            self.driver.find_id('com.android.camera:id/inten_done_apply').click()
+        except:
+            # VivoX21
+            self.driver.find_id('com.android.camera:id/shutter_button')
+            self.driver.find_id('com.android.camera:id/shutter_button').click()
+            time.sleep(4)
+            self.driver.find_id('com.android.camera:id/done_button').click()
+            time.sleep(4)
+        except:
+            pass
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
+        self.driver.find_id('android:id/button1').click()
+        time.sleep(4)
 
     def test_f(self):
         #修改作品封面-相册
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
-        TouchAction(self.driver).tap(x=557, y=1996).perform()
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.856)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.875)
+        else:
+            pass
         time.sleep(2)
         photo_count = self.driver.find_ids(soucred_id + 'photo_wall_item_photo')
         select = randint(0,len(photo_count))
