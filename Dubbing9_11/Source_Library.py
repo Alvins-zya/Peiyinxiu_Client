@@ -399,7 +399,7 @@ class Classification(Dubbing):
             self.assertEqual(toast,check,msg='toast内容不一致')
         except:
             pass
-        time.sleep(2)
+        time.sleep(1)
 
 
 
