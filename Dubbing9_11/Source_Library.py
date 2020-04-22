@@ -96,8 +96,42 @@ class Source_search(Dubbing):
             else:
                 pass
         time.sleep(2)
-
     def test_e(self):
+        #进入标签详情界面
+        self.driver.find_id(soucred_id + 'tv1').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'rank_name').click()
+        self.driver.wait_id(soucred_id + 'iv_source')
+        time.sleep(2)
+        #依次点击切换标签，且点击标签后进入素材预览界面再返回
+        label_touche = self.driver.find_ids(soucred_id + 'types_name')
+        for i in reversed(label_touche):
+            i.click()
+            self.driver.wait_id(soucred_id + 'iv_source')
+            self.driver.find_id(soucred_id + 'iv_source').click()
+            self.driver.wait_id(soucred_id + 'userhead')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+        time.sleep(2)
+        #上滑加载素材列表
+        for i in range(10):
+            self.driver.swip_up()
+            time.sleep(2)
+        time.sleep(2)
+        #退出标签详情界面返回素材搜索界面
+        while True:
+            try:
+                self.driver.find_id(soucred_id + 'tag_name')
+                self.driver.find_id(soucred_id + 'btnBack').click()
+            except:
+                break
+            time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+
+    def test_f(self):
         #搜索素材
         self.driver.find_id(soucred_id + 'txtKeyword').send_keys('配音')
         time.sleep(2)
@@ -129,13 +163,15 @@ class Classification(Dubbing):
         for i in range(len(tv_Main)):
             self.driver.find_ids(soucred_id + 'tv')[i].click()
             self.driver.wait_id(soucred_id + 'iv_source')
+            #热门推荐标签
             tv_Branch = self.driver.find_ids(soucred_id + 'tv')
             for x in range(len(tv_Branch)):
                 self.driver.find_ids(soucred_id + 'tv')[x].click()
                 self.driver.wait_id(soucred_id + 'img_url')
                 time.sleep(1)
-                self.driver.back()
+                self.driver.find_id(soucred_id + 'btnBack').click()
                 time.sleep(2)
+            #更多热门标签
             self.driver.find_id(soucred_id + 'tv1').click()
             time.sleep(2)
             self.driver.find_id(soucred_id + 'btnBack').click()
@@ -152,6 +188,8 @@ class Classification(Dubbing):
             self.driver.find_id(soucred_id + 'btnBack').click()
             time.sleep(2)
         time.sleep(2)
+
+
 
 
 
