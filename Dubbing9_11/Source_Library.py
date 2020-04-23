@@ -2,7 +2,7 @@ import unittest
 import time
 from Dubbing9_11.parent import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
-class Source_search(Dubbing):
+class Test_a_Source_search(Dubbing):
     def test_a(self):
         #点击素材搜索进入搜索界面
         self.driver.wait_id(soucred_id + 'tv_search')
@@ -156,7 +156,7 @@ class Source_search(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-class Classification(Dubbing):
+class Test_b_Classification(Dubbing):
     def test_a(self):
         #素材库主界面8个标签
         tv_Main = self.driver.find_ids(soucred_id + 'tv')
@@ -295,7 +295,7 @@ class Classification(Dubbing):
 
     def test_f(self):
         #合作广场-热门列表
-        self.driver.find_xpath('热门').click()
+        el = self.driver.find_xpath('热门')
         time.sleep(2)
         #显示合作次数
         Cooper_count = self.driver.find_ids(soucred_id + 'count')
@@ -367,18 +367,21 @@ class Classification(Dubbing):
         time.sleep(2)
 
     def test_i(self):
+        time.sleep(2)
         #合作广场-我的
         self.driver.find_xpath('我的').click()
         time.sleep(2)
+
+    def test_j(self):
         try:
             self.driver.find_id(soucred_id + 'item_sh_cooperate_article_title')
             return True
         except:
-            print('合作广场-我的tab界面为空')
             return False
-    result = test_i(self=None)
+        time.sleep(2)
+    result = test_j(self=None)
     @unittest.skipUnless(result,u'合作广场我的界面中求和作信息为空，跳过此项')
-    def test_j(self):
+    def test_k(self):
         #置顶按钮
         try:
             self.driver.find_id(soucred_id + 'btnSetTop').click()
@@ -400,6 +403,133 @@ class Classification(Dubbing):
         except:
             pass
         time.sleep(1)
+
+    def test_l(self):
+        #合作广场-搜索
+        self.driver.find_id(soucred_id + 'right_icon1').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'et_search_keyword').send_keys('配音')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSearch').click()
+        self.driver.wait_id(soucred_id + 'item_sh_cooperate_article_image')
+        self.driver.find_id(soucred_id +'item_sh_cooperate_article_image').click()
+        self.driver.wait_download(soucred_id + 'play')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnCooperate').click()
+        self.driver.wait_download(soucred_id + 'action')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_id(soucred_id + 'item_sh_cooperate_article_image')
+        #滑动加载列表
+        for i in range(5):
+            self.driver.swip_up()
+            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'right_icon1').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'et_search_keyword').send_keys('槛花笼鹤')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSearch').click()
+        time.sleep(5)
+        try:
+            self.driver.find_xpath('没有搜索到任何内容')
+        except:
+            raise ('检查搜索无结果显示失败')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+class Test_c_Voicetest(Dubbing):
+    #声音鉴定
+    def test_a(self):
+        self.driver.find_id(soucred_id + 'sj').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'boy').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'girl').click()
+        time.sleep(2)
+        conten = self.driver.find_id(soucred_id + 'text').text
+        self.driver.find_id(soucred_id + 'change').click()
+        conten_new = self.driver.find_id(soucred_id + 'text').text
+        self.assertNotEqual(conten,conten_new,msg='切换朗读的前后内容对比一致，切换失败')
+        time.sleep(2)
+
+    def test_b(self):
+        #录音
+        i=1
+        while True:
+            i = i + 1
+            try:
+                self.driver.find_id(soucred_id + 'dubbing').click()
+                time.sleep(15)
+                self.driver.find_id(soucred_id + 'dubbing').click()
+                time.sleep(10)
+                self.driver.find_id(soucred_id + 'preview')
+                break
+                return True
+            except:
+                pass
+            if i == 10:
+                break
+            else:
+                pass
+        time.sleep(2)
+    Voice_result = test_b(self=None)
+    @unittest.skipUnless(Voice_result,u'声鉴结果界面跳转失败，跳过此测试步骤')
+    def test_c(self):
+        #声鉴报告界面
+        voice_style = self.driver.find_id(soucred_id + 'voice_type').text
+        print(voice_style)
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'play').click()
+        self.driver.wait_download(soucred_id + 'play')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'title').click()
+        self.driver.wait_id(soucred_id + 'userhead')
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        for i in range(3):
+            self.driver.swip_up()
+            time.sleep(2)
+        time.sleep(2)
+
+    @unittest.skipUnless(Voice_result, u'声鉴结果界面跳转失败，跳过此测试步骤')
+    def test_d(self):
+        #点击配音，保存草稿箱
+        self.driver.find_id(soucred_id + 'action').click()
+        time.sleep(2)
+        self.driver.wait_download(soucred_id + 'action')
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id +'title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'complete').click()
+        self.driver.wait_id(soucred_id + 'txtTitle')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'saveToDraft').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        time.sleep(2)
+        self.driver.wait_xpath('退出配音')
+        self.driver.find_xpath('退出配音').click()
+        time.sleep(2)
+        for i in range(6):
+            self.driver.swip_down()
+            time.sleep(2)
+        self.driver.find_id(soucred_id + 'reIndetify').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+
+
 
 
 
