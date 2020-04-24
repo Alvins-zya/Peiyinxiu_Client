@@ -22,7 +22,7 @@ class BaseOperate():
         返回键
         :return:
         '''
-        os.system('adb -s %s shell input keyevent 4' % (self.dev))
+        os.system('adb -s %s shell input keyevent 4' % (self.dev[0]))
 
     def touch_X(self):
         # x = self.driver.get_window_size()['width']
@@ -58,7 +58,7 @@ class BaseOperate():
 
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
-        self.driver.swipe(0.5 * x, 0.3 * y, 0.5 * x, 0.8 * y, 500)
+        self.driver.swipe(0.5 * x, 0.3 * y, 0.5 * x, 0.8 * y, 300)
 
     def swip_left(self):
         '''
@@ -67,7 +67,7 @@ class BaseOperate():
         '''
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
-        self.driver.swipe(0.7 * x, 0.5 * y, 0.3 * x, 0.5 * y, 300)
+        self.driver.swipe(0.8 * x, 0.5 * y, 0.2 * x, 0.5 * y, 100)
 
     def swip_right(self):
         '''
@@ -76,7 +76,7 @@ class BaseOperate():
         '''
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
-        self.driver.swipe(0.4 * x, 0.8 * y, 0.8 * x, 0.4 * y, 300)
+        self.driver.swipe(0.4 * x, 0.8 * y, 0.8 * x, 0.4 * y, 100)
 
     def swip_move(self,start_x,start_y,end_x,end_y):
         '''
@@ -90,11 +90,11 @@ class BaseOperate():
         '''
         TouchAction(self.driver).long_press(El,duration=2000).release().perform()
 
-    def tap(self,x,y):
+    def tap(self,X,Y):
         '''
         坐标点击
         '''
-        TouchAction(self.driver).tap(int(x),int(y)).perform()
+        TouchAction(self.driver).tap(x=int(X),y=int(Y)).perform()
 
 
     def find_id(self, id):
@@ -167,7 +167,7 @@ class BaseOperate():
         :return:
         '''
         toast_element = '%s' % xpath
-        WebDriverWait(self.driver, 5).until(lambda x: self.driver.find_element_by_xpath(toast_element))
+        WebDriverWait(self.driver, 10).until(lambda x: self.driver.find_element_by_xpath(toast_element))
         toast = self.driver.find_element_by_xpath(toast_element)
         return toast.text
 
