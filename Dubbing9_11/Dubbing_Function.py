@@ -220,6 +220,7 @@ class Test_c_living(Dubbing):
         time.sleep(2)
         self.driver.find_id(soucred_id + 'living').click()
         time.sleep(2)
+
     def test1(self):
         #开启实况后退到后台再启动
         self.driver.find_id(soucred_id + 'living').click()
@@ -429,15 +430,9 @@ class Test_f_Play_vido(Dubbing):
     def test1(self):
         #播放过程中暂停
         self.driver.find_id(soucred_id + 'play').click()
-        try:
-            self.driver.find_id(soucred_id + 'play')
-            pass
-        except:
-            self.driver.Background()
-            self.driver.wait_download(soucred_id + 'play')
-            T =self.driver.find_id(soucred_id + 'video_time').text
-            T_check = '00:00'
-            self.assertIn(T_check,T,msg='时间进度没有走')
+        time.sleep(2)
+        self.driver.Background()
+        self.driver.wait_download(soucred_id + 'play')
         time.sleep(2)
 
     def test3(self):
@@ -550,8 +545,7 @@ class Test_g_Record(Dubbing):
 
     def test_i(self):
         #点击回撤按钮
-        count = self.driver.find_id(soucred_id + 'withdrawcount').text
-        for i in range(len(count)):
+        while True:
             self.driver.find_id(soucred_id + 'withdraw').click()
             self.driver.wait_not_id(soucred_id + 'withdraw')
             break
@@ -560,7 +554,7 @@ class Test_g_Record(Dubbing):
     def test_j(self):
         #录制过程中暂停
         self.driver.find_id(soucred_id + 'action').click()
-        time.sleep(3)
+        time.sleep(2)
         self.driver.Background()
         time.sleep(2)
         try:
@@ -568,8 +562,9 @@ class Test_g_Record(Dubbing):
         except:
             print('没有显示音轨，未录制进人声')
         time.sleep(2)
+
     def test_k(self):
-        #录制完成后自动跳转后再返回配音界面
+        #录制完成后自动跳转再返回配音界面
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
@@ -579,10 +574,12 @@ class Test_g_Record(Dubbing):
 
     def test_l(self):
         # 手动拖音轨
-        self.x = self.driver.touch_X()
-        self.y = self.driver.touch_Y()
-        time.sleep(2)
-        self.driver.swip_move(int(self.x*0.24),int(self.y*0.71),int(self.x*0.81),int(self.y*0.71))
+        if self.y == 1920:
+            self.driver.swip_move(self.x * 0.185,self.y *0.65,self.x *0.787,self.y *0.65)
+        elif self.y > 2250:
+            self.driver.swip_move(self.x * 0.24, self.y * 0.71, self.x * 0.81, self.y * 0.71)
+        else:
+            pass
         time.sleep(2)
         # 点击预览视频
         self.driver.find_id(soucred_id + 'play').click()
@@ -726,6 +723,10 @@ class Test_g_Record(Dubbing):
         time.sleep(2)
         self.driver.find_id(soucred_id + 'living').click()
         time.sleep(2)
+        self.driver.find_id(soucred_id + 'script_container').click()
+        time.sleep(4)
+        self.driver.find_id(soucred_id +'titleTextView').click()
+        time.sleep(4)
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
@@ -754,15 +755,13 @@ class Test_h_preview_video(Dubbing):
     def test2(self):
         #字幕开关
         el = self.driver.find_id(soucred_id + 'add_subtitle_cb').get_attribute('checked')
-        if el == True:
+        check = 'true'
+        if el == check:
             print('字幕默认开启')
         else:
             print('字幕默认关闭')
         time.sleep(2)
-        if el == False:
-            self.driver.find_id(soucred_id + 'add_subtitle_cb').click()
-        else:
-            pass
+        self.driver.find_id(soucred_id + 'add_subtitle_cb').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
@@ -770,7 +769,9 @@ class Test_h_preview_video(Dubbing):
         self.driver.wait_id(soucred_id + 'title')
         self.driver.Background()
         time.sleep(2)
-        self.assertTrue(el,msg='开启字幕开关后，返回配音界面再进预览界面，没有保留开关状态')
+        el1 = self.driver.find_id(soucred_id + 'add_subtitle_cb').get_attribute('checked')
+        self.assertNotEqual(el,el1,msg='修改字幕开关状态后，返回配音界面再进预览界面，没有保留开关状态')
+        self.driver.find_id(soucred_id + 'add_subtitle_cb').click()
         time.sleep(2)
 
     def test3(self):
@@ -782,11 +783,8 @@ class Test_h_preview_video(Dubbing):
         else:
             print('降噪默认关闭')
         time.sleep(2)
-        if el == state_check:
-            self.driver.find_id(soucred_id + 'clear_voice').click()
-        else:
-            pass
-        time.sleep(2)
+        self.driver.find_id(soucred_id + 'clear_voice').click()
+        time.sleep(4)
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'complete').click()
@@ -794,10 +792,8 @@ class Test_h_preview_video(Dubbing):
         self.driver.Background()
         time.sleep(2)
         el1 = self.driver.find_id(soucred_id + 'clear_voice').get_attribute('checked')
-        if el1 ==state_check:
-            self.assertFalse(el1, msg='降噪开关关闭后，返回配音界面再进预览界面，没有保留开关状态')
-        else:
-            pass
+        self.assertNotEqual(el,el1,msg='修改降噪开关状态后，返回配音界面再进入预览界面，降噪开关状态校验错误')
+        self.driver.find_id(soucred_id + 'clear_voice').click()
         time.sleep(2)
 
 class Test_i_preview(Dubbing):
@@ -810,7 +806,7 @@ class Test_i_preview(Dubbing):
         if self.y ==1920:
             self.driver.swip_move(self.x * 0.24, self.y * 0.592,self.x * 0.37, self.y * 0.718)#调大音量
             time.sleep(4)
-            self.driver.swip_move(self.x * 0.37, self.y * 0.718,self.x * 0.115,self.y * 0.628)  # 调大音量
+            self.driver.swip_move(self.x * 0.37, self.y * 0.718,self.x * 0.115,self.y * 0.628)  # 调小音量
         elif self.y >2250:
             self.driver.swip_move(self.x*0.245, self.y*0.535,self.x*0.376, self.y*0.633)#调大音量
             time.sleep(4)
@@ -832,10 +828,12 @@ class Test_i_preview(Dubbing):
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37,self.y * 0.718)  # 提前播放人声进度
             self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
             self.driver.swip_move(self.x * 0.37,self.y * 0.718, self.x * 0.115,self.y * 0.628)  # 延后播放人声进度
         elif self.y >2250:
             self.driver.swip_move(self.x * 0.245,self.y * 0.535, self.x * 0.376, self.y * 0.633)  # 提前播放人声进度
             self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
             self.driver.swip_move(self.x * 0.364, self.y * 0.627, self.x * 0.107,self.y * 0.627)  # 延后播放人声进度
         else:
             pass
@@ -852,10 +850,12 @@ class Test_i_preview(Dubbing):
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37,self.y * 0.718)  # #人声声线加粗
             self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
             self.driver.swip_move(self.x * 0.37, self.y * 0.718,self.x * 0.115,self.y * 0.628)  #人声声线变细
-        elif self.y >2250:
-            self.driver.swip_move(self.x * 0.245, self.y * 0.535, int(self.x * 0.376,self.y * 0.633)  #人声声线加粗
+        elif self.y > 2250:
+            self.driver.swip_move(self.x * 0.245, self.y * 0.535, self.x * 0.376,self.y * 0.633)  #人声声线加粗
             self.driver.wait_download(soucred_id + 'play_button')
+            time.sleep(2)
             self.driver.swip_move(self.x * 0.364, self.y * 0.627, self.x * 0.107,self.y * 0.627)  #人声声线变细
         else:
             pass
@@ -954,8 +954,10 @@ class Test_i_preview(Dubbing):
     def test_g(self):
         #背景音音乐列表中选择其它音乐
         count = self.driver.find_id(soucred_id + 'tvBgCount').text
-        if count >1:
+        print(count)
+        if int(count) > 1:
             self.driver.find_id(soucred_id + 'imgBgCount').click()
+            time.sleep(4)
             if self.y==1920:
                 self.driver.tap(self.x*0.5,self.y*0.469)
             elif self.y > 2250:
@@ -965,6 +967,7 @@ class Test_i_preview(Dubbing):
         else:
             print('背景音数量少于2，不做切换')
         time.sleep(4)
+
     def test_h(self):
         #背景音混响调节
         self.driver.find_id(soucred_id + 'bgfx').click()
@@ -1024,9 +1027,9 @@ class Test_i_preview(Dubbing):
         self.driver.find_id(soucred_id + 'imgBgCount').click()
         time.sleep(2)
         if self.y == 1920:
-            self.driver.tap(self.x * 0.519, self.y * 0.803)
+            self.driver.tap(self.x * 0.5, self.y * 0.955)
         elif self.y > 2250:
-            self.driver.tap(self.x*0.51, self.y*0.96)
+            self.driver.tap(self.x*0.5, self.y*0.96)
         else:
             pass
         self.driver.wait_id(soucred_id + 'btnRight')
@@ -1043,10 +1046,11 @@ class Test_i_preview(Dubbing):
             except:
                 break
             time.sleep(2)
+
     def test_j(self):
         #随机选中背景音音乐
         count = self.driver.find_ids(soucred_id + 'title')
-        select = randint(0,len(count))
+        select = random.randint(0,len(count)-1)
         self.driver.find_ids(soucred_id + 'title')[select].click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnRight').click()
@@ -1202,7 +1206,7 @@ class Test_j_upload(Dubbing):
             time.sleep(4)
             self.driver.find_id('com.android.camera:id/done_button').click()
             time.sleep(4)
-        except:
+        else:
             pass
         self.driver.find_id(soucred_id + 'confirm').click()
         time.sleep(2)
@@ -1231,7 +1235,7 @@ class Test_j_upload(Dubbing):
             time.sleep(4)
             self.driver.find_id('com.android.camera:id/done_button').click()
             time.sleep(4)
-        except:
+        else:
             pass
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
@@ -1242,6 +1246,7 @@ class Test_j_upload(Dubbing):
     def test_f(self):
         #修改作品封面-相册
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
+        time.sleep(3)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.856)
         elif self.y > 2250:
@@ -1250,11 +1255,11 @@ class Test_j_upload(Dubbing):
             pass
         time.sleep(2)
         photo_count = self.driver.find_ids(soucred_id + 'photo_wall_item_photo')
-        select = randint(0,len(photo_count))
+        select = random.randint(0,len(photo_count)-1)
         self.driver.find_ids(soucred_id + 'photo_wall_item_photo')[select].click()
         time.sleep(3)
         self.driver.find_id(soucred_id + 'confirm').click()
-        time.sleep(2)
+        time.sleep(4)
 
     def test_g(self):
         #标题名称-输入30个字符
@@ -1283,10 +1288,11 @@ class Test_j_upload(Dubbing):
         time.sleep(2)
         self.driver.find_xpath('添加').click()
         self.driver.wait_id(soucred_id + 'edit_text')
+        time.sleep(2)
         try:
             self.driver.find_id(soucred_id + 'tv')
         except:
-            print('未显示热门标签')
+            print('未显示热门频道标签')
             self.driver.find_id(soucred_id + 'btnBack').click()
             time.sleep(2)
             self.driver.find_xpath('添加').click()
@@ -1308,13 +1314,167 @@ class Test_j_upload(Dubbing):
         label_check = self.driver.find_id(soucred_id + 'tv1').text
         self.assertEqual(label_name,label_check,msg='标签对比不一致，%s,%s'%(label_name,label_check))
         time.sleep(2)
+
 class Test_k_Upload(Dubbing):
     def test_a(self):
         #点击上传按钮
         self.driver.find_id(soucred_id + 'uploadbtn').click()
         time.sleep(2)
         self.driver.wait_id(soucred_id + 'down')
-        print('上传成功')
+        time.sleep(2)
+
+    def test_b(self):
+        try:
+            self.driver.find_id(soucred_id + 'down')
+            return True
+        except:
+            return False
+
+    # upload_result = test_b(self= None)
+    upload_result = True
+    @unittest.skipUnless(upload_result,u'视频上传失败，不执行视频查看用例')
+    def test_c(self):
+        #点击查看视频详情
+        self.driver.find_id(soucred_id + 'img_url').click()
+        self.driver.wait_id(soucred_id + 'btnBack')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'play').click()
+        self.driver.wait_download(soucred_id + 'play')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+    @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频下载用例')
+    def test_d(self):
+        #视频下载
+        check = 'no'
+        self.driver.find_id(soucred_id + 'down').click()
+        time.sleep(2)
+        try:
+            self.driver.find_xpath('直接下载')
+            self.driver.find_xpath('直接下载').click()
+            self.driver.wait_id(soucred_id + 'btnSubmit')
+            down_load = self.driver.find_id(soucred_id + 'txtContent').text
+            self.assertIn(check,down_load,msg='非会员下载后作品名称没有显示novip')
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+        except:
+            down_local = self.driver.find_id(soucred_id + 'txtContent').text
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+        time.sleep(2)
+
+
+    @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频分享用例')
+    def test_d(self):
+        #站外分享
+        try:
+            self.driver.find_id(soucred_id + 'wx')
+        except:
+            raise ('限制素材作品，不支持站外分享')
+        time.sleep(2)
+        #微信分享
+        self.driver.find_id(soucred_id + 'wx').click()
+        time.sleep(4)
+        self.driver.wait_id('com.tencent.mm:id/ch')
+        time.sleep(2)
+        self.driver.find_id('com.tencent.mm:id/dn').click()
+        self.driver.wait_id(soucred_id + 'down')
+        time.sleep(2)
+        #朋友圈分享
+        self.driver.find_id(soucred_id + 'wxf').click()
+        self.driver.wait_id('com.tencent.mm:id/ch')
+        time.sleep(2)
+        self.driver.find_id('com.tencent.mm:id/dn').click()
+        self.driver.wait_id(soucred_id + 'down')
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.swip_move(self.x*0.922,self.y *0.232,self.x *0.57,self.y *0.232)
+        elif  self.y > 2250:
+            pass
+        else:
+            pass
+        time.sleep(2)
+        #QQ分享
+        self.driver.find_id(soucred_id + 'qq').click()
+        self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
+        time.sleep(2)
+        self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeftButton').click()
+        time.sleep(2)
+        #QQ空间分享
+        self.driver.find_id(soucred_id + 'qqz').click()
+        self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
+        self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
+        time.sleep(2)
+        self.driver.find_xpath('不保存').click()
+        time.sleep(2)
+
+        #微博分享
+        self.driver.find_id(soucred_id + 'wb').click()
+        self.driver.wait_id('com.sina.weibo:id/titleSave')
+        self.driver.find_id('com.sina.weibo:id/titleBack').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'circlesTab').click()
+        time.sleep(2)
+
+    @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频分享用例')
+    def test_e(self):
+        #删除视频
+        self.driver.find_id(soucred_id + 'img_url').click()
+        self.driver.wait_id(soucred_id + 'btnBack')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'setting').click()
+        time.sleep(2)
+        self.driver.tap(self.x * 0.5,self.y * 0.854)
+        tip = self.driver.find_id(soucred_id + 'txtContent').text
+        check = '您确定要删除作品'
+        self.assertEqual(tip,check,msg='作品删除提示内容校验不一致')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_id(soucred_id + 'down')
+        self.driver.find_id(soucred_id + 'img_url').click()
+        toast_check = '作品已删除'
+        toast = self.driver.find_id('//android.widget.Toast')
+        self.assertEqual(toast, toast_check, msg='作品删除后再点击提示文案校验失败')
+        time.sleep(2)
+        #关闭上传结果
+        self.driver.find_id(soucred_id + 'close').click()
+        time.sleep(2)
+
+    @unittest.skipIf(upload_result,u'作品上传成功，不执行失败检测用例')
+    def test_f(self):
+        #查看失败原因
+        self.driver.find_id(soucred_id + 'rl_bg').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            print('上传失败的情况下，点击作品封面：',toast)
+        except:
+            pass
+        time.sleep(2)
+        reason = self.driver.find_id(soucred_id + 're_update').text
+        reason_state1 = '修改标题'
+        reason_state2 = '重新上传'
+        if reason == reason_state1:
+            self.driver.find_id(soucred_id + 're_update').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'edit').clear()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'edit').send_keys('标题修改')
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+            time.sleep(2)
+            try:
+                self.driver.wait_id(soucred_id + 'down')
+            except:
+                raise ('修改标题后重新上传失败')
+        elif reason_state2 == reason_state2:
+            self.driver.find_id(soucred_id + 're_update').click()
+            try:
+                self.driver.wait_id(soucred_id + 'down')
+            except:
+                raise ('点击重新上传按钮后，作品依然上传失败')
+        else:
+            raise ('未知错误')
+        time.sleep(2)
 
 
 
