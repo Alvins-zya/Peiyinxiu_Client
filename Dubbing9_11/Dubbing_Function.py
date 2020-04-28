@@ -41,7 +41,7 @@ class Test_a_Dub(Dubbing):
             return True
 
     source_result_style  = test1(self= None)
-    @unittest.skipIf(source_result_style,u'结果为False时，判断是双配素材,执行此条用例')
+    @unittest.skipIf(source_result_style,u'判断是单配素材,跳过此条用例')
     def test2(self):
         self.driver.find_id(soucred_id + 'dubbing_fake').click()
         time.sleep(2)
@@ -72,7 +72,7 @@ class Test_a_Dub(Dubbing):
         self.driver.find_id(soucred_id + 'roleall').click()
         time.sleep(2)
 
-    @unittest.skipUnless(source_result_style,u'结果为True时，判断是单人素材，执行此条用例')
+    @unittest.skipUnless(source_result_style,u'判断是双配素材，跳过此条用例')
     def test3(self):
         #点击配音内存检查
         self.driver.find_id(soucred_id + 'dubbing_fake').click()
@@ -111,7 +111,7 @@ class Test_a_Dub(Dubbing):
 
         except:
             pass
-    @unittest.skipIf(source_result_style,u'结果为False时，双配素材退出配音界面再进')
+    @unittest.skipIf(source_result_style,u'单配素材，跳过此用例')
     def test5(self):
         #退出配音界面再进
         self.driver.find_id(soucred_id + 'back').click()
@@ -130,7 +130,7 @@ class Test_a_Dub(Dubbing):
         except:
             print('配音界面返回跳转错误')
             self.driver.Quit()
-    @unittest.skipUnless(source_result_style,u'结果为True时，单配素材退出再进')
+    @unittest.skipUnless(source_result_style,u'双配素材，跳过此用例')
     def test6(self):
         # 退出配音界面再进
         self.driver.find_id(soucred_id + 'back').click()
@@ -152,7 +152,7 @@ class Test_a_Dub(Dubbing):
 
 
 
-    @unittest.skipIf(source_result_style,u'结果为False时，合作素材，执行切换角色')
+    @unittest.skipIf(source_result_style,u'单配素材，跳过此用例')
     def test7(self):
         #合作配音角色切换
         try:
@@ -170,8 +170,6 @@ class Test_a_Dub(Dubbing):
             self.driver.find_id(soucred_id + 'roleall').click()
         except:
             pass
-
-
 
 class Test_b_Music(Dubbing):
     # 配音界面背景音开关
@@ -194,7 +192,7 @@ class Test_c_living(Dubbing):
         self.driver.find_id(soucred_id + 'living').click()
         time.sleep(2)
         try:
-            self.driver.find_id(soucred_id + 'name')
+            self.driver.find_id(soucred_id + 'next')
             tips = self.driver.find_id(soucred_id + 'txtTitle').text
             print(tips)
             self.driver.find_id(soucred_id + 'close').click()
@@ -231,8 +229,6 @@ class Test_c_living(Dubbing):
         time.sleep(2)
         self.driver.find_id(soucred_id + 'living').click()
         time.sleep(2)
-
-
 
 class Test_d_script(Dubbing):
     #台词功能测试
@@ -600,7 +596,7 @@ class Test_g_Record(Dubbing):
         self.driver.Background()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'back')
-        time.sleep(2)
+        time.sleep(4)
 
     def test_n(self):
         # 回撤重录
@@ -731,9 +727,6 @@ class Test_g_Record(Dubbing):
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
         time.sleep(2)
-
-
-
 
 class Test_h_preview_video(Dubbing):
     def test1(self):
@@ -972,7 +965,7 @@ class Test_i_preview(Dubbing):
         #背景音混响调节
         self.driver.find_id(soucred_id + 'bgfx').click()
         time.sleep(2)
-        el = self.driver.find_id(soucred_id + 'bgfx').get_attribute('chedked')
+        el = self.driver.find_id(soucred_id + 'bgfx').get_attribute('checked')
         self.assertTrue(el,msg='状态点击背景音混响按钮后，状态没有显示选中')
         time.sleep(2)
         if self.y == 1920:
@@ -1115,7 +1108,6 @@ class Test_i_preview(Dubbing):
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         time.sleep(2)
-
 
 class Test_j_upload(Dubbing):
     def test_a(self):
@@ -1317,7 +1309,7 @@ class Test_j_upload(Dubbing):
 
 class Test_k_Upload(Dubbing):
     def test_a(self):
-        #点击上传按钮
+        点击上传按钮
         self.driver.find_id(soucred_id + 'uploadbtn').click()
         time.sleep(2)
         self.driver.wait_id(soucred_id + 'down')
@@ -1330,8 +1322,7 @@ class Test_k_Upload(Dubbing):
         except:
             return False
 
-    # upload_result = test_b(self= None)
-    upload_result = True
+    upload_result = test_b(self= None)
     @unittest.skipUnless(upload_result,u'视频上传失败，不执行视频查看用例')
     def test_c(self):
         #点击查看视频详情
@@ -1339,33 +1330,26 @@ class Test_k_Upload(Dubbing):
         self.driver.wait_id(soucred_id + 'btnBack')
         self.driver.Background()
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'play').click()
-        self.driver.wait_download(soucred_id + 'play')
-        time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
     @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频下载用例')
     def test_d(self):
         #视频下载
-        check = 'no'
         self.driver.find_id(soucred_id + 'down').click()
         time.sleep(2)
         try:
             self.driver.find_xpath('直接下载')
             self.driver.find_xpath('直接下载').click()
             self.driver.wait_id(soucred_id + 'btnSubmit')
-            down_load = self.driver.find_id(soucred_id + 'txtContent').text
-            self.assertIn(check,down_load,msg='非会员下载后作品名称没有显示novip')
             self.driver.find_id(soucred_id + 'btnSubmit').click()
         except:
-            down_local = self.driver.find_id(soucred_id + 'txtContent').text
             self.driver.find_id(soucred_id + 'btnSubmit').click()
         time.sleep(2)
 
 
     @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频分享用例')
-    def test_d(self):
+    def test_e(self):
         #站外分享
         try:
             self.driver.find_id(soucred_id + 'wx')
@@ -1405,19 +1389,24 @@ class Test_k_Upload(Dubbing):
         self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
         self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
         time.sleep(2)
-        self.driver.find_xpath('不保存').click()
-        time.sleep(2)
+
 
         #微博分享
         self.driver.find_id(soucred_id + 'wb').click()
         self.driver.wait_id('com.sina.weibo:id/titleSave')
         self.driver.find_id('com.sina.weibo:id/titleBack').click()
+        self.driver.find_xpath('不保存').click()
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'circlesTab').click()
+        if self.y == 1920:
+            self.driver.swip_move(self.x * 0.507,self.y*0.24,self.x*0.897,self.y *0.24)
+        elif self.y > 2250:
+            pass
+        else:
+            pass
         time.sleep(2)
 
     @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频分享用例')
-    def test_e(self):
+    def test_f(self):
         #删除视频
         self.driver.find_id(soucred_id + 'img_url').click()
         self.driver.wait_id(soucred_id + 'btnBack')
@@ -1442,7 +1431,7 @@ class Test_k_Upload(Dubbing):
         time.sleep(2)
 
     @unittest.skipIf(upload_result,u'作品上传成功，不执行失败检测用例')
-    def test_f(self):
+    def test_g(self):
         #查看失败原因
         self.driver.find_id(soucred_id + 'rl_bg').click()
         try:

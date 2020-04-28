@@ -67,7 +67,7 @@ class BaseOperate():
         '''
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
-        self.driver.swipe(0.8 * x, 0.5 * y, 0.2 * x, 0.5 * y, 100)
+        self.driver.swipe(0.9 * x, 0.5 * y, 0.2 * x, 0.5 * y, 300)
 
     def swip_right(self):
         '''
@@ -76,7 +76,7 @@ class BaseOperate():
         '''
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
-        self.driver.swipe(0.4 * x, 0.8 * y, 0.8 * x, 0.4 * y, 100)
+        self.driver.swipe(0.4 * x, 0.8 * y, 0.8 * x, 0.4 * y, 300)
 
     def swip_move(self,start_x,start_y,end_x,end_y):
         '''

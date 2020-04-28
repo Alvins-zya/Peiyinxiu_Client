@@ -78,7 +78,6 @@ class test_a_Video_detial(Dubbing):
         self.driver.Background()
         time.sleep(2)
 
-
     def test_e_a(self):
         #作品信息
         video_name = self.driver.find_id(soucred_id + 'tv_video_detail_title').text
@@ -148,7 +147,8 @@ class test_a_Video_detial(Dubbing):
             list.append(value)
             time.sleep(1)
         time.sleep(2)
-        print(list)
+        gift_check = ['鲜花', '10', '毛绒玩具', '188', '口红', '3980', '999朵玫瑰', '13140', '宝石', '1', '跑车', '5', '私人飞机', '20', '海岛', '200', '烟花', '880', '巧克力', '1880', '蓝色妖姬', '5200', '麦克风', '39999', '钻戒', '3', '游艇', '8', '别墅', '50', '城堡', '100']
+        self.assertEqual(list,gift_check,msg='礼物列表校验失败，请检查')
         time.sleep(2)
         if self.y ==1920:
             self.driver.swip_move(self.x*0.13,self.y*0.752,self.x*0.844,self.y*0.752)
@@ -474,7 +474,7 @@ class test_b_Function(Dubbing):
             self.driver.swip_up()
             time.sleep(2)
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'play').click()
+        self.driver.find_id(soucred_id + 'follow_ta').click()
         time.sleep(2)
 
     def test_e(self):
@@ -699,6 +699,8 @@ class test_b_Function(Dubbing):
         #切换视频
         for i in range(10):
             self.driver.swip_up()
+            self.driver.wait_id(soucred_id + 'userhead')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_left()
             self.driver.wait_id(soucred_id + 'followcount')
