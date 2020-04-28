@@ -12,13 +12,12 @@ soucred_id = 'com.happyteam.dubbingshow:id/'
 
 
 class Test_a_Dub(Dubbing):
-    # 点击进入配音界面
+    #进入素材库
     def test0(self):
-        #进入素材库
         self.driver.wait_id(soucred_id + 'task_box')
         self.driver.find_id(soucred_id + 'btn_more').click()
-        self.driver.wait_id(soucred_id + 'unlimited')
-        self.driver.find_id(soucred_id + 'unlimited').click()
+        self.driver.wait_id(soucred_id + 'coor')
+        self.driver.find_id(soucred_id + 'coor').click()
         time.sleep(2)
         self.driver.find_xpath('热门').click()
         time.sleep(2)
@@ -28,20 +27,24 @@ class Test_a_Dub(Dubbing):
             self.driver.wait_id(soucred_id + 'iv_source')
         except:
             self.driver.swip_down()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'iv_source').click()
-        self.driver.wait_id(soucred_id + 'userhead')
-        time.sleep(2)
+        time.sleep(3)
 
+    #进入素材预览界面
     def test1(self):
-        try:
-            self.driver.find_id(soucred_id + 'yinpin')
-            return False
-        except:
-            return True
+        while True:
+            self.driver.find_id(soucred_id + 'iv_source').click()
+            try:
+                self.driver.wait_id(soucred_id + 'userhead')
+                self.driver.Background()
+                time.sleep(2)
+                break
+            except:
+                self.driver.back()
+                time.sleep(2)
+        time.sleep(4)
 
-    source_result_style  = test1(self= None)
-    @unittest.skipIf(source_result_style,u'判断是单配素材,跳过此条用例')
+
+    #双配素材-进入配音界面
     def test2(self):
         self.driver.find_id(soucred_id + 'dubbing_fake').click()
         time.sleep(2)
@@ -72,48 +75,17 @@ class Test_a_Dub(Dubbing):
         self.driver.find_id(soucred_id + 'roleall').click()
         time.sleep(2)
 
-    @unittest.skipUnless(source_result_style,u'判断是双配素材，跳过此条用例')
+    # 首次进入配音界面配音引导页
     def test3(self):
-        #点击配音内存检查
-        self.driver.find_id(soucred_id + 'dubbing_fake').click()
-        time.sleep(2)
-        try:
-            self.driver.find_id(soucred_id + 'next')
-            tip = self.driver.find_id(soucred_id + 'txtTitle').text
-            check = '为了您正常使用配音秀 需获得以下权限'
-            self.assertEqual(tip,check,msg='内存权限文案不一致')
-            self.driver.find_id(soucred_id + 'close').click()
-            time.sleep(2)
-            try:
-                self.driver.find_id(soucred_id + 'dubbing_fake')
-                self.driver.find_id(soucred_id + 'dubbing_fake').click()
-                time.sleep(3)
-                self.driver.find_id(soucred_id + 'next')
-                self.driver.find_id(soucred_id + 'next').click()
-                time.sleep(2)
-                try:
-                    self.driver.wait_sys('始终允许')
-                except:
-                    self.driver.wait_sys('允许')
-            except:
-                print('未返回到素材预览界面')
-                self.driver.Quit()
-        except:
-            pass
-        self.driver.wait_id(soucred_id + 'living')
-        time.sleep(2)
-
-    def test4(self):
-        # 配音引导页
         try:
             self.driver.find_id(soucred_id + 'subtitleView').click()
             time.sleep(2)
-
         except:
-            pass
-    @unittest.skipIf(source_result_style,u'单配素材，跳过此用例')
-    def test5(self):
-        #退出配音界面再进
+            pass3
+        time.sleep(2)
+
+    #退出配音界面再进
+    def test4(self):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnCancel').click()
@@ -121,18 +93,59 @@ class Test_a_Dub(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnSubmit').click()
-        try:
-            self.driver.wait_id(soucred_id + 'dubbing_fake')
-            time.sleep(2)
-            self.driver.wait_id(soucred_id + 'roleall')
-            self.driver.find_id(soucred_id + 'roleall').click()
-            time.sleep(2)
-        except:
-            print('配音界面返回跳转错误')
-            self.driver.Quit()
-    @unittest.skipUnless(source_result_style,u'双配素材，跳过此用例')
+        self.driver.wait_id(soucred_id + 'dubbing_fake')
+        self.driver.find_id(soucred_id + 'dubbing_fake').click()
+        self.driver.wait_id(soucred_id + 'roleall')
+        self.driver.find_id(soucred_id + 'roleall').click()
+        time.sleep(2)
+
+    # 双配素材配音界面配音角色切换
+    def test5(self):
+        self.driver.find_id(soucred_id + 'coopera').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'role1_tv').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'coopera').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'role2_tv').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'coopera').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'roleall').click()
+        time.sleep(2)
+
+    #退出合作素材配音界面返回素材库主界面
     def test6(self):
-        # 退出配音界面再进
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_id(soucred_id + 'dubbing_fake')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(3)
+
+    #选择单配素材（男）进入配音界面
+    def test7(self):
+        self.driver.find_id(soucred_id + 'boy').click()
+        self.driver.swip_up()
+        time.sleep(2)
+        while True:
+            self.driver.find_id(soucred_id + 'iv_source').click()
+            try:
+                self.driver.wait_id(soucred_id + 'dubbing_fake')
+                self.driver.Background()
+                time.sleep(2)
+                break
+            except:
+                self.driver.back()
+                time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'dubbing_fake').click()
+        self.driver.wait_download(soucred_id + 'living')
+        time.sleep(2)
+
+    # 退出配音界面再进
+    def test8(self):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnCancel').click()
@@ -149,27 +162,6 @@ class Test_a_Dub(Dubbing):
         except:
             print('配音界面返回跳转错误')
             self.driver.Quit()
-
-
-
-    @unittest.skipIf(source_result_style,u'单配素材，跳过此用例')
-    def test7(self):
-        #合作配音角色切换
-        try:
-            self.driver.find_id(soucred_id + 'coopera')
-            self.driver.find_id(soucred_id + 'coopera').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'role1_tv').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'coopera').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'role2_tv').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'coopera').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'roleall').click()
-        except:
-            pass
 
 class Test_b_Music(Dubbing):
     # 配音界面背景音开关
@@ -219,8 +211,8 @@ class Test_c_living(Dubbing):
         self.driver.find_id(soucred_id + 'living').click()
         time.sleep(2)
 
+    # 开启实况后退到后台再启动
     def test1(self):
-        #开启实况后退到后台再启动
         self.driver.find_id(soucred_id + 'living').click()
         self.driver.wait_id(soucred_id + 'cameraView2')
         time.sleep(2)
@@ -231,9 +223,8 @@ class Test_c_living(Dubbing):
         time.sleep(2)
 
 class Test_d_script(Dubbing):
-    #台词功能测试
+    # 点击进入台词列表
     def test0(self):
-        # 点击进入台词列表
         self.driver.find_id(soucred_id + 'scirpt').click()
         time.sleep(2)
         self.driver.wait_id(soucred_id + 'titleTextView')
@@ -247,8 +238,8 @@ class Test_d_script(Dubbing):
         self.driver.find_id(soucred_id +'cancelBn').click()
         self.driver.wait_id(soucred_id + 'scirpt')
 
+    # 切换台词
     def test1(self):
-        #切换台词
         self.driver.find_id(soucred_id + 'scirpt').click()
         self.driver.wait_id(soucred_id + 'titleTextView')
         count = self.driver.find_ids(soucred_id + 'titleTextView')
@@ -272,8 +263,8 @@ class Test_d_script(Dubbing):
             pass
         time.sleep(2)
 
+    # 台词内容
     def test3(self):
-        #台词内容
         self.driver.find_id(soucred_id + 'edit_subtitle').click()
         time.sleep(2)
         count1 = self.driver.find_ids(soucred_id + 'content_editor')
@@ -287,8 +278,8 @@ class Test_d_script(Dubbing):
         self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(2)
 
+    # 修改台词后点击完成，再次进入编辑界面查看修改后的台词
     def test4(self):
-        #修改台词后点击完成，再次进入编辑界面查看修改后的台词
         self.driver.find_id(soucred_id + 'edit_subtitle').click()
         time.sleep(2)
         self.driver.find_ids(soucred_id +'content_editor')[0].clear()
@@ -314,8 +305,8 @@ class Test_d_script(Dubbing):
         self.driver.find_id(soucred_id + 'btnSubmit').click()
         time.sleep(2)
 
+    # 修改首句台词后不保存返回配音界面再进，查看台词首句显示
     def test5(self):
-        #修改首句台词后不保存返回配音界面再进，查看台词首句显示
         self.driver.find_id(soucred_id + 'edit_subtitle').click()
         time.sleep(2)
         self.driver.find_ids(soucred_id + 'content_editor')[0].send_keys('台词修改')
@@ -344,8 +335,8 @@ class Test_d_script(Dubbing):
         self.driver.find_id(soucred_id + 'btnSubmit').click()
         time.sleep(2)
 
+    # 清空字幕所有内容
     def test6(self):
-        #清空字幕所有内容
         while True:
             self.driver.find_id(soucred_id + 'edit_subtitle').click()
             time.sleep(2)
@@ -366,8 +357,9 @@ class Test_d_script(Dubbing):
                 self.driver.find_id(soucred_id + 'btnSubmit').click()
             time.sleep(2)
 
+    # 编辑台词输入特殊符号后保存
     def test7(self):
-        #编辑台词输入特殊符号后保存
+
         self.driver.find_id(soucred_id + 'scirpt').click()
         self.driver.wait_id(soucred_id + 'titleTextView')
         self.driver.find_id(soucred_id + 'titleTextView').click()
@@ -398,8 +390,8 @@ class Test_d_script(Dubbing):
         time.sleep(3)
 
 class Test_e_video_HD(Dubbing):
+    # 非高清素材
     def test0(self):
-        #非高清素材
         HD_check = self.driver.find_id(soucred_id + 'swtich_hd').text
         check = '切换高清画质'
         if HD_check == check:
@@ -418,21 +410,21 @@ class Test_e_video_HD(Dubbing):
             pass
 
 class Test_f_Play_vido(Dubbing):
+    # 完整的预览视频
     def test0(self):
-        #完整的预览视频
         self.driver.find_id(soucred_id + 'play').click()
         self.driver.wait_download(soucred_id + 'play')
 
+    # 播放过程中暂停
     def test1(self):
-        #播放过程中暂停
         self.driver.find_id(soucred_id + 'play').click()
         time.sleep(2)
         self.driver.Background()
         self.driver.wait_download(soucred_id + 'play')
         time.sleep(2)
 
+    # 播放过程中推到后台
     def test3(self):
-        #播放过程中推到后台
         self.driver.find_id(soucred_id + 'play').click()
         self.driver.Background()
         self.driver.wait_id(soucred_id + 'play')
@@ -444,8 +436,8 @@ class Test_f_Play_vido(Dubbing):
             self.driver.Quit()
 
 class Test_g_Record(Dubbing):
+    # 录音权限
     def test_a(self):
-        # 录音权限
         self.driver.find_id(soucred_id + 'action').click()
         time.sleep(2)
         try:
@@ -460,16 +452,17 @@ class Test_g_Record(Dubbing):
             pass
         time.sleep(2)
 
+    # 点击录音按钮配音
     def test_b(self):
-        #点击录音按钮配音
         try:
             self.driver.find_id(soucred_id + 'play')
             self.driver.find_id(soucred_id + 'action').click()
         except:
             pass
 
+    # 手动点击提交进入配音预览界面
     def test_c(self):
-        # 手动点击提交进入配音预览界面
+
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
         time.sleep(2)
@@ -482,8 +475,9 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 在完整录制后的基础上点击原声试听，查看视频播放是否从头开始播放
     def test_d(self):
-        # 在完整录制后的基础上点击原声试听，查看视频播放是否从头开始播放
+
         time1 = datetime.datetime.now()
         self.driver.find_id(soucred_id + 'play').click()
         self.driver.wait_download(soucred_id + 'play')
@@ -493,16 +487,17 @@ class Test_g_Record(Dubbing):
         print('视频时间：',time_video,'实际播放时间：',time_result)
         time.sleep(2)
 
-
+    # 配音秀试听
     def test_e(self):
-        # 配音秀试听
+
         self.driver.find_id(soucred_id + 'review')
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.wait_download(soucred_id + 'play')
         time.sleep(2)
 
+    # 试听过程中点击提交进入预览界面
     def test_f(self):
-        #试听过程中点击提交进入预览界面
+
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(1)
@@ -520,15 +515,17 @@ class Test_g_Record(Dubbing):
             self.driver.find_id(soucred_id + 'back').click()
             time.sleep(2)
 
+    # 试听过程中应用退到后台再启动
     def test_g(self):
-        #试听过程中应用退到后台再启动
+
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.Background()
         self.driver.wait_id(soucred_id + 'review')
         time.sleep(2)
 
+    # 试听过程中，点击退出配音界面
     def test_h(self):
-        #试听过程中，点击退出配音界面
+
         self.driver.find_id(soucred_id + 'review').click()
         time.sleep(1)
         self.driver.find_id(soucred_id + 'back').click()
@@ -539,16 +536,18 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'btnCancel').click()
         time.sleep(2)
 
+    # 点击回撤按钮
     def test_i(self):
-        #点击回撤按钮
+
         while True:
             self.driver.find_id(soucred_id + 'withdraw').click()
             self.driver.wait_not_id(soucred_id + 'withdraw')
             break
         time.sleep(2)
 
+    # 录制过程中暂停
     def test_j(self):
-        #录制过程中暂停
+
         self.driver.find_id(soucred_id + 'action').click()
         time.sleep(2)
         self.driver.Background()
@@ -559,8 +558,9 @@ class Test_g_Record(Dubbing):
             print('没有显示音轨，未录制进人声')
         time.sleep(2)
 
+    # 录制完成后自动跳转再返回配音界面
     def test_k(self):
-        #录制完成后自动跳转再返回配音界面
+
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
@@ -568,8 +568,9 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 手动拖音轨
     def test_l(self):
-        # 手动拖音轨
+
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.185,self.y *0.65,self.x *0.787,self.y *0.65)
         elif self.y > 2250:
@@ -587,8 +588,9 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 重新录制
     def test_m(self):
-        # 重新录制
+
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.wait_id(soucred_id + 'play')
         self.driver.find_id(soucred_id + 'action').click()
@@ -598,8 +600,9 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back')
         time.sleep(4)
 
+    # 回撤重录
     def test_n(self):
-        # 回撤重录
+
         el = self.driver.find_id(soucred_id + 'withdraw')
         self.driver.Long_Touche(el)
         time.sleep(2)
@@ -616,8 +619,9 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 编辑字幕
     def test_o(self):
-        # 编辑字幕
+
         self.driver.find_id(soucred_id + 'edit_subtitle').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'content_editor').click()
@@ -644,8 +648,9 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 实况录制
     def test_p(self):
-        # 实况录制
+
         while True:
             try:
                 self.driver.find_id(soucred_id + 'living')
@@ -667,14 +672,16 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 实况录制后返回预览界面，点击预览原声
     def test_q(self):
-        # 实况录制后返回预览界面，点击预览原声
+
         self.driver.find_id(soucred_id + 'play').click()
         self.driver.wait_download(soucred_id + 'play')
         time.sleep(2)
 
+    # 编辑台词后重新录制实况
     def test_r(self):
-        # 编辑台词后重新录制实况
+
         self.driver.find_id(soucred_id + 'edit_subtitle').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'content_editor').clear()
@@ -701,8 +708,9 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 点击配音按钮直接重录实况
     def test_s(self):
-        # 点击配音按钮直接重录实况
+
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
@@ -710,8 +718,8 @@ class Test_g_Record(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 点击录制普通作品
     def test_t(self):
-        #点击录制普通作品
         try:
             self.driver.find_id(soucred_id + 'living')
         except:
@@ -729,8 +737,8 @@ class Test_g_Record(Dubbing):
         time.sleep(2)
 
 class Test_h_preview_video(Dubbing):
+    # 播放完整的视频
     def test1(self):
-        #播放完整的视频
         self.driver.find_id(soucred_id + 'play_button').click()
         self.driver.wait_download(soucred_id + 'play_button')
         #播放过程中推到后台再打开
@@ -745,8 +753,8 @@ class Test_h_preview_video(Dubbing):
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
 
+    # 字幕开关
     def test2(self):
-        #字幕开关
         el = self.driver.find_id(soucred_id + 'add_subtitle_cb').get_attribute('checked')
         check = 'true'
         if el == check:
@@ -766,9 +774,8 @@ class Test_h_preview_video(Dubbing):
         self.assertNotEqual(el,el1,msg='修改字幕开关状态后，返回配音界面再进预览界面，没有保留开关状态')
         self.driver.find_id(soucred_id + 'add_subtitle_cb').click()
         time.sleep(2)
-
-    def test3(self):
         #降噪开关
+    def test3(self):
         el = self.driver.find_id(soucred_id + 'clear_voice').get_attribute('checked')
         state_check = 'true'
         if el == state_check:
@@ -811,8 +818,8 @@ class Test_i_preview(Dubbing):
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
 
+    # 声音校准
     def test_b(self):
-        #声音校准
         self.driver.find_id(soucred_id + 'trim').click()
         time.sleep(2)
         el = self.driver.find_id(soucred_id + 'trim').get_attribute('checked')
@@ -914,8 +921,8 @@ class Test_i_preview(Dubbing):
         el = self.driver.find_id(soucred_id + 'vol').get_attribute('checked')
         self.assertTrue(el,msg='返回配音界面再进预览界面，人声选项没有恢复默认状态')
 
+    # 背景音音量调节
     def test_f(self):
-        #背景音音量调节
         time.sleep(2)
         if self.y == 1920:
             self.driver.swip_move(self.x*0.632,self.y*0.62,self.x*0.893,self.y*0.67)#增大背景音音量

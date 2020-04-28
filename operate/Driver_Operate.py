@@ -48,7 +48,7 @@ class BaseOperate():
         '''
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
-        self.driver.swipe(0.5 * x, 0.8 * y, 0.5 * x, 0.4 * y, 300)
+        self.driver.swipe(0.5 * x, 0.9 * y, 0.5 * x, 0.3 * y, 300)
 
     def swip_down(self):
         '''
@@ -177,7 +177,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver, 150).until(lambda x: self.driver.find_element_by_id(id))
+        element = WebDriverWait(self.driver, 299).until(lambda x: self.driver.find_element_by_id(id))
         return element
 
     def wait_load(self, xpath):
