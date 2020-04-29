@@ -380,274 +380,274 @@ class test_a_Video_detial(Dubbing):
 
 class test_b_Function(Dubbing):
     globals()["result"] = None
-    def test_a(self):
-        #视频评论
-        try:
-            self.driver.find_id(soucred_id + 'comment_count')
-        except:
-            self.driver.find_id(soucred_id +'comment').click()
-            time.sleep(4)
-            try:
-                self.driver.find_id(soucred_id + 'item_comment_video_more')
-                raise ('视频详情界面中未显示评论数量，评论列表中显示有评论')
-            except:
-                try:
-                    self.driver.find_xpath('作者已关闭评论，当前评论隐藏')
-                    self.driver.Background()
-                    time.sleep(2)
-                    self.driver.find_id(soucred_id + 'play').click()
-                    raise ('作者关闭评论，跳过此项测试')
-                except:
-                    pass
-        time.sleep(2)
-
-    def test_b(self):
-        #评论排序
-        while True:
-            self.driver.find_id(soucred_id + 'comment').click()
-            time.sleep(2)
-            try:
-                self.driver.find_xpath('要不占个顶楼吧~')
-                self.driver.back()
-                time.sleep(2)
-                self.driver.swip_up()
-                time.sleep(2)
-                self.driver.Background()
-                time.sleep(2)
-            except:
-                break
-            self.driver.wait_id(soucred_id  + 'item_comment_video_more')
-        time.sleep(2)
-        try:
-            self.driver.find_xpath('以上为置顶评论')
-            Comment = self.driver.find_ids(soucred_id + 'item_video_common_time')[1].text
-            time.sleep(1)
-            self.driver.find_id(soucred_id + 'shunxu').click()
-            time.sleep(2)
-            Comment1 = self.driver.find_ids(soucred_id + 'item_video_common_time')[1].text
-            self.assertNotEqual(Comment, Comment1, msg='评论切换顺序后评论内容校验错误')
-            time.sleep(2)
-        except:
-            Comment = self.driver.find_id(soucred_id + 'item_video_common_time').text
-            time.sleep(1)
-            self.driver.find_id(soucred_id + 'shunxu').click()
-            time.sleep(2)
-            Comment1 = self.driver.find_id(soucred_id + 'item_video_common_time').text
-            self.assertNotEqual(Comment,Comment1,msg='评论切换顺序后评论时间校验错误')
-            time.sleep(2)
-
-    def test_c(self):
-        #评论举报
-        self.driver.find_id(soucred_id +'item_comment_video_more').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'tv_action_one').click()
-        time.sleep(2)
-        reason = self.driver.find_id(soucred_id + 'txtTitle').text
-        check = '政治'
-        self.assertIn(check,reason,msg='选择的举报理由中未包含政治关键字')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnSubmit').click()
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            check_toast = '举报成功'
-            self.assertEqual(toast,check_toast,msg='举报toast内容校验不一致')
-        except:
-            pass
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'item_comment_video_more').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'tv_action_other').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'txtKeyword').send_keys('举报功能测试')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'right_icon1').click()
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            check_toast = '举报成功'
-            self.assertEqual(toast,check_toast,msg='举报toast内容校验不一致')
-        except:
-            pass
-        time.sleep(2)
-
-    def test_d(self):
-        #评论列表上滑加载
-        for i in range(5):
-            self.driver.swip_up()
-            time.sleep(2)
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'follow_ta').click()
-        time.sleep(2)
-
-    def test_e(self):
-        #作品曝光
-        self.driver.find_id(soucred_id + 'gift').click()
-        time.sleep(2)
-        gold_before = self.driver.find_id(soucred_id + 'gold_count').text
-        time.sleep(2)
-        self.driver.back()
-        time.sleep(2)
-        while True:
-            self.driver.find_id(soucred_id + 'exposure').click()
-            try:
-                self.driver.find_xpath('知道了')
-                self.driver.find_xpath('知道了').click()
-                time.sleep(2)
-                self.driver.find_id(soucred_id + 'btnBack').click()
-                time.sleep(2)
-                self.driver.swip_up()
-                time.sleep(2)
-                self.driver.find_id(soucred_id + 'film_img2').click()
-                self.driver.wait_id(soucred_id + 'follow_ta')
-                self.driver.Background()
-                time.sleep(2)
-            except:
-                self.driver.find_id(soucred_id + 'btnCancel')
-                break
-            time.sleep(2)
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnCancel').click()
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            check_toast = '曝光成功'
-            self.assertEqual(toast, check_toast, msg='曝光toast内容校验不一致')
-        except:
-            pass
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'gift').click()
-        time.sleep(2)
-        gold_after = self.driver.find_id(soucred_id + 'gold_count').text
-        time.sleep(2)
-        self.assertNotEqual(gold_before,gold_after,msg='5000金币曝光后金币余额没有更新')
-        time.sleep(2)
-        self.driver.back()
-        time.sleep(2)
-
-    def test_f(self):
-        #会员曝光
-        self.driver.swip_up()
-        time.sleep(2)
-        self.driver.Background()
-        time.sleep(2)
-        while True:
-            self.driver.find_id(soucred_id + 'exposure').click()
-            try:
-                self.driver.find_xpath('知道了')
-                self.driver.find_xpath('知道了').click()
-                time.sleep(2)
-                self.driver.find_id(soucred_id + 'btnBack').click()
-                time.sleep(2)
-                self.driver.swip_up()
-                time.sleep(2)
-                self.driver.find_id(soucred_id + 'film_img2').click()
-                self.driver.wait_id(soucred_id + 'follow_ta')
-                self.driver.Background()
-                time.sleep(2)
-            except:
-                self.driver.find_id(soucred_id + 'btnCancel')
-                break
-            time.sleep(2)
-        exposure_before = self.driver.find_id(soucred_id + 'btnSubmit').text
-        self.driver.find_id(soucred_id + 'btnSubmit').click()
-        try:
-            self.driver.wait_toast('//android.widget.Toast')
-            self.driver.find_id(soucred_id + 'exposure').click()
-            time.sleep(2)
-            exposure_after = self.driver.find_id(soucred_id + 'exposure').text
-            self.assertNotEqual(exposure_before,exposure_after,msg= '曝光次数未减少')
-        except:
-            try:
-                self.driver.find_id(soucred_id + 'renew')
-                time.sleep(2)
-                print('未购买会员，无法免费曝光')
-                time.sleep(2)
-                self.driver.find_id(soucred_id + 'btnBack').click()
-                time.sleep(2)
-            except:
-                pass
-        time.sleep(2)
-        self.driver.back()
-        time.sleep(2)
-
-    def test_g(self):
-        #会员推荐
-        try:
-            self.driver.find_id(soucred_id + 'recommend')
-            self.driver.find_id(soucred_id + 'recommend').click()
-            globals()["result"] = True
-            return globals()['result']
-        except:
-            globals()['result'] = False
-            return globals()['result']
-        time.sleep(2)
-    time.sleep(2)
-    @unittest.skipUnless(test_g(self=None),u'视频详情界面中未显示会员推荐按钮，跳过此用例')
-    def test_h(self):
-        #不输入内容直接提交
-        self.driver.find_id(soucred_id + 'sure').click()
-        tip  = self.driver.wait_toast('//android.widget.Toast')
-        check = '请输入推荐理由'
-        self.assertEqual(tip,check,msg='不输入内容点击提价，toast提示内容校验失败')
-        time.sleep(2)
-
-    @unittest.skipUnless(test_g(self=None), u'视频详情界面中未显示会员推荐按钮，跳过此用例')
-    def test_i(self):
-        #输入字符少于10个字符
-        self.driver.find_id(soucred_id + 'content').send_keys('功能测试，请忽略')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'sure').click()
-        tip = self.driver.wait_toast('//android.widget.Toast')
-        check = '推荐理由不得少于10字'
-        self.assertEqual(tip,check,msg='输入小于10个字，toast提示内容校验不一致')
-        time.sleep(2)
-
-    @unittest.skipUnless(test_g(self=None), u'视频详情界面中未显示会员推荐按钮，跳过此用例')
-    def test_j(self):
-        #输入10个字符后点击提交
-        self.driver.find_id(soucred_id + 'content').clear()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'content').send_keys('进行功能测试，可忽略')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'sure').click()
-        tip = self.driver.wait_toast('//android.widget.Toast')
-        check = '推荐成功！若被小编审核通过将会私信通知你哦~'
-        self.assertEqual(tip,check,msg='推荐提交成功后toast提示内容校验不一致')
-        time.sleep(2)
-
-    def test_k(self):
-        #送礼
-        self.driver.find_id(soucred_id + 'gift').click()
-        self.driver.wait_id(soucred_id + 'confirm')
-        time.sleep(2)
-        self.driver.find_xpath('鲜花').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'confirm').click()
-        send_toast = self.driver.wait_toast('//android.widget.Toast')
-        check = '成功'
-        self.assertIn(check,send_toast,msg='送礼toast校验失败')
-        time.sleep(2)
-        self.driver.back()
-        time.sleep(2)
-
-    def test_l(self):
-        #配音完成后保存草稿箱
-        while True:
-            try:
-                self.driver.find_xpath('原声素材')
-                break
-            except:
-                self.driver.find_id(soucred_id + 'btnBack').click()
-                time.sleep(2)
-                self.driver.swip_up()
-                time.sleep(2)
-                self.driver.find_id(soucred_id + 'film_img2').click()
-                self.driver.wait_id(soucred_id + 'follow_ta')
-                self.driver.Background()
-                time.sleep(2)
-        time.sleep(2)
-        self.driver.find_xpath('原声素材').click()
-        self.driver.wait_id(soucred_id + 'types_name')
-        self.driver.Background()
-        time.sleep(2)
+    # def test_a(self):
+    #     #视频评论
+    #     try:
+    #         self.driver.find_id(soucred_id + 'comment_count')
+    #     except:
+    #         self.driver.find_id(soucred_id +'comment').click()
+    #         time.sleep(4)
+    #         try:
+    #             self.driver.find_id(soucred_id + 'item_comment_video_more')
+    #             raise ('视频详情界面中未显示评论数量，评论列表中显示有评论')
+    #         except:
+    #             try:
+    #                 self.driver.find_xpath('作者已关闭评论，当前评论隐藏')
+    #                 self.driver.Background()
+    #                 time.sleep(2)
+    #                 self.driver.find_id(soucred_id + 'play').click()
+    #                 raise ('作者关闭评论，跳过此项测试')
+    #             except:
+    #                 pass
+    #     time.sleep(2)
+    #
+    # def test_b(self):
+    #     #评论排序
+    #     while True:
+    #         self.driver.find_id(soucred_id + 'comment').click()
+    #         time.sleep(2)
+    #         try:
+    #             self.driver.find_xpath('要不占个顶楼吧~')
+    #             self.driver.back()
+    #             time.sleep(2)
+    #             self.driver.swip_up()
+    #             time.sleep(2)
+    #             self.driver.Background()
+    #             time.sleep(2)
+    #         except:
+    #             break
+    #         self.driver.wait_id(soucred_id  + 'item_comment_video_more')
+    #     time.sleep(2)
+    #     try:
+    #         self.driver.find_xpath('以上为置顶评论')
+    #         Comment = self.driver.find_ids(soucred_id + 'item_video_common_time')[1].text
+    #         time.sleep(1)
+    #         self.driver.find_id(soucred_id + 'shunxu').click()
+    #         time.sleep(2)
+    #         Comment1 = self.driver.find_ids(soucred_id + 'item_video_common_time')[1].text
+    #         self.assertNotEqual(Comment, Comment1, msg='评论切换顺序后评论内容校验错误')
+    #         time.sleep(2)
+    #     except:
+    #         Comment = self.driver.find_id(soucred_id + 'item_video_common_time').text
+    #         time.sleep(1)
+    #         self.driver.find_id(soucred_id + 'shunxu').click()
+    #         time.sleep(2)
+    #         Comment1 = self.driver.find_id(soucred_id + 'item_video_common_time').text
+    #         self.assertNotEqual(Comment,Comment1,msg='评论切换顺序后评论时间校验错误')
+    #         time.sleep(2)
+    #
+    # def test_c(self):
+    #     #评论举报
+    #     self.driver.find_id(soucred_id +'item_comment_video_more').click()
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'tv_action_one').click()
+    #     time.sleep(2)
+    #     reason = self.driver.find_id(soucred_id + 'txtTitle').text
+    #     check = '政治'
+    #     self.assertIn(check,reason,msg='选择的举报理由中未包含政治关键字')
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'btnSubmit').click()
+    #     try:
+    #         toast = self.driver.wait_toast('//android.widget.Toast')
+    #         check_toast = '举报成功'
+    #         self.assertEqual(toast,check_toast,msg='举报toast内容校验不一致')
+    #     except:
+    #         pass
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'item_comment_video_more').click()
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'tv_action_other').click()
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'txtKeyword').send_keys('举报功能测试')
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'right_icon1').click()
+    #     try:
+    #         toast = self.driver.wait_toast('//android.widget.Toast')
+    #         check_toast = '举报成功'
+    #         self.assertEqual(toast,check_toast,msg='举报toast内容校验不一致')
+    #     except:
+    #         pass
+    #     time.sleep(2)
+    #
+    # def test_d(self):
+    #     #评论列表上滑加载
+    #     for i in range(5):
+    #         self.driver.swip_up()
+    #         time.sleep(2)
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'follow_ta').click()
+    #     time.sleep(2)
+    #
+    # def test_e(self):
+    #     #作品曝光
+    #     self.driver.find_id(soucred_id + 'gift').click()
+    #     time.sleep(2)
+    #     gold_before = self.driver.find_id(soucred_id + 'gold_count').text
+    #     time.sleep(2)
+    #     self.driver.back()
+    #     time.sleep(2)
+    #     while True:
+    #         self.driver.find_id(soucred_id + 'exposure').click()
+    #         try:
+    #             self.driver.find_xpath('知道了')
+    #             self.driver.find_xpath('知道了').click()
+    #             time.sleep(2)
+    #             self.driver.find_id(soucred_id + 'btnBack').click()
+    #             time.sleep(2)
+    #             self.driver.swip_up()
+    #             time.sleep(2)
+    #             self.driver.find_id(soucred_id + 'film_img2').click()
+    #             self.driver.wait_id(soucred_id + 'follow_ta')
+    #             self.driver.Background()
+    #             time.sleep(2)
+    #         except:
+    #             self.driver.find_id(soucred_id + 'btnCancel')
+    #             break
+    #         time.sleep(2)
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'btnCancel').click()
+    #     try:
+    #         toast = self.driver.wait_toast('//android.widget.Toast')
+    #         check_toast = '曝光成功'
+    #         self.assertEqual(toast, check_toast, msg='曝光toast内容校验不一致')
+    #     except:
+    #         pass
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'gift').click()
+    #     time.sleep(2)
+    #     gold_after = self.driver.find_id(soucred_id + 'gold_count').text
+    #     time.sleep(2)
+    #     self.assertNotEqual(gold_before,gold_after,msg='5000金币曝光后金币余额没有更新')
+    #     time.sleep(2)
+    #     self.driver.back()
+    #     time.sleep(2)
+    #
+    # def test_f(self):
+    #     #会员曝光
+    #     self.driver.swip_up()
+    #     time.sleep(2)
+    #     self.driver.Background()
+    #     time.sleep(2)
+    #     while True:
+    #         self.driver.find_id(soucred_id + 'exposure').click()
+    #         try:
+    #             self.driver.find_xpath('知道了')
+    #             self.driver.find_xpath('知道了').click()
+    #             time.sleep(2)
+    #             self.driver.find_id(soucred_id + 'btnBack').click()
+    #             time.sleep(2)
+    #             self.driver.swip_up()
+    #             time.sleep(2)
+    #             self.driver.find_id(soucred_id + 'film_img2').click()
+    #             self.driver.wait_id(soucred_id + 'follow_ta')
+    #             self.driver.Background()
+    #             time.sleep(2)
+    #         except:
+    #             self.driver.find_id(soucred_id + 'btnCancel')
+    #             break
+    #         time.sleep(2)
+    #     exposure_before = self.driver.find_id(soucred_id + 'btnSubmit').text
+    #     self.driver.find_id(soucred_id + 'btnSubmit').click()
+    #     try:
+    #         self.driver.wait_toast('//android.widget.Toast')
+    #         self.driver.find_id(soucred_id + 'exposure').click()
+    #         time.sleep(2)
+    #         exposure_after = self.driver.find_id(soucred_id + 'exposure').text
+    #         self.assertNotEqual(exposure_before,exposure_after,msg= '曝光次数未减少')
+    #     except:
+    #         try:
+    #             self.driver.find_id(soucred_id + 'renew')
+    #             time.sleep(2)
+    #             print('未购买会员，无法免费曝光')
+    #             time.sleep(2)
+    #             self.driver.find_id(soucred_id + 'btnBack').click()
+    #             time.sleep(2)
+    #         except:
+    #             pass
+    #     time.sleep(2)
+    #     self.driver.back()
+    #     time.sleep(2)
+    #
+    # def test_g(self):
+    #     #会员推荐
+    #     try:
+    #         self.driver.find_id(soucred_id + 'recommend')
+    #         self.driver.find_id(soucred_id + 'recommend').click()
+    #         globals()["result"] = True
+    #         return globals()['result']
+    #     except:
+    #         globals()['result'] = False
+    #         return globals()['result']
+    #     time.sleep(2)
+    # time.sleep(2)
+    # @unittest.skipUnless(test_g(self=None),u'视频详情界面中未显示会员推荐按钮，跳过此用例')
+    # def test_h(self):
+    #     #不输入内容直接提交
+    #     self.driver.find_id(soucred_id + 'sure').click()
+    #     tip  = self.driver.wait_toast('//android.widget.Toast')
+    #     check = '请输入推荐理由'
+    #     self.assertEqual(tip,check,msg='不输入内容点击提价，toast提示内容校验失败')
+    #     time.sleep(2)
+    #
+    # @unittest.skipUnless(test_g(self=None), u'视频详情界面中未显示会员推荐按钮，跳过此用例')
+    # def test_i(self):
+    #     #输入字符少于10个字符
+    #     self.driver.find_id(soucred_id + 'content').send_keys('功能测试，请忽略')
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'sure').click()
+    #     tip = self.driver.wait_toast('//android.widget.Toast')
+    #     check = '推荐理由不得少于10字'
+    #     self.assertEqual(tip,check,msg='输入小于10个字，toast提示内容校验不一致')
+    #     time.sleep(2)
+    #
+    # @unittest.skipUnless(test_g(self=None), u'视频详情界面中未显示会员推荐按钮，跳过此用例')
+    # def test_j(self):
+    #     #输入10个字符后点击提交
+    #     self.driver.find_id(soucred_id + 'content').clear()
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'content').send_keys('进行功能测试，可忽略')
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'sure').click()
+    #     tip = self.driver.wait_toast('//android.widget.Toast')
+    #     check = '推荐成功！若被小编审核通过将会私信通知你哦~'
+    #     self.assertEqual(tip,check,msg='推荐提交成功后toast提示内容校验不一致')
+    #     time.sleep(2)
+    #
+    # def test_k(self):
+    #     #送礼
+    #     self.driver.find_id(soucred_id + 'gift').click()
+    #     self.driver.wait_id(soucred_id + 'confirm')
+    #     time.sleep(2)
+    #     self.driver.find_xpath('鲜花').click()
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'confirm').click()
+    #     send_toast = self.driver.wait_toast('//android.widget.Toast')
+    #     check = '成功'
+    #     self.assertIn(check,send_toast,msg='送礼toast校验失败')
+    #     time.sleep(2)
+    #     self.driver.back()
+    #     time.sleep(2)
+    #
+    # def test_l(self):
+    #     #配音完成后保存草稿箱
+    #     while True:
+    #         try:
+    #             self.driver.find_xpath('原声素材')
+    #             break
+    #         except:
+    #             self.driver.find_id(soucred_id + 'btnBack').click()
+    #             time.sleep(2)
+    #             self.driver.swip_up()
+    #             time.sleep(2)
+    #             self.driver.find_id(soucred_id + 'film_img2').click()
+    #             self.driver.wait_id(soucred_id + 'follow_ta')
+    #             self.driver.Background()
+    #             time.sleep(2)
+    #     time.sleep(2)
+    #     self.driver.find_xpath('原声素材').click()
+    #     self.driver.wait_id(soucred_id + 'types_name')
+    #     self.driver.Background()
+    #     time.sleep(2)
 
     def test_m(self):
         try:
@@ -661,6 +661,7 @@ class test_b_Function(Dubbing):
             globals()['result'] = False
             return globals()['result']
         time.sleep(2)
+
 
     @unittest.skipUnless(test_m(self=None), u'结果为False时，判断是单配素材,不执行此条用例')
     def test_n(self):
@@ -682,26 +683,26 @@ class test_b_Function(Dubbing):
         self.driver.find_id(soucred_id + 'btnSubmit').click()
         self.driver.wait_id(soucred_id + 'userhead')
         time.sleep(2)
-
-    @unittest.skipIf(test_m(self=None), u'结果为True时，判断是双人素材，不执行此条用例')
-    def test_o(self):
-        self.driver.find_id(soucred_id + 'dubbing_fake').click()
-        self.driver.wait_download(soucred_id + 'action')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'action').click()
-        self.driver.wait_download(soucred_id + 'title')
-        self.driver.Background()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'complete').click()
-        self.driver.wait_id(soucred_id + 'txtTitle')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'pri_switch_tv').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'saveToDraft').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnSubmit').click()
-        self.driver.wait_id(soucred_id + 'userhead')
-        time.sleep(2)
+    #
+    # @unittest.skipIf(test_m(self=None), u'结果为True时，判断是双人素材，不执行此条用例')
+    # def test_o(self):
+    #     self.driver.find_id(soucred_id + 'dubbing_fake').click()
+    #     self.driver.wait_download(soucred_id + 'action')
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'action').click()
+    #     self.driver.wait_download(soucred_id + 'title')
+    #     self.driver.Background()
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'complete').click()
+    #     self.driver.wait_id(soucred_id + 'txtTitle')
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'saveToDraft').click()
+    #     time.sleep(2)
+    #     self.driver.find_id(soucred_id + 'btnSubmit').click()
+    #     self.driver.wait_id(soucred_id + 'userhead')
+    #     time.sleep(2)
 
     def test_p(self):
         #切换视频

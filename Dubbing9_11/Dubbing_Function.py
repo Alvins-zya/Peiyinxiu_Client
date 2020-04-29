@@ -199,9 +199,10 @@ class Test_c_living(Dubbing):
             try:
                 self.driver.wait_sys("始终允许")
             except:
-                self.driver.wait_sys("允许")
-        else:
-            pass
+                try:
+                    self.driver.wait_sys("允许")
+                except:
+                    pass
         time.sleep(2)
         try:
             self.driver.find_id(soucred_id + 'cameraView2')
@@ -359,7 +360,6 @@ class Test_d_script(Dubbing):
 
     # 编辑台词输入特殊符号后保存
     def test7(self):
-
         self.driver.find_id(soucred_id + 'scirpt').click()
         self.driver.wait_id(soucred_id + 'titleTextView')
         self.driver.find_id(soucred_id + 'titleTextView').click()
@@ -547,7 +547,6 @@ class Test_g_Record(Dubbing):
 
     # 录制过程中暂停
     def test_j(self):
-
         self.driver.find_id(soucred_id + 'action').click()
         time.sleep(2)
         self.driver.Background()
@@ -590,19 +589,17 @@ class Test_g_Record(Dubbing):
 
     # 重新录制
     def test_m(self):
-
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.wait_id(soucred_id + 'play')
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'back')
+        self.driver.find_id(soucred_id + 'back').click()
         time.sleep(4)
 
     # 回撤重录
     def test_n(self):
-
         el = self.driver.find_id(soucred_id + 'withdraw')
         self.driver.Long_Touche(el)
         time.sleep(2)
@@ -621,7 +618,6 @@ class Test_g_Record(Dubbing):
 
     # 编辑字幕
     def test_o(self):
-
         self.driver.find_id(soucred_id + 'edit_subtitle').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'content_editor').click()
@@ -650,7 +646,6 @@ class Test_g_Record(Dubbing):
 
     # 实况录制
     def test_p(self):
-
         while True:
             try:
                 self.driver.find_id(soucred_id + 'living')
@@ -674,14 +669,12 @@ class Test_g_Record(Dubbing):
 
     # 实况录制后返回预览界面，点击预览原声
     def test_q(self):
-
         self.driver.find_id(soucred_id + 'play').click()
         self.driver.wait_download(soucred_id + 'play')
         time.sleep(2)
 
     # 编辑台词后重新录制实况
     def test_r(self):
-
         self.driver.find_id(soucred_id + 'edit_subtitle').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'content_editor').clear()
@@ -710,7 +703,6 @@ class Test_g_Record(Dubbing):
 
     # 点击配音按钮直接重录实况
     def test_s(self):
-
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
@@ -775,6 +767,7 @@ class Test_h_preview_video(Dubbing):
         self.driver.find_id(soucred_id + 'add_subtitle_cb').click()
         time.sleep(2)
         #降噪开关
+
     def test3(self):
         el = self.driver.find_id(soucred_id + 'clear_voice').get_attribute('checked')
         state_check = 'true'
@@ -1315,22 +1308,27 @@ class Test_j_upload(Dubbing):
         time.sleep(2)
 
 class Test_k_Upload(Dubbing):
-    def test_a(self):
-        点击上传按钮
-        self.driver.find_id(soucred_id + 'uploadbtn').click()
-        time.sleep(2)
-        self.driver.wait_id(soucred_id + 'down')
-        time.sleep(2)
+    # def test_a(self):
+    #     #点击上传按钮
+    #     self.driver.find_id(soucred_id + 'uploadbtn').click()
+    #     time.sleep(2)
+    #     self.driver.wait_id(soucred_id + 'down')
+    #     time.sleep(2)
 
     def test_b(self):
         try:
             self.driver.find_id(soucred_id + 'down')
-            return True
+            time.sleep(2)
+            globals()["result"] = True
+            return globals()['result']
         except:
-            return False
+            time.sleep(2)
+            globals()["result"] = False
+            return globals()['result']
 
-    upload_result = test_b(self= None)
-    @unittest.skipUnless(upload_result,u'视频上传失败，不执行视频查看用例')
+    print(test_b(self=None))
+    time.sleep(2)
+    @unittest.skipUnless(test_b(self= None),u'视频上传失败，不执行视频查看用例')
     def test_c(self):
         #点击查看视频详情
         self.driver.find_id(soucred_id + 'img_url').click()
@@ -1340,7 +1338,7 @@ class Test_k_Upload(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-    @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频下载用例')
+    @unittest.skipUnless(test_b(self= None), u'视频上传失败，不执行视频下载用例')
     def test_d(self):
         #视频下载
         self.driver.find_id(soucred_id + 'down').click()
@@ -1355,7 +1353,7 @@ class Test_k_Upload(Dubbing):
         time.sleep(2)
 
 
-    @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频分享用例')
+    @unittest.skipUnless(test_b(self= None), u'视频上传失败，不执行视频分享用例')
     def test_e(self):
         #站外分享
         try:
@@ -1412,7 +1410,7 @@ class Test_k_Upload(Dubbing):
             pass
         time.sleep(2)
 
-    @unittest.skipUnless(upload_result, u'视频上传失败，不执行视频分享用例')
+    @unittest.skipUnless(test_b(self= None), u'视频上传失败，不执行视频分享用例')
     def test_f(self):
         #删除视频
         self.driver.find_id(soucred_id + 'img_url').click()
@@ -1437,7 +1435,7 @@ class Test_k_Upload(Dubbing):
         self.driver.find_id(soucred_id + 'close').click()
         time.sleep(2)
 
-    @unittest.skipIf(upload_result,u'作品上传成功，不执行失败检测用例')
+    @unittest.skipIf(test_b(self= None),u'作品上传成功，不执行失败检测用例')
     def test_g(self):
         #查看失败原因
         self.driver.find_id(soucred_id + 'rl_bg').click()
