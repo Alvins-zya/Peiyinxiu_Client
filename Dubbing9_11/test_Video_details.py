@@ -1,9 +1,10 @@
 import unittest
 import time
+import pytest
 from Dubbing9_11.parent import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
 
-class test_a_Video_detial(Dubbing):
+class Test_a_Video_detial(Dubbing):
     def test_a(self):
         #点击进入视频详情
         self.driver.find_id(soucred_id + 'film_img2').click()
@@ -378,8 +379,8 @@ class test_a_Video_detial(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-class test_b_Function(Dubbing):
-    globals()["result"] = None
+class Test_b_Function(Dubbing):
+
     # def test_a(self):
     #     #视频评论
     #     try:
@@ -660,12 +661,11 @@ class test_b_Function(Dubbing):
         except:
             globals()['result'] = False
             return globals()['result']
-        time.sleep(2)
 
 
-    @unittest.skipUnless(test_m(self=None), u'结果为False时，判断是单配素材,不执行此条用例')
+    @pytest.mark.skipif(test_m(self=None), u'结果为False时，判断是单配素材,不执行此条用例')
     def test_n(self):
-        self.driver.find_id(soucred_id + 'dubbing_fake').click()
+        self.driver.find_id(soucred_id + 'dubbing').click()
         self.driver.wait_download(soucred_id + 'roleall')
         self.driver.find_id(soucred_id + 'roleall').click()
         time.sleep(2)

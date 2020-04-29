@@ -1,5 +1,6 @@
 import unittest
 import time
+import pytest
 from Dubbing9_11.parent import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
 class Test_a_Source_search(Dubbing):
@@ -378,9 +379,9 @@ class Test_b_Classification(Dubbing):
             return True
         except:
             return False
-        time.sleep(2)
-    result = test_j(self=None)
-    @unittest.skipUnless(result,u'合作广场我的界面中求和作信息为空，跳过此项')
+
+
+    @unittest.skipUnless(,u'合作广场我的界面中求和作信息为空，跳过此项')
     def test_k(self):
         #置顶按钮
         try:
