@@ -1,8 +1,10 @@
 import unittest
 import time
 import pytest
-from Dubbing9_11.parent import Dubbing
+
+from Dubbing9_11.Front import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
+
 class Test_a_Source_search(Dubbing):
     def test_a(self):
         #点击素材搜索进入搜索界面
@@ -373,15 +375,15 @@ class Test_b_Classification(Dubbing):
         self.driver.find_xpath('我的').click()
         time.sleep(2)
 
-    def test_j(self):
+    def test_j():
         try:
             self.driver.find_id(soucred_id + 'item_sh_cooperate_article_title')
-            return True
-        except:
             return False
+        except:
+            return True
 
 
-    @unittest.skipUnless(,u'合作广场我的界面中求和作信息为空，跳过此项')
+    @pytest.mark.skipIf(test_j,'合作广场我的界面中求和作信息为空，跳过此项')
     def test_k(self):
         #置顶按钮
         try:
@@ -461,7 +463,7 @@ class Test_c_Voicetest(Dubbing):
         self.assertNotEqual(conten,conten_new,msg='切换朗读的前后内容对比一致，切换失败')
         time.sleep(2)
 
-    def test_b(self):
+    def test_b():
         #录音
         i=1
         while True:
@@ -471,9 +473,9 @@ class Test_c_Voicetest(Dubbing):
                 time.sleep(15)
                 self.driver.find_id(soucred_id + 'dubbing').click()
                 time.sleep(10)
-                self.driver.find_id(soucred_id + 'preview')
+                self.driver.find_id(soucred_id + 'preview').click()
                 break
-                return True
+                return False
             except:
                 pass
             if i == 10:
@@ -481,8 +483,7 @@ class Test_c_Voicetest(Dubbing):
             else:
                 pass
         time.sleep(2)
-    Voice_result = test_b(self=None)
-    @unittest.skipUnless(Voice_result,u'声鉴结果界面跳转失败，跳过此测试步骤')
+    @pytest.mark.skipIf(test_b(),'声鉴结果界面跳转失败，跳过此测试步骤')
     def test_c(self):
         #声鉴报告界面
         voice_style = self.driver.find_id(soucred_id + 'voice_type').text
@@ -500,7 +501,7 @@ class Test_c_Voicetest(Dubbing):
             time.sleep(2)
         time.sleep(2)
 
-    @unittest.skipUnless(Voice_result, u'声鉴结果界面跳转失败，跳过此测试步骤')
+    @pytest.mark.skipIf(test_b(), '声鉴结果界面跳转失败，跳过此测试步骤')
     def test_d(self):
         #点击配音，保存草稿箱
         self.driver.find_id(soucred_id + 'action').click()

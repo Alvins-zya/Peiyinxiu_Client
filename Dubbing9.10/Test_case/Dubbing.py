@@ -3,7 +3,7 @@
 author: Alvin_zhu
 time: 2020年4月5日
 '''
-from operate import BaseOperate
+from Dubbing9_11.operate import BaseOperate
 from Public import appium_desired
 from appium.webdriver.common.touch_action import TouchAction
 

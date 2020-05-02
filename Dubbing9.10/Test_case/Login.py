@@ -1,5 +1,5 @@
 #coding = utf-8
-from operate import BaseOperate
+from Dubbing9_11.operate import BaseOperate
 import time
 ID = 'com.happyteam.dubbingshow:id/'
 class Login():

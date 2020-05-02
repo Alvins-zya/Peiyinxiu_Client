@@ -17,6 +17,13 @@ class BaseOperate():
         self.driver = appium_desired()
         self.dev = get_conn_dev()
 
+    def lanuch_app(self):
+        '''
+        启动APP
+        '''
+        self.driver.launch_app()
+        time.sleep(2)
+
     def back(self):
         '''
         返回键
@@ -132,6 +139,10 @@ class BaseOperate():
         '''
         el = self.driver.find_elements_by_class_name(classes)
         return el
+
+    def find_text(self,text):
+        text = self.driver.find_element_by_id(text).text
+        return text
 
     def wait_id(self, id):
         '''
