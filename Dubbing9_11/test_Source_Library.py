@@ -663,37 +663,180 @@ class Test_e_Preview(Dubbing):
 
     #点击素材标签
     def test_h(self):
+        lables = self.driver.find_ids(soucred_id + 'types_name')
+        for i in range(len(lables)):
+            name = self.driver.find_ids(soucred_id + 'types_name')[i].text
+            self.driver.find_ids(soucred_id + 'types_name')[i].click()
+            self.driver.wait_id(soucred_id + 'iv_source')
+            name1 = self.driver.find_id(soucred_id + 'tag_name').text
+            self.assertEqual(name,name1,msg='素材预览界面点击的标签与跳转后显示的标签校验不一致')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+        time.sleep(2)
 
+    #配音列表
+    def test_i(self):
+        self.driver.swip_up()
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'userHead')
+        except:
+            raise ('暂无更多配音列表用户')
+        time.sleep(2)
+        user_name = self.driver.find_ids(soucred_id + 'nickname')
+        for i in range(len(user_name)):
+            name = self.driver.find_ids(soucred_id + 'nickname')[i].text
+            self.driver.find_ids(soucred_id + 'userHead')[i].click()
+            self.driver.wait_id(soucred_id + 'follow_ta')
+            self.driver.Background()
+            time.sleep(2)
+            name1 = self.driver.find_id(soucred_id + 'textView').text
+            self.assertEqual(name1,name,msg='素材配音列表用户名称与视频详情作者用户名称校验不一致')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(3)
+        time.sleep(2)
+    #素材举报
+    def test_g(self):
+        self.driver.find_id(soucred_id + 'right_icon1').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'tv_action_one').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '成功'
+            self.assertIn(check,toast,msg='举报toast校验失败')
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'right_icon1').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'tv_action_other').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'txtKeyword').send_keys('功能测试，可忽略此信息')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'right_icon1').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '成功'
+            self.assertIn(check,toast,msg='举报toast校验失败')
+        except:
+            try:
+                self.driver.find_id(soucred_id + 'txtKeyword')
+                self.driver.find_id(soucred_id + 'btnBack').click()
+                time.sleep(2)
+            except:
+                pass
+        time.sleep(2)
 
+    #素材收藏
+    def test_h(self):
+        self.driver.find_id(soucred_id + 'shouchang_tv_fake').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '收藏成功'
+            self.assertEqual(toast, check, msg='素材收藏提示信息校验不一致')
+        except:
+            pass
+        time.sleep(4)
+        self.driver.find_id(soucred_id + 'shouchang_tv_fake').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '取消收藏成功'
+            self.assertEqual(toast, check, msg='素材取消收藏提示信息校验不一致')
+        except:
+            pass
+        time.sleep(2)
 
+    #素材分享
+    def test_i(self):
+        self.driver.find_id(soucred_id + 'zhuanfa_fake').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'group_chat').click()
+        self.driver.wait_id(soucred_id + 'userhead')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'userhead').click()
+        self.driver.wait_id(soucred_id + 'btn_change_input_mode')
+        time.sleep(2)
+        source_name = self.driver.find_ids(soucred_id + 'chat_film_title')[-1].text
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        soucer_name1 = self.driver.find_id(soucred_id + 'source_title').text
+        self.assertIn(soucer_name1,source_name,msg='分享素材内容显示错误')
+        time.sleep(2)
 
+    #素材界面点击配音按钮
+    def test_j(self):
+        try:
+            self.driver.find_id(soucred_id + 'btn_change_input_mode')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack')
+        except:
+            pass
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'yinpin')
+            self.driver.find_id(soucred_id + 'dubbing_fake').click()
+            self.driver.wait_download(soucred_id + 'roleall')
+            self.driver.find_id(soucred_id + 'roleall').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'back').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+        except:
+            self.driver.find_id(soucred_id + 'dubbing_fake').click()
+            self.driver.wait_download(soucred_id + 'action')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'back').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_id(soucred_id + 'dubbing_fake')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #合作素材预览界面合作信息列表
+    def test_k(self):
+        self.driver.find_id(soucred_id + 'coor').click()
+        self.driver.wait_id(soucred_id + 'tv_boy')
+        self.driver.find_id(soucred_id + 'iv_source').click()
+        self.driver.wait_id(soucred_id + 'userhead')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'right_rank_tv').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'left_name').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'right_name').click()
+        time.sleep(2)
+        role_name = self.driver.find_id(soucred_id + 'right_name').text
+        self.driver.swip_up()
+        time.sleep(2)
+        check = self.driver.find_id(soucred_id + 'item_sh_cooperate_article_cooperate_gender').text
+        self.assertIn(role_name,check,msg='选择的待配角色名称与待配作品列表中的角色名称校验不一致')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'item_sh_cooperate_article_image').click()
+        self.driver.wait_download(soucred_id + 'play')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnCooperate').click()
+        self.driver.wait_download(soucred_id + 'action')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        time.sleep(4)
+        self.driver.find_id(soucred_id + 'btnCooperate').click()
+        self.driver.wait_download(soucred_id + 'action')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        time.sleep(4)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
 
 
