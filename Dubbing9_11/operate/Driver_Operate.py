@@ -123,6 +123,22 @@ class BaseOperate():
         el = self.driver.find_element_by_xpath(xpath_elemnt)
         return el
 
+    def find_desc(self,desc):
+        '''
+        空间没有ID信息，显示的是content—desc
+        可使用此方法
+        '''
+        el = self.driver.find_element_by_accessibility_id(desc)
+        return el
+
+    def find_descs(self,descs):
+        '''
+        空间没有ID信息，显示的是content—desc
+        定位当前界面下所有content-desc
+        '''
+        el = self.driver.find_elements_by_accessibility_id(descs)
+        return el
+
     def find_class(self, id):
         '''
         class name id
