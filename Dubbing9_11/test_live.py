@@ -1,8 +1,5 @@
 import unittest
 
-'''
-语聊中心功能测试用例
-'''
 
 class MyTestCase(unittest.TestCase):
     def test_something(self):

@@ -416,7 +416,13 @@ class Test_c_Person_works(Dubbing):
 
     #切换作品列表tab
     def test_b(self):
-        for i in reversed(5):
+        self.driver.find_id(sourced_id + 'film_all_count').click()
+        time.sleep(2)
+        count = self.driver.find_ids(sourced_id + 'title')
+        time.sleep(2)
+        self.driver.back()
+        time.sleep(2)
+        for i in range(len(count)-1,-1,-1):
             self.driver.find_id(sourced_id + 'film_all_count').click()
             time.sleep(2)
             self.driver.find_ids(sourced_id + 'title')[i].click()
@@ -435,6 +441,11 @@ class Test_c_Person_works(Dubbing):
         try:
             self.driver.find_id(sourced_id + 'img')
         except:
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5, self.y * 0.943)
+            else:
+                pass
+            time.sleep(2)
             self.driver.find_ids(sourced_id + 'filmBg1')[0].click()
             self.driver.wait_id(sourced_id + 'tv_video_detail_title')
             self.driver.Background()
@@ -450,7 +461,7 @@ class Test_c_Person_works(Dubbing):
             time.sleep(2)
             self.driver.find_id(sourced_id + 'btnBack').click()
             time.sleep(2)
-            self.driver.swip_up()
+            self.driver.swip_down()
             time.sleep(4)
             el = self.driver.find_ids(sourced_id + 'filmBg1')[0]
             self.driver.Long_Touche(el)
@@ -509,6 +520,20 @@ class Test_c_Person_works(Dubbing):
             self.driver.tap(self.x* 0.5,self.y * 0.629)
         else:
             self.driver.back()
+        self.driver.wait_id(sourced_id + 'socialstatus')
+        self.driver.find_id(sourced_id + 'socialstatus').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'content').send_keys('给自己的合作！')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'reprint').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '邀请成功'
+            self.assertEqual(toast,check,msg='发送邀请后toast内容校验不一致')
+        except:
+            raise ('发送邀请后未检测到toast提示')
+        time.sleep(2)
+
 
 
     #求合作-私密（公开）
@@ -517,7 +542,7 @@ class Test_c_Person_works(Dubbing):
         self.driver.Long_Touche(el)
         time.sleep(2)
         if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.629)
+            self.driver.tap(self.x * 0.5, self.y * 0.703)
         else:
             self.driver.back()
         time.sleep(2)
@@ -556,8 +581,14 @@ class Test_c_Person_works(Dubbing):
             pass
         time.sleep(2)
 
+
     #素材-视频预览
     def test_g(self):
+        self.driver.find_id(sourced_id +'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'userhead').click()
+        self.driver.wait_id(sourced_id + 'source_text')
+        time.sleep(2)
         self.driver.find_id(sourced_id + 'source_text').click()
         self.driver.wait_id(sourced_id + 'imgSource')
         self.driver.find_id(sourced_id + 'imgSource').click()
@@ -577,6 +608,15 @@ class Test_c_Person_works(Dubbing):
             self.driver.find_id(sourced_id + 'btnBack').click()
             time.sleep(2)
             self.driver.find_id(sourced_id + 'imgTip').click()
+            while True:
+                try:
+                    self.driver.find_id(sourced_id + 'roleall')
+                    break
+                except:
+                    self.driver.find_id(sourced_id + 'btnSubmit')
+                    time.sleep(1)
+                    self.driver.find_id(sourced_id + 'btnSubmit').click()
+                    break
             self.driver.wait_id(sourced_id + 'roleall')
             self.driver.find_id(sourced_id +'roleall').click()
             time.sleep(2)
@@ -586,7 +626,16 @@ class Test_c_Person_works(Dubbing):
             time.sleep(2)
         except:
             self.driver.find_id(sourced_id + 'imgTip').click()
-            self.driver.wait_id(sourced_id + 'action')
+            while True:
+                try:
+                    self.driver.find_id(sourced_id + 'action')
+                    break
+                except:
+                    self.driver.find_id(sourced_id + 'btnSubmit')
+                    time.sleep(1)
+                    self.driver.find_id(sourced_id + 'btnSubmit').click()
+                    break
+                time.sleep(1)
             time.sleep(2)
             self.driver.find_id(sourced_id + 'back').click()
             time.sleep(2)
@@ -617,7 +666,11 @@ class Test_c_Person_works(Dubbing):
         self.driver.Long_Touche(el)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
-        self.assertFalse(title,msg='作品删除失败')
+        try:
+            self.driver.find_xpath(title)
+            raise ('转发作品删除失败')
+        except:
+            pass
         time.sleep(2)
         count1 = self.driver.find_id(sourced_id + 'film_all_count').text
         self.assertNotEqual(count,count1,msg='转发数量校验失败')
@@ -687,7 +740,7 @@ class Test_c_Person_works(Dubbing):
         self.driver.find_id(sourced_id + 'username').click()
         self.driver.wait_id(sourced_id + 'film_all_count')
         self.driver.find_id(sourced_id + 'more_text').click()
-        time.sleep()
+        time.sleep(2)
 
     #语聊列表
     def test_o(self):
@@ -745,15 +798,94 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         try:
-            toast = self.driver.wait_id('//android.widget.Toast')
+            toast = self.driver.wait_toast('//android.widget.Toast')
             check = '成功'
             self.assertIn(check,toast,msg='合辑删除失败')
         except:
             pass
+        time.sleep(2)
 
     #退出个人空间
     def test_r(self):
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
+
+
+class Test_d_my(Dubbing):
+    #我的界面VIP入口
+    def test_a(self):
+        self.driver.find_id(sourced_id + 'img_vip').click()
+        self.driver.wait_id(sourced_id + 'renew')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_huiyuan').click()
+        self.driver.wait_id(sourced_id + 'renew')
+        time.sleep(2)
+
+    #会员权益计算
+    def test_b(self):
+        self.driver.find_id(sourced_id + 'img_right').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'price')
+        except:
+            raise ('会员权益计算弹窗中未检测到相关控件')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'complete').click()
+        time.sleep(2)
+
+    #会员价格
+    def test_c(self):
+        price = self.driver.find_ids(sourced_id + 'tv_now_money')
+        for i in range(len(price)):
+            Price = self.driver.find_ids(sourced_id + 'tv_now_money')[i].text
+            self.driver.find_ids(sourced_id + 'rl_all')[i].click()
+            time.sleep(1)
+            self.driver.find_id(sourced_id + 'renew').click()
+            time.sleep(2)
+            Price_buy = self.driver.find_id(sourced_id + 'tv_money').text
+            self.assertIn(Price,Price_buy,msg='价格列表中的价格与确认购买弹窗中的价格校验不一致')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'close_icon').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'cancel').click()
+            time.sleep(2)
+
+    #会员特权
+    def test_d(self):
+
+    #会员装扮-头饰-空间
+    def test_e(self):
+
+
+class Test_e_Notices(Dubbing):
+    #系统消息
+    def test_a(self):
+        self.driver.find_id(sourced_id + 'system_notice').click()
+        self.driver.wait_id(sourced_id + 'userhead')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'userhead').click()
+        self.driver.wait_id(sourced_id + 'll_follow')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #礼物消息
+    def test_b(self):
+        self.driver.find_id(sourced_id + 'gift').click()
+        self.driver.wait_id(sourced_id + 'tab1')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'userhead').click()
+        self.driver.wait_id(sourced_id + 'll_follow')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack')
+        time.sleep(2)
+
+
+
+
 if __name__ == '__main__':
     unittest.main()
