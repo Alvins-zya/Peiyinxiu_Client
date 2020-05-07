@@ -883,6 +883,122 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack')
         time.sleep(2)
+        self.driver.find_id(sourced_id + 'head_container').click()
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+            time.sleep(2)
+        except:
+            self.driver.wait_id(sourced_id + 'tv_video_detail_title')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        time.sleep(2)
+
+
+    #礼物消息列表点击关注
+    def test_e(self):
+        text = self.driver.find_id(sourced_id + 'guanzhu').text
+        state = '发私信'
+        if text == state:
+            self.driver.find_id(sourced_id + 'guanzhu').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'right_icon1').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5, self.y * 0.856)
+            else:
+                pass
+            self.driver.wait_id(sourced_id + 'll_follow')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'follow_status').click()
+            time.sleep(4)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        else:
+            self.driver.find_id(sourced_id + 'guanzhu').click()
+            time.sleep(2)
+        time.sleep(2)
+
+    #上滑礼物消息列表
+    def test_f(self):
+        for i in range(4):
+            self.driver.swip_up()
+            time.sleep(2)
+
+    #钻石礼物
+    def test_g(self):
+        self.driver.find_id(sourced_id + 'rl_tag2').click()
+        time.sleep(2)
+
+    #礼物消息通知开关
+    def test_h(self):
+        try:
+            self.driver.find_id(sourced_id + 'setPush')
+            self.driver.find_id(sourced_id + 'setPush').click()
+            time.sleep(2)
+            self.driver.back()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #合作消息
+    def test_i(self):
+        self.driver.find_id(sourced_id + 'textView15').click()
+        self.driver.wait_id(sourced_id + 'more')
+        self.driver.find_id(sourced_id + 'userhead').click()
+        self.driver.wait_id(sourced_id + 'll_follow')
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+
+    #合作配音
+    def test_j(self):
+        try:
+            self.driver.find_xpaths('合作配音')[1].click()
+            self.driver.wait_download(sourced_id + 'action')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'back').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnSubmit').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'play').click()
+            self.driver.wait_download(sourced_id + 'play')
+            time.sleep(2)
+            self.driver.back()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+
+
+    #删除合作消息
+    def test_k(self):
+        for i in range(4):
+            self.driver.swip_up()
+            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'more').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.882)
+        else:
+            pass
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '删除合作消息成功'
+            self.assertIn(check,toast,msg='合作消息删除失败')
+        except:
+            raise ('未检测到合作消息删除toast提示')
+        time.sleep(2)
+
+
+
+
 
 
 
