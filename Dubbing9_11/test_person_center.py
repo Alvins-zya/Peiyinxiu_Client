@@ -1,7 +1,9 @@
+
 import unittest
 import random
 import pytest
 import time
+import re
 from Dubbing9_11.Front import Dubbing
 sourced_id = 'com.happyteam.dubbingshow:id/'
 
@@ -852,11 +854,11 @@ class Test_d_my(Dubbing):
             self.driver.find_id(sourced_id + 'cancel').click()
             time.sleep(2)
 
-    #会员特权
-    def test_d(self):
-
-    #会员装扮-头饰-空间
-    def test_e(self):
+    # #会员特权
+    # def test_d(self):
+    #
+    # #会员装扮-头饰-空间
+    # def test_e(self):
 
 
 class Test_e_Notices(Dubbing):
@@ -995,6 +997,234 @@ class Test_e_Notices(Dubbing):
         except:
             raise ('未检测到合作消息删除toast提示')
         time.sleep(2)
+
+    #生成作品
+    def test_l(self):
+        self.driver.find_id(sourced_id + 'rl_tag2').click()
+        time.sleep(2)
+        state = self.driver.find_id(sourced_id + 'btnAccept').text
+        check = '生成作品'
+        if state == check:
+            self.driver.find_id(sourced_id + 'btnAccept').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'head_name').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5, self.y * 0.793)
+            else:
+                pass
+            self.driver.wait_id(sourced_id + 'com.android.camera:id/shutter_button')
+            self.driver.find_id(sourced_id + 'com.android.camera:id/shutter_button').click()
+            time.sleep(4)
+            self.driver.find_id(sourced_id + 'com.android.camera:id/done_button').click()
+            time.sleep(4)
+            self.driver.find_id(sourced_id + 'confirm').click()
+            time.sleep(3)
+            self.driver.find_id(sourced_id + 'head_name').click()
+            time.sleep(2)
+            self.driver.tap(self.x * 0.5, self.y * 0.864)
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'photo_wall_item_photo').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'confirm').click()
+            time.sleep(3)
+            self.driver.find_id(sourced_id + 'title').send_keys('功能测试')
+            time.sleep(2)
+            try:
+                self.driver.find_id(sourced_id + 'tv')
+                self.driver.find_id(sourced_id + 'tv').click()
+                time.sleep(2)
+            except:
+                pass
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btn_close').click()
+            time.sleep(2)
+        else:
+            pass
+
+    #生成作品tab界面预览视频
+    def test_m(self):
+        self.driver.find_id(sourced_id + 'play').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '删除'
+            self.assertIn(check,toast,msg='视频详情界面进入失败')
+        except:
+            self.driver.wait_id(sourced_id + 'tv_video_detail_title')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+
+    #合作消息设置
+    def test_n(self):
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(4)
+        #获取当前界面所有resourceId,但部分ID不可用，因此无法区分筛选出真正可以点击的ID
+        # count = self.driver.search_id()
+        # print(count)
+        # self.id = re.findall(r'resource-id="com.happyteam.dubbingshow:id/(.*?)"',count)
+        # print(self.id)
+        self.driver.find_id(sourced_id + 'acceptAll').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'acceptFirends').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'acceptNone').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'clearAllInviter').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnCancel').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+
+        for i in count:
+            i.click()
+
+    #评论消息-跳转个人空间
+    def test_o(self):
+        self.driver.find_id(sourced_id + 'textView16').click()
+        self.driver.wait_id(sourced_id + 'reply')
+        time.sleep(2)
+        name = self.driver.find_id(sourced_id + 'textView').text
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'userhead').click()
+        self.driver.wait_id(sourced_id + 'll_follow')
+        time.sleep(2)
+        Zoom_name = self.driver.find_id(sourced_id +'username').text
+        self.assertEqual(name,Zoom_name,msg='消息中心用户名称与空间用户名称校验不一致')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #评论消息-关注
+    def test_o_a(self):
+        self.driver.find_id(sourced_id + 'guanzhu').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'editContent')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'right_icon1').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5, self.y * 0.854)
+            else:
+                pass
+            self.driver.wait_id(sourced_id + 'll_follow')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'follow_status').click()
+            time.sleep(3)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.swip_down()
+        except:
+            self.driver.find_id(sourced_id + 'guanzhu').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'right_icon1').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5, self.y * 0.854)
+            else:
+                pass
+            self.driver.wait_id(sourced_id + 'll_follow')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'follow_status').click()
+            time.sleep(3)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.swip_down()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'guanzhu').click()
+        time.sleep(2)
+
+    #评论消息-进入作品详情
+    def test_o_b(self):
+        count = self.driver.find_ids(sourced_id + 'content')
+        for i in range(len(count)):
+            self.driver.find_ids(sourced_id + 'content')[i].click()
+            try:
+                toast = self.driver.wait_toast('//android.widget.Toast')
+                check = '删除'
+                self.assertIn(check,toast,msg='点击评论跳转视频详情失败')
+            except:
+                self.driver.wait_id(sourced_id + 'tv_video_detail_title')
+                self.driver.Background()
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'btnBack').click()
+                time.sleep(2)
+            time.sleep(2)
+        time.sleep(2)
+
+    #评论消息-回复评论
+    def test_o_c(self):
+        comment = self.driver.find_ids(sourced_id + 'reply_btn')
+        for i in range(len(comment)):
+            self.driver.find_ids(sourced_id + 'reply_btn')[i].click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'editContent').send_keys('哈哈哈')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btn_send').click()
+            self.driver.wait_toast('//android.widget.Toast')
+            try:
+                self.driver.find_id(sourced_id + 'editContent')
+                self.driver.back()
+            except:
+                pass
+            time.sleep(2)
+    #评论消息-帖子消息
+    def test_o_d(self):
+        self.driver.find_id(sourced_id + 'tab2').click()
+        self.driver.wait_id(sourced_id +'content')
+        count = self.driver.find_ids(sourced_id + 'content')
+        for i in range(len(count)):
+            self.driver.find_ids(sourced_id + 'content')[i].click()
+            try:
+                toast = self.driver.wait_toast('//android.widget.Toast')
+                check = '删除'
+                self.assertIn(check, toast, msg='点击帖子评论跳转帖子详情失败')
+            except:
+                self.driver.wait_id(sourced_id + 'good')
+                self.driver.find_id(sourced_id + 'editContent').send_keys('hhh')
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'btn_send').click()
+                toast = self.driver.wait_toast('//android.widget.Toast')
+                check = '成功'
+                self.assertIn(check, toast, msg='帖子发布评论失败')
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'tv_right').click()
+                self.driver.wait_id(sourced_id + 'tv_right')
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'btnBack').click()
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'btnBack').click()
+                time.sleep(2)
+            time.sleep(2)
+
+    #退出评论消息列表返回‘我的’界面
+    def test_o_e(self):
+        try:
+            self.driver.find_id(sourced_id + 'content')
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+
+    #聊天消息
+    def test_p(self):
+        self.driver.find_id(sourced_id + 'chat').click()
+        time.sleep(2)
+
+
+
+
 
 
 

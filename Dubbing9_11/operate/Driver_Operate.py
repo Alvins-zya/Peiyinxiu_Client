@@ -280,16 +280,13 @@ class BaseOperate():
         type = '.png'
         self.driver.get_screenshot_as_file("E:\\screenshots\\" + tm + type)
 
-    def search_id(self, id):
+    def search_id(self):
         '''
-        查找当前界面是否存在某个ID控件
+        查找当前界面所有ID控件
         :return:
         '''
-        elemets = self.driver.page_source
-        if id in elemets:
-            return True
-        else:
-            return False
+        els = self.driver.page_source
+        return els
 
     def Background(self):
         self.driver.background_app(3)
