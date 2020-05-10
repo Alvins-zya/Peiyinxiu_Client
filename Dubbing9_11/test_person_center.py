@@ -1221,6 +1221,359 @@ class Test_e_Notices(Dubbing):
     def test_p(self):
         self.driver.find_id(sourced_id + 'chat').click()
         time.sleep(2)
+        self.driver.wait_id(sourced_id + 'right_icon1')
+        time.sleep(2)
+
+    #聊天列表界面用户
+    def test_p_a(self):
+        try:
+            self.driver.find_id(sourced_id + 'userhead')
+            count = self.driver.find_ids(sourced_id + 'userhead')
+            for i in range(len(count)):
+                self.driver.find_ids(sourced_id + 'userhead')[i].click()
+                self.driver.wait_id(sourced_id + 'editContent')
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'btnBack').click()
+                time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+
+    #用户聊天
+    def test_p_b(self):
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'filter_edit').clear()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'filter_edit').send_keys('16685645')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSearch').click()
+        self.driver.wait_xpath('撸串')
+        self.driver.find_id(sourced_id + 'name').click()
+        time.sleep(2)
+        #清楚聊天记录
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+        #发送文字
+        self.driver.find_id(sourced_id + 'editContent').send_keys('功能测试')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btn_send').click()
+        time.sleep(2)
+        self.driver.wait_id(sourced_id + 'content')
+        try:
+            self.driver.find_xpath('功能测试')
+        except:
+            raise ('聊天内容区域未找到发送的文案')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+        #发送表情
+        self.driver.find_id(sourced_id + 'btn_send_smile').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'emojicon_icon').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btn_send').click()
+        self.driver.wait_id(sourced_id + 'content')
+        try:
+            self.driver.find_id(sourced_id + 'content')
+        except:
+            raise ('聊天内容区域未找到发送的表情')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+        #发送语音
+        self.driver.find_id(sourced_id + 'btn_change_input_mode').click()
+        time.sleep(2)
+        el = self.driver.find_id(sourced_id + 'btn_record_voice')
+        self.driver.Long_Touche(el)
+        self.driver.wait_id(sourced_id + 'btn_play_sound_content_layout')
+        self.driver.find_id(sourced_id + 'btn_play_sound_content_layout').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+        #发送图片
+        self.driver.find_id(sourced_id + 'show_action').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'photo').click()
+        time.sleep(4)
+        self.driver.find_id(sourced_id + 'cb_select_tag').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'next_step_tv').click()
+        self.driver.wait_id(sourced_id + 'chat_image')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+        #拍照发送私信信息
+        self.driver.find_id(sourced_id + 'show_action').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'camera').click()
+        time.sleep(4)
+        self.driver.find_id('com.android.camera:id/shutter_button').click()
+        time.sleep(3)
+        self.driver.find_id('com.android.camera:id/done_button').click()
+        self.driver.wait_id(sourced_id + 'chat_image')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+        #发送作品
+        self.driver.find_id(sourced_id + 'show_action').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'film').click()
+        time.sleep(4)
+        self.driver.find_id('filmBg').click()
+        time.sleep(3)
+        self.driver.find_id(sourced_id + 'btnSelect').click()
+        self.driver.wait_id(sourced_id + 'chat_film_title')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+        #发送红包
+        self.driver.find_id(sourced_id + 'show_action').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'redpacket').click()
+        time.sleep(2)
+        self.driver.find_id('cash_num').send_keys('0.1')
+        time.sleep(3)
+        self.driver.find_id(sourced_id + 'generate_red_packet').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        self.driver.wait_id(sourced_id + 'red_packet')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'red_packet').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'open_red_packet_btn').click()
+        self.driver.wait_id(sourced_id + 'diamond')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'red_packet_detail_close_btn').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+        #发送社团邀请
+        self.driver.find_id(sourced_id + 'show_action').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'union_inviter').click()
+        time.sleep(4)
+        self.driver.find_id('userName').click()
+        self.driver.wait_id(sourced_id + 'union_inviter_apply')
+        self.driver.find_id(sourced_id + 'union_inviter_apply').click()
+        self.driver.wait_id(sourced_id + 'll_fan')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.697)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.662, self.y * 0.558)
+        else:
+            pass
+        time.sleep(2)
+
+
+    #私信聊天界面举报用户-其它原因
+    def test_p_c(self):
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.619)
+        else:
+            pass
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.875)
+        else:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'txtKeyword').clear()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'txtKeyword').send_keys('功能测试，可忽略此举报信息')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '举报成功'
+            self.assertIn(check,toast,msg='私信聊天用户举报toast校验不一致')
+        except:
+            raise ('未检测到举报成功toast')
+        time.sleep(2)
+
+
+    #私信聊天界面-进入对方空间
+    def test_p_d(self):
+        try:
+            self.driver.find_id(sourced_id + 'txtKeyword')
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.859)
+        else:
+            pass
+        self.driver.wait_id(sourced_id + 'll_fan')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #私信列表界面长按删除
+    def test_p_e(self):
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        el = self.driver.find_xpath('撸串')
+        self.driver.Long_Touche(el)
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'delete').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        time.sleep(2)
+        try:
+            self.driver.find_xpath('撸串')
+            raise ('列表中长按用户删除失败')
+        except:
+            pass
+        time.sleep(2)
+
+    #私信消息-未关注
+    def test_p_f(self):
+        self.driver.find_id(sourced_id + 'tab2').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'userhead')
+            self.driver.find_id(sourced_id + 'userhead').click()
+            time.sleep(3)
+            try:
+                self.driver.find_id(sourced_id + 'tishi')
+            except:
+                raise ('私信未关注界面，私信详情界面未显示谨防诈骗信息')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            el = self.driver.find_id(sourced_id + 'userhead')
+            self.driver.Long_Touche(el)
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'delete').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnSubmit').click()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+class Test_f_creates(Dubbing):
+    #草稿箱-会员同步
+    def test_a(self):
+        self.driver.find_id(sourced_id + 'draft').click()
+        time.sleep(2)
+        self.driver.find_xpath('同步').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'renew')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            self.driver.wait_xpath('同步')
+        time.sleep(2)
+
+
+
+
+
+
+
+
+
 
 
 

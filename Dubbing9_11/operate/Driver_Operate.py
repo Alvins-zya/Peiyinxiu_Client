@@ -95,7 +95,7 @@ class BaseOperate():
         '''
         控件长按
         '''
-        TouchAction(self.driver).long_press(El,duration=2000).release().perform()
+        TouchAction(self.driver).long_press(El,duration=3000).release().perform()
 
     def tap(self,X,Y):
         '''
