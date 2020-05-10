@@ -1564,7 +1564,7 @@ class Test_f_creates(Dubbing):
             time.sleep(2)
         except:
             self.driver.wait_xpath('同步')
-        time.sleep(2)
+
 
 
 
