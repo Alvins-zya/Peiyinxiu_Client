@@ -6,6 +6,7 @@ create on 2020年2月18日
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.connectiontype import ConnectionType
 import os
 import re
 import time
@@ -287,6 +288,47 @@ class BaseOperate():
         '''
         els = self.driver.page_source
         return els
+
+    def getnetworkstate(self):
+        '''
+        获取当前手机网络状态
+        '''
+        info = {0: "NO_CONNECTION（没网络）",
+
+                1: "AIRPLANE_MODE（飞行模式）",
+
+                2: "WIFI_ONLY（仅wifi）",
+
+                4: "DATA_ONLY（仅数据）",
+
+                6: "ALL_NETWORK_ON（所有网络都打开）"}
+
+        state = self.driver.network_connection
+        return info.get(state)
+
+    def Only_wifi(self):
+        '''
+        仅开启WiFi
+        '''
+        self.driver.set_network_connection(ConnectionType.WIFI_ONLY)
+
+    def Disconnect_network(self):
+        '''
+        断开网络
+        '''
+        self.driver.set_network_connection(ConnectionType.NO_CONNECTION)
+
+    def Only_4G(self):
+        '''
+        仅开启4G网络
+        '''
+        self.driver.set_network_connection(ConnectionType.DATA_ONLY)
+
+    def all_network_open(self):
+        '''
+        开启WiFi、4G所有网络
+        '''
+        self.driver.set_network_connection(ConnectionType.ALL_NETWORK_ON)
 
     def Background(self):
         self.driver.background_app(3)

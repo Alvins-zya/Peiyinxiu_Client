@@ -4,6 +4,7 @@ import random
 import pytest
 import time
 import re
+from collections import Counter
 from Dubbing9_11.Front import Dubbing
 sourced_id = 'com.happyteam.dubbingshow:id/'
 
@@ -1564,6 +1565,569 @@ class Test_f_creates(Dubbing):
             time.sleep(2)
         except:
             self.driver.wait_xpath('同步')
+        time.sleep(2)
+
+    #草稿箱作品断网后删除再重新同步下载
+    def test_a_a_a(self):
+        date_before = self.driver.find_id(sourced_id + 'date').text
+        self.driver.Disconnect_network()
+        time.sleep(2)
+        el = self.driver.find_id(sourced_id + 'date')
+        self.driver.Long_Touche(el)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.656, self.y * 0.552)
+        else:
+            pass
+        time.sleep(2)
+        self.driver.Only_wifi()
+        time.sleep(15)
+        self.driver.find_xpath('同步').click()
+        time.sleep(2)
+        self.driver.wait_xpath('同步')
+        date_after = self.driver.find_id(sourced_id + 'date').text
+        self.assertEqual(date_before, date_after, msg='草稿箱断网情况删除以后联网再同步，作品时间校验不一致')
+        time.sleep(2)
+
+    #草稿箱-草稿箱作品视频预览
+    def test_a_a(self):
+        self.driver.find_id(sourced_id + 'imgSource').click()
+        time.sleep(2)
+        self.driver.wait_download(sourced_id + 'play')
+        time.sleep(2)
+        self.driver.back()
+        time.sleep(3)
+
+    #草稿箱作品时间重复性检查
+    def test_a_b(self):
+        date  = self.driver.find_ids(sourced_id + 'date')
+        list = []
+        for i in range(len(date)):
+            times = self.driver.find_ids(sourced_id + 'date')[i].text
+            list.append(times)
+            time.sleep(1)
+        set_list = set(list)#set会生成一个元素无序且不重复的可迭代对象，也就是我们常说的去重
+        if len(list) == len(set_list):
+            pass
+        else:
+            Dic = dict(Counter(list))
+            print([key for key , value in Dic.items() if value >1])#展示重复元素
+        time.sleep(2)
+
+    #草稿箱作品上传界面资料编辑-更换封面
+    def test_a_c(self):
+        self.driver.find_id(sourced_id + 'upload').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btn_setting_cover_tip').click()
+        time.sleep(2)
+        # 选择视频截图
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.708)
+            time.sleep(2)
+            self.driver.swip_move(self.x * 0.37, self.y * 0.422, self.x * 0.74, self.y * 0.422)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.752)
+            time.sleep(2)
+            self.driver.swip_move(self.x * 0.033, self.y * 0.361, self.x * 0.441, self.y * 0.361)
+        else:
+            pass
+        time.sleep(4)
+        self.driver.find_id(sourced_id + 'complete').click()
+        time.sleep(2)
+        #拍照
+        self.driver.find_id(sourced_id + 'btn_setting_cover_tip').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.755)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.82)
+        else:
+            pass
+        time.sleep(5)
+        try:
+            # 米5
+            self.driver.find_id('com.android.camera:id/v9_camera_picker')
+            self.driver.find_id('com.android.camera:id/v9_camera_picker').click()
+            time.sleep(5)
+            self.driver.find_id('com.android.camera:id/inten_done_apply').click()
+            time.sleep(4)
+        except:
+            # VivoX21、VivoX9
+            self.driver.find_id('com.android.camera:id/shutter_button')
+            self.driver.find_id('com.android.camera:id/shutter_button').click()
+            time.sleep(4)
+            self.driver.find_id('com.android.camera:id/done_button').click()
+            time.sleep(4)
+        else:
+            pass
+        self.driver.find_id(sourced_id + 'confirm').click()
+        time.sleep(3)
+        #相册
+        self.driver.find_id(sourced_id + 'btn_setting_cover_tip').click()
+        time.sleep(3)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.856)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.875)
+        else:
+            pass
+        time.sleep(2)
+        photo_count = self.driver.find_ids(sourced_id + 'photo_wall_item_photo')
+        select = random.randint(0, len(photo_count) - 1)
+        self.driver.find_ids(sourced_id + 'photo_wall_item_photo')[select].click()
+        time.sleep(3)
+        self.driver.find_id(sourced_id + 'confirm').click()
+        time.sleep(4)
+
+    #草稿箱作品上传界面-修改作品标题
+    def test_a_d(self):
+        # 标题名称-输入30个字符
+        self.driver.find_id(sourced_id + 'title').send_keys('一个普通的作品')
+        time.sleep(2)
+        char = self.driver.find_id(sourced_id + 'title').text
+        count_check = '一个普通的作品'
+        self.assertEqual(char, count_check, msg='标题内容对比不一致')
+        time.sleep(2)
+
+    #草稿箱作品上传界面-修改作品标签
+    def test_a_e(self):
+        # 上传界面标签显示检查
+        try:
+            self.driver.find_xpath('添加')
+        except:
+            self.driver.find_id(sourced_id + 'tv1').click()
+        time.sleep(2)
+        self.driver.find_xpath('添加').click()
+        self.driver.wait_id(sourced_id + 'edit_text')
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'tv')
+        except:
+            print('未显示热门频道标签')
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_xpath('添加').click()
+            self.driver.wait_id(sourced_id + 'edit_text')
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'tv1')
+            self.driver.find_id(sourced_id + 'tv1').click()
+        except:
+            pass
+        time.sleep(2)
+        hot_lable = self.driver.find_ids(sourced_id + 'tv')
+        select = random.randint(0, len(hot_lable))
+        self.driver.find_ids(sourced_id + 'tv')[select].click()
+        time.sleep(2)
+        label_name = self.driver.find_id(sourced_id + 'tv1').text
+        self.driver.find_id(sourced_id + 'tv_right').click()
+        time.sleep(2)
+        label_check = self.driver.find_id(sourced_id + 'tv1').text
+        self.assertEqual(label_name, label_check, msg='标签对比不一致，%s,%s' % (label_name, label_check))
+        time.sleep(2)
+        self.driver.swip_up()
+        time.sleep(2)
+
+
+    #草稿箱上传界面-求合作开关
+    def test_a_f(self):
+        try:
+            self.driver.find_id(sourced_id + 'check_box_add_square')
+            return False
+        except:
+            return True
+
+    @unittest.skipIf(test_a_f(self=None),reason=u'未显示求合作开关，跳过此项')
+    def test_a_g(self):
+        state = self.driver.find_id(sourced_id + 'check_box_add_square').get_attribute('checked')
+        if state == True:
+            self.driver.find_id(sourced_id + 'check_box_add_square').click()
+            time.sleep(2)
+        else:
+            pass
+        time.sleep(2)
+
+
+    #草稿箱作品私密
+    def test_a_h(self):
+        try:
+            self.driver.find_id(sourced_id + 'tv1')
+            self.driver.find_id(sourced_id + 'pri_switch_tv').click()
+            time.sleep(2)
+            try:
+                self.driver.find_id(sourced_id + 'private_top_tv2')
+            except:
+                raise ('点击私密后未显示私密提示文案')
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+
+    #草稿箱作品上传
+    def test_a_i(self):
+        self.driver.find_id(sourced_id + 'uploadbtn').click()
+        self.driver.wait_id(sourced_id + 'film_title')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'ivMineTab').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'draft').click()
+        time.sleep(3)
+
+
+    #草稿箱作品重配
+    def test_a_j(self):
+        count = self.driver.find_ids(sourced_id + 'imgSource')
+        for i in range(len(count)):
+            self.driver.find_ids(sourced_id + 'upload')[i].click()
+            time.sleep(2)
+            try:
+                self.driver.find_id(sourced_id + 'reDubbing')
+                self.driver.find_id(sourced_id + 'reDubbing').click()
+                break
+            except:
+                self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        time.sleep(2)
+        while True:
+            try:
+                self.driver.find_id(sourced_id + 'roleall')
+                self.driver.find_id(sourced_id + 'roleall').click()
+                break
+            except:
+                try:
+                    self.driver.find_id(sourced_id + 'btnSubmit')
+                    self.driver.find_id(sourced_id + 'btnSubmit').click()
+                    try:
+                        self.driver.find_id(sourced_id + 'roleall')
+                        self.driver.find_id(sourced_id + 'roleall').click()
+                        break
+                    except:
+                        pass
+                    break
+                except:
+                    break
+            time.sleep(2)
+        self.driver.wait_id(sourced_id + 'action')
+        self.driver.find_id(sourced_id + 'action').click()
+        self.driver.wait_download(sourced_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'complete').click()
+        self.driver.wait_id(sourced_id + 'txtTitle')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'pri_switch_tv').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'saveToDraft').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        time.sleep(2)
+        self.driver.wait_xpath('退出配音')
+        self.driver.find_xpath('退出配音').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+
+
+    #已配素材列表
+    def test_b(self):
+        self.driver.find_id(sourced_id + 'source').click()
+        time.sleep(2)
+        self.driver.wait_id(sourced_id + 'iv_source')
+
+    #已配素材列表信息查看
+    def test_b_a(self):
+        self.driver.find_id(sourced_id + 'iv_source').click()
+        self.driver.wait_id(sourced_id + 'user_name')
+        self.driver.Background()
+        time.sleep(2)
+        for i in range(5):
+            self.driver.swip_up()
+            time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(3)
+        self.driver.find_id(sourced_id + 'source').click()
+        time.sleep(2)
+        self.driver.wait_id(sourced_id + 'iv_source')
+
+    #已配素材列表界面点击配音
+    def test_b_b(self):
+        use_count_before = self.driver.find_id(sourced_id + 'tv_use').text
+        self.driver.find_id(sourced_id + 'iv_dub').click()
+        while True:
+            try:
+                self.driver.find_id(sourced_id + 'roleall')
+                self.driver.find_id(sourced_id + 'roleall').click()
+                break
+            except:
+                try:
+                    self.driver.find_id(sourced_id + 'btnSubmit')
+                    self.driver.find_id(sourced_id + 'btnSubmit').click()
+                    try:
+                        self.driver.find_id(sourced_id + 'roleall')
+                        self.driver.find_id(sourced_id + 'roleall').click()
+                        break
+                    except:
+                        pass
+                    break
+                except:
+                    break
+            time.sleep(2)
+        self.driver.wait_id(sourced_id + 'action')
+        self.driver.find_id(sourced_id + 'action').click()
+        self.driver.wait_download(sourced_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'complete').click()
+        self.driver.wait_id(sourced_id + 'txtTitle')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'uploadbtn').click()
+        time.sleep(2)
+        self.driver.wait_id(sourced_id + 'down')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'ivMineTab').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'source').click()
+        time.sleep(2)
+        use_count_after = self.driver.find_id(sourced_id + 'tv_use').text
+        self.assertNotEqual(use_count_before,use_count_after,msg='素材配音后公开上传，素材演绎次数未变化')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'ivCirclesTab').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'img_url').click()
+        self.driver.wait_id(sourced_id + 'tv_video_detail_title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'setting').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.854)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.82)
+        else:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        self.driver.find_id(sourced_id + 'ivMineTab').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'source').click()
+        time.sleep(2)
+
+
+    #已配素材列表界面删除已配素材
+    def test_b_c(self):
+        source = self.driver.find_id(sourced_id + 'iv_source')
+        self.driver.Long_Touche(source)
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '删除成功'
+            self.assertEqual(toast,check,msg='已配素材长按删除toast提示检验不一致')
+            time.sleep(2)
+        except:
+            raise ('未检测到素材删除toast提示')
+        time.sleep(2)
+
+    #断网环境下删除已配素材，联网后再刷新
+    def test_b_d(self):
+        delete_before = self.driver.find_id(sourced_id + 'tv_source_title').text
+        self.driver.Disconnect_network()
+        time.sleep(2)
+        el = self.driver.find_id(sourced_id + 'tv_source_title')
+        self.driver.Long_Touche(el)
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        self.driver.Only_wifi()
+        time.sleep(10)
+        self.driver.swip_down()
+        time.sleep(2)
+        Refresh_after = self.driver.find_id(sourced_id +'tv_source_title').text
+        self.assertEqual(delete_before,Refresh_after,msg='断网情况下删除已配素材再联网刷新列表，未显示之前删除的素材')
+        time.sleep(2)
+
+    #已配素材批量删除
+    def test_b_e(self):
+        self.driver.find_id(sourced_id +'delete').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'delete').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'delete').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'choice').click()
+        time.sleep(2)
+        delete = self.driver.find_id(sourced_id + 'tv_source_title').text
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'toDelete').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        delete_after = self.driver.find_id(sourced_id + 'tv_source_title').text
+        self.assertNotEqual(delete,delete_after,msg='批量删除未成功删除')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'cancel').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #素材收藏
+    def test_e(self):
+        self.driver.find_id(sourced_id + 'collect').click()
+        time.sleep(2)
+        try:
+            self.driver.find_xpath('您还没有收藏任何素材哦~')
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btn_more').click()
+            self.driver.wait_id(sourced_id + 'iv_source')
+            self.driver.swip_up()
+            time.sleep(2)
+            count = self.driver.find_ids(sourced_id + 'iv_source')
+            for i in range(len(count)):
+                self.driver.find_ids(sourced_id + 'iv_source')[i].click()
+                self.driver.wait_id(sourced_id + 'btn_video_detail_follow')
+                self.driver.Background()
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'shouchang_tv_fake').click()
+                self.driver.wait_toast('//android.widget.Toast')
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'btnBack').click()
+                time.sleep(2)
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'ivMineTab').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'collect').click()
+            self.driver.wait_id(sourced_id + 'iv_source')
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+
+    #素材配音
+    def test_e_a(self):
+        use_count_before = self.driver.find_id(sourced_id + 'tv_use').text
+        self.driver.find_id(sourced_id + 'iv_dub').click()
+        while True:
+            try:
+                self.driver.find_id(sourced_id + 'roleall')
+                self.driver.find_id(sourced_id + 'roleall').click()
+                break
+            except:
+                try:
+                    self.driver.find_id(sourced_id + 'btnSubmit')
+                    self.driver.find_id(sourced_id + 'btnSubmit').click()
+                    try:
+                        self.driver.find_id(sourced_id + 'roleall')
+                        self.driver.find_id(sourced_id + 'roleall').click()
+                        break
+                    except:
+                        pass
+                    break
+                except:
+                    break
+            time.sleep(2)
+        self.driver.wait_id(sourced_id + 'action')
+        self.driver.find_id(sourced_id + 'action').click()
+        self.driver.wait_download(sourced_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'complete').click()
+        self.driver.wait_id(sourced_id + 'txtTitle')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'uploadbtn').click()
+        time.sleep(2)
+        self.driver.wait_id(sourced_id + 'down')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'ivMineTab').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'collect').click()
+        time.sleep(2)
+        use_count_after = self.driver.find_id(sourced_id + 'tv_use').text
+        self.assertNotEqual(use_count_before, use_count_after, msg='素材配音后公开上传，素材演绎次数未变化')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'ivCirclesTab').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'img_url').click()
+        self.driver.wait_id(sourced_id + 'tv_video_detail_title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'setting').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.854)
+        elif self.y > 2250:
+            self.driver.tap(self.x * 0.5, self.y * 0.82)
+        else:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        self.driver.find_id(sourced_id + 'ivMineTab').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'collect').click()
+        time.sleep(2)
+
+    #素材预览界面取消收藏后刷新收藏列表
+    def test_e_b(self):
+        self.driver.find_id(sourced_id + 'iv_source').click()
+        self.driver.wait_id(sourced_id + 'userhead')
+        self.driver.Background()
+        time.sleep(2)
+        cancel_before = self.driver.find_id(sourced_id + 'source_title').text
+        self.driver.find_id(sourced_id + 'shouchang_tv_fake').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '取消收藏成功'
+            self.assertIn(check,toast,msg='素材取消收藏失败')
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            raise ("未检测到取消收藏的toast提示")
+        time.sleep(2)
+        self.driver.swip_down()
+        time.sleep(2)
+        cancel_after = self.driver.find_id(sourced_id + 'source_title').text
+        self.assertNotEqual(cancel_before,cancel_after,msg='素材取消收藏，收藏列表刷新依然显示有该素材')
+        time.sleep(2)
+
+    #收藏列表长按删除素材
+    def test_e_c(self):
+        el = self.driver.find_id(sourced_id + 'iv_source')
+        self.driver.Long_Touche(el)
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        time.sleep(2)
+
+    #素材收藏列表批量删除
+    def test_e_d(self):
+        self.driver.find_id(sourced_id + 'delete').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'deleteAll').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'toDelete').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+
+
+
+
+
+
+
+
+
 
 
 
