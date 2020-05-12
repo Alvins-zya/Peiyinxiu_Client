@@ -573,7 +573,6 @@ class Test_d_source_list(Dubbing):
         self.driver.find_id(soucred_id + 'unlimited').click()
         time.sleep(4)
 
-
 class Test_e_Preview(Dubbing):
     #点击进入素材预览界面
     def test_a_touch_source(self):
@@ -912,7 +911,7 @@ class Test_f_upload_source(Dubbing):
         time.sleep(2)
 
     # 输入标题，添加字幕，添加标签，不添加背景音，点击素材上传按钮
-    def test_p(self):3
+    def test_p(self):
         self.driver.find_id(soucred_id + 'complete').click()
         check = '请先上传背景音文件'
         try:
@@ -963,10 +962,24 @@ class Test_f_upload_source(Dubbing):
         self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(4)
 
-    #上传素材-需开发设定source-id
-    # def test_t(self):
-    #     self.driver.find_id(soucred_id + 'complete').click()
-    #     self.driver.wait_download()
+    #上传素材
+    def test_t(self):
+        self.driver.find_id(sourced_id + 'complete').click()
+        while True:
+            try:
+                self.driver.wait_toast('//android.widget.Toast')
+            except:
+                if self.y == 1920:
+                    self.driver.tap(self.x * 0.5, self.y * 0.542)
+                    time.sleep(2)
+                    try:
+                        self.driver.find_id(sourced_id + 'btnSubmit')
+                        break
+                    except:
+                        pass
+                else:
+                    pass
+            time.sleep(2)
 
     #上传成功后素自制素材列表界面
     def test_t(self):

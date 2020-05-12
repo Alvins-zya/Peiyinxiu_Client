@@ -8,7 +8,7 @@ from collections import Counter
 from Dubbing9_11.Front import Dubbing
 sourced_id = 'com.happyteam.dubbingshow:id/'
 
-class Test_a_Person_center(Dubbing):
+class Test_a_Person_zoom(Dubbing):
     #首页进入“我的”界面
     def test_a(self):
         self.driver.wait_id(sourced_id + 'ivMineTab')
@@ -813,7 +813,6 @@ class Test_c_Person_works(Dubbing):
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
 
-
 class Test_d_my(Dubbing):
     #我的界面VIP入口
     def test_a(self):
@@ -860,7 +859,6 @@ class Test_d_my(Dubbing):
     #
     # #会员装扮-头饰-空间
     # def test_e(self):
-
 
 class Test_e_Notices(Dubbing):
     #系统消息
@@ -1674,7 +1672,12 @@ class Test_f_creates(Dubbing):
         photo_count = self.driver.find_ids(sourced_id + 'photo_wall_item_photo')
         select = random.randint(0, len(photo_count) - 1)
         self.driver.find_ids(sourced_id + 'photo_wall_item_photo')[select].click()
-        time.sleep(3)
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+            select = random.randint(0, len(photo_count) - 1)
+            self.driver.find_ids(sourced_id + 'photo_wall_item_photo')[select].click()
+        except:
+            pass
         self.driver.find_id(sourced_id + 'confirm').click()
         time.sleep(4)
 
@@ -1688,7 +1691,15 @@ class Test_f_creates(Dubbing):
         self.assertEqual(char, count_check, msg='标题内容对比不一致')
         time.sleep(2)
 
+    def test_a_d_a(self):
+        try:
+            self.driver.find_id(sourced_id + 'tv1')
+            return False
+        except:
+            return True
+
     #草稿箱作品上传界面-修改作品标签
+    @unittest.skipIf(test_a_d_a(self=None),reason='未显示标签，跳过此项')
     def test_a_e(self):
         # 上传界面标签显示检查
         try:
@@ -1840,14 +1851,11 @@ class Test_f_creates(Dubbing):
         self.driver.wait_id(sourced_id + 'user_name')
         self.driver.Background()
         time.sleep(2)
-        for i in range(5):
+        for i in range(2):
             self.driver.swip_up()
             time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(3)
-        self.driver.find_id(sourced_id + 'source').click()
-        time.sleep(2)
-        self.driver.wait_id(sourced_id + 'iv_source')
 
     #已配素材列表界面点击配音
     def test_b_b(self):
@@ -2092,8 +2100,13 @@ class Test_f_creates(Dubbing):
         time.sleep(2)
         self.driver.swip_down()
         time.sleep(2)
-        cancel_after = self.driver.find_id(sourced_id + 'source_title').text
-        self.assertNotEqual(cancel_before,cancel_after,msg='素材取消收藏，收藏列表刷新依然显示有该素材')
+        try:
+            self.driver.find_id(sourced_id + 'source_title')
+            cancel_after = self.driver.find_id(sourced_id + 'source_title').text
+            self.assertNotEqual(cancel_before,cancel_after,msg='素材取消收藏，收藏列表刷新依然显示有该素材')
+            time.sleep(2)
+        except:
+            pass
         time.sleep(2)
 
     #收藏列表长按删除素材
@@ -2118,34 +2131,592 @@ class Test_f_creates(Dubbing):
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'btnBack')
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
 
 
+    #自制素材列表
+    def test_f(self):
+        self.driver.find_id(sourced_id + 'upload_source').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'll_pc')
+            self.driver.find_id(sourced_id + 'll_pc').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'tv_source_title')
+            self.driver.find_id(sourced_id + 'tv_source_title').click()
+            self.driver.find_id(sourced_id + 'userhead')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'middle').click()
+        self.driver.wait_id(sourced_id + 'btnClose')
+        time.sleep(2)
+        try:
+            self.driver.find_desc('「素材收录标准」')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            raise ('未加载出素材收录标准文案')
+        time.sleep(2)
 
+    #素材收录状态检查
+    def test_f_a(self):
+        count = self.driver.find_ids(sourced_id + 'tv_source_title')
+        include = 'xxxxx'
+        title_list = []
+        for i in range(len(count)):
+            name = self.driver.find_ids(sourced_id + 'tv_source_title')[i].text
+            time.sleep(1)
+            if include in name:
+                self.driver.find_ids(sourced_id + 'dubbing')[i].click()
+                while True:
+                    try:
+                        self.driver.find_id(sourced_id + 'roleall')
+                        self.driver.find_id(sourced_id + 'roleall').click()
+                        time.sleep(2)
+                        self.driver.find_id(sourced_id + 'back').click()
+                        time.sleep(2)
+                        self.driver.find_id(sourced_id + 'btnSubmit').click()
+                        time.sleep(2)
+                        break
+                    except:
+                        try:
+                            self.driver.find_id(sourced_id + 'back').click()
+                            time.sleep(2)
+                            self.driver.find_id(sourced_id + 'btnSubmit').click()
+                            time.sleep(2)
+                            break
+                        except:
+                            pass
+            elif include not in name:
+                self.driver.find_ids(sourced_id + 'dubbing')[i].click()
+                while True:
+                    try:
+                        self.driver.find_id(sourced_id + 'btnSubmit')
+                        self.driver.find_id(sourced_id + 'btnSubmit').click()
+                        time.sleep(2)
+                        try:
+                            self.driver.find_id(sourced_id + 'roleall')
+                            self.driver.find_id(sourced_id + 'roleall').click()
+                            time.sleep(2)
+                            self.driver.find_id(sourced_id + 'back').click()
+                            time.sleep(2)
+                            self.driver.find_id(sourced_id + 'btnSubmit').click()
+                            time.sleep(2)
+                        except:
+                            self.driver.find_id(sourced_id + 'back').click()
+                            time.sleep(2)
+                            self.driver.find_id(sourced_id + 'btnSubmit').click()
+                            time.sleep(2)
+                        break
+                    except:
+                        pass
 
+                    time.sleep(2)
+            else:
+                pass
+            time.sleep(2)
+        time.sleep(2)
 
+    #返回自制素材列表界面
+    def test_f_b(self):
+        try:
+            self.driver.find_id(sourced_id + 'btnSubmit')
+            self.driver.find_id(sourced_id + 'btnSubmit').click()
+        except:
+            pass
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'roleall')
+            self.driver.find_id(sourced_id + 'roleall').click()
+        except:
+            pass
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'action')
+            self.driver.find_id(sourced_id + 'back').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnSubmit').click()
+        except:
+            pass
+        time.sleep(2)
 
+    #上传自制素材
+    def test_f_c(self):
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'tv_upload').click()
+        time.sleep(2)
+        try:
+            self.driver.find_xpath('文件管理').click()
+        except:
+            try:
+                self.driver.find_desc('显示根目录').click()
+                time.sleep(2)
+                self.driver.find_xpath('文件管理').click()
+            except:
+                pass
+        time.sleep(4)
+        self.driver.find_descs('图标')[-1].click()
+        time.sleep(4)
 
+    #视频播放
+    def test_f_d(self):
+        self.driver.find_id(sourced_id + 'play_button').click()
+        self.driver.wait_download(sourced_id + 'play_button')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'play_button').click()
+        time.sleep(5)
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.wait_id(sourced_id + 'play_button')
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.swip_move(self.x * 0.124, self.y * 0.385, self.x * 0.688, self.y * 0.385)
+        else:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'play_button').click()
+        self.driver.wait_id(sourced_id + 'play_button')
+        time.sleep(2)
 
+    # 不输入任何内容点击上传
+    def test_f_e(self):
+        self.driver.find_id(sourced_id + 'complete').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '请填写素材标题'
+            self.assertEqual(toast, check, msg='未输入任何内容点击上传toast提示校验不一致')
+        except:
+            raise ("点击素材上传按钮，未检测到toast提示")
+        time.sleep(2)
 
+    # 输入素材标题检测
+    def test_f_f(self):
+        self.driver.find_id(sourced_id + 'title').send_keys('上传本地素材')
+        time.sleep(2)
+        title = self.driver.find_id(sourced_id + 'title').text
+        check = '上传本地素材'
+        self.assertEqual(title, check, msg='输入标题内容检测结果不一致')
+        time.sleep(2)
 
+    # 素材标题长度检测
+    def test_f_g(self):
+        self.driver.find_id(sourced_id + 'title').clear()
+        time.sleep(2)
+        # 中文字符长度检测
+        self.driver.find_id(sourced_id + 'title').send_keys('一二三四五六七八九十一二')
+        time.sleep(2)
+        Chinese_char = self.driver.find_id(sourced_id + 'title').text
+        check = 10
+        self.assertEqual(len(Chinese_char), check, msg='素材标题允许输入的最大中文字符数不为10')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'title').clear()
+        time.sleep(2)
+        # 英文字符数检测
+        self.driver.find_id(sourced_id + 'title').send_keys('abcdefghijhijk')
+        time.sleep(2)
+        English_char = self.driver.find_id(sourced_id + 'title').text
+        self.assertEqual(len(English_char), check, msg='素材标题允许输入的最大英文字符长度不为10')
+        time.sleep(2)
 
+    # 输入标题不添加添加字幕，点击上传按钮
+    def test_f_h(self):
+        self.driver.find_id(sourced_id + 'complete').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '请添加素材标签'
+            self.assertEqual(toast, check, msg='不添加字幕点击上传按钮toast提示校验不一致')
+        except:
+            raise ('不添加字幕上传，未检测到toast提示')
+        time.sleep(2)
 
+    # 添加字幕文件
+    def test_f_i(self):
+        '''
+        以下测试步骤只适用于vivoX9机型
+        '''
+        self.driver.find_id(sourced_id + 'addsrt').click()
+        time.sleep(4)
+        self.driver.find_desc("显示根目录").click()
+        time.sleep(1)
+        self.driver.swip_up()
+        time.sleep(2)
+        self.driver.find_xpath('文件管理').click()
+        time.sleep(2)
+        self.driver.find_xpath('手机存储').click()
+        time.sleep(2)
+        self.driver.find_xpath('a_test').click()
+        time.sleep(2)
+        self.driver.find_descs('图标')[-1].click()
+        time.sleep(5)
+        try:
+            self.driver.find_id(sourced_id + 'et_role_2')
+        except:
+            raise ('双人素材，未显示两个角色信息')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'role_female_img_2').click()
+        time.sleep(1)
+        self.driver.find_id(sourced_id + 'role_female_img_1').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btn_sure').click()
+        time.sleep(2)
+        el = self.driver.find_id(sourced_id + 'role_text')
+        self.assertTrue(el, msg='字幕角色信息显示错误')
+        time.sleep(2)
 
+    # 不添加素材标签点击上传
+    def test_f_j(self):
+        self.driver.find_id(sourced_id + 'complete').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '请添加素材标签'
+            self.assertEqual(toast, check, msg='不添加素材标签上传toast提示校验不一致')
+        except:
+            raise ('不添加素材标签上传，未检测到toast提示')
+        time.sleep(2)
 
+    # 进入素材标签选择界面
+    def test_f_k(self):
+        self.driver.find_id(sourced_id + 'tv1').click()
+        self.driver.wait_id(sourced_id + 'tv')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
 
+    # 素材标签选择界面搜索标签
+    def test_f_l(self):
+        self.driver.find_id(sourced_id + 'tv1').click()
+        self.driver.wait_id(sourced_id + 'tv')
+        self.driver.find_id(sourced_id + 'edit_text').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'edit_text').send_keys('测试')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btn_search').click()
+        self.driver.wait_id(sourced_id + 'tv')
+        check = '测试'
+        tv_name = self.driver.find_id(sourced_id + 'tv').text
+        self.assertIn(check, tv_name, msg='标签搜索结果中未包含有“测试”关键词')
+        time.sleep(2)
 
+    # 创建素材标签
+    def test_f_m(self):
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btn_create').click()
+        self.driver.wait_id(sourced_id + 'tv1')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btn_create').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '不能重复添加该标签哦~'
+            self.assertEqual(toast, check, msg='重复创建素材标签toast提示内容校验不一致')
+        except:
+            raise ('重复创建素材标签，未检测到toast提示')
+        time.sleep(2)
 
+    # 添加搜索结果标签
+    def test_f_n(self):
+        self.driver.find_id(sourced_id + 'tv1').click()
+        time.sleep(2)
+        for i in range(4):
+            self.driver.find_ids(sourced_id + 'tv')[i].click()
+            time.sleep(1)
+        time.sleep(2)
+        self.driver.find_ids(sourced_id + 'tv')[6].click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '最多添加4个标签哦~'
+            self.assertEqual(toast, check, msg='添加素材标签超过四个后的toast提示内容校验不一致')
+        except:
+            raise ('添加第五个素材标签未显示toast提示')
+        time.sleep(2)
 
+    # 更换已添加的素材标签
+    def test_f_o(self):
+        self.driver.find_id(sourced_id + 'tv_right').click()
+        time.sleep(2)
+        list = []
+        tv_name = self.driver.find_ids(sourced_id + 'tv1')
+        for i in range(len(tv_name)):
+            name = self.driver.find_ids(sourced_id + 'tv1')[i].text
+            list.append(name)
+            time.sleep(1)
+        self.driver.find_id(sourced_id + 'tv1').click()
+        time.sleep(2)
+        self.driver.find_ids(sourced_id + 'tv1')[-1].click()
+        self.driver.wait_id(sourced_id + 'tv')
+        self.driver.find_id(sourced_id + 'tv').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'tv_right').click()
+        time.sleep(2)
+        list1 = []
+        tv_name1 = self.driver.find_ids(sourced_id + 'tv1')
+        for i in range(len(tv_name1)):
+            name = self.driver.find_ids(sourced_id + 'tv1')[i].text
+            list1.append(name)
+            time.sleep(1)
+        self.assertNotEqual(list, list1, msg='素材标签修改后校验内容未变化')
+        time.sleep(2)
 
+    # 输入标题，添加字幕，添加标签，不添加背景音，点击素材上传按钮
+    def test_f_p(self):
+        self.driver.find_id(sourced_id + 'complete').click()
+        check = '请先上传背景音文件'
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            self.assertEqual(check, toast, msg='不添加背景音上传素材toast提示内容检验不一致')
+        except:
+            raise ('不添加背景音上传，未检测到toast提示信息')
+        time.sleep(2)
 
+    # 添加素材背景音
+    def test_f_q(self):
+        self.driver.find_id(sourced_id + 'addMusic').click()
+        time.sleep(3)
+        self.driver.find_id(sourced_id + 'title').click()
+        time.sleep(2)
+        music_name = self.driver.find_id(sourced_id + 'title').text
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnRight').click()
+        time.sleep(2)
+        music_name1 = self.driver.find_id(sourced_id + 'fileName').text
+        self.assertEqual(music_name, music_name1, msg='选择的背景音名称校验不一致')
+        time.sleep(2)
 
+    # 播放选择的素材背景音
+    def test_f_r(self):
+        self.driver.find_id(sourced_id + 'play_button').click()
+        self.driver.wait_download(sourced_id + 'play_button')
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.swip_move(self.x * 0.104, self.y * 0.488, self.x * 0.626, self.y * 0.488)
+        else:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'play_button').click()
+        self.driver.wait_download(sourced_id + 'play_button')
+        time.sleep(2)
 
+     # 拖动背景音音轨
+    def test_f_s(self):
+        if self.y == 1920:
+            self.driver.swip_move(self.x * 0.844, self.y * 0.641, self.x * 0.189, self.y * 0.641)
+        else:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'play_button').click()
+        self.driver.wait_download(sourced_id + 'play_button')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'complete').click()
+        time.sleep(4)
 
+    #上传素材
+    def test_f_t(self):
+        self.driver.find_id(sourced_id + 'complete').click()
+        while True:
+            try:
+                self.driver.wait_toast('//android.widget.Toast')
+            except:
+                if self.y == 1920:
+                    self.driver.tap(self.x * 0.5, self.y * 0.542)
+                    time.sleep(2)
+                    try:
+                        self.driver.find_id(sourced_id + 'btnSubmit')
+                        break
+                    except:
+                        pass
+                else:
+                    pass
+            time.sleep(2)
 
+    # 上传成功后素自制素材列表界面
+    def test_f_u(self):
+        self.driver.wait_id(sourced_id + 'btnSubmit')
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        time.sleep(2)
+        tv = self.driver.find_id(sourced_id + 'tv_source_from').text
+        check = '测试'
+        self.assertIn(check, tv, msg='素材标签中未包含“测试”关键字')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
 
+    #素材删除
+    def test_f_v(self):
+        self.driver.find_id(sourced_id + 'iv_source').click()
+        self.driver.wait_id(sourced_id + 'userhead')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920 :
+            self.driver.tap(self.x * 0.5 ,self.y * 0.869)
+        else:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        try:
+            self.driver.find_id(sourced_id + 'userhead')
+            self.driver.find_id(sourced_id + 'userhead').click()
+            time.sleep(2)
+            raise ('素材删除失败')
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
 
+class Test_g_Person_center(Dubbing):
 
+    #个人中心-我的财富
+    def test_a(self):
+        self.driver.swip_up()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'money').click()
+        self.driver.wait_id(sourced_id + 'diamond_count_tv')
+        time.sleep(2)
 
+    #个人中心-我的账单
+    def test_b(self):
+        self.driver.find_id(sourced_id + 'toBill').click()
+        self.driver.wait_id(sourced_id + 'btnClose')
+        time.sleep(2)
+        ids = self.driver.search_id()
+        # print(ids)
+        list = re.findall('content-desc="(.*?)"', ids)
+        # print(list)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #点击购买钻石
+    def test_c(self):
+        for i in range(6):
+            price = self.driver.find_ids(sourced_id + 'price_tv')[i].text
+            time.sleep(1)
+            self.driver.find_ids(sourced_id + 'price_tv')[i].click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'tv_pay').click()
+            self.driver.wait_id('android:id/text1')
+            time.sleep(2)
+            self.driver.find_id('com.tencent.mm:id/dn').click()
+            time.sleep(2)
+            self.driver.find_id('com.tencent.mm:id/dm3').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'close_icon').click()
+            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'back').click()
+        time.sleep(2)
+
+    #个人中心-我的收益
+    def test_d(self):
+        self.driver.find_id(sourced_id + 'gold').click()
+        self.driver.wait_id(sourced_id + 'gold_count')
+        #常见问题
+        self.driver.find_id(sourced_id + 'tv_right').click()
+        self.driver.wait_id(sourced_id + 'btnClose')
+        time.sleep(2)
+        ids = self.driver.search_id()
+        # print(ids)
+        list = re.findall('content-desc="(.*?)"', ids)
+        # print(list)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        #绑定支付宝
+        self.driver.find_id(sourced_id + 'right').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'send_code').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '成功'
+            self.assertIn(check,toast,msg='验证码发送失败')
+        except:
+            raise ('未检测到验证码发送toast提示')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #我的成就
+    def test_e(self):
+        self.driver.find_id(sourced_id + 'achievement').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #找好友
+    def test_f(self):
+        self.driver.find_id(sourced_id + 'addfriend').click()
+        time.sleep(2)
+        #搜索配音秀ID添加好友
+        self.driver.find_id(sourced_id + 'filter_edit').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'filter_edit').send_keys('16685645')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnSearch').click()
+        self.driver.wait_id(sourced_id + 'userhead')
+        self.driver.find_id(sourced_id + 'status_icon').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'addfriend').click()
+        time.sleep(2)
+        #邀请微博好友
+        self.driver.find_id(sourced_id + 'inviteWeiboFriend').click()
+        self.driver.wait_id('com.sina.weibo:id/titleBack')
+        self.driver.find_id(sourced_id + 'com.sina.weibo:id/titleBack').click()
+        time.sleep(2)
+        self.driver.find_xpath('不保存').click()
+        time.sleep(2)
+        #邀请QQ好友
+        self.driver.find_id(sourced_id + 'inviteQQFriend').click()
+        self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnLeftButton')
+        time.sleep(2)
+        self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeftButton').click()
+        time.sleep(2)
+        #邀请微信好友
+        self.driver.find_id(sourced_id + 'inviteWeixinFriend').click()
+        self.driver.wait_id('com.tencent.mm:id/ch')
+        self.driver.find_id('com.tencent.mm:id/dn').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #积分商城
+    def test_g(self):
+        self.driver.find_id(sourced_id + 'exchange').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+
+    #夜间模式
+    def test_h(self):
+        self.driver.find_id(sourced_id + 'tvChange').click()
+        time.sleep(5)
+        self.driver.swip_up()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'tvChange').click()
+        time.sleep(5)
 
 
 

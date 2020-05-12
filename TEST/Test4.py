@@ -3,9 +3,9 @@ from selenium import webdriver
 
 class Test(unittest.TestCase):
     def test1(self):
-        print('1')
-        self.skipTest('跳过')
-        print(3)
+        while True:
+            print('1')
+
 
     def test2(self):
         print('4')
