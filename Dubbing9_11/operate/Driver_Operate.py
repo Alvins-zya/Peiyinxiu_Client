@@ -167,7 +167,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver, 100).until(lambda x: self.driver.find_element_by_id(id))
+        element = WebDriverWait(self.driver, 60).until(lambda x: self.driver.find_element_by_id(id))
         return element
 
     def wait_not_id(self, id):
@@ -332,6 +332,12 @@ class BaseOperate():
 
     def Background(self):
         self.driver.background_app(3)
+
+    def close_app(self):
+        '''
+        退出应用
+        '''
+        self.driver.close_app()
 
     def Quit(self):
         self.driver.quit()
