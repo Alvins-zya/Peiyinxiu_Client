@@ -33,7 +33,7 @@ def appium_desired():
     desired_caps['dontStopAppOnReset'] = True
     desired_caps['newCommandTimeout'] = 10000
     desired_caps['automationName'] = 'Uiautomator2'
-    desired_caps['unicodeKeyboard'] = True
+    # desired_caps['unicodeKeyboard'] = True     #Android8.1系统不支持此项设置,运行是报错：io.appium.settings/.UnicodeIME' exited with code 137'; Stderr: ''; Code: '13
     desired_caps['resetKeyboard'] = True
     desired_caps['normalizeTagNames'] = True
     desired_caps['systemPort'] = 8100
