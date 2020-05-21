@@ -596,7 +596,7 @@ class Test_d_Rank(Dubbing):
             limit = self.driver.find_ids(soucred_id + 'desc')[i].text
             Screening = re.findall(r'(.*)作品', limit)
             str_Screening = ''.join(Screening)
-            list.append(int_num)
+            list.append(str_Screening)
             time.sleep(1)
         list_set = sorted(list, reverse=True)
         self.assertEqual(list, list_set, msg='社团榜作品数排序验证错误')
@@ -606,7 +606,6 @@ class Test_d_Rank(Dubbing):
             time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
-
 
     # 素材榜
     def test_l(self):
@@ -692,7 +691,6 @@ class Test_d_Rank(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-
     #作品榜-列表标题是视频详情标题校验
     def test_o(self):
         self.driver.find_id(soucred_id + 'film').click()
@@ -727,7 +725,6 @@ class Test_d_Rank(Dubbing):
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
-
 
     #作品榜列表加载
     def test_o_a(self):
@@ -814,6 +811,222 @@ class Test_d_Rank(Dubbing):
             time.sleep(1)
         time.sleep(2)
         self.assertNotEqual(title_list,title_list1,msg='切换不同的热门标签后，列表中的作品未刷新')
+        time.sleep(2)
+
+    #切换标签后返回首页再进检查热门标签
+    def test_p_b(self):
+        name_before = self.driver.find_id(soucred_id + 'commentary').text
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_xpath('排行榜').click()
+        time.sleep(2)
+        name_after = self.driver.find_id(soucred_id + 'commentary').text
+        self.assertEqual(name_after,name_before,msg='热门标签未保存')
+        time.sleep(2)
+
+    #列表作品查看
+    def test_p_c(self):
+        name = self.driver.find_id(soucred_id + 'tv_source_title').text
+        self.driver.find_id(soucred_id + 'iv_source').click()
+        self.driver.wait_id(soucred_id + 'tv_video_detail_title')
+        self.driver.Background()
+        time.sleep(2)
+        name1 = self.driver.find_id(soucred_id +'tv_video_detail_title').text
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        self.assertIn(name,name1,msg='列表标题与视频详情标题不一致')
+        time.sleep(2)
+        for i in range(3):
+            self.driver.swip_up()
+            time.sleep(2)
+
+    #潜力榜
+    def test_q(self):
+        self.driver.find_id(soucred_id + 'potential').click()
+        time.sleep(2)
+        name = self.driver.find_id(soucred_id + 'tv_source_title').text
+        self.driver.find_id(soucred_id + 'iv_source').click()
+        self.driver.wait_id(soucred_id + 'tv_video_detail_title')
+        self.driver.Background()
+        time.sleep(2)
+        name1 = self.driver.find_id(soucred_id + 'tv_video_detail_title').text
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        self.assertIn(name, name1, msg='列表标题与视频详情标题不一致')
+        time.sleep(2)
+        for i in range(3):
+            self.driver.swip_up()
+            time.sleep(2)
+
+    #社作榜
+    def test_r(self):
+        self.driver.find_id(soucred_id + 'society_film').click()
+        time.sleep(2)
+        titles = self.driver.find_ids(soucred_id +'tv_source_title')
+        for i in range(len(titles)):
+            self.driver.find_ids(soucred_id + 'iv_source')[i].click()
+            self.driver.wait_id(soucred_id + 'tv_video_detail_title')
+            self.driver.Background()
+            time.sleep(2)
+
+            try:
+                self.driver.find_id(soucred_id + 'dubbing')
+                raise ('社团作品显示有配音按钮')
+            except:
+                pass
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+
+    #榜单列表加载
+    def test_r_a(self):
+        while True:
+            ranking = self.driver.find_ids(soucred_id + 'rank')[-1].text
+            if ranking =='300':
+                break
+            else:
+                pass
+            self.driver.swip_up()
+            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+class Test_e_Pia(Dubbing):
+    #进入在线pia戏
+    def test_a(self):
+        while True:
+            try:
+                self.driver.find_xpath('在线pia戏')
+                break
+            except:
+                if self.y == 1920:
+                    self.driver.swip_move(self.x * 0.854, self.y * 0.189, self.x * 0.249, self.y * 0.197)
+                    time.sleep(2)
+                else:
+                    pass
+        time.sleep(2)
+        self.driver.find_xpath('在线pia戏').click()
+        time.sleep(2)
+        while True:
+            try:
+                self.driver.wait_id(soucred_id + 'start')
+                break
+            except:
+                self.driver.find_id(soucred_id + 'btnBack').click()
+                time.sleep(2)
+        time.sleep(2)
+
+    #勋章列表
+    def test_b(self):
+        self.driver.find_id(soucred_id + 'goXun').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'userHead')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            raise ('未加载显示勋章列表')
+        time.sleep(2)
+
+    #道具商城
+    def test_c(self):
+        self.driver.find_xpath('道具商城').click()
+        time.sleep(2)
+        num = self.driver.find_id(soucred_id + 'diamond').text
+        self.driver.find_id(soucred_id + 'diamond').click()
+        time.sleep(2)
+        num1 = self.driver.find_id(soucred_id +'diamond_count_tv').text
+        time.sleep(2)
+        self.assertIn(num,num1,msg='钻石额度校验不一致')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+
+    #幸运宝箱
+    def test_c_a(self):
+        self.driver.find_id(soucred_id + 'diamond').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'diamond_count_tv')
+        except:
+            raise ('幸运夺宝界面跳转至钻石充值界面失败')
+        time.sleep(2)
+        self.driver.find_id(soucred_id +'back').click()
+        time.sleep(2)
+        num = self.driver.find_id(soucred_id + 'diamond').text
+        if num >49 :
+            pass
+        else:
+            self.driver.find_id(soucred_id +'smoke_ten').click()
+            time.sleep(2)
+            try:
+                self.driver.find_id(soucred_id +'btnSubmit').click()
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'back').click()
+                time.sleep(2)
+            except:
+                pass
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+    #切换动画
+    def test_c_b(self):
+        num = self.driver.find_ids(soucred_id + 'img')
+        for i in range(len(num)):
+            self.driver.find_ids(soucred_id + 'img')[i].click()
+            time.sleep(1)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+    #创建pia戏房间
+    def test_d(self):
+        self.driver.find_id(soucred_id + 'create_room').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'check_normal').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'crate_room').click()
+        try:
+            self.driver.wait_id(soucred_id + 'chat')
+        except:
+            raise ('pia戏房间创建失败')
+        time.sleep(2)
+
+    #评论
+    def test_d_a(self):
+        self.driver.find_id(soucred_id + 'show_comment').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'editContent').send_keys('哈哈哈')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btn_send').click()
+        self.driver.wait_id(soucred_id + 'rl')
+        time.sleep(2)
+
+
+    #房间私密
+    def test_d_b(self):
+        self.driver.find_id(soucred_id + 'private_btn').click()
+        time.sleep(2)
+        tip = self.driver.find_id(soucred_id + 'btnSubmit').text
+        check = '升级房间(5钻/小时)'
+        self.assertEqual(tip,check,msg='普通房间设置私密，提示文案错误')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'close').click()
+        time.sleep(2)
+
+    #邀请好友
+    def test_d_c(self):
+        self.driver.find_ids(soucred_id + '')
+
+
+
+
+
+
+
+
+
+
 
 
 
