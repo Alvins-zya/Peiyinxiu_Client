@@ -4,8 +4,11 @@ import unittest
 import random
 import datetime
 import pytest
-
-
+import sys
+import os
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
 from Dubbing9_11.Front import Dubbing
 
 soucred_id = 'com.happyteam.dubbingshow:id/'
@@ -1321,7 +1324,7 @@ class Test_k_Upload(Dubbing):
         except:
             return True
 
-    @pytest.mark.skipif(test_b,reason='视频上传失败，不执行视频查看用例')
+    @unittest.skipIf(test_b,reason='视频上传失败，不执行视频查看用例')
     def test_c(self):
         #点击查看视频详情
         self.driver.find_id(soucred_id + 'img_url').click()
@@ -1331,7 +1334,7 @@ class Test_k_Upload(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-    @pytest.mark.skipif(test_b, reason='视频上传失败，不执行视频下载用例')
+    @unittest.skipIf(test_b,reason='视频上传失败，不执行视频下载用例')
     def test_d(self):
         #视频下载
         self.driver.find_id(soucred_id + 'down').click()
@@ -1345,7 +1348,7 @@ class Test_k_Upload(Dubbing):
             self.driver.find_id(soucred_id + 'btnSubmit').click()
         time.sleep(2)
 
-    @pytest.mark.skipif(test_b, reason='视频上传失败，不执行视频分享用例')
+    @unittest.skipIf(test_b, reason='视频上传失败，不执行视频分享用例')
     def test_e(self):
         #站外分享
         try:
@@ -1403,7 +1406,7 @@ class Test_k_Upload(Dubbing):
             pass
         time.sleep(2)
 
-    @pytest.mark.skipif(test_b, reason='视频上传失败，不执行视频分享用例')
+    @unittest.skipIf(test_b, reason='视频上传失败，不执行视频分享用例')
     def test_f(self):
         #删除视频
         self.driver.find_id(soucred_id + 'img_url').click()
@@ -1432,7 +1435,7 @@ class Test_k_Upload(Dubbing):
         self.driver.find_id(soucred_id + 'close').click()
         time.sleep(2)
 
-    @pytest.mark.skipif(test_b,reason='作品上传成功，不执行失败检测用例')
+    @unittest.skipIf(test_b,reason='作品上传成功，不执行失败检测用例')
     def test_g(self):
         #查看失败原因
         self.driver.find_id(soucred_id + 'rl_bg').click()
@@ -1470,7 +1473,7 @@ class Test_k_Upload(Dubbing):
 
 
 if __name__ == "__main__":
-    suite1 = unittest.TestLoader().loadTestsFromTestCase(Test_k_Upload)
-    suite = unittest.TestSuite([suite1])
-    unittest.TextTestRunner(verbosity=2).run(suite)
-    # unittest.main()
+    # suite1 = unittest.TestLoader().loadTestsFromTestCase(Test_k_Upload)
+    # suite = unittest.TestSuite([suite1])
+    # unittest.TextTestRunner(verbosity=2).run(suite)
+    unittest.main()
