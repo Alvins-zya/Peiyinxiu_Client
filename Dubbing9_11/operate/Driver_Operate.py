@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.connectiontype import ConnectionType
-import os
+import os,sys
 import re
 import time
 from Public.devices import appium_desired
