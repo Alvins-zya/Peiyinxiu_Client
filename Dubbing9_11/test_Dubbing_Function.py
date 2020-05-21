@@ -710,15 +710,10 @@ class Test_g_Record(Dubbing):
         self.driver.Background()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'back').click()
-        time.sleep(2)
+        time.sleep(4)
 
     # 点击录制普通作品
     def test_t(self):
-        try:
-            self.driver.find_id(soucred_id + 'living')
-        except:
-            self.driver.find_id(soucred_id + 'action').click()
-        time.sleep(2)
         self.driver.find_id(soucred_id + 'living').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'script_container').click()
@@ -1295,19 +1290,21 @@ class Test_j_upload(Dubbing):
         try:
             self.driver.find_id(soucred_id + 'tv1')
             self.driver.find_id(soucred_id + 'tv1').click()
+            time.sleep(2)
+            hot_lable = self.driver.find_ids(soucred_id + 'tv')
+            select = random.randint(0, len(hot_lable))
+            self.driver.find_ids(soucred_id + 'tv')[select].click()
+            time.sleep(2)
+            label_name = self.driver.find_id(soucred_id + 'tv1').text
+            self.driver.find_id(soucred_id + 'tv_right').click()
+            time.sleep(2)
+            label_check = self.driver.find_id(soucred_id + 'tv1').text
+            self.assertEqual(label_name, label_check, msg='标签对比不一致，%s,%s' % (label_name, label_check))
+            time.sleep(2)
         except:
-            pass
+            self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
-        hot_lable = self.driver.find_ids(soucred_id + 'tv')
-        select =random.randint(0,len(hot_lable))
-        self.driver.find_ids(soucred_id + 'tv')[select].click()
-        time.sleep(2)
-        label_name = self.driver.find_id(soucred_id + 'tv1').text
-        self.driver.find_id(soucred_id + 'tv_right').click()
-        time.sleep(2)
-        label_check = self.driver.find_id(soucred_id + 'tv1').text
-        self.assertEqual(label_name,label_check,msg='标签对比不一致，%s,%s'%(label_name,label_check))
-        time.sleep(2)
+
 
 class Test_k_Upload(Dubbing):
     def test_a(self):
