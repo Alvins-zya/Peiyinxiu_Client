@@ -12,7 +12,7 @@ import logging.config
 # CON_LOG = '../config/log.conf'
 # logging.config.fileConfig(CON_LOG)
 # logging = logging.getLogger()
-with open('..\Public\devices_caps.yaml', 'r')as file:
+with open('..\devices_caps.yaml', 'r')as file:
     data = yaml.load(file, Loader=yaml.FullLoader)
 
 
