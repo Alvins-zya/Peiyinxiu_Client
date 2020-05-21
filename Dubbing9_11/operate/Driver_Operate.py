@@ -12,6 +12,9 @@ import re
 import time
 from Public.devices import appium_desired
 from Public.devices_list import get_conn_dev
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
 
 class BaseOperate():
     def __init__(self):
