@@ -4,15 +4,14 @@ import random
 import pytest
 import time
 import re
+from collections import Counter
+from Dubbing9_11.Front import Dubbing
+sourced_id = 'com.happyteam.dubbingshow:id/'
 import sys
 import os
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
-from collections import Counter
-from Dubbing9_11.Front import Dubbing
-sourced_id = 'com.happyteam.dubbingshow:id/'
-
 class Test_a_Follow(Dubbing):
     #首页关注主界面中的语聊通知
     def test_a(self):

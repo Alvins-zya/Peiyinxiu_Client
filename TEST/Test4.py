@@ -4,7 +4,13 @@
 # filepath = 'C:\\Users\\PYX\\Desktop\\appium_port\\4725.bat'
 # p = subprocess.Popen(filepath,shell= True,stdout=subprocess.PIPE)
 # stdout,stderr = p.communicate()
-# import os
+import os
 # # cmd = 'taskkill /F /t /IM node.exe'
 # # os.system(cmd)
-print('2')
+# print('2')
+filePath = os.path.dirname(__file__)
+print(filePath)
+fileNamePath = os.path.split(os.path.realpath(__file__))[0]
+print(fileNamePath)
+yamlPath = os.path.join(fileNamePath,'Public/devices_caps.yaml')
+print(yamlPath)

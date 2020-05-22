@@ -9,17 +9,16 @@ import yaml
 from time import ctime
 import logging
 import logging.config
+import os,sys
 # CON_LOG = '../config/log.conf'
 # logging.config.fileConfig(CON_LOG)
 # logging = logging.getLogger()
-with open('Public/devices_caps.yaml', 'r')as file:
+filePath = os.path.dirname(__file__)
+with open('D:\Git_pyhthon\Peiyinxiu_Client\Public\devices_caps.yaml', 'r')as file:
     data = yaml.load(file, Loader=yaml.FullLoader)
 
-
 def appium_desired():
-
     desired_caps = {}
-
     desired_caps['platformName'] = data['platformName']
     desired_caps['platformVersion'] = data['platformVersion']
     # desired_caps['deviceName'] = data['deviceName']
