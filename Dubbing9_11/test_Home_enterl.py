@@ -316,7 +316,6 @@ class Test_c_exposure(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-
 class Test_d_Rank(Dubbing):
     # 进入排行榜
     def test_a(self):
@@ -1002,6 +1001,31 @@ class Test_e_Pia(Dubbing):
         self.driver.wait_id(soucred_id + 'rl')
         time.sleep(2)
 
+    #用户头像
+    def test_d_a_a(self):
+        self.driver.find_id(soucred_id + 'head').click()
+        self.driver.wait_id(soucred_id + 'user_id')
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'username')
+            try:
+                self.driver.find_id(soucred_id +'gender')
+                try:
+                    self.driver.find_id(soucred_id +'user_id')
+                    try:
+                        self.driver.find_id(soucred_id + 'user_detail')
+                    except:
+                        raise ('未显示用户简介')
+                except:
+                    raise ('未显示用户ID')
+
+            except:
+                raise ('未显示性别')
+        except:
+            raise ('未显示用户名')
+        time.sleep(2)
+        self.driver.find_id(soucred_id +'icon_close').click()
+        time.sleep(2)
 
     #房间私密
     def test_d_b(self):
@@ -1016,7 +1040,150 @@ class Test_e_Pia(Dubbing):
 
     #邀请好友
     def test_d_c(self):
-        self.driver.find_ids(soucred_id + '')
+        self.driver.find_ids(soucred_id + 'head')[-1].click()
+        time.sleep(2)
+        tip = self.driver.find_id(soucred_id + 'btnSubmit').text
+        check = '升级房间(5钻/小时)'
+        self.assertEqual(tip, check, msg='普通房间邀请好友，提示文案错误')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'close').click()
+        time.sleep(2)
+
+    #剧本列表
+    def test_d_d(self):
+        self.driver.find_id(soucred_id + 'script').click()
+        time.sleep(2)
+        source = self.driver.find_ids(soucred_id + 'sourcename')
+        source_list = []
+        for i in range(len(source)):
+            name = self.driver.find_ids(soucred_id + 'sourcename')[i].text
+            source_list.append(name)
+
+        No1 = source_list[0]
+        No2 = source_list[1]
+        self.assertNotEqual(No1,No2,msg='剧本列表校验失败')
+        time.sleep(2)
+
+    #添加剧本
+    def test_d_e(self):
+        self.driver.find_id(soucred_id + 'add_drama').click()
+        time.sleep(2)
+        tip = self.driver.find_id(soucred_id + 'btnSubmit').text
+        check = '升级房间(5钻/小时)'
+        self.assertEqual(tip, check, msg='添加剧本，提示文案错误')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'close').click()
+        time.sleep(2)
+
+    #退出在线pia戏房间
+    def test_d_f(self):
+        self.driver.find_id(soucred_id + 'home_close').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_id(soucred_id + 'create_room')
+        time.sleep(2)
+
+    #在线匹配
+    def test_e(self):
+        while True:
+            self.driver.find_id(soucred_id + 'start')
+            try:
+                self.driver.find_id(soucred_id + 'script')
+                break
+            except:
+                pass
+        time.sleep(2)
+        self.driver.wait_id(soucred_id + 'home_close')
+        self.driver.find_id(soucred_id + 'home_close').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_id(soucred_id + 'create_room')
+        time.sleep(2)
+
+    #跟随进入
+    def test_f(self):
+        self.driver.find_id(soucred_id + 'follow').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id +'refresh').click()
+        try:
+            self.driver.wait_toast(soucred_id +'//android.widget.Toast')
+        except:
+            raise ('未检测到刷新toast提示')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'close').click()
+        time.sleep(2)
+
+
+    #作品列表
+    def test_g(self):
+        self.driver.find_id(soucred_id + 'draft' ).click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+class Test_f_shenman(Dubbing):
+    #有声漫画
+    def test_a(self):
+        while True:
+            try:
+                self.driver.find_xpath('有声漫画')
+                break
+            except:
+                if self.y == 1920:
+                    self.driver.swip_move(self.x * 0.854, self.y * 0.189, self.x * 0.249, self.y * 0.197)
+                    time.sleep(2)
+                else:
+                    pass
+        time.sleep(2)
+        while True:
+            self.driver.find_xpath('有声漫画').click()
+            time.sleep(2)
+            try:
+                self.driver.wait_id(soucred_id + 'collect')
+                break
+            except:
+                self.driver.find_id(soucred_id + 'btnBack').click()
+                time.sleep(2)
+        time.sleep(2)
+
+    #推荐列表-声漫名称校验
+    def test_b(self):
+        name = self.driver.find_id(soucred_id + 'title').text
+        self.driver.find_id(soucred_id + 'title').click()
+        self.driver.wait_id(soucred_id + 'start_play')
+        detail_name = self.driver.find_id(soucred_id + 'tvTitle').text
+        self.assertEqual(name,detail_name,msg='推荐列表中声漫名称与声漫详情界面名称不一致')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+    #声漫更新集数校验
+    def test_b_a(self):
+        update = self.driver.find_id(soucred_id + 'update').text
+        num = re.findall(r'更新至(.*)话',update)
+        self.driver.find_id(soucred_id + 'update').click()
+        self.driver.wait_id(soucred_id + 'start_play')
+        while True:
+            number = self.driver.find_ids(soucred_id + 'name')[-1].text
+            self.driver.swip_up()
+            time.sleep(2)
+            number1 = self.driver.find_ids(soucred_id + 'name')[-1].text
+            if number == number1:
+                break
+            else:
+                pass
+        time.sleep(2)
+        new = re.findall(r'第 (.*) 话',number1)
+        self.assertEqual(num,new,msg='列表更新集数与声漫详情界面更新集数不一致')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+
+
+
 
 
 
