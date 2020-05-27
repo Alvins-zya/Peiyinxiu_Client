@@ -1181,22 +1181,232 @@ class Test_f_shenman(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
+    #推荐列表加载
+    def test_b_b(self):
+        for i in range(4):
+            self.driver.swip_up()
+            time.sleep(2)
+        for i in range(4):
+            self.driver.swip_down()
+            time.sleep(2)
+        time.sleep(2)
 
 
+    #推荐声漫详情
+    def test_b_c(self):
+        i = 0
+        while i <=10:
+            self.driver.find_id(soucred_id + 'imgHead').click()
+            try:
+                self.driver.wait_id(soucred_id + 'start_play')
+                break
+            except:
+                self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+            if i == 10:
+                break
+            else:
+                pass
+            i = i + 1
+            time.sleep(2)
+
+    #剧集列表界面点击声漫收藏
+    def test_b_d(self):
+        self.driver.find_id(soucred_id + 'collect').click()
+        toast = self.driver.wait_toast('//android.widget.Toast')
+        check = '收藏成功'
+        self.assertEqual(toast,check,msg='收藏toast校验不一致')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'collect').click()
+        cancel_toast = self.driver.wait_toast('//android.widget.Toast')
+        cancel_check = '取消收藏成功'
+        self.assertEqual(cancel_check,cancel_toast,msg='声漫取消收藏toast校验不一致')
+        time.sleep(2)
+
+    #声漫制作相关社团列表
+    def test_b_e(self):
+        self.driver.find_id(soucred_id + 'right_rl').click()
+        try:
+            self.driver.wait_id(soucred_id + 'count')
+        except:
+            raise ('声漫制作社团列表加载失败')
+        time.sleep(2)
+        self.driver.find_ids(soucred_id + 'name')[-1].click()
+        name = self.driver.find_ids(soucred_id + 'name')[-1].text
+        time.sleep(2)
+        self.driver.back()
+        time.sleep(2)
+        check_name = self.driver.find_id(soucred_id + 'num_one').text
+        self.assertIn(name,check_name,msg='声漫社团选择校验不一致')
 
 
+    #连载漫画集数查看
+    def test_b_f(self):
+        self.driver.find_id(soucred_id + 'name').click()
+        self.driver.wait_id(soucred_id + 'userhead')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_ids(soucred_id + 'name')[-1].click()
+        time.sleep(2)
+        self.driver.wait_id(soucred_id + 'userhead')
+        self.driver.Background()
+        time.sleep(2)
+        name = self.driver.find_ids(soucred_id + 'name')[-1].text
+        title_name = self.driver.find_id(soucred_id + 'tv_video_detail_title').text
+        self.assertIn(name,title_name,msg='声漫切换集数校验不一致')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
+    #最新列表-话集更新检查
+    def test_c(self):
+        self.driver.find_id(soucred_id + 'tab2').click()
+        time.sleep(2)
+        update = self.driver.find_id(soucred_id + 'update').text
+        union = self.driver.find_id(soucred_id + 'union_name').text
+        new_update = re.findall(r'更新至(.*)',update)
+        self.driver.find_id(soucred_id + 'play').click()
+        self.driver.find_id(soucred_id + 'userhead')
+        self.driver.Background()
+        time.sleep(2)
+        detail_name = self.driver.find_id(soucred_id + 'textView').text
+        self.assertEqual(union,detail_name,msg='社团名称校验不一致')
+        time.sleep(2)
+        i = 0
+        while i<=100:
+            try:
+                self.driver.find_xpath('第%s'%(new_update))
+                break
+            except:
+                if self.y ==1920:
+                    self.driver.swip_move(self.x * 0.5 ,self.y * 0.553,self.x *0.053,self.y * 0.553)
+                else:
+                    pass
+            i = i+1
+            if i ==100:
+                break
+            else:
+                pass
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
+    #最新列表-上滑加载
+    def test_c_a(self):
+        for i in range(4):
+            self.driver.swip_up()
+            time.sleep(2)
 
+    #声漫分类列表
+    def test_d(self):
+        self.driver.find_id(soucred_id + 'tab3').click()
+        time.sleep(2)
+        title = self.driver.find_ids(soucred_id +'title')
+        for i in range(len(title)-1,-1,-1):
+            self.driver.find_ids(soucred_id + 'title')[i].click()
+            time.sleep(1)
 
+    #声漫剧集详情
+    def test_d_a(self):
+        self.driver.find_id(soucred_id + 'iv_pic1').click()
+        self.driver.wait_id(soucred_id + 'start_play')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
+    #声漫制作
+    def test_e(self):
+        self.driver.find_id(soucred_id + 'sm').click()
+        time.sleep(2)
+        title = self.driver.find_ids(soucred_id + 'title')
+        for i in range(len(title) - 1, -1, -1):
+            self.driver.find_ids(soucred_id + 'title')[i].click()
+            time.sleep(1)
 
+    #漫画详情
+    def test_e_a(self):
+        self.driver.find_id(soucred_id + 'btn_add').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'txtKeyword').send_keys('你听说过女大学生吗')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSearch').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'iv_pic1').click()
+        time.sleep(2)
+        for i in range(5):
+            self.driver.swip_up()
+            time.sleep(2)
 
+    #制作声漫
+    def test_e_b(self):
+        self.driver.find_id(soucred_id + 'tv_make').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'btnSubmit')
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'tv_make').click()
+            time.sleep(2)
+        except:
+            pass
+        while True:
+            try:
+                self.driver.find_xpath('添加配音者')
+                self.driver.find_xpath('添加配音者').click()
+                time.sleep(2)
+                self.driver.wait_id(soucred_id + 'socialstatus')
+                self.driver.find_id(soucred_id + 'socialstatus').click()
+                time.sleep(2)
+            except:
+                break
+            time.sleep(1)
+        self.driver.find_id(soucred_id + 'tv_sure').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
 
+    #我的漫画
+    def test_f(self):
+        self.driver.find_id(soucred_id + 'tab2').click()
+        time.sleep(2)
+        self.driver.swip_up()
+        time.sleep(2)
+        self.driver.wait_xpath('你听说过女大学生吗')
+        time.sleep(2)
 
+    #声漫统筹界面-更新配音者
+    def test_f_a(self):
+        self.driver.find_id(soucred_id + 'iv_pic1')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'change').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'change').click()
+        time.sleep(2)
+        self.driver.wait_id(soucred_id +'socialstatus')
+        time.sleep(1)
+        self.driver.find_ids(soucred_id + 'socialstatus')[-1].click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'change').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'change').click()
+        time.sleep(2)
+        self.driver.wait_id(soucred_id + 'socialstatus')
+        time.sleep(1)
+        self.driver.find_ids(soucred_id + 'socialstatus').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        time.sleep(2)
 
-
-
+    #进入统筹界面-添加音效
+    def test_f_b(self):
+        self.driver.find_id(soucred_id + 'make').click()
+        time.sleep(2)
 
 
 
