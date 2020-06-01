@@ -394,6 +394,7 @@ class Test_d_script(Dubbing):
 
 class Test_e_video_HD(Dubbing):
     # 非高清素材
+    unittest.skip('不再显示高清图标按钮')
     def test0(self):
         HD_check = self.driver.find_id(soucred_id + 'swtich_hd').text
         check = '切换高清画质'
@@ -528,7 +529,6 @@ class Test_g_Record(Dubbing):
 
     # 试听过程中，点击退出配音界面
     def test_h(self):
-
         self.driver.find_id(soucred_id + 'review').click()
         time.sleep(1)
         self.driver.find_id(soucred_id + 'back').click()
@@ -541,11 +541,12 @@ class Test_g_Record(Dubbing):
 
     # 点击回撤按钮
     def test_i(self):
-
         while True:
-            self.driver.find_id(soucred_id + 'withdraw').click()
-            self.driver.wait_not_id(soucred_id + 'withdraw')
-            break
+            try:
+                self.driver.wait_not_id(soucred_id + 'withdraw')
+                break
+            except:
+                self.driver.find_id(soucred_id + 'withdraw').click()
         time.sleep(2)
 
     # 录制过程中暂停
@@ -689,7 +690,7 @@ class Test_g_Record(Dubbing):
         tip_check = '修改台词将移除当前的配音进度'
         self.assertEqual(tip_check, tip, msg="提示文案错误")
         self.driver.find_id(soucred_id + 'btnSubmit').click()
-        time.sleep(2)
+        time.sleep(4)
         try:
             self.driver.find_id(soucred_id + 'withdraw')
             print('台词编辑保存失败')
@@ -706,6 +707,8 @@ class Test_g_Record(Dubbing):
     # 点击配音按钮直接重录实况
     def test_s(self):
         self.driver.find_id(soucred_id + 'action').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()
         time.sleep(2)
@@ -714,6 +717,11 @@ class Test_g_Record(Dubbing):
 
     # 点击录制普通作品
     def test_t(self):
+        try:
+            self.driver.find_id(soucred_id + 'living')
+        except:
+            self.driver.find_id(soucred_id + 'action').click()
+        time.sleep(2)
         self.driver.find_id(soucred_id + 'living').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'script_container').click()
@@ -856,49 +864,53 @@ class Test_i_preview(Dubbing):
         #人声混响调节
         self.driver.find_id(soucred_id + 'fx').click()
         time.sleep(2)
-        el = self.driver.find_id(soucred_id + 'fx').get_attribute('checked')
-        self.assertTrue(el,msg='点击人声混响后未显示选中状态')
-        time.sleep(2)
-        if self.y == 1920:
-            self.driver.swip_move(self.x*0.093,self.y*0.8,self.x*0.093,self.y*0.59)#增加混响效果值
+        try:
+            self.driver.find_xpath('确定')
+            print("服务端关闭人声混响功能，不做混响调节测试")
+        except:
+            el = self.driver.find_id(soucred_id + 'fx').get_attribute('checked')
+            self.assertTrue(el,msg='点击人声混响后未显示选中状态')
             time.sleep(2)
-            self.driver.swip_move(self.x*0.254,self.y*0.8,self.x*0.254,self.y*0.59)#增加空间效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.419,self.y*0.8,self.x*0.419,self.y*0.59)#增加回声效果值
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'play_button').click()
-            self.driver.wait_download(soucred_id + 'play_button')
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.093,self.y*0.59,self.x*0.093,self.y*0.8)#减小混响效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.254,self.y*0.59,self.x*0.254,self.y*0.8)#减小空间效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.419,self.y*0.59,self.x*0.419,self.y*0.8)#减小回声效果值
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'play_button').click()
-            self.driver.wait_download(soucred_id + 'play_button')
-            time.sleep(2)
-        elif self.y >2250:
-            self.driver.swip_move(self.x*0.098,self.y*0.7,self.x*0.098,self.y*0.553)#增加混响效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.252,self.y*0.7,self.x*0.252,self.y*0.553)#增加空间效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.413,self.y*0.7,self.x*0.413,self.y*0.553)#增加回声效果值
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'play_button').click()
-            self.driver.wait_download(soucred_id + 'play_button')
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.098,self.y*0.553,self.x*0.098,self.y*0.7)#减小混响效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.252,self.y*0.553,self.x*0.252,self.y*0.7)#减小空间效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.413,self.y*0.553,self.x*0.413,self.y*0.7)#减小回声效果值
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'play_button').click()
-            self.driver.wait_download(soucred_id + 'play_button')
-            time.sleep(2)
-        else:
-            pass
+            if self.y == 1920:
+                self.driver.swip_move(self.x*0.093,self.y*0.8,self.x*0.093,self.y*0.59)#增加混响效果值
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.254,self.y*0.8,self.x*0.254,self.y*0.59)#增加空间效果值
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.419,self.y*0.8,self.x*0.419,self.y*0.59)#增加回声效果值
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'play_button').click()
+                self.driver.wait_download(soucred_id + 'play_button')
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.093,self.y*0.59,self.x*0.093,self.y*0.8)#减小混响效果值
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.254,self.y*0.59,self.x*0.254,self.y*0.8)#减小空间效果值
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.419,self.y*0.59,self.x*0.419,self.y*0.8)#减小回声效果值
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'play_button').click()
+                self.driver.wait_download(soucred_id + 'play_button')
+                time.sleep(2)
+            elif self.y >2250:
+                self.driver.swip_move(self.x*0.098,self.y*0.7,self.x*0.098,self.y*0.553)#增加混响效果值
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.252,self.y*0.7,self.x*0.252,self.y*0.553)#增加空间效果值
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.413,self.y*0.7,self.x*0.413,self.y*0.553)#增加回声效果值
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'play_button').click()
+                self.driver.wait_download(soucred_id + 'play_button')
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.098,self.y*0.553,self.x*0.098,self.y*0.7)#减小混响效果值
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.252,self.y*0.553,self.x*0.252,self.y*0.7)#减小空间效果值
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.413,self.y*0.553,self.x*0.413,self.y*0.7)#减小回声效果值
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'play_button').click()
+                self.driver.wait_download(soucred_id + 'play_button')
+                time.sleep(2)
+            else:
+                pass
 
     def test_e(self):
         #返回配音界面后再进入配音预览界面，查看人声选项默认状态
@@ -962,53 +974,57 @@ class Test_i_preview(Dubbing):
         #背景音混响调节
         self.driver.find_id(soucred_id + 'bgfx').click()
         time.sleep(2)
-        el = self.driver.find_id(soucred_id + 'bgfx').get_attribute('checked')
-        self.assertTrue(el,msg='状态点击背景音混响按钮后，状态没有显示选中')
-        time.sleep(2)
-        if self.y == 1920:
-            #增加混响效果
-            self.driver.swip_move(self.x*0.588, self.y*0.8, self.x*0.588, self.y*0.59)
+        try:
+            self.driver.find_xpath('确定')
+            print("服务端关闭人声混响功能，不做混响调节测试")
+        except:
+            el = self.driver.find_id(soucred_id + 'bgfx').get_attribute('checked')
+            self.assertTrue(el,msg='状态点击背景音混响按钮后，状态没有显示选中')
             time.sleep(2)
-            self.driver.swip_move(self.x*0.75, self.y*0.8, self.x*0.75, self.y*0.59)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.91, self.y*0.8, self.x*0.91, self.y*0.59)
-            time.sleep(2)
+            if self.y == 1920:
+                #增加混响效果
+                self.driver.swip_move(self.x*0.588, self.y*0.8, self.x*0.588, self.y*0.59)
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.75, self.y*0.8, self.x*0.75, self.y*0.59)
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.91, self.y*0.8, self.x*0.91, self.y*0.59)
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'play_button').click()
+                self.driver.wait_download(soucred_id + 'play_button')
+                time.sleep(2)
+                #减小背景音混响效果
+                self.driver.swip_move(self.x*0.588, self.y*0.59, self.x*0.588, self.y*0.8)
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.75, self.y*0.59, self.x*0.75, self.y*0.8)
+                time.sleep(2)
+                self.driver.swip_move(self.x*0.91, self.y*0.59, self.x*0.91, self.y*0.8)
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'play_button').click()
+                self.driver.wait_download(soucred_id + 'play_button')
+                time.sleep(2)
+            elif self.y > 2250:
+                #增加混响效果
+                TouchAction(self.driver).press(x=640, y=1636).move_to(x=643, y=1261).release().perform()
+                time.sleep(2)
+                TouchAction(self.driver).press(x=808, y=1648).move_to(x=815, y=1255).release().perform()
+                time.sleep(2)
+                TouchAction(self.driver).press(x=986, y=1642).move_to(x=980, y=1258).release().perform()
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'play_button').click()
+                self.driver.wait_download(soucred_id + 'play_button')
+                time.sleep(2)
+                #减小混响效果
+                TouchAction(self.driver).press(x=640, y=1161).move_to(x=637, y=1645).release().perform()
+                time.sleep(2)
+                TouchAction(self.driver).press(x=805, y=1180).move_to(x=805, y=1639).release().perform()
+                time.sleep(2)
+                TouchAction(self.driver).press(x=986, y=1177).move_to(x=980, y=1636).release().perform()
+                time.sleep(2)
+            else:
+                pass
             self.driver.find_id(soucred_id + 'play_button').click()
             self.driver.wait_download(soucred_id + 'play_button')
             time.sleep(2)
-            #减小背景音混响效果
-            self.driver.swip_move(self.x*0.588, self.y*0.59, self.x*0.588, self.y*0.8)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.75, self.y*0.59, self.x*0.75, self.y*0.8)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.91, self.y*0.59, self.x*0.91, self.y*0.8)
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'play_button').click()
-            self.driver.wait_download(soucred_id + 'play_button')
-            time.sleep(2)
-        elif self.y > 2250:
-            #增加混响效果
-            TouchAction(self.driver).press(x=640, y=1636).move_to(x=643, y=1261).release().perform()
-            time.sleep(2)
-            TouchAction(self.driver).press(x=808, y=1648).move_to(x=815, y=1255).release().perform()
-            time.sleep(2)
-            TouchAction(self.driver).press(x=986, y=1642).move_to(x=980, y=1258).release().perform()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'play_button').click()
-            self.driver.wait_download(soucred_id + 'play_button')
-            time.sleep(2)
-            #减小混响效果
-            TouchAction(self.driver).press(x=640, y=1161).move_to(x=637, y=1645).release().perform()
-            time.sleep(2)
-            TouchAction(self.driver).press(x=805, y=1180).move_to(x=805, y=1639).release().perform()
-            time.sleep(2)
-            TouchAction(self.driver).press(x=986, y=1177).move_to(x=980, y=1636).release().perform()
-            time.sleep(2)
-        else:
-            pass
-        self.driver.find_id(soucred_id + 'play_button').click()
-        self.driver.wait_download(soucred_id + 'play_button')
-        time.sleep(2)
 
     def test_i(self):
         #下载系统推荐背景音音乐
@@ -1314,14 +1330,14 @@ class Test_k_Upload(Dubbing):
         self.driver.wait_id(soucred_id + 'down')
         time.sleep(2)
 
-    def test_b():
+    def test_b(self):
         try:
             self.driver.find_id(soucred_id + 'down')
             return False
         except:
             return True
 
-    @unittest.skipIf(test_b,reason='视频上传失败，不执行视频查看用例')
+    @unittest.skipIf(test_b(self=None),reason='视频上传失败，不执行视频查看用例')
     def test_c(self):
         #点击查看视频详情
         self.driver.find_id(soucred_id + 'img_url').click()
@@ -1331,7 +1347,7 @@ class Test_k_Upload(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-    @unittest.skipIf(test_b,reason='视频上传失败，不执行视频下载用例')
+    @unittest.skipIf(test_b(self=None),reason='视频上传失败，不执行视频下载用例')
     def test_d(self):
         #视频下载
         self.driver.find_id(soucred_id + 'down').click()
@@ -1345,7 +1361,7 @@ class Test_k_Upload(Dubbing):
             self.driver.find_id(soucred_id + 'btnSubmit').click()
         time.sleep(2)
 
-    @unittest.skipIf(test_b, reason='视频上传失败，不执行视频分享用例')
+    @unittest.skipIf(test_b(self=None), reason='视频上传失败，不执行视频分享用例')
     def test_e(self):
         #站外分享
         try:
@@ -1403,7 +1419,7 @@ class Test_k_Upload(Dubbing):
             pass
         time.sleep(2)
 
-    @unittest.skipIf(test_b, reason='视频上传失败，不执行视频分享用例')
+    @unittest.skipIf(test_b(self=None), reason='视频上传失败，不执行视频分享用例')
     def test_f(self):
         #删除视频
         self.driver.find_id(soucred_id + 'img_url').click()
@@ -1432,7 +1448,7 @@ class Test_k_Upload(Dubbing):
         self.driver.find_id(soucred_id + 'close').click()
         time.sleep(2)
 
-    @unittest.skipIf(test_b,reason='作品上传成功，不执行失败检测用例')
+    @unittest.skipIf(test_b(self=None),reason='作品上传成功，不执行失败检测用例')
     def test_g(self):
         #查看失败原因
         self.driver.find_id(soucred_id + 'rl_bg').click()

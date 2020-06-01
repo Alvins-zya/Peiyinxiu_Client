@@ -14,7 +14,7 @@ import os,sys
 # logging.config.fileConfig(CON_LOG)
 # logging = logging.getLogger()
 filePath = os.path.dirname(__file__)
-with open('D:\Git_pyhthon\Peiyinxiu_Client\Public\devices_caps.yaml', 'r')as file:
+with open('D:\Git_pyhthon\Public\devices_caps.yaml', 'r')as file:
     data = yaml.load(file, Loader=yaml.FullLoader)
 
 def appium_desired():
