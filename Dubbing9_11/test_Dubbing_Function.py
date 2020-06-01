@@ -1323,166 +1323,185 @@ class Test_j_upload(Dubbing):
 
 
 class Test_k_Upload(Dubbing):
-    def test_a(self):
-        #点击上传按钮
-        self.driver.find_id(soucred_id + 'uploadbtn').click()
-        time.sleep(2)
-        self.driver.wait_id(soucred_id + 'down')
-        time.sleep(2)
+    # def test_a(self):
+    #     #点击上传按钮
+    #     self.driver.find_id(soucred_id + 'uploadbtn').click()
+    #     time.sleep(2)
+    #     self.driver.wait_id(soucred_id + 'down')
+    #     time.sleep(2)
 
     def test_b(self):
         try:
             self.driver.find_id(soucred_id + 'down')
+            print('1')
             return False
         except:
             return True
 
-    @unittest.skipIf(test_b(self=None),reason='视频上传失败，不执行视频查看用例')
     def test_c(self):
-        #点击查看视频详情
-        self.driver.find_id(soucred_id + 'img_url').click()
-        self.driver.wait_id(soucred_id + 'btnBack')
-        self.driver.Background()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnBack').click()
-        time.sleep(2)
+        state = Test_k_Upload().test_b()
+        print(state)
+        if state == False:
+            #点击查看视频详情
+            self.driver.find_id(soucred_id + 'img_url').click()
+            self.driver.wait_id(soucred_id + 'btnBack')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+        else:
+            print('视频上传失败，不执行视频查看用例')
 
-    @unittest.skipIf(test_b(self=None),reason='视频上传失败，不执行视频下载用例')
+
     def test_d(self):
-        #视频下载
-        self.driver.find_id(soucred_id + 'down').click()
-        time.sleep(2)
-        try:
-            self.driver.find_xpath('直接下载')
-            self.driver.find_xpath('直接下载').click()
-            self.driver.wait_id(soucred_id + 'btnSubmit')
-            self.driver.find_id(soucred_id + 'btnSubmit').click()
-        except:
-            self.driver.find_id(soucred_id + 'btnSubmit').click()
-        time.sleep(2)
+        state = Test_k_Upload.test_b(self=None)
+        if state == False:
+            #视频下载
+            self.driver.find_id(soucred_id + 'down').click()
+            time.sleep(2)
+            try:
+                self.driver.find_xpath('直接下载')
+                self.driver.find_xpath('直接下载').click()
+                self.driver.wait_id(soucred_id + 'btnSubmit')
+                self.driver.find_id(soucred_id + 'btnSubmit').click()
+            except:
+                self.driver.find_id(soucred_id + 'btnSubmit').click()
+            time.sleep(2)
+        else:
+            print('视频上传失败，不执行视频下载用例')
 
-    @unittest.skipIf(test_b(self=None), reason='视频上传失败，不执行视频分享用例')
+
     def test_e(self):
         #站外分享
-        try:
-            self.driver.find_id(soucred_id + 'wx')
-        except:
-            raise ('限制素材作品，不支持站外分享')
-        time.sleep(2)
-        #微信分享
-        self.driver.find_id(soucred_id + 'wx').click()
-        time.sleep(4)
-        self.driver.wait_id('com.tencent.mm:id/ch')
-        time.sleep(2)
-        self.driver.find_id('com.tencent.mm:id/dn').click()
-        self.driver.wait_id(soucred_id + 'down')
-        time.sleep(2)
-        #朋友圈分享
-        self.driver.find_id(soucred_id + 'wxf').click()
-        self.driver.wait_id('com.tencent.mm:id/ch')
-        time.sleep(2)
-        self.driver.find_id('com.tencent.mm:id/dn').click()
-        self.driver.wait_id(soucred_id + 'down')
-        time.sleep(2)
-        if self.y == 1920:
-            self.driver.swip_move(self.x*0.922,self.y *0.232,self.x *0.57,self.y *0.232)
-        elif  self.y > 2250:
-            pass
+        state = Test_k_Upload.test_b(self=None)
+        if state == False:
+            try:
+                self.driver.find_id(soucred_id + 'wx')
+            except:
+                raise ('限制素材作品，不支持站外分享')
+            time.sleep(2)
+            #微信分享
+            self.driver.find_id(soucred_id + 'wx').click()
+            time.sleep(4)
+            self.driver.wait_id('com.tencent.mm:id/ch')
+            time.sleep(2)
+            self.driver.find_id('com.tencent.mm:id/dn').click()
+            self.driver.wait_id(soucred_id + 'down')
+            time.sleep(2)
+            #朋友圈分享
+            self.driver.find_id(soucred_id + 'wxf').click()
+            self.driver.wait_id('com.tencent.mm:id/ch')
+            time.sleep(2)
+            self.driver.find_id('com.tencent.mm:id/dn').click()
+            self.driver.wait_id(soucred_id + 'down')
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.swip_move(self.x*0.922,self.y *0.232,self.x *0.57,self.y *0.232)
+            elif  self.y > 2250:
+                pass
+            else:
+                pass
+            time.sleep(2)
+            #QQ分享
+            self.driver.find_id(soucred_id + 'qq').click()
+            self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
+            time.sleep(2)
+            self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeftButton').click()
+            time.sleep(2)
+            #QQ空间分享
+            self.driver.find_id(soucred_id + 'qqz').click()
+            self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
+            self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
+            time.sleep(2)
+
+            #微博分享
+            self.driver.find_id(soucred_id + 'wb').click()
+            self.driver.wait_id('com.sina.weibo:id/titleSave')
+            self.driver.find_id('com.sina.weibo:id/titleBack').click()
+            time.sleep(2)
+            self.driver.find_xpath('不保存').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.swip_move(self.x * 0.507,self.y*0.24,self.x*0.897,self.y *0.24)
+            elif self.y > 2250:
+                pass
+            else:
+                pass
+            time.sleep(2)
         else:
-            pass
-        time.sleep(2)
-        #QQ分享
-        self.driver.find_id(soucred_id + 'qq').click()
-        self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
-        time.sleep(2)
-        self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeftButton').click()
-        time.sleep(2)
-        #QQ空间分享
-        self.driver.find_id(soucred_id + 'qqz').click()
-        self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
-        self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
-        time.sleep(2)
+            print('视频上传失败，不执行视频分享用例')
 
 
-        #微博分享
-        self.driver.find_id(soucred_id + 'wb').click()
-        self.driver.wait_id('com.sina.weibo:id/titleSave')
-        self.driver.find_id('com.sina.weibo:id/titleBack').click()
-        time.sleep(2)
-        self.driver.find_xpath('不保存').click()
-        time.sleep(2)
-        if self.y == 1920:
-            self.driver.swip_move(self.x * 0.507,self.y*0.24,self.x*0.897,self.y *0.24)
-        elif self.y > 2250:
-            pass
-        else:
-            pass
-        time.sleep(2)
-
-    @unittest.skipIf(test_b(self=None), reason='视频上传失败，不执行视频分享用例')
     def test_f(self):
         #删除视频
-        self.driver.find_id(soucred_id + 'img_url').click()
-        self.driver.wait_id(soucred_id + 'btnBack')
-        self.driver.Background()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'setting').click()
-        time.sleep(2)
-        self.driver.tap(self.x * 0.5,self.y * 0.854)
-        time.sleep(2)
-        tip = self.driver.find_id(soucred_id + 'txtContent').text
-        check = '删除作品'
-        self.assertIn(check,tip,msg='作品删除提示内容校验不一致')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnSubmit').click()
-        self.driver.wait_id(soucred_id + 'down')
-        self.driver.find_id(soucred_id + 'img_url').click()
-        toast_check = '作品已删除'
-        try:
-            toast = self.driver.find_id('//android.widget.Toast')
-            self.assertEqual(toast, toast_check, msg='作品删除后再点击提示文案校验失败')
-        except:
-            pass
-        time.sleep(2)
-        #关闭上传结果
-        self.driver.find_id(soucred_id + 'close').click()
-        time.sleep(2)
+        state = Test_k_Upload.test_b(self=None)
+        if state == False:
+            self.driver.find_id(soucred_id + 'img_url').click()
+            self.driver.wait_id(soucred_id + 'btnBack')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'setting').click()
+            time.sleep(2)
+            self.driver.tap(self.x * 0.5,self.y * 0.854)
+            time.sleep(2)
+            tip = self.driver.find_id(soucred_id + 'txtContent').text
+            check = '删除作品'
+            self.assertIn(check,tip,msg='作品删除提示内容校验不一致')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+            self.driver.wait_id(soucred_id + 'down')
+            self.driver.find_id(soucred_id + 'img_url').click()
+            toast_check = '作品已删除'
+            try:
+                toast = self.driver.find_id('//android.widget.Toast')
+                self.assertEqual(toast, toast_check, msg='作品删除后再点击提示文案校验失败')
+            except:
+                pass
+            time.sleep(2)
+            #关闭上传结果
+            self.driver.find_id(soucred_id + 'close').click()
+            time.sleep(2)
+        else:
+            print('视频上传失败，不执行视频删除用例')
 
-    @unittest.skipIf(test_b(self=None),reason='作品上传成功，不执行失败检测用例')
+
     def test_g(self):
         #查看失败原因
-        self.driver.find_id(soucred_id + 'rl_bg').click()
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            print('上传失败的情况下，点击作品封面：',toast)
-        except:
-            pass
-        time.sleep(2)
-        reason = self.driver.find_id(soucred_id + 're_update').text
-        reason_state1 = '修改标题'
-        reason_state2 = '重新上传'
-        if reason == reason_state1:
-            self.driver.find_id(soucred_id + 're_update').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'edit').clear()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'edit').send_keys('标题修改')
-            self.driver.find_id(soucred_id + 'btnSubmit').click()
-            time.sleep(2)
+        state = Test_k_Upload.test_b(self=None)
+        if state == True:
+            self.driver.find_id(soucred_id + 'rl_bg').click()
             try:
-                self.driver.wait_id(soucred_id + 'down')
+                toast = self.driver.wait_toast('//android.widget.Toast')
+                print('上传失败的情况下，点击作品封面：',toast)
             except:
-                raise ('修改标题后重新上传失败')
-        elif reason_state2 == reason_state2:
-            self.driver.find_id(soucred_id + 're_update').click()
-            try:
-                self.driver.wait_id(soucred_id + 'down')
-            except:
-                raise ('点击重新上传按钮后，作品依然上传失败')
+                pass
+            time.sleep(2)
+            reason = self.driver.find_id(soucred_id + 're_update').text
+            reason_state1 = '修改标题'
+            reason_state2 = '重新上传'
+            if reason == reason_state1:
+                self.driver.find_id(soucred_id + 're_update').click()
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'edit').clear()
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'edit').send_keys('标题修改')
+                self.driver.find_id(soucred_id + 'btnSubmit').click()
+                time.sleep(2)
+                try:
+                    self.driver.wait_id(soucred_id + 'down')
+                except:
+                    raise ('修改标题后重新上传失败')
+            elif reason_state2 == reason_state2:
+                self.driver.find_id(soucred_id + 're_update').click()
+                try:
+                    self.driver.wait_id(soucred_id + 'down')
+                except:
+                    raise ('点击重新上传按钮后，作品依然上传失败')
+            else:
+                raise ('未知错误')
+            time.sleep(2)
         else:
-            raise ('未知错误')
-        time.sleep(2)
-
+            print('作品上传成功，不执行失败检测用例')
 
 
 if __name__ == "__main__":

@@ -6,16 +6,15 @@
 # stdout,stderr = p.communicate()
 import unittest
 def test():
-    i = 0
     try:
-        if i ==1:
-            pass
-        else:
-            pass
+        print(1/1)
+        return False
     except:
-        raise ('失败')
-        unittest.skip('hhh')
-    print('1')
+        return True
 
+
+def test1():
+    state = test()
+    print(state)
 if __name__=="__main__":
-    test()
+    test1()
