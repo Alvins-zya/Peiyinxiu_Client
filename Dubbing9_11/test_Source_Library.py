@@ -1,13 +1,12 @@
 import unittest
 import time
-import pytest
-
 from Dubbing9_11.Front import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
-
 class Test_a_Source_search(Dubbing):
     def test_a(self):
         #点击素材搜索进入搜索界面
+        self.driver.wait_id(soucred_id + 'task_box')
+        self.driver.find_id(soucred_id + 'btn_more').click()
         self.driver.wait_id(soucred_id + 'tv_search')
         self.driver.find_id(soucred_id + 'tv_search').click()
         time.sleep(4)
@@ -20,7 +19,6 @@ class Test_a_Source_search(Dubbing):
         #推荐搜索标签
         tv_name = self.driver.find_ids(soucred_id + 'tv')
         tv_list = []
-        print(len(tv_name))
         for i in range(len(tv_name)):
             name = self.driver.find_ids(soucred_id + 'tv')[i].text
             tv_list.append(name)
@@ -37,8 +35,9 @@ class Test_a_Source_search(Dubbing):
                 print(tip)
                 time.sleep(2)
                 self.driver.find_xpath('全部').click()
+                time.sleep(5)
                 try:
-                    self.driver.wait_id(soucred_id + 'iv_source')
+                    self.driver.find_id(soucred_id + 'iv_source')
                 except:
                     print('全部选项中素材信息也为空')
             except:
@@ -77,7 +76,7 @@ class Test_a_Source_search(Dubbing):
         self.driver.wait_id(soucred_id + 'rank_name')
         time.sleep(2)
         label = self.driver.find_ids(soucred_id + 'rank_name')
-        for i in range(len(label)):
+        for i in range(len(label)-1):
             self.driver.find_ids(soucred_id + 'rank_name')[i].click()
             try:
                 self.driver.wait_id(soucred_id + 'iv_source')
@@ -375,37 +374,40 @@ class Test_b_Classification(Dubbing):
         self.driver.find_xpath('我的').click()
         time.sleep(2)
 
-    def test_j():
+    def test_j(self):
         try:
             self.driver.find_id(soucred_id + 'item_sh_cooperate_article_title')
-            return False
-        except:
             return True
+        except:
+            return False
 
 
-    @pytest.mark.skipIf(test_j,'合作广场我的界面中求和作信息为空，跳过此项')
     def test_k(self):
         #置顶按钮
-        try:
-            self.driver.find_id(soucred_id + 'btnSetTop').click()
-        except:
+        state = Test_b_Classification.test_j(self=None)
+        if state == True:
             try:
-                self.driver.find_id(soucred_id + 'item_sh_clock_time')
+                self.driver.find_id(soucred_id + 'btnSetTop').click()
             except:
-                print('暂无已置顶求和作')
-        time.sleep(2)
-        #删除求合作
-        el = self.driver.find_id(soucred_id + 'item_sh_cooperate_article_image')
-        self.driver.Long_Touche(el)
-        self.driver.wait_id(soucred_id + 'txtContent')
-        self.driver.find_id(soucred_id + 'btnSubmit').click()
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            check = '删除成功'
-            self.assertEqual(toast,check,msg='toast内容不一致')
-        except:
+                try:
+                    self.driver.find_id(soucred_id + 'item_sh_clock_time')
+                except:
+                    print('暂无已置顶求和作')
+            time.sleep(2)
+            #删除求合作
+            el = self.driver.find_id(soucred_id + 'item_sh_cooperate_article_image')
+            self.driver.Long_Touche(el)
+            self.driver.wait_id(soucred_id + 'txtContent')
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+            try:
+                toast = self.driver.wait_toast('//android.widget.Toast')
+                check = '删除成功'
+                self.assertEqual(toast,check,msg='toast内容不一致')
+            except:
+                pass
+            time.sleep(1)
+        else:
             pass
-        time.sleep(1)
 
     def test_l(self):
         #合作广场-搜索
@@ -453,17 +455,24 @@ class Test_c_Voicetest(Dubbing):
     def test_a(self):
         self.driver.find_id(soucred_id + 'sj').click()
         time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'reIndetify')
+            self.driver.find_id(soucred_id +'reIndetify').click()
+            time.sleep(2)
+        except:
+            pass
         self.driver.find_id(soucred_id + 'boy').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'girl').click()
         time.sleep(2)
         conten = self.driver.find_id(soucred_id + 'text').text
         self.driver.find_id(soucred_id + 'change').click()
+        time.sleep(2)
         conten_new = self.driver.find_id(soucred_id + 'text').text
         self.assertNotEqual(conten,conten_new,msg='切换朗读的前后内容对比一致，切换失败')
         time.sleep(2)
 
-    def test_b():
+    def test_b(self):
         #录音
         i=1
         while True:
@@ -472,10 +481,8 @@ class Test_c_Voicetest(Dubbing):
                 self.driver.find_id(soucred_id + 'dubbing').click()
                 time.sleep(15)
                 self.driver.find_id(soucred_id + 'dubbing').click()
-                time.sleep(10)
-                self.driver.find_id(soucred_id + 'preview').click()
+                self.driver.wait_id(soucred_id + 'preview')
                 break
-                return False
             except:
                 pass
             if i == 10:
@@ -483,54 +490,70 @@ class Test_c_Voicetest(Dubbing):
             else:
                 pass
         time.sleep(2)
-    @pytest.mark.skipIf(test_b(),'声鉴结果界面跳转失败，跳过此测试步骤')
-    def test_c(self):
-        #声鉴报告界面
-        voice_style = self.driver.find_id(soucred_id + 'voice_type').text
-        print(voice_style)
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'play').click()
-        self.driver.wait_download(soucred_id + 'play')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'title').click()
-        self.driver.wait_id(soucred_id + 'userhead')
-        self.driver.find_id(soucred_id + 'btnBack').click()
-        time.sleep(2)
-        for i in range(3):
-            self.driver.swip_up()
-            time.sleep(2)
-        time.sleep(2)
+    def test_b_a(self):
+        try:
+            self.driver.find_id(soucred_id + 'play')
+            return True
+        except:
+            return False
 
-    @pytest.mark.skipIf(test_b(), '声鉴结果界面跳转失败，跳过此测试步骤')
-    def test_d(self):
-        #点击配音，保存草稿箱
-        self.driver.find_id(soucred_id + 'action').click()
-        time.sleep(2)
-        self.driver.wait_download(soucred_id + 'action')
-        self.driver.find_id(soucred_id + 'action').click()
-        self.driver.wait_download(soucred_id +'title')
-        self.driver.Background()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'complete').click()
-        self.driver.wait_id(soucred_id + 'txtTitle')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'pri_switch_tv').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'saveToDraft').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnSubmit').click()
-        time.sleep(2)
-        self.driver.wait_xpath('退出配音')
-        self.driver.find_xpath('退出配音').click()
-        time.sleep(2)
-        for i in range(6):
-            self.driver.swip_down()
+    # 声鉴报告界面
+    def test_c(self):
+        state = Test_c_Voicetest().test_b_a()
+        print(state)
+        if state == True:
+            voice_style = self.driver.find_id(soucred_id + 'voice_type').text
+            print(voice_style)
             time.sleep(2)
-        self.driver.find_id(soucred_id + 'reIndetify').click()
-        time.sleep(2)
-        #返回素材库
-        self.driver.find_id(soucred_id + 'back').click()
-        time.sleep(2)
+            self.driver.find_id(soucred_id + 'play').click()
+            self.driver.wait_download(soucred_id + 'play')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'title').click()
+            self.driver.wait_id(soucred_id + 'userhead')
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+            for i in range(3):
+                self.driver.swip_up()
+                time.sleep(2)
+            time.sleep(2)
+        else:
+            print('声鉴结果界面跳转失败，跳过此测试步骤')
+
+
+    def test_d(self):
+        state = Test_c_Voicetest().test_b_a()
+        if state == True:
+            #点击配音，保存草稿箱
+            self.driver.find_id(soucred_id + 'action').click()
+            time.sleep(2)
+            self.driver.wait_download(soucred_id + 'action')
+            self.driver.find_id(soucred_id + 'action').click()
+            self.driver.wait_download(soucred_id +'title')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'complete').click()
+            self.driver.wait_id(soucred_id + 'txtTitle')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'saveToDraft').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+            time.sleep(2)
+            self.driver.wait_xpath('退出配音')
+            self.driver.find_xpath('退出配音').click()
+            time.sleep(2)
+            for i in range(6):
+                self.driver.swip_down()
+                time.sleep(2)
+            self.driver.find_id(soucred_id + 'reIndetify').click()
+            time.sleep(2)
+            #返回素材库
+            self.driver.find_id(soucred_id + 'back').click()
+            time.sleep(2)
+        else:
+            print('声鉴结果界面跳转失败，跳过此测试步骤')
+            self.driver.back()
 
 class Test_d_source_list(Dubbing):
     #素材列表
@@ -635,7 +658,7 @@ class Test_e_Preview(Dubbing):
     #关注按钮
     def test_g(self):
         try:
-            self.driver.find_id(soucred_id + 'userhead')
+            self.driver.find_id(soucred_id + 'll_follow')
             self.driver.find_id(soucred_id + 'btnBack').click()
         except:
             pass
@@ -699,17 +722,19 @@ class Test_f_upload_source(Dubbing):
         self.driver.find_id(soucred_id + 'tv_upload').click()
         time.sleep(2)
         try:
-            self.driver.find_xpath('文件管理').click()
+            self.driver.find_xpath('视频').click()
         except:
             try:
                 self.driver.find_desc('显示根目录').click()
                 time.sleep(2)
-                self.driver.find_xpath('文件管理').click()
+                self.driver.find_xpath('视频').click()
             except:
                 pass
         time.sleep(4)
-        self.driver.find_descs('图标')[-1].click()
+        self.driver.find_xpath('Camera').click()
         time.sleep(4)
+        self.driver.find_id('com.android.documentsui:id/icon_thumb').click()
+        time.sleep(3)
 
     #素材上传详情界面视频播放
     def test_c(self):
@@ -795,11 +820,11 @@ class Test_f_upload_source(Dubbing):
         time.sleep(2)
         self.driver.find_xpath('文件管理').click()
         time.sleep(2)
-        self.driver.find_xpath('手机存储').click()
-        time.sleep(2)
         self.driver.find_xpath('a_test').click()
         time.sleep(2)
-        self.driver.find_descs('图标')[-1].click()
+        self.driver.find_id('com.coloros.filemanager:id/mark_radio_button').click()
+        time.sleep(2)
+        self.driver.find_desc('确定').click()
         time.sleep(5)
         try:
             self.driver.find_id(soucred_id + 'et_role_2')
@@ -925,6 +950,13 @@ class Test_f_upload_source(Dubbing):
     def test_q(self):
         self.driver.find_id(soucred_id + 'addMusic').click()
         time.sleep(3)
+        while True:
+            try:
+                self.driver.find_id(soucred_id + 'btnDownload')
+                self.driver.find_id(soucred_id + 'btnDownload').click()
+            except:
+                break
+            time.sleep(1)
         self.driver.find_id(soucred_id + 'title').click()
         time.sleep(2)
         music_name = self.driver.find_id(soucred_id + 'title').text
@@ -964,25 +996,25 @@ class Test_f_upload_source(Dubbing):
 
     #上传素材
     def test_t(self):
-        self.driver.find_id(sourced_id + 'complete').click()
+        self.driver.find_id(soucred_id + 'complete').click()
         while True:
             try:
                 self.driver.wait_toast('//android.widget.Toast')
             except:
                 if self.y == 1920:
                     self.driver.tap(self.x * 0.5, self.y * 0.542)
-                    time.sleep(2)
-                    try:
-                        self.driver.find_id(sourced_id + 'btnSubmit')
-                        break
-                    except:
-                        pass
+                    time.sleep(6)
                 else:
+                    pass
+                try:
+                    self.driver.find_id(sourced_id + 'btnSubmit')
+                    break
+                except:
                     pass
             time.sleep(2)
 
     #上传成功后素自制素材列表界面
-    def test_t(self):
+    def test_u(self):
         self.driver.wait_id(soucred_id + 'btnSubmit')
         self.driver.find_id(soucred_id + 'btnSubmit').click()
         time.sleep(2)

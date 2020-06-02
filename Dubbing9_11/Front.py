@@ -21,5 +21,5 @@ class Dubbing(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self):
-        print('===测试结束===')
+        pass
 

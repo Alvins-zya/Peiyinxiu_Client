@@ -12,10 +12,14 @@ import re
 import time
 from Public.devices import appium_desired
 from Public.devices_list import get_conn_dev
+import yaml
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
-
+filePath = os.path.dirname(__file__)
+with open('D:\Git_pyhthon\Public\devices_caps.yaml', 'r')as file:
+    data = yaml.load(file, Loader=yaml.FullLoader)
+dev = data['deviceName']
 class BaseOperate():
     def __init__(self):
         self.driver = appium_desired()
@@ -33,19 +37,19 @@ class BaseOperate():
         返回键
         :return:
         '''
-        os.system('adb -s %s shell input keyevent 4' % (self.dev[0]))
+        os.system('adb -s %s shell input keyevent 4' % (dev))
 
     def touch_X(self):
         # x = self.driver.get_window_size()['width']
         # y = self.driver.get_window_size()['height']
-        out = os.popen("adb -s %s shell wm size" % (self.dev[0])).read()
+        out = os.popen("adb -s %s shell wm size" % (dev)).read()
         m = re.search(r'(\d+)x(\d+)', out)
         # y = ("{height}".format(height=m.group(2)))
         x = ("{width}".format(width=m.group(1)))
         return int(x)
 
     def touch_Y(self):
-        out = os.popen("adb -s %s shell wm size" % (self.dev[0])).read()
+        out = os.popen("adb -s %s shell wm size" % (dev)).read()
         m = re.search(r'(\d+)x(\d+)', out)
         y = ("{height}".format(height=m.group(2)))
         # x = ("{width}".format(width=m.group(1)))

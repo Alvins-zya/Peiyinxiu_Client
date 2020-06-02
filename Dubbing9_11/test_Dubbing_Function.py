@@ -394,7 +394,7 @@ class Test_d_script(Dubbing):
 
 class Test_e_video_HD(Dubbing):
     # 非高清素材
-    unittest.skip('不再显示高清图标按钮')
+    @unittest.skip('不再显示高清图标按钮')
     def test0(self):
         HD_check = self.driver.find_id(soucred_id + 'swtich_hd').text
         check = '切换高清画质'
@@ -501,7 +501,6 @@ class Test_g_Record(Dubbing):
 
     # 试听过程中点击提交进入预览界面
     def test_f(self):
-
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(1)
@@ -521,7 +520,6 @@ class Test_g_Record(Dubbing):
 
     # 试听过程中应用退到后台再启动
     def test_g(self):
-
         self.driver.find_id(soucred_id + 'review').click()
         self.driver.Background()
         self.driver.wait_id(soucred_id + 'review')
@@ -866,6 +864,7 @@ class Test_i_preview(Dubbing):
         time.sleep(2)
         try:
             self.driver.find_xpath('确定')
+            self.driver.find_xpath('确定').click()
             print("服务端关闭人声混响功能，不做混响调节测试")
         except:
             el = self.driver.find_id(soucred_id + 'fx').get_attribute('checked')
@@ -976,6 +975,7 @@ class Test_i_preview(Dubbing):
         time.sleep(2)
         try:
             self.driver.find_xpath('确定')
+            self.driver.find_xpath('确定').click()
             print("服务端关闭人声混响功能，不做混响调节测试")
         except:
             el = self.driver.find_id(soucred_id + 'bgfx').get_attribute('checked')
@@ -1323,25 +1323,17 @@ class Test_j_upload(Dubbing):
 
 
 class Test_k_Upload(Dubbing):
-    # def test_a(self):
-    #     #点击上传按钮
-    #     self.driver.find_id(soucred_id + 'uploadbtn').click()
-    #     time.sleep(2)
-    #     self.driver.wait_id(soucred_id + 'down')
-    #     time.sleep(2)
-
-    def test_b(self):
-        try:
-            self.driver.find_id(soucred_id + 'down')
-            print('1')
-            return False
-        except:
-            return True
+    @unittest.skip('1')
+    def test_a(self):
+        #点击上传按钮
+        self.driver.find_id(soucred_id + 'uploadbtn').click()
+        time.sleep(2)
+        self.driver.wait_id(soucred_id + 'down')
+        time.sleep(2)
 
     def test_c(self):
-        state = Test_k_Upload().test_b()
-        print(state)
-        if state == False:
+        try:
+            self.driver.find_id(soucred_id + 'down')
             #点击查看视频详情
             self.driver.find_id(soucred_id + 'img_url').click()
             self.driver.wait_id(soucred_id + 'btnBack')
@@ -1349,13 +1341,13 @@ class Test_k_Upload(Dubbing):
             time.sleep(2)
             self.driver.find_id(soucred_id + 'btnBack').click()
             time.sleep(2)
-        else:
+        except:
             print('视频上传失败，不执行视频查看用例')
 
 
     def test_d(self):
-        state = Test_k_Upload.test_b(self=None)
-        if state == False:
+        try:
+            self.driver.find_id(soucred_id + 'down')
             #视频下载
             self.driver.find_id(soucred_id + 'down').click()
             time.sleep(2)
@@ -1365,21 +1357,17 @@ class Test_k_Upload(Dubbing):
                 self.driver.wait_id(soucred_id + 'btnSubmit')
                 self.driver.find_id(soucred_id + 'btnSubmit').click()
             except:
+                self.driver.wait_id(soucred_id + 'btnSubmit')
                 self.driver.find_id(soucred_id + 'btnSubmit').click()
             time.sleep(2)
-        else:
+        except:
             print('视频上传失败，不执行视频下载用例')
 
 
     def test_e(self):
         #站外分享
-        state = Test_k_Upload.test_b(self=None)
-        if state == False:
-            try:
-                self.driver.find_id(soucred_id + 'wx')
-            except:
-                raise ('限制素材作品，不支持站外分享')
-            time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'down')
             #微信分享
             self.driver.find_id(soucred_id + 'wx').click()
             time.sleep(4)
@@ -1428,14 +1416,14 @@ class Test_k_Upload(Dubbing):
             else:
                 pass
             time.sleep(2)
-        else:
+        except:
             print('视频上传失败，不执行视频分享用例')
 
 
     def test_f(self):
         #删除视频
-        state = Test_k_Upload.test_b(self=None)
-        if state == False:
+        try:
+            self.driver.find_id(soucred_id + 'down')
             self.driver.find_id(soucred_id + 'img_url').click()
             self.driver.wait_id(soucred_id + 'btnBack')
             self.driver.Background()
@@ -1461,46 +1449,46 @@ class Test_k_Upload(Dubbing):
             #关闭上传结果
             self.driver.find_id(soucred_id + 'close').click()
             time.sleep(2)
-        else:
+        except:
             print('视频上传失败，不执行视频删除用例')
 
 
     def test_g(self):
         #查看失败原因
-        state = Test_k_Upload.test_b(self=None)
-        if state == True:
-            self.driver.find_id(soucred_id + 'rl_bg').click()
-            try:
-                toast = self.driver.wait_toast('//android.widget.Toast')
-                print('上传失败的情况下，点击作品封面：',toast)
-            except:
-                pass
-            time.sleep(2)
-            reason = self.driver.find_id(soucred_id + 're_update').text
-            reason_state1 = '修改标题'
-            reason_state2 = '重新上传'
-            if reason == reason_state1:
-                self.driver.find_id(soucred_id + 're_update').click()
-                time.sleep(2)
-                self.driver.find_id(soucred_id + 'edit').clear()
-                time.sleep(2)
-                self.driver.find_id(soucred_id + 'edit').send_keys('标题修改')
-                self.driver.find_id(soucred_id + 'btnSubmit').click()
-                time.sleep(2)
-                try:
-                    self.driver.wait_id(soucred_id + 'down')
-                except:
-                    raise ('修改标题后重新上传失败')
-            elif reason_state2 == reason_state2:
-                self.driver.find_id(soucred_id + 're_update').click()
-                try:
-                    self.driver.wait_id(soucred_id + 'down')
-                except:
-                    raise ('点击重新上传按钮后，作品依然上传失败')
-            else:
-                raise ('未知错误')
-            time.sleep(2)
-        else:
+        try:
+           self.driver.find_id(soucred_id + 're_update')
+           self.driver.find_id(soucred_id + 'rl_bg').click()
+           try:
+               toast = self.driver.wait_toast('//android.widget.Toast')
+               print('上传失败的情况下，点击作品封面：', toast)
+           except:
+               pass
+           time.sleep(2)
+           reason = self.driver.find_id(soucred_id + 're_update').text
+           reason_state1 = '修改标题'
+           reason_state2 = '重新上传'
+           if reason == reason_state1:
+               self.driver.find_id(soucred_id + 're_update').click()
+               time.sleep(2)
+               self.driver.find_id(soucred_id + 'edit').clear()
+               time.sleep(2)
+               self.driver.find_id(soucred_id + 'edit').send_keys('标题修改')
+               self.driver.find_id(soucred_id + 'btnSubmit').click()
+               time.sleep(2)
+               try:
+                   self.driver.wait_id(soucred_id + 'down')
+               except:
+                   raise ('修改标题后重新上传失败')
+           elif reason_state2 == reason_state2:
+               self.driver.find_id(soucred_id + 're_update').click()
+               try:
+                   self.driver.wait_id(soucred_id + 'down')
+               except:
+                   raise ('点击重新上传按钮后，作品依然上传失败')
+           else:
+               raise ('未知错误')
+           time.sleep(2)
+        except:
             print('作品上传成功，不执行失败检测用例')
 
 
