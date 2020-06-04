@@ -5,25 +5,25 @@ from Dubbing9_11.Front import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
 
 class Test_a_Video_detial(Dubbing):
+    # 点击进入视频详情
     def test_a(self):
-        #点击进入视频详情
         self.driver.find_id(soucred_id + 'film_img2').click()
         self.driver.wait_id(soucred_id + 'tv_video_detail_title')
         self.driver.Background()
         time.sleep(2)
 
+    # 点击用户头像进入个人空间
     def test_b(self):
-        #点击用户头像进入个人空间
         heads = self.driver.find_ids(soucred_id + 'userhead')
         for i in range(len(heads)):
             self.driver.find_ids(soucred_id + 'userhead')[i].click()
-            self.driver.wait_id(soucred_id + 'followcount')
+            self.driver.wait_id(soucred_id + 'fanscount')
             time.sleep(2)
             self.driver.find_id(soucred_id + 'btnBack').click()
-            time.sleep(2)
+            time.sleep(4)
 
+    # 关注-发私信
     def test_c(self):
-        #关注-发私信
         self.driver.find_id(soucred_id + 'follow_ta').click()
         try:
             follow_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -56,8 +56,8 @@ class Test_a_Video_detial(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
+    # 视频-弹幕开关
     def test_d(self):
-        #视频-弹幕开关
         self.driver.find_id(soucred_id + 'media_danmu_img').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'play').click()
@@ -66,8 +66,8 @@ class Test_a_Video_detial(Dubbing):
         self.driver.wait_id(soucred_id + 'play')
         time.sleep(2)
 
+    # 全屏播放
     def test_e(self):
-        #全屏播放
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'film_img2').click()
@@ -79,20 +79,20 @@ class Test_a_Video_detial(Dubbing):
         self.driver.Background()
         time.sleep(2)
 
+    # 作品信息
     def test_e_a(self):
-        #作品信息
         video_name = self.driver.find_id(soucred_id + 'tv_video_detail_title').text
         play_count_inside =  self.driver.find_id(soucred_id + 'tv_video_play_num_in').text
         play_count_out = self.driver.find_id(soucred_id + 'tv_video_play_num_out').text
-        release_time = self.driver.find_id(soucred_id + 'date_value').text
         print('作品名称：',video_name,
               '站内播放量:',play_count_inside,
-              '站外播放量:',play_count_out,
-              '发布时间：',release_time)
+              '点赞量:',tv_video_play_num_out,)
         time.sleep(2)
 
+
+    # 礼物榜
+    @unittest.skip('9.12版本不再显示礼物榜信息')
     def test_f(self):
-        #礼物榜
         gift_count = self.driver.find_id(soucred_id +'gift_tip').text
         print(gift_count)
         time.sleep(2)
@@ -117,8 +117,9 @@ class Test_a_Video_detial(Dubbing):
         self.assertIn(title_check,video_title,msg='视频详情中的标题名称未包含礼物榜列表中标题名称')
         time.sleep(2)
 
+    # 礼物榜详情列表-送礼按钮
+    @unittest.skip('9.12版本不再显示礼物榜信息')
     def test_g(self):
-        #礼物榜详情列表-送礼按钮
         self.driver.find_id(soucred_id + 'send_gift').click()
         time.sleep(2)
         try:
@@ -157,8 +158,9 @@ class Test_a_Video_detial(Dubbing):
             pass
         time.sleep(2)
 
+    # 赠送金币礼物后金币余额检查
+    @unittest.skip('9.12版本不再显示礼物榜信息')
     def test_h(self):
-        #赠送金币礼物后金币余额检查
         send_before = self.driver.find_id(soucred_id + 'gold_count').text
         self.driver.find_xpath('鲜花').click()
         time.sleep(2)
@@ -178,8 +180,9 @@ class Test_a_Video_detial(Dubbing):
         self.assertNotEqual(send_before,send_later,msg='送礼后的金币余额显示错误')
         time.sleep(2)
 
+    # 钻石礼物
+    @unittest.skip('9.12版本不再显示礼物信息')
     def test_i(self):
-        #钻石礼物
         try:
             self.driver.find_id(soucred_id + 'confirm')
         except:
@@ -200,8 +203,9 @@ class Test_a_Video_detial(Dubbing):
             print('钻石余额大于200钻，不做钻石送礼测试')
         time.sleep(2)
 
+    # 礼物列表跳转到钻石充值界面
+    @unittest.skip('9.12版本不再显示礼物信息')
     def test_j(self):
-        #礼物列表跳转到钻石充值界面
         try:
             self.driver.find_id(soucred_id + 'confirm')
         except:
@@ -234,8 +238,9 @@ class Test_a_Video_detial(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 打榜信息
+    @unittest.skip('9.12版本不再显示礼物信息')
     def test_k(self):
-        #打榜信息
         try:
             self.driver.find_id(soucred_id + 'rl1')
         except:
@@ -259,8 +264,9 @@ class Test_a_Video_detial(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
+    # 作品送礼用户列表
+    @unittest.skip('9.12版本不再显示礼物信息')
     def test_l(self):
-        #作品送礼用户列表
         try:
             self.driver.find_id(soucred_id + 'iv_source')
             self.driver.find_id(soucred_id + 'btnBack')
@@ -287,8 +293,9 @@ class Test_a_Video_detial(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
+    # 上滑加载列表
+    @unittest.skip('9.12版本不再显示礼物信息')
     def test_m(self):
-        #上滑加载列表
         while True:
             first = self.driver.find_ids(soucred_id + 'name')[-1].text
             time.sleep(1)
@@ -303,8 +310,8 @@ class Test_a_Video_detial(Dubbing):
             time.sleep(2)
         time.sleep(2)
 
+    # 点击合作配音完成后保存草稿箱
     def test_n(self):
-        #点击合作配音完成后保存草稿箱
         while True:
             try:
                 self.driver.find_xpath('与TA合作')
@@ -380,9 +387,8 @@ class Test_a_Video_detial(Dubbing):
         time.sleep(2)
 
 class Test_b_Function(Dubbing):
-
+    # 视频评论
     def test_a(self):
-        #视频评论
         try:
             self.driver.find_id(soucred_id + 'comment_count')
         except:
@@ -402,8 +408,8 @@ class Test_b_Function(Dubbing):
                     pass
         time.sleep(2)
 
+    # 评论排序
     def test_b(self):
-        #评论排序
         while True:
             self.driver.find_id(soucred_id + 'comment').click()
             time.sleep(2)
@@ -437,8 +443,8 @@ class Test_b_Function(Dubbing):
             self.assertNotEqual(Comment,Comment1,msg='评论切换顺序后评论时间校验错误')
             time.sleep(2)
 
+    # 评论举报
     def test_c(self):
-        #评论举报
         self.driver.find_id(soucred_id +'item_comment_video_more').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'tv_action_one').click()
@@ -470,8 +476,9 @@ class Test_b_Function(Dubbing):
             pass
         time.sleep(2)
 
+    # 评论列表上滑加载
     def test_d(self):
-        #评论列表上滑加载
+
         for i in range(5):
             self.driver.swip_up()
             time.sleep(2)
@@ -479,8 +486,10 @@ class Test_b_Function(Dubbing):
         self.driver.find_id(soucred_id + 'follow_ta').click()
         time.sleep(2)
 
+
+    # 作品曝光
+    @unittest.skip('9.11版本曝光逻辑，不做执行')
     def test_e(self):
-        #作品曝光
         self.driver.find_id(soucred_id + 'gift').click()
         time.sleep(2)
         gold_before = self.driver.find_id(soucred_id + 'gold_count').text
@@ -523,8 +532,9 @@ class Test_b_Function(Dubbing):
         self.driver.back()
         time.sleep(2)
 
+    # 会员曝光
+    @unittest.skip('9.11版本曝光逻辑，不做执行')
     def test_f(self):
-        #会员曝光
         self.driver.swip_up()
         time.sleep(2)
         self.driver.Background()
@@ -569,8 +579,8 @@ class Test_b_Function(Dubbing):
         self.driver.back()
         time.sleep(2)
 
+    # 会员推荐
     def test_g(self):
-        #会员推荐
         try:
             self.driver.find_id(soucred_id + 'recommend')
             self.driver.find_id(soucred_id + 'recommend').click()
@@ -580,19 +590,19 @@ class Test_b_Function(Dubbing):
             globals()['result'] = False
             return globals()['result']
         time.sleep(2)
-    time.sleep(2)
+
+    # 不输入内容直接提交
     @unittest.skipUnless(test_g(self=None),u'视频详情界面中未显示会员推荐按钮，跳过此用例')
     def test_h(self):
-        #不输入内容直接提交
         self.driver.find_id(soucred_id + 'sure').click()
         tip  = self.driver.wait_toast('//android.widget.Toast')
         check = '请输入推荐理由'
         self.assertEqual(tip,check,msg='不输入内容点击提价，toast提示内容校验失败')
         time.sleep(2)
 
+    # 输入字符少于10个字符
     @unittest.skipUnless(test_g(self=None), u'视频详情界面中未显示会员推荐按钮，跳过此用例')
     def test_i(self):
-        #输入字符少于10个字符
         self.driver.find_id(soucred_id + 'content').send_keys('功能测试，请忽略')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'sure').click()
@@ -601,9 +611,9 @@ class Test_b_Function(Dubbing):
         self.assertEqual(tip,check,msg='输入小于10个字，toast提示内容校验不一致')
         time.sleep(2)
 
+    # 输入10个字符后点击提交
     @unittest.skipUnless(test_g(self=None), u'视频详情界面中未显示会员推荐按钮，跳过此用例')
     def test_j(self):
-        #输入10个字符后点击提交
         self.driver.find_id(soucred_id + 'content').clear()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'content').send_keys('进行功能测试，可忽略')
@@ -614,8 +624,9 @@ class Test_b_Function(Dubbing):
         self.assertEqual(tip,check,msg='推荐提交成功后toast提示内容校验不一致')
         time.sleep(2)
 
+    # 送礼
+    @unittest.skip('9.11版本送礼逻辑，不做执行')
     def test_k(self):
-        #送礼
         self.driver.find_id(soucred_id + 'gift').click()
         self.driver.wait_id(soucred_id + 'confirm')
         time.sleep(2)
@@ -629,8 +640,8 @@ class Test_b_Function(Dubbing):
         self.driver.back()
         time.sleep(2)
 
+    # 配音完成后保存草稿箱
     def test_l(self):
-        #配音完成后保存草稿箱
         while True:
             try:
                 self.driver.find_xpath('原声素材')
@@ -709,8 +720,8 @@ class Test_b_Function(Dubbing):
         self.driver.wait_id(soucred_id + 'userhead')
         time.sleep(2)
 
+    # 切换视频
     def test_p(self):
-        #切换视频
         for i in range(10):
             self.driver.swip_up()
             self.driver.wait_id(soucred_id + 'userhead')
@@ -724,20 +735,6 @@ class Test_b_Function(Dubbing):
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

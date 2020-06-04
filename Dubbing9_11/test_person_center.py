@@ -31,11 +31,11 @@ class Test_a_Person_zoom(Dubbing):
         self.driver.find_id(sourced_id + 'followed_count').click()
         self.driver.wait_id(sourced_id  + 'filter_edit')
         time.sleep(2)
-        if follow_count >9:
-            pass
+        if int(follow_count)>9:
+            self.driver.back()
         else:
-            follow_count1 = self.driver.find_id(sourced_id + 'username')
-            self.assertEqual(len(follow_count1),follow_count,msg='我的界面关注数与关注列表关注用户量不一致')
+            follow_count1 = self.driver.find_ids(sourced_id + 'username')
+            self.assertEqual(int(len(follow_count1)),int(follow_count),msg='我的界面关注数与关注列表关注用户量不一致')
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
@@ -47,11 +47,11 @@ class Test_a_Person_zoom(Dubbing):
         self.driver.find_id(sourced_id + 'fans_count').click()
         self.driver.wait_id(sourced_id + 'vip_tag')
         time.sleep(2)
-        if fan_count > 8:
+        if int(fan_count) > 8:
             pass
         else:
-            fan_count1 = self.driver.find_id(sourced_id + 'username')
-            self.assertEqual(len(fan_count1),fan_count,msg='我的界面粉丝数量与粉丝列表界面粉丝数量不一致')
+            fan_count1 = self.driver.find_ids(sourced_id + 'username')
+            self.assertEqual(int(len(fan_count1)),int(fan_count),msg='我的界面粉丝数量与粉丝列表界面粉丝数量不一致')
             time.sleep(2)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack').click()
@@ -60,8 +60,9 @@ class Test_a_Person_zoom(Dubbing):
     #用户ID
     def test_e(self):
         ID = self.driver.find_id(sourced_id + 'tv_uid').text
-        check = 148556194
-        self.assertIn(check,ID,msg='用户ID检验不一致')
+        new = re.findall(r'ID: (.*)',ID)
+        check = '148556194'
+        self.assertIn(check,new,msg='用户ID检验不一致')
         time.sleep(2)
 
 class Test_b_Person_Zoom(Dubbing):
@@ -138,15 +139,19 @@ class Test_b_Person_Zoom(Dubbing):
         self.driver.find_id(sourced_id + 'txtKeyword').send_keys('基督教')
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSearch').click()
-        self.driver.wait_id(sourced_id + 'iv_source')
-        name = self.driver.find_id(sourced_id + 'tv_source_title').text
-        check = '基督教'
-        self.assertIn(check,name,msg='搜索结果的素材标题中未包含有搜索关键字')
-        time.sleep(2)
-        self.driver.find_id(sourced_id + 'tv_source_title').click()
-        self.driver.wait_id(sourced_id + 'userhead')
-        self.driver.find_id(sourced_id + 'btnBack').click()
-        time.sleep(2)
+        time.sleep(4)
+        try:
+            self.driver.find_id(sourced_id + 'iv_source')
+            name = self.driver.find_id(sourced_id + 'tv_source_title').text
+            check = '基督教'
+            self.assertIn(check,name,msg='搜索结果的素材标题中未包含有搜索关键字')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'tv_source_title').click()
+            self.driver.wait_id(sourced_id + 'userhead')
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            pass
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
 
@@ -646,9 +651,16 @@ class Test_c_Person_works(Dubbing):
             time.sleep(2)
         time.sleep(2)
 
-    #更多-转发
+    #更多-点赞
     def test_i(self):
         self.driver.find_id(sourced_id + 'more_text').click()
+        time.sleep(2)
+
+    # 更多-转发
+    def test_i_a(self):
+        self.driver.find_id(sourced_id + 'film_all_count').click()
+        time.sleep(2)
+        self.driver.find_xpath('转发').click()
         self.driver.wait_id(sourced_id + 'filmBg')
         name = self.driver.find_id(sourced_id + 'userName').text
         self.driver.find_id(sourced_id + 'filmBg').click()
@@ -656,11 +668,10 @@ class Test_c_Person_works(Dubbing):
         self.driver.Background()
         time.sleep(2)
         detail_name = self.driver.find_id(sourced_id + 'textView').text
-        self.assertEqual(name,detail_name,msg='转发列表中用户名称与视频详情用户名称不一致')
+        self.assertEqual(name, detail_name, msg='转发列表中用户名称与视频详情用户名称不一致')
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
-
     #作品转发列表——删除作品
     def test_j(self):
         title = self.driver.find_id(sourced_id + 'title').text

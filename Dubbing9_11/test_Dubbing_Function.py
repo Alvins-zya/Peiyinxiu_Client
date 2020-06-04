@@ -836,8 +836,8 @@ class Test_i_preview(Dubbing):
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
 
+    # 人声变声调节
     def test_c(self):
-        #人声变声调节
         self.driver.find_id(soucred_id + 'pitch').click()
         time.sleep(2)
         el = self.driver.find_id(soucred_id + 'pitch').get_attribute('checked')
@@ -858,8 +858,8 @@ class Test_i_preview(Dubbing):
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
 
+    #人声混响调节
     def test_d(self):
-        #人声混响调节
         self.driver.find_id(soucred_id + 'fx').click()
         time.sleep(2)
         try:
@@ -911,8 +911,8 @@ class Test_i_preview(Dubbing):
             else:
                 pass
 
+    # 返回配音界面后再进入配音预览界面，查看人声选项默认状态
     def test_e(self):
-        #返回配音界面后再进入配音预览界面，查看人声选项默认状态
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'complete').click()
@@ -952,8 +952,8 @@ class Test_i_preview(Dubbing):
         self.driver.wait_download(soucred_id + 'play_button')
         time.sleep(2)
 
+    # 背景音音乐列表中选择其它音乐
     def test_g(self):
-        #背景音音乐列表中选择其它音乐
         count = self.driver.find_id(soucred_id + 'tvBgCount').text
         print(count)
         if int(count) > 1:
@@ -969,8 +969,8 @@ class Test_i_preview(Dubbing):
             print('背景音数量少于2，不做切换')
         time.sleep(4)
 
+    # 背景音混响调节
     def test_h(self):
-        #背景音混响调节
         self.driver.find_id(soucred_id + 'bgfx').click()
         time.sleep(2)
         try:
@@ -1026,8 +1026,8 @@ class Test_i_preview(Dubbing):
             self.driver.wait_download(soucred_id + 'play_button')
             time.sleep(2)
 
+    # 下载系统推荐背景音音乐
     def test_i(self):
-        #下载系统推荐背景音音乐
         self.driver.find_id(soucred_id + 'bgvol').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'imgBgCount').click()
@@ -1053,8 +1053,8 @@ class Test_i_preview(Dubbing):
                 break
             time.sleep(2)
 
+    # 随机选中背景音音乐
     def test_j(self):
-        #随机选中背景音音乐
         count = self.driver.find_ids(soucred_id + 'title')
         select = random.randint(0,len(count)-1)
         self.driver.find_ids(soucred_id + 'title')[select].click()
@@ -1078,8 +1078,8 @@ class Test_i_preview(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
+    # 上滑加载背景音音乐列表并点击下载按钮
     def test_k(self):
-        #上滑加载背景音音乐列表并点击下载按钮
         for i in range(10):
             self.driver.swip_up()
             time.sleep(2)
@@ -1096,8 +1096,9 @@ class Test_i_preview(Dubbing):
             except:
                 break
             time.sleep(2)
+
+    # 选择任意音乐后返回预览界面
     def test_l(self):
-        #选择任意音乐后返回预览界面
         self.driver.find_id(soucred_id + 'title').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnRight').click()
@@ -1107,8 +1108,8 @@ class Test_i_preview(Dubbing):
         self.driver.wait_id(soucred_id + 'clear_voice')
         time.sleep(2)
 
+    # 预览界面返回配音界面后重新录制
     def test_m(self):
-        #预览界面返回配音界面后重新录制
         self.driver.find_id(soucred_id + 'back').click()
         self.driver.wait_id(soucred_id + 'review')
         if self.y == 1920:
@@ -1123,14 +1124,15 @@ class Test_i_preview(Dubbing):
         time.sleep(2)
 
 class Test_j_upload(Dubbing):
+
+    #预览界面点击完成
     def test_a(self):
-        #预览界面点击完成
         self.driver.find_xpath('完成').click()
         self.driver.wait_id(soucred_id + 'txtTitle')
         time.sleep(2)
 
+    # 修改作品封面-视频截图
     def test_b(self):
-        #修改作品封面-视频截图
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
         if self.y == 1920:
@@ -1163,8 +1165,8 @@ class Test_j_upload(Dubbing):
         self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(2)
 
+    # 切换封面后返回预览界面再进入上传界面选择视频封面更换
     def test_c(self):
-        #切换封面后返回预览界面再进入上传界面选择视频封面更换
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
         self.driver.find_xpath('完成').click()
@@ -1187,8 +1189,8 @@ class Test_j_upload(Dubbing):
         self.driver.find_id(soucred_id + 'complete').click()
         time.sleep(2)
 
+    # 修改作品封面-拍照
     def test_d(self):
-        #修改作品封面-拍照
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
         if self.y == 1920:
@@ -1204,20 +1206,31 @@ class Test_j_upload(Dubbing):
             self.driver.find_id('com.android.camera:id/v9_camera_picker').click()
             time.sleep(5)
             self.driver.find_id('com.android.camera:id/inten_done_apply').click()
+            time.sleep(2)
         except:
             #VivoX21
-            self.driver.find_id('com.android.camera:id/shutter_button')
-            self.driver.find_id('com.android.camera:id/shutter_button').click()
-            time.sleep(4)
-            self.driver.find_id('com.android.camera:id/done_button').click()
-            time.sleep(4)
-        else:
-            pass
+            try:
+                self.driver.find_id('com.android.camera:id/shutter_button')
+                self.driver.find_id('com.android.camera:id/shutter_button').click()
+                time.sleep(4)
+                self.driver.find_id('com.android.camera:id/done_button').click()
+                time.sleep(4)
+            except:
+                try:
+                    # oppor11
+                    self.driver.find_id('com.oppo.camera:id/shutter_button')
+                    self.driver.find_id('com.oppo.camera:id/shutter_button').click()
+                    time.sleep(4)
+                    self.driver.find_id('com.oppo.camera:id/done_button').click()
+                    time.sleep(3)
+                except:
+                    pass
+        time.sleep(2)
         self.driver.find_id(soucred_id + 'confirm').click()
         time.sleep(2)
 
+    # 修改作品封面-拍照-拍照以后点击取消
     def test_e(self):
-        #修改作品封面-拍照-拍照以后点击取消
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
         if self.y == 1920:
@@ -1233,23 +1246,33 @@ class Test_j_upload(Dubbing):
             self.driver.find_id('com.android.camera:id/v9_camera_picker').click()
             time.sleep(5)
             self.driver.find_id('com.android.camera:id/inten_done_apply').click()
+            time.sleep(2)
         except:
             # VivoX21
-            self.driver.find_id('com.android.camera:id/shutter_button')
-            self.driver.find_id('com.android.camera:id/shutter_button').click()
-            time.sleep(4)
-            self.driver.find_id('com.android.camera:id/done_button').click()
-            time.sleep(4)
-        else:
-            pass
+            try:
+                self.driver.find_id('com.android.camera:id/shutter_button')
+                self.driver.find_id('com.android.camera:id/shutter_button').click()
+                time.sleep(4)
+                self.driver.find_id('com.android.camera:id/done_button').click()
+                time.sleep(4)
+            except:
+                try:
+                    # oppor11
+                    self.driver.find_id('com.oppo.camera:id/shutter_button')
+                    self.driver.find_id('com.oppo.camera:id/shutter_button').click()
+                    time.sleep(4)
+                    self.driver.find_id('com.oppo.camera:id/done_button').click()
+                    time.sleep(3)
+                except:
+                    pass
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
         self.driver.find_id('android:id/button1').click()
         time.sleep(4)
 
+    # 修改作品封面-相册
     def test_f(self):
-        #修改作品封面-相册
         self.driver.find_id(soucred_id + 'btn_setting_cover_tip').click()
         time.sleep(3)
         if self.y == 1920:
@@ -1266,8 +1289,8 @@ class Test_j_upload(Dubbing):
         self.driver.find_id(soucred_id + 'confirm').click()
         time.sleep(4)
 
+    # 标题名称-输入30个字符
     def test_g(self):
-        #标题名称-输入30个字符
         self.driver.find_id(soucred_id + 'title').send_keys('123456789012345678901234567890')
         time.sleep(2)
         char = self.driver.find_id(soucred_id + 'title').text
@@ -1276,16 +1299,16 @@ class Test_j_upload(Dubbing):
         self.assertEqual(char,char_check,msg='标题内容与“123456789012345678901234567890”对比不一致')
         time.sleep(2)
 
+    # 标题名称-清空标题
     def test_h(self):
-        #标题名称-清空标题
         self.driver.find_id(soucred_id + 'title').clear()
         num = self.driver.find_id(soucred_id + 'title_count').text
         check = '0/30'
         self.assertEqual(num,check,msg='标题未清空')
         time.sleep(2)
 
+    # 上传界面标签显示检查
     def test_i(self):
-        # 上传界面标签显示检查
         try:
             self.driver.find_xpath('添加')
         except:
@@ -1321,16 +1344,16 @@ class Test_j_upload(Dubbing):
             self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-
 class Test_k_Upload(Dubbing):
-    @unittest.skip('1')
+
+    # 点击上传按钮
     def test_a(self):
-        #点击上传按钮
         self.driver.find_id(soucred_id + 'uploadbtn').click()
         time.sleep(2)
         self.driver.wait_id(soucred_id + 'down')
         time.sleep(2)
 
+    #上传成功后点击查看视频详情
     def test_c(self):
         try:
             self.driver.find_id(soucred_id + 'down')
@@ -1344,7 +1367,7 @@ class Test_k_Upload(Dubbing):
         except:
             print('视频上传失败，不执行视频查看用例')
 
-
+    #上传成功后下载视频到本地
     def test_d(self):
         try:
             self.driver.find_id(soucred_id + 'down')
@@ -1363,9 +1386,8 @@ class Test_k_Upload(Dubbing):
         except:
             print('视频上传失败，不执行视频下载用例')
 
-
+    #上传成功后视频站外分享
     def test_e(self):
-        #站外分享
         try:
             self.driver.find_id(soucred_id + 'down')
             #微信分享
@@ -1419,9 +1441,8 @@ class Test_k_Upload(Dubbing):
         except:
             print('视频上传失败，不执行视频分享用例')
 
-
+    #上传成功进入视频详情删除视频
     def test_f(self):
-        #删除视频
         try:
             self.driver.find_id(soucred_id + 'down')
             self.driver.find_id(soucred_id + 'img_url').click()
@@ -1452,9 +1473,21 @@ class Test_k_Upload(Dubbing):
         except:
             print('视频上传失败，不执行视频删除用例')
 
+    #上传失败保存草稿箱
+    def test_f_a(self):
+        try:
+            self.driver.find_id(soucred_id + 're_update')
+            self.driver.find_id(soucred_id + 'saveToDraft').click()
+            time.sleep(3)
+            self.driver.find_xpath('保存草稿').click()
+            self.driver.wait_id(soucred_id + 'btnSubmit')
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+            time.sleep(2)
+        except:
+            print('作品上传成功，不执行失败检测用例')
 
+    # 上传失败查看失败原因
     def test_g(self):
-        #查看失败原因
         try:
            self.driver.find_id(soucred_id + 're_update')
            self.driver.find_id(soucred_id + 'rl_bg').click()

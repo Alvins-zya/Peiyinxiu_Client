@@ -3,8 +3,9 @@ import time
 from Dubbing9_11.Front import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
 class Test_a_Source_search(Dubbing):
+
+    # 点击素材搜索进入搜索界面
     def test_a(self):
-        #点击素材搜索进入搜索界面
         self.driver.wait_id(soucred_id + 'task_box')
         self.driver.find_id(soucred_id + 'btn_more').click()
         self.driver.wait_id(soucred_id + 'tv_search')
@@ -15,8 +16,8 @@ class Test_a_Source_search(Dubbing):
         self.driver.find_id(soucred_id + 'tv_search').click()
         time.sleep(2)
 
+    # 推荐搜索标签
     def test_b(self):
-        #推荐搜索标签
         tv_name = self.driver.find_ids(soucred_id + 'tv')
         tv_list = []
         for i in range(len(tv_name)):
@@ -46,9 +47,8 @@ class Test_a_Source_search(Dubbing):
             self.driver.find_id(soucred_id + 'btnClear').click()
             time.sleep(2)
 
-
+    # 历史搜索记录
     def test_c(self):
-        #历史搜索记录
         try:
             self.driver.find_id(soucred_id + 'item')
             searche = self.driver.find_ids(soucred_id + 'item')
@@ -70,8 +70,8 @@ class Test_a_Source_search(Dubbing):
             raise ('未显示有历史搜索记录')
         time.sleep(2)
 
+    # 推荐搜索-更多热点
     def test_d(self):
-        #推荐搜索-更多热点
         self.driver.find_id(soucred_id + 'tv1').click()
         self.driver.wait_id(soucred_id + 'rank_name')
         time.sleep(2)
@@ -98,8 +98,9 @@ class Test_a_Source_search(Dubbing):
             else:
                 pass
         time.sleep(2)
+
+    # 进入标签详情界面
     def test_e(self):
-        #进入标签详情界面
         self.driver.find_id(soucred_id + 'tv1').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'rank_name').click()
@@ -107,8 +108,8 @@ class Test_a_Source_search(Dubbing):
         time.sleep(2)
         #依次点击切换标签，且点击标签后进入素材预览界面再返回
         label_touche = self.driver.find_ids(soucred_id + 'types_name')
-        for i in reversed(label_touche):
-            i.click()
+        for i in range(len(label_touche)-1,-1,-1):
+            self.driver.find_ids(soucred_id + 'types_name')[i].click()
             self.driver.wait_id(soucred_id + 'iv_source')
             self.driver.find_id(soucred_id + 'iv_source').click()
             self.driver.wait_id(soucred_id + 'userhead')
@@ -121,6 +122,8 @@ class Test_a_Source_search(Dubbing):
             self.driver.swip_up()
             time.sleep(2)
         time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
         #退出标签详情界面返回素材搜索界面
         while True:
             try:
@@ -132,9 +135,8 @@ class Test_a_Source_search(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-
+    # 搜索素材
     def test_f(self):
-        #搜索素材
         self.driver.find_id(soucred_id + 'txtKeyword').send_keys('配音')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnSearch').click()
@@ -159,8 +161,9 @@ class Test_a_Source_search(Dubbing):
         time.sleep(2)
 
 class Test_b_Classification(Dubbing):
+
+    # 素材库主界面8个标签
     def test_a(self):
-        #素材库主界面8个标签
         tv_Main = self.driver.find_ids(soucred_id + 'tv')
         for i in range(len(tv_Main)):
             self.driver.find_ids(soucred_id + 'tv')[i].click()
@@ -192,8 +195,8 @@ class Test_b_Classification(Dubbing):
             time.sleep(2)
         time.sleep(2)
 
+    # 合作广场-预览视频后点击进入配音界面
     def test_b(self):
-        #合作广场-预览视频后点击进入配音界面
         self.driver.find_id(soucred_id + 'rl_coor').click()
         self.driver.wait_id(soucred_id + 'item_sh_cooperate_article_image')
         time.sleep(2)
@@ -220,11 +223,11 @@ class Test_b_Classification(Dubbing):
         self.driver.find_id(soucred_id + 'btnSubmit').click()
         self.driver.wait_id(soucred_id + 'item_sh_cooperate_article_image')
 
+    # 获取广场中的求合作剩余时间
     def test_c(self):
-        #获取广场中的求合作剩余时间
         times = self.driver.find_ids(soucred_id + 'item_sh_clock_time')
         #获取求和作数量
-        Coopers = self.driver.find_ids(soucred_id + 'item_sh_cooperate_article_title')
+        Coopers = self.driver.find_ids(soucred_id + 'userhead')
         time.sleep(2)
         self.assertEqual(len(times),len(Coopers),msg='求合作的数量与时间的的数量不一致')
         time.sleep(2)
@@ -253,8 +256,8 @@ class Test_b_Classification(Dubbing):
             pass
         time.sleep(2)
 
+    # 广场tab筛选项切换
     def test_d(self):
-        #广场tab筛选项切换
         self.driver.find_id(soucred_id + 'fq_male').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'fq_female').click()
@@ -264,8 +267,8 @@ class Test_b_Classification(Dubbing):
         self.driver.find_id(soucred_id + 'dp_female').click()
         time.sleep(2)
 
+    # 选择求合作后配音完成保存草稿箱
     def test_e(self):
-        #选择求合作后配音完成保存草稿箱
         self.driver.find_id(soucred_id + 'btnCooperate').click()
         self.driver.wait_download(soucred_id + 'action')
         self.driver.find_id(soucred_id + 'action').click()
@@ -295,8 +298,8 @@ class Test_b_Classification(Dubbing):
             pass
         time.sleep(2)
 
+    # 合作广场-热门列表
     def test_f(self):
-        #合作广场-热门列表
         el = self.driver.find_xpath('热门')
         time.sleep(2)
         #显示合作次数
@@ -326,8 +329,8 @@ class Test_b_Classification(Dubbing):
             pass
         time.sleep(2)
 
+    # 广场热门-配音完成保存草稿箱
     def test_g(self):
-        #广场热门-配音完成保存草稿箱
         self.driver.find_id(soucred_id + 'btnCooperate').click()
         self.driver.wait_download(soucred_id + 'action')
         self.driver.find_id(soucred_id + 'action').click()
@@ -357,8 +360,8 @@ class Test_b_Classification(Dubbing):
             pass
         time.sleep(2)
 
+    # 热门tab筛选项切换
     def test_h(self):
-        # 热门tab筛选项切换
         self.driver.find_id(soucred_id + 'fq_male').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'fq_female').click()
@@ -368,9 +371,9 @@ class Test_b_Classification(Dubbing):
         self.driver.find_id(soucred_id + 'dp_female').click()
         time.sleep(2)
 
+    # 合作广场-我的
     def test_i(self):
         time.sleep(2)
-        #合作广场-我的
         self.driver.find_xpath('我的').click()
         time.sleep(2)
 
@@ -381,9 +384,8 @@ class Test_b_Classification(Dubbing):
         except:
             return False
 
-
+    # 置顶按钮
     def test_k(self):
-        #置顶按钮
         state = Test_b_Classification.test_j(self=None)
         if state == True:
             try:
@@ -409,8 +411,8 @@ class Test_b_Classification(Dubbing):
         else:
             pass
 
+    # 合作广场-搜索
     def test_l(self):
-        #合作广场-搜索
         self.driver.find_id(soucred_id + 'right_icon1').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'et_search_keyword').send_keys('配音')
@@ -472,8 +474,8 @@ class Test_c_Voicetest(Dubbing):
         self.assertNotEqual(conten,conten_new,msg='切换朗读的前后内容对比一致，切换失败')
         time.sleep(2)
 
+    # 录音
     def test_b(self):
-        #录音
         i=1
         while True:
             i = i + 1
@@ -490,6 +492,7 @@ class Test_c_Voicetest(Dubbing):
             else:
                 pass
         time.sleep(2)
+
     def test_b_a(self):
         try:
             self.driver.find_id(soucred_id + 'play')
@@ -519,11 +522,10 @@ class Test_c_Voicetest(Dubbing):
         else:
             print('声鉴结果界面跳转失败，跳过此测试步骤')
 
-
+    # 点击配音，保存草稿箱
     def test_d(self):
         state = Test_c_Voicetest().test_b_a()
         if state == True:
-            #点击配音，保存草稿箱
             self.driver.find_id(soucred_id + 'action').click()
             time.sleep(2)
             self.driver.wait_download(soucred_id + 'action')
@@ -597,6 +599,7 @@ class Test_d_source_list(Dubbing):
         time.sleep(4)
 
 class Test_e_Preview(Dubbing):
+
     #点击进入素材预览界面
     def test_a_touch_source(self):
         source_num = self.driver.find_ids(soucred_id + 'iv_source')
@@ -616,6 +619,7 @@ class Test_e_Preview(Dubbing):
                 time.sleep(2)
             time.sleep(2)
         time.sleep(2)
+
     #素材预览详情界面查看视频是否循环播放
     def test_b_play(self):
         self.driver.find_id(soucred_id + 'iv_source').click()
@@ -710,7 +714,8 @@ class Test_e_Preview(Dubbing):
         time.sleep(2)
 
 class Test_f_upload_source(Dubbing):
-    #素材预览界面素材上传按钮
+
+    #素材库界面素材上传按钮
     def test_a(self):
         self.driver.find_id(soucred_id + 'upload').click()
         time.sleep(2)
@@ -1006,11 +1011,11 @@ class Test_f_upload_source(Dubbing):
                     time.sleep(6)
                 else:
                     pass
-                try:
-                    self.driver.find_id(sourced_id + 'btnSubmit')
-                    break
-                except:
-                    pass
+            try:
+                self.driver.find_xpath('我知道了')
+                break
+            except:
+                pass
             time.sleep(2)
 
     #上传成功后素自制素材列表界面
@@ -1025,7 +1030,34 @@ class Test_f_upload_source(Dubbing):
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-
+    #删除已上传的素材
+    def test_v(self):
+        tv = self.driver.find_id(soucred_id + 'tv_source_from').text
+        check = '测试'
+        self.assertIn(check, tv, msg='素材标签中未包含“测试”关键字')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'tv_source_from').click()
+        self.driver.wait_id(soucred_id + 'userhead')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(0.5 * self.x, 0.867 * self.y)
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+            try:
+                self.driver.wait_toast('//android.widget.Toast')
+            except:
+                raise ('未检测到素材删除toast')
+            time.sleep(2)
+        else:
+            self.driver.back()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1406,7 +1406,132 @@ class Test_f_shenman(Dubbing):
     #进入统筹界面-添加音效
     def test_f_b(self):
         self.driver.find_id(soucred_id + 'make').click()
+        self.driver.wait_id(soucred_id + 'upload')
+        self.driver.find_xpath('添加音效').click()
         time.sleep(2)
+    #点击录音
+    def test_f_c(self):
+        self.driver.find_id(soucred_id + 'transcribe').click()
+        time.sleep(5)
+        self.driver.find_id(soucred_id + 'transcribe').click()
+        time.sleep(4)
+
+    #点击试听音效
+    def test_f_d(self):
+        Sounds = self.driver.find_ids(soucred_id + 'effect_types_img')
+        for i in range(len(Sounds)):
+            self.driver.find_ids(soucred_id + 'effect_types_img')[i].click()
+            time.sleep(3)
+            Sounds_Classification = self.driver.find_ids(soucred_id + 'effect_sound_name')
+            for i in range(len(Sounds_Classification)):
+                self.driver.find_ids(soucred_id + 'effect_sound_name')[i].click()
+                time.sleep(2)
+
+    #播放整体动漫音效
+    def test_f_e(self):
+        self.driver.find_id(soucred_id + 'preview').click()
+        time.sleep(10)
+
+    #进入添加背景音界面
+    def test_f_f(self):
+        self.driver.find_id(soucred_id + 'upload').click()
+        self.driver.wait_id(soucred_id + 'comic_sound_class_name')
+        time.sleep(2)
+        self.driver.find_xpath('舒缓').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + "add").click()
+        self.driver.find_id(soucred_id + 'tv_preview')
+        time.sleep(2)
+        loc_left = self.driver.find_id(soucred_id + 'left').location
+        loc_right =self.driver.find_id(soucred_id + 'rl_right').location
+        loc_left_x = loc_left['x']
+        loc_left_y = loc_left['y']
+        loc_right_x = loc_right['x']
+        loc_right_y = loc_right['y']
+        self.driver.swip_move(loc_left_x,loc_left_y,loc_right_x,loc_right_y)
+        time.sleep(2)
+        self.driver.find_xpath('完成').click()
+        time.sleep(5)
+        self.driver.wait_not_id(soucred_id + 'rl_right')
+        time.sleep(2)
+        self.driver.find_xpath('保存').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'preview').click()
+        self.driver.wait_id(soucred_id + 'preview')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'next').click()
+        self.driver.wait_id(soucred_id + 'upload')
+        time.sleep(2)
+
+    #声漫上传界面-保存并退出
+    def test_f_g(self):
+        self.driver.find_id(soucred_id + 'preview').click()
+        self.driver.wait_id(soucred_id + 'preview')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'savebtn').click()
+        self.driver.wait_id(soucred_id + 'make')
+        time.sleep(2)
+
+    #声漫上传
+    def test_f_h(self):
+        self.driver.find_id(soucred_id + 'make').click()
+        self.driver.wait_id(soucred_id + 'upload')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'upload').click()
+        self.driver.wait_id(soucred_id + 'comic_sound_class_name')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'next').click()
+        self.driver.wait_id(soucred_id + 'upload')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'upload').click()
+        try:
+            self.driver.wait_id(soucred_id + 'imgurl')
+        except:
+            raise ('声漫上传失败')
+        time.sleep(2)
+
+    #声漫删除
+    def test_f_i(self):
+        try:
+            self.driver.find_id(soucred_id + 'imgurl')
+            self.driver.find_id(soucred_id + 'imgurl').click()
+            self.driver.wait_id(soucred_id + 'userhead')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'gift').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'setting').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.tap(0.5 * self.x, 0.867 * self.y)
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'btnSubmit').click()
+                try:
+                    self.driver.wait_toast('//android.widget.Toast')
+                except:
+                    raise ('未检测到声漫删除toast')
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'btnBack').click()
+                time.sleep(3)
+                self.driver.find_id(soucred_id + 'close1').click()
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'btnSubmit').click()
+                time.sleep(2)
+        except:
+            raise ('未位于声漫剧集列表界面')
+
+    #退出声漫返回主页
+    def test_f_j(self):
+        while True:
+            try:
+                self.driver.find_id(soucred_id + 'btnBack')
+                self.driver.find_id(soucred_id + 'btnBack').click()
+            except:
+                break
+            time.sleep(1)
+
+
+
 
 
 
