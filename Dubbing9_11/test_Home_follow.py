@@ -296,7 +296,14 @@ class Test_a_Follow(Dubbing):
             except:
                 self.driver.swip_up()
                 time.sleep(2)
-        num = self.driver.find_id.
+        num = self.driver.find_id(sourced_id + 'item_attention_praise').text
+        self.driver.find_id(sourced_id + 'item_attention_praise').click()
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+        except:
+            pass
+        new_Praise = self.driver.find_id(sourced_id + 'item_attention_praise').text
+        self.assertNotEqual(new,new_Praise,msg='点赞前后数量对比不一致')
 
     #关注界面评论作品
     def test_i(self):
