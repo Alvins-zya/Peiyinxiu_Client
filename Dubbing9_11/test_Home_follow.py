@@ -12,6 +12,7 @@ import os
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
+
 class Test_a_Follow(Dubbing):
     #首页关注主界面中的语聊通知
     def test_a(self):
@@ -269,6 +270,7 @@ class Test_a_Follow(Dubbing):
             time.sleep(2)
 
     #关注界面送礼
+    @unittest.skip('9.12版本不再支持送礼')
     def test_h(self):
         while True:
             try:
@@ -284,6 +286,17 @@ class Test_a_Follow(Dubbing):
         time.sleep(2)
         self.driver.swip_up()
         time.sleep(2)
+
+    #关注界面点赞
+    def test_h_a(self):
+        while True:
+            try:
+                self.driver.find_id(sourced_id + 'item_attention_praise')
+                break
+            except:
+                self.driver.swip_up()
+                time.sleep(2)
+        num = self.driver.find_id.
 
     #关注界面评论作品
     def test_i(self):
