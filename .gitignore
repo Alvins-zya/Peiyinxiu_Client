@@ -7,3 +7,5 @@
 *.iml
 out
 gen
+!/TEST/.pytest_cache/
+!/.idea/

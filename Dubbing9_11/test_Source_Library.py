@@ -398,7 +398,7 @@ class Test_b_Classification(Dubbing):
             time.sleep(2)
             #删除求合作
             el = self.driver.find_id(soucred_id + 'item_sh_cooperate_article_image')
-            self.driver.Long_Touche(el)
+            self.driver.Long_Touche(el,3000)
             self.driver.wait_id(soucred_id + 'txtContent')
             self.driver.find_id(soucred_id + 'btnSubmit').click()
             try:

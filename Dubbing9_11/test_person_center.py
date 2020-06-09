@@ -439,7 +439,7 @@ class Test_c_Person_works(Dubbing):
     #置顶作品
     def test_b_a(self):
         el = self.driver.find_ids(sourced_id + 'filmBg1')[0]
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.789)
@@ -472,7 +472,7 @@ class Test_c_Person_works(Dubbing):
             self.driver.swip_down()
             time.sleep(4)
             el = self.driver.find_ids(sourced_id + 'filmBg1')[0]
-            self.driver.Long_Touche(el)
+            self.driver.Long_Touche(el,3000)
             time.sleep(2)
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5, self.y * 0.789)
@@ -488,7 +488,7 @@ class Test_c_Person_works(Dubbing):
     #作品列表界面长按删除作品
     def test_b_b(self):
         el = self.driver.find_ids(sourced_id + 'filmBg1')[0]
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.868)
@@ -522,7 +522,7 @@ class Test_c_Person_works(Dubbing):
     #求合作-邀请好友
     def test_d(self):
         el = self.driver.find_id(sourced_id + 'item_sh_cooperate_article_image')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x* 0.5,self.y * 0.629)
@@ -547,7 +547,7 @@ class Test_c_Person_works(Dubbing):
     #求合作-私密（公开）
     def test_e(self):
         el = self.driver.find_id(sourced_id + 'item_sh_cooperate_article_image')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.703)
@@ -573,7 +573,7 @@ class Test_c_Person_works(Dubbing):
     #求合作删除
     def test_f(self):
         el = self.driver.find_id(sourced_id + 'item_sh_cooperate_article_image')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.857)
@@ -677,7 +677,7 @@ class Test_c_Person_works(Dubbing):
         title = self.driver.find_id(sourced_id + 'title').text
         count = self.driver.find_id(sourced_id + 'film_all_count').text
         el = self.driver.find_id(sourced_id + 'filmBg')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         try:
@@ -803,7 +803,7 @@ class Test_c_Person_works(Dubbing):
         self.driver.find_xpath('合辑').click()
         self.driver.wait_id(sourced_id + 'filmBg')
         el = self.driver.find_id(sourced_id + 'filmBg')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.871)
@@ -1325,7 +1325,7 @@ class Test_e_Notices(Dubbing):
         self.driver.find_id(sourced_id + 'btn_change_input_mode').click()
         time.sleep(2)
         el = self.driver.find_id(sourced_id + 'btn_record_voice')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         self.driver.wait_id(sourced_id + 'btn_play_sound_content_layout')
         self.driver.find_id(sourced_id + 'btn_play_sound_content_layout').click()
         time.sleep(2)
@@ -1412,7 +1412,7 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         self.driver.find_id(sourced_id + 'redpacket').click()
         time.sleep(2)
-        self.driver.find_id('cash_num').send_keys('0.1')
+        self.driver.find_id(sourced_id +'cash_num').send_keys('0.1')
         time.sleep(3)
         self.driver.find_id(sourced_id + 'generate_red_packet').click()
         time.sleep(2)
@@ -1463,7 +1463,6 @@ class Test_e_Notices(Dubbing):
             pass
         time.sleep(2)
 
-
     #私信聊天界面举报用户-其它原因
     def test_p_c(self):
         self.driver.find_id(sourced_id + 'right_icon1').click()
@@ -1490,7 +1489,6 @@ class Test_e_Notices(Dubbing):
         except:
             raise ('未检测到举报成功toast')
         time.sleep(2)
-
 
     #私信聊天界面-进入对方空间
     def test_p_d(self):
@@ -1519,7 +1517,7 @@ class Test_e_Notices(Dubbing):
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
         el = self.driver.find_xpath('撸串')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'delete').click()
         time.sleep(2)
@@ -1548,7 +1546,7 @@ class Test_e_Notices(Dubbing):
             self.driver.find_id(sourced_id + 'btnBack').click()
             time.sleep(2)
             el = self.driver.find_id(sourced_id + 'userhead')
-            self.driver.Long_Touche(el)
+            self.driver.Long_Touche(el,3000)
             time.sleep(2)
             self.driver.find_id(sourced_id + 'delete').click()
             time.sleep(2)
@@ -1582,7 +1580,7 @@ class Test_f_creates(Dubbing):
         self.driver.Disconnect_network()
         time.sleep(2)
         el = self.driver.find_id(sourced_id + 'date')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         if self.y == 1920:
             self.driver.tap(self.x * 0.656, self.y * 0.552)
         else:
@@ -1938,7 +1936,7 @@ class Test_f_creates(Dubbing):
     #已配素材列表界面删除已配素材
     def test_b_c(self):
         source = self.driver.find_id(sourced_id + 'iv_source')
-        self.driver.Long_Touche(source)
+        self.driver.Long_Touche(source,3000)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         try:
@@ -1956,7 +1954,7 @@ class Test_f_creates(Dubbing):
         self.driver.Disconnect_network()
         time.sleep(2)
         el = self.driver.find_id(sourced_id + 'tv_source_title')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         self.driver.wait_toast('//android.widget.Toast')
@@ -2123,7 +2121,7 @@ class Test_f_creates(Dubbing):
     #收藏列表长按删除素材
     def test_e_c(self):
         el = self.driver.find_id(sourced_id + 'iv_source')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         self.driver.wait_toast('//android.widget.Toast')

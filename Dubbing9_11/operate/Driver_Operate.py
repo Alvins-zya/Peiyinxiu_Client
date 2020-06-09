@@ -99,11 +99,17 @@ class BaseOperate():
         '''
         self.driver.swipe(int(start_x),int(start_y),int(end_x),int(end_y),duration=1000)
 
-    def Long_Touche(self,El):
+    def Long_Touche(self,El,time):
         '''
         控件长按
         '''
-        TouchAction(self.driver).long_press(El,duration=3000).release().perform()
+        TouchAction(self.driver).long_press(El,duration=time).release().perform()
+
+    def Long_press_move(self,el,pointx,pointy):
+        '''
+        长按控件后移动
+        '''
+        TouchAction(self.driver).press(el).wait(2000).move_to(x=int(pointx),y=int(pointy)).wait(2000).release().perform()
 
     def tap(self,X,Y):
         '''
@@ -129,6 +135,12 @@ class BaseOperate():
         '''
         xpath_elemnt = ("//*[@* = '%s']" % xpath)
         el = self.driver.find_element_by_xpath(xpath_elemnt)
+        return el
+    def find_Xpath(self,Xpath):
+        '''
+        使用绝对路径获取元素
+        '''
+        el = self.driver.find_element_by_xpath(Xpath)
         return el
 
     def find_desc(self,desc):

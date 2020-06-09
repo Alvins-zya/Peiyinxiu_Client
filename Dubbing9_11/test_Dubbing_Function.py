@@ -602,7 +602,7 @@ class Test_g_Record(Dubbing):
     # 回撤重录
     def test_n(self):
         el = self.driver.find_id(soucred_id + 'withdraw')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         self.driver.find_id(soucred_id + 'scirpt')
         self.driver.find_id(soucred_id + 'scirpt').click()

@@ -63,7 +63,7 @@ class Test_a_Follow(Dubbing):
             pass
         time.sleep(2)
         el = self.driver.find_id(sourced_id + 'userhead')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btn_follow').click()
         time.sleep(2)
@@ -90,7 +90,7 @@ class Test_a_Follow(Dubbing):
             pass
         time.sleep(2)
         el = self.driver.find_id(sourced_id + 'userhead')
-        self.driver.Long_Touche(el)
+        self.driver.Long_Touche(el,3000)
         time.sleep(2)
         text = self.driver.find_id(sourced_id +'btn_follow').text
         check = '取消关注'
