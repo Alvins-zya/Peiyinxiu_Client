@@ -8,7 +8,6 @@ rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
 from operate.Driver_Operate import BaseOperate
 
-
 class Dubbing(unittest.TestCase):
     @classmethod
     def setUpClass(self):
