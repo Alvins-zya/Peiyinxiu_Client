@@ -579,3 +579,4 @@ venv/Lib/site-packages/yaml/__pycache__/scanner.cpython-38.pyc
 venv/Lib/site-packages/yaml/__pycache__/serializer.cpython-38.pyc
 venv/Lib/site-packages/yaml/__pycache__/tokens.cpython-38.pyc
 venv/Scripts/__pycache__/readelf.cpython-38.pyc
+!/TEST/.pytest_cache/
