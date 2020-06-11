@@ -1313,7 +1313,7 @@ class Test_Society(Dubbing):
         print(num,type(num),count,new)
         if num == '0':
             print('2')
-            return None
+            return
         print('1')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'filmBg').click()
