@@ -358,6 +358,7 @@ class Test_Circle(Dubbing):
         self.assertEqual(del_toast, check)
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
+
     #发布语音帖
     def test_f(self):
         self.driver.find_id(soucred_id + 'send').click()
@@ -621,7 +622,7 @@ class Test_Circle(Dubbing):
         del_toast = self.driver.wait_toast('//android.widget.Toast')
         check = '帖子已被删除'
         self.assertEqual(del_toast, check)
-        self.driver.find_id(soucred_id + 'btnBack').click()
+        self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
 
 
