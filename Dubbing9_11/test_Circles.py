@@ -1267,7 +1267,7 @@ class Test_Society(Dubbing):
         num = re.findall(r'素材(.*)',count)
         new = "".join(num)
         if new == '0':
-            return None
+            return
         time.sleep(2)
         self.driver.find_id(soucred_id + 'imgSource').click()
         self.driver.wait_id(soucred_id + 'shouchang_tv_fake')
@@ -1310,12 +1310,8 @@ class Test_Society(Dubbing):
         count = self.driver.find_id(soucred_id + 'film_all_count').text
         num = re.findall(r'合辑(.*)', count)
         new = ''.join(num)
-        print(num,type(num),count,new)
-        if num == '0':
-            print('2')
+        if new == '0':
             return
-        print('1')
-        time.sleep(2)
         self.driver.find_id(soucred_id + 'filmBg').click()
         try:
             self.driver.wait_id(soucred_id + 'userName')
