@@ -541,10 +541,10 @@ class Test_g_Record(Dubbing):
     def test_i(self):
         while True:
             try:
-                self.driver.wait_not_id(soucred_id + 'withdraw')
-                break
-            except:
+                self.driver.find_id(soucred_id + 'withdraw')
                 self.driver.find_id(soucred_id + 'withdraw').click()
+            except:
+                break
         time.sleep(2)
 
     # 录制过程中暂停
@@ -561,7 +561,6 @@ class Test_g_Record(Dubbing):
 
     # 录制完成后自动跳转再返回配音界面
     def test_k(self):
-
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
         self.driver.Background()

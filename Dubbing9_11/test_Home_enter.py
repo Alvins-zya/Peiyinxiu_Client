@@ -1231,29 +1231,22 @@ class Test_f_shenman(Dubbing):
         except:
             raise ('声漫制作社团列表加载失败')
         time.sleep(2)
-        self.driver.find_ids(soucred_id + 'name')[-1].click()
-        name = self.driver.find_ids(soucred_id + 'name')[-1].text
+        self.driver.find_ids(soucred_id + 'name')[1].click()
         time.sleep(2)
         self.driver.back()
         time.sleep(2)
-        check_name = self.driver.find_id(soucred_id + 'num_one').text
-        self.assertIn(name,check_name,msg='声漫社团选择校验不一致')
-
 
     #连载漫画集数查看
     def test_b_f(self):
+        num = self.driver.find_id(soucred_id + 'name').text
         self.driver.find_id(soucred_id + 'name').click()
         self.driver.wait_id(soucred_id + 'userhead')
         self.driver.Background()
         time.sleep(2)
-        self.driver.find_ids(soucred_id + 'name')[-1].click()
-        time.sleep(2)
-        self.driver.wait_id(soucred_id + 'userhead')
-        self.driver.Background()
-        time.sleep(2)
-        name = self.driver.find_ids(soucred_id + 'name')[-1].text
+        Re_num = re.findall(r'第 (.*) 话',num)
+        new_num = ''.join(Re_num)
         title_name = self.driver.find_id(soucred_id + 'tv_video_detail_title').text
-        self.assertIn(name,title_name,msg='声漫切换集数校验不一致')
+        self.assertIn(new_num,title_name,msg='声漫切换集数校验不一致')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
@@ -1268,27 +1261,11 @@ class Test_f_shenman(Dubbing):
         union = self.driver.find_id(soucred_id + 'union_name').text
         new_update = re.findall(r'更新至(.*)',update)
         self.driver.find_id(soucred_id + 'play').click()
-        self.driver.find_id(soucred_id + 'userhead')
+        self.driver.wait_id(soucred_id + 'userhead')
         self.driver.Background()
         time.sleep(2)
-        detail_name = self.driver.find_id(soucred_id + 'textView').text
+        detail_name = self.driver.find_id(soucred_id + 'user_name').text
         self.assertEqual(union,detail_name,msg='社团名称校验不一致')
-        time.sleep(2)
-        i = 0
-        while i<=100:
-            try:
-                self.driver.find_xpath('第%s'%(new_update))
-                break
-            except:
-                if self.y ==1920:
-                    self.driver.swip_move(self.x * 0.5 ,self.y * 0.553,self.x *0.053,self.y * 0.553)
-                else:
-                    pass
-            i = i+1
-            if i ==100:
-                break
-            else:
-                pass
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
@@ -1366,6 +1343,7 @@ class Test_f_shenman(Dubbing):
         self.driver.wait_toast('//android.widget.Toast')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
     #我的漫画
     def test_f(self):
@@ -1378,7 +1356,7 @@ class Test_f_shenman(Dubbing):
 
     #声漫统筹界面-更新配音者
     def test_f_a(self):
-        self.driver.find_id(soucred_id + 'iv_pic1')
+        self.driver.find_id(soucred_id + 'iv_pic1').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'change').click()
         time.sleep(2)
@@ -1397,7 +1375,7 @@ class Test_f_shenman(Dubbing):
         time.sleep(2)
         self.driver.wait_id(soucred_id + 'socialstatus')
         time.sleep(1)
-        self.driver.find_ids(soucred_id + 'socialstatus').click()
+        self.driver.find_id(soucred_id + 'socialstatus').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnSubmit').click()
         self.driver.wait_toast('//android.widget.Toast')
@@ -1442,20 +1420,17 @@ class Test_f_shenman(Dubbing):
         self.driver.find_id(soucred_id + "add").click()
         self.driver.find_id(soucred_id + 'tv_preview')
         time.sleep(2)
-        loc_left = self.driver.find_id(soucred_id + 'left').location
-        loc_right =self.driver.find_id(soucred_id + 'rl_right').location
-        loc_left_x = loc_left['x']
-        loc_left_y = loc_left['y']
-        loc_right_x = loc_right['x']
-        loc_right_y = loc_right['y']
-        self.driver.swip_move(loc_left_x,loc_left_y,loc_right_x,loc_right_y)
+        if self.y == 1920:
+            self.driver.swip_move(self.x * 0.045, self.y * 0.718, self.x * 0.891, self.y * 0.683)
         time.sleep(2)
+        self.driver.find_id(soucred_id + 'tv_preview').click()
+        time.sleep(5)
         self.driver.find_xpath('完成').click()
         time.sleep(5)
-        self.driver.wait_not_id(soucred_id + 'rl_right')
+        self.driver.wait_xpath('保存')
         time.sleep(2)
         self.driver.find_xpath('保存').click()
-        time.sleep(2)
+        self.driver.wait_xpath('下一步')
         self.driver.find_id(soucred_id + 'preview').click()
         self.driver.wait_id(soucred_id + 'preview')
         time.sleep(2)
@@ -1498,7 +1473,7 @@ class Test_f_shenman(Dubbing):
             self.driver.wait_id(soucred_id + 'userhead')
             self.driver.Background()
             time.sleep(2)
-            self.driver.find_id(soucred_id + 'gift').click()
+            self.driver.find_id(soucred_id + 'tv_good').click()
             time.sleep(2)
             self.driver.find_id(soucred_id + 'setting').click()
             time.sleep(2)

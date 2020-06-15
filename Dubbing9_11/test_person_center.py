@@ -542,8 +542,6 @@ class Test_c_Person_works(Dubbing):
             raise ('发送邀请后未检测到toast提示')
         time.sleep(2)
 
-
-
     #求合作-私密（公开）
     def test_e(self):
         el = self.driver.find_id(sourced_id + 'item_sh_cooperate_article_image')
@@ -588,7 +586,6 @@ class Test_c_Person_works(Dubbing):
         except:
             pass
         time.sleep(2)
-
 
     #素材-视频预览
     def test_g(self):
@@ -654,6 +651,26 @@ class Test_c_Person_works(Dubbing):
     #更多-点赞
     def test_i(self):
         self.driver.find_id(sourced_id + 'more_text').click()
+        time.sleep(2)
+        self.driver.wait_id(sourced_id + 'filmBg')
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'filmBg').click()
+        self.driver.wait_id(sourced_id + 'tv_video_detail_title')
+        self.driver.Background()
+        time.sleep(2)
+        while True:
+            self.driver.find_id(sourced_id + 'tv_good').click()
+            #点赞动画
+            try:
+                self.driver.wait_id(sourced_id + 'svgaImageView')
+                break
+            except:
+                pass
+        good1 = self.driver.find_id(sourced_id + 'tv_good').text
+        self.driver.find_id(sourced_id + 'tv_good').click()
+        time.sleep(1)
+        good2 = self.driver.find_id(sourced_id +'tv_good').text
+        self.assertNotEqual(good1,good2)
         time.sleep(2)
 
     # 更多-转发

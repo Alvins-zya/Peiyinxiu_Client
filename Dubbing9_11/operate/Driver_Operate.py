@@ -97,7 +97,7 @@ class BaseOperate():
         '''
         根据提供的x、y坐标进行坐标滑动
         '''
-        self.driver.swipe(int(start_x),int(start_y),int(end_x),int(end_y),duration=1000)
+        self.driver.swipe(int(start_x),int(start_y),int(end_x),int(end_y),duration=1500)
 
     def Long_Touche(self,El,time):
         '''
@@ -110,6 +110,13 @@ class BaseOperate():
         长按控件后移动
         '''
         TouchAction(self.driver).press(el).wait(2000).move_to(x=int(pointx),y=int(pointy)).wait(2000).release().perform()
+
+    def press_move(self,start_x,start_y,end_x,end_y):
+        '''
+        点击坐标移动到另一个坐标
+        :return:
+        '''
+        TouchAction(self.driver).press(x=start_x, y=start_y).move_to(x=end_x, y=end_y).release().perform()
 
     def tap(self,X,Y):
         '''
