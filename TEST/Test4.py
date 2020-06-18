@@ -6,13 +6,9 @@
 # stdout,stderr = p.communicate()
 from collections import Counter
 def  test():
-    # 引入Counter
-    a= 3
-
-    if a == 1  or a == 2:
-        print(a)
-    else:
-        print('2222')
+    peoples = [30, 60, 300, 500, 1000, 10000]
+    P = 3
+    assert P in peoples
 
 
 if __name__=="__main__":

@@ -1349,13 +1349,13 @@ class Test_k_Upload(Dubbing):
     def test_a(self):
         self.driver.find_id(soucred_id + 'uploadbtn').click()
         time.sleep(2)
-        self.driver.wait_id(soucred_id + 'down')
+        self.driver.wait_id(soucred_id + 'wx')
         time.sleep(2)
 
     #上传成功后点击查看视频详情
     def test_c(self):
         try:
-            self.driver.find_id(soucred_id + 'down')
+            self.driver.find_id(soucred_id + 'wx')
             #点击查看视频详情
             self.driver.find_id(soucred_id + 'img_url').click()
             self.driver.wait_id(soucred_id + 'btnBack')
@@ -1369,8 +1369,11 @@ class Test_k_Upload(Dubbing):
     #上传成功后下载视频到本地
     def test_d(self):
         try:
-            self.driver.find_id(soucred_id + 'down')
+            self.driver.find_id(soucred_id + 'wx')
             #视频下载
+            if self.y == 1920:
+                self.driver.swip_move(self.x * 0.922, self.y * 0.232, self.x * 0.57, self.y * 0.232)
+            time.sleep(2)
             self.driver.find_id(soucred_id + 'down').click()
             time.sleep(2)
             try:
@@ -1382,42 +1385,44 @@ class Test_k_Upload(Dubbing):
                 self.driver.wait_id(soucred_id + 'btnSubmit')
                 self.driver.find_id(soucred_id + 'btnSubmit').click()
             time.sleep(2)
+            if self.y == 1920:
+                self.driver.swip_move(self.x * 0.507, self.y * 0.24, self.x * 0.897, self.y * 0.24)
         except:
             print('视频上传失败，不执行视频下载用例')
+        time.sleep(2)
 
     #上传成功后视频站外分享
     def test_e(self):
         try:
-            self.driver.find_id(soucred_id + 'down')
+            self.driver.find_id(soucred_id + 'wx')
             #微信分享
             self.driver.find_id(soucred_id + 'wx').click()
             time.sleep(4)
             self.driver.wait_id('com.tencent.mm:id/ch')
             time.sleep(2)
             self.driver.find_id('com.tencent.mm:id/dn').click()
-            self.driver.wait_id(soucred_id + 'down')
+            self.driver.wait_id(soucred_id + 'wx')
             time.sleep(2)
+
             #朋友圈分享
             self.driver.find_id(soucred_id + 'wxf').click()
             self.driver.wait_id('com.tencent.mm:id/ch')
             time.sleep(2)
             self.driver.find_id('com.tencent.mm:id/dn').click()
-            self.driver.wait_id(soucred_id + 'down')
+            self.driver.wait_id(soucred_id + 'wx')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.swip_move(self.x*0.922,self.y *0.232,self.x *0.57,self.y *0.232)
-            elif  self.y > 2250:
-                pass
-            else:
-                pass
-            time.sleep(2)
+
             #QQ分享
             self.driver.find_id(soucred_id + 'qq').click()
             self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
             time.sleep(2)
             self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeftButton').click()
             time.sleep(2)
+
             #QQ空间分享
+            if self.y == 1920:
+                self.driver.swip_move(self.x * 0.922, self.y * 0.232, self.x * 0.57, self.y * 0.232)
+            time.sleep(2)
             self.driver.find_id(soucred_id + 'qqz').click()
             self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
             self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
@@ -1432,10 +1437,6 @@ class Test_k_Upload(Dubbing):
             time.sleep(2)
             if self.y == 1920:
                 self.driver.swip_move(self.x * 0.507,self.y*0.24,self.x*0.897,self.y *0.24)
-            elif self.y > 2250:
-                pass
-            else:
-                pass
             time.sleep(2)
         except:
             print('视频上传失败，不执行视频分享用例')
@@ -1443,7 +1444,7 @@ class Test_k_Upload(Dubbing):
     #上传成功进入视频详情删除视频
     def test_f(self):
         try:
-            self.driver.find_id(soucred_id + 'down')
+            self.driver.find_id(soucred_id + 'wx')
             self.driver.find_id(soucred_id + 'img_url').click()
             self.driver.wait_id(soucred_id + 'btnBack')
             self.driver.Background()
@@ -1457,7 +1458,7 @@ class Test_k_Upload(Dubbing):
             self.assertIn(check,tip,msg='作品删除提示内容校验不一致')
             time.sleep(2)
             self.driver.find_id(soucred_id + 'btnSubmit').click()
-            self.driver.wait_id(soucred_id + 'down')
+            self.driver.wait_id(soucred_id + 'wx')
             self.driver.find_id(soucred_id + 'img_url').click()
             toast_check = '作品已删除'
             try:
@@ -1467,7 +1468,10 @@ class Test_k_Upload(Dubbing):
                 pass
             time.sleep(2)
             #关闭上传结果
-            self.driver.find_id(soucred_id + 'close').click()
+            try:
+                self.driver.find_id(soucred_id + 'close')
+            except:
+                raise ('关注界面删除上传作品后未自动移除上传结果弹窗')
             time.sleep(2)
         except:
             print('视频上传失败，不执行视频删除用例')
@@ -1508,13 +1512,13 @@ class Test_k_Upload(Dubbing):
                self.driver.find_id(soucred_id + 'btnSubmit').click()
                time.sleep(2)
                try:
-                   self.driver.wait_id(soucred_id + 'down')
+                   self.driver.wait_id(soucred_id + 'wx')
                except:
                    raise ('修改标题后重新上传失败')
            elif reason_state2 == reason_state2:
                self.driver.find_id(soucred_id + 're_update').click()
                try:
-                   self.driver.wait_id(soucred_id + 'down')
+                   self.driver.wait_id(soucred_id + 'wx')
                except:
                    raise ('点击重新上传按钮后，作品依然上传失败')
            else:

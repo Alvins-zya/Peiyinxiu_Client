@@ -1,10 +1,10 @@
 import unittest
-import time
+import time,re
 import pytest
 from Dubbing9_11.Front import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
 
-class Test_a_Video_detial(Dubbing):
+class Test_a_Video_detail(Dubbing):
     # 点击进入视频详情
     def test_a(self):
         self.driver.find_id(soucred_id + 'film_img2').click()
@@ -14,13 +14,11 @@ class Test_a_Video_detial(Dubbing):
 
     # 点击用户头像进入个人空间
     def test_b(self):
-        heads = self.driver.find_ids(soucred_id + 'userhead')
-        for i in range(len(heads)):
-            self.driver.find_ids(soucred_id + 'userhead')[i].click()
-            self.driver.wait_id(soucred_id + 'fanscount')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btnBack').click()
-            time.sleep(4)
+        self.driver.find_id(soucred_id + 'userhead').click()
+        self.driver.wait_id(soucred_id + 'fanscount')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
     # 关注-发私信
     def test_c(self):
@@ -45,8 +43,6 @@ class Test_a_Video_detial(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x*0.5,self.y*0.859)
-        else:
-            pass
         self.driver.wait_id(soucred_id + 'followcount')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'follow_status').click()
@@ -84,18 +80,137 @@ class Test_a_Video_detial(Dubbing):
         video_name = self.driver.find_id(soucred_id + 'tv_video_detail_title').text
         play_count_inside =  self.driver.find_id(soucred_id + 'tv_video_play_num_in').text
         play_count_out = self.driver.find_id(soucred_id + 'tv_good').text
-        print('作品名称：',video_name,
-              '站内播放量:',play_count_inside,
-              '点赞量:',tv_video_play_num_out,)
+        # print('作品名称：',video_name,
+        #       '站内播放量:',play_count_inside,
+        #       '点赞量:',play_count_out)
         time.sleep(2)
 
+    #点赞
+    def test_f(self):
+        num = self.driver.find_id(soucred_id + 'tv_good').text
+        self.driver.find_id(soucred_id + 'tv_good').click()
+        self.driver.wait_id(soucred_id + 'svgaImageView')
+        num1 = self.driver.find_id(soucred_id + 'tv_good').text
+        try:
+            self.assertNotEqual(num,num1)
+        except Exception as e:
+            print(e)
+        time.sleep(2)
 
+    #曝光
+    def test_g(self):
+        tv_title = self.driver.find_id(soucred_id + 'tv_video_detail_title').text
+        self.driver.find_id(soucred_id + 'tv_exposure').click()
+        self.driver.wait_id(soucred_id + 'txtTitle')
+        time.sleep(2)
+        tv_title1 = self.driver.find_id(soucred_id + 'tv_source_title').text
+        try:
+            self.assertIn(tv_title1,tv_title)
+        except Exception as e:
+            print(e)
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'tv_preview').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'sure').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'img_right').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'price_tv').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'close_icon').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+        prices = self.driver.find_ids(soucred_id + 'rl')
+        peoples = ['30','60','300','500','1000','10000']
+        for i in range(len(prices)-1):
+            self.driver.find_ids(soucred_id + 'rl')[i].click()
+            people = self.driver.find_id(soucred_id + 'tv_personal_count').text
+            new = re.findall(r'(.*)人',people)
+            str_new = ''.join(new)
+            self.assertIn(str_new,peoples)
+            time.sleep(1)
+        time.sleep(2)
+        self.driver.find_ids(soucred_id + 'rl')[-1].click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'edit').send_keys('200')
+        time.sleep(1)
+        self.driver.find_id(soucred_id + 'sure').click()
+        time.sleep(2)
+        Peo_num = self.driver.find_id(soucred_id + 'tv_personal_count').text
+        new1 = re.findall(r'(.*)人', Peo_num)
+        str_new1 = ''.join(new1)
+        check1 = '20000'
+        self.assertIn(check1,str_new1)
+        time.sleep(2)
 
-class Test_b_Function(Dubbing):
+    #金币曝光
+    def test_g_a(self):
+        self.driver.find_id(soucred_id + 'rl').click()
+        golds = self.driver.find_id(soucred_id + 'tv_gold').text
+        if int(golds) >= 5000:
+            self.driver.find_id(soucred_id + 'gold_count').click()
+            self.driver.wait_id(soucred_id + 'tv_video_detail_title')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'tv_exposure').click()
+        else:
+            self.driver.find_id(soucred_id + 'gold_count').click()
+            gold_toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '金币余额不足'
+            self.assertIn(check,gold_toast)
+        time.sleep(2)
 
+    #会员曝光
+    def test_g_b(self):
+        try:
+            self.driver.find_id(soucred_id + 'free_count')
+            count = self.driver.find_id(soucred_id + 'free_count').text
+            if count == '当前剩余0次':
+                self.driver.find_id(soucred_id + 'free_count').click()
+                exp_toast = self.driver.wait_toast('//android.widget.Toast')
+                check = '曝光机会用完'
+                self.assertIn(check,exp_toast)
+                return None
+            self.driver.find_id(soucred_id + 'free_count').click()
+            self.driver.wait_id(soucred_id + 'tv_video_detail_title')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'tv_exposure').click()
+            time.sleep(2)
+        except Exception as e:
+            print(e)
+
+    #自定义钻石曝光
+    def test_g_c(self):
+        self.driver.find_ids(soucred_id + 'rl')[-1].click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'edit').send_keys('200')
+        time.sleep(1)
+        self.driver.find_id(soucred_id + 'sure').click()
+        time.sleep(2)
+        Peo_num = self.driver.find_id(soucred_id + 'tv_personal_count').text
+        new = re.findall(r'(.*)人', Peo_num)
+        str_new = ''.join(new)
+        check = '20000'
+        self.assertIn(check, str_new)
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'bottom').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        self.driver.wait_xpath('钻石余额不足')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'price_tv').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'close_icon').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'back').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
     # 视频评论
-    def test_a(self):
+    def test_h(self):
         while True:
             try:
                 self.driver.find_id(soucred_id + 'tv_hide')
@@ -123,7 +238,7 @@ class Test_b_Function(Dubbing):
         time.sleep(2)
 
     # 评论排序
-    def test_b(self):
+    def test_h_a(self):
         self.driver.find_id(soucred_id + 'tv_comment').click()
         self.driver.wait_id(soucred_id + 'item_comment_video_more')
         time.sleep(2)
@@ -146,7 +261,7 @@ class Test_b_Function(Dubbing):
             time.sleep(2)
 
     # 评论举报
-    def test_c(self):
+    def test_h_b(self):
         self.driver.find_id(soucred_id +'item_comment_video_more').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'tv_action_one').click()
@@ -179,7 +294,7 @@ class Test_b_Function(Dubbing):
         time.sleep(2)
 
     # 评论列表上滑加载
-    def test_d(self):
+    def test_h_c(self):
         for i in range(5):
             self.driver.swip_up()
             time.sleep(2)
@@ -188,14 +303,17 @@ class Test_b_Function(Dubbing):
         time.sleep(2)
 
     # 点击合作配音完成后保存草稿箱
-    def test_n(self):
+    def test_i(self):
         while True:
             try:
                 self.driver.find_xpath('配音/合作')
                 break
             except:
-                self.driver.swip_up()
+                self.driver.find_id(soucred_id + 'btnBack').click()
                 time.sleep(2)
+                self.driver.swip_down()
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'film_img2').click()
                 self.driver.Background()
             time.sleep(2)
         time.sleep(2)
@@ -211,36 +329,12 @@ class Test_b_Function(Dubbing):
                 except:
                     try:
                         self.driver.find_id(soucred_id + 'btnSubmit')
-                        tip = self.driver.find_id(soucred_id + 'txtTitle').text
-                        print(tip)
                         self.driver.find_id(soucred_id + 'btnSubmit').click()
                         break
                     except:
                         pass
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'action').click()
-            self.driver.wait_download(soucred_id + 'title')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'complete').click()
-            self.driver.wait_id(soucred_id + 'txtTitle')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'pri_switch_tv').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'saveToDraft').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btnSubmit').click()
-            self.driver.wait_id(soucred_id + 'userhead')
-            time.sleep(4)
         except Exception as e:
             print(e)
-        try:
-            self.driver.wait_download(soucred_id + 'action')
-        except:
-            self.driver.find_id(soucred_id + 'btnSubmit')
-            tip = self.driver.find_id(soucred_id + 'txtTitle').text
-            print(tip)
-            self.driver.find_id(soucred_id + 'btnSubmit').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'action').click()
         self.driver.wait_download(soucred_id + 'title')
@@ -259,7 +353,7 @@ class Test_b_Function(Dubbing):
         time.sleep(2)
 
     # 点击原声素材配音完成后保存草稿箱
-    def test_o(self):
+    def test_i_a(self):
         self.driver.find_id(soucred_id + 'tvSource').click()
         self.driver.wait_id(soucred_id + 'source_title')
         self.driver.Background()
@@ -302,10 +396,10 @@ class Test_b_Function(Dubbing):
         time.sleep(2)
 
     # 配音完成后保存草稿箱
-    def test_l(self):
+    def test_i_b(self):
         while True:
             try:
-                self.driver.find_xpath('原声素材')
+                self.driver.find_id(soucred_id + 'tvSource')
                 break
             except:
                 self.driver.find_id(soucred_id + 'btnBack').click()
@@ -317,71 +411,164 @@ class Test_b_Function(Dubbing):
                 self.driver.Background()
                 time.sleep(2)
         time.sleep(2)
-        self.driver.find_xpath('原声素材').click()
+        self.driver.find_id(soucred_id + 'tvSource').click()
         self.driver.wait_id(soucred_id + 'types_name')
         self.driver.Background()
         time.sleep(2)
 
-    def test_m(self):
-        try:
-            self.driver.find_id(soucred_id + 'yinpin')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btnBack').click()
-            time.sleep(2)
-            globals()["result"] = True
-            return globals()['result']
-        except:
-            globals()['result'] = False
-            return globals()['result']
-
-    @pytest.mark.skipif(test_m(self=None), u'结果为False时，判断是单配素材,不执行此条用例')
-    def test_n(self):
+    #素材预览界面配音
+    def test_i_d(self):
         self.driver.find_id(soucred_id + 'dubbing').click()
-        self.driver.wait_download(soucred_id + 'roleall')
-        self.driver.find_id(soucred_id + 'roleall').click()
+        while True:
+            try:
+                self.driver.find_id(soucred_id + 'action')
+                break
+            except:
+                try:
+                    self.driver.find_id(soucred_id + 'btnSubmit')
+                    self.driver.find_id(soucred_id + 'btnSubmit').click()
+                    try:
+                        self.driver.find_id(soucred_id + 'roleall')
+                        self.driver.find_id(soucred_id + 'roleall').click()
+                    except:
+                        pass
+                    break
+                except:
+                    try:
+                        self.driver.find_id(soucred_id + 'roleall')
+                        self.driver.find_id(soucred_id + 'roleall').click()
+                        break
+                    except:
+                        pass
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'action').click()
+            self.driver.wait_download(soucred_id + 'title')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'complete').click()
+            self.driver.wait_id(soucred_id + 'txtTitle')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'saveToDraft').click()
+            time.sleep(4)
+            try:
+                self.driver.find_xpath('退出配音')
+                self.driver.find_xpath('退出配音').click()
+            except:
+                pass
+            self.driver.wait_id(soucred_id + 'userhead')
+            time.sleep(2)
+
+    #作品分享
+    def test_j(self):
+        self.driver.find_id(soucred_id + 'tv_share').click()
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'action').click()
-        self.driver.wait_download(soucred_id + 'title')
-        self.driver.Background()
+        #朋友圈
+        if self.y ==1920:
+            self.driver.tap(self.x * 0.12, self.y * 0.68)
+        self.driver.wait_xpath('发表')
+        self.driver.find_id('com.tencent.mm:id/dn').click()
+        time.sleep(3)
+        #QQ空间
+        self.driver.find_id(soucred_id + 'tv_share').click()
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'complete').click()
-        self.driver.wait_id(soucred_id + 'txtTitle')
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.49, self.y * 0.68)
+        self.driver.wait_xpath('发表')
+        self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
+        time.sleep(3)
+
+        #点击新浪
+        self.driver.find_id(soucred_id + 'tv_share').click()
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.68, self.y * 0.68)
+        self.driver.wait_xpath('发送')
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'saveToDraft').click()
-        time.sleep(4)
+        self.driver.find_id('om.sina.weibo:id/titleBack').click()
+        time.sleep(2)
         try:
-            self.driver.find_xpath('退出配音')
-            self.driver.find_xpath('退出配音').click()
+            self.driver.find_xpath('不保存')
+            self.driver.find_xpath('不保存').click()
         except:
             pass
-        self.driver.wait_id(soucred_id + 'userhead')
         time.sleep(2)
 
-    @unittest.skipIf(test_m(self=None), u'结果为True时，判断是双人素材，不执行此条用例')
-    def test_o(self):
-        self.driver.find_id(soucred_id + 'dubbing_fake').click()
-        self.driver.wait_download(soucred_id + 'action')
+        #点击私信
+        self.driver.find_id(soucred_id + 'tv_share').click()
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'action').click()
-        self.driver.wait_download(soucred_id + 'title')
-        self.driver.Background()
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.12, self.y * 0.83)
+        self.driver.wait_id(soucred_id + 'filter_edit')
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'complete').click()
-        self.driver.wait_id(soucred_id + 'txtTitle')
+        self.driver.find_id(soucred_id + 'filter_edit').click()
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+        self.driver.find_id(soucred_id + 'filter_edit').send_keys("15697802")
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'saveToDraft').click()
-        time.sleep(4)
-        self.driver.wait_id(soucred_id + 'btnSubmit')
-        self.driver.find_id(soucred_id + 'btnSubmit').click()
-        self.driver.wait_id(soucred_id + 'userhead')
+        self.driver.find_id(soucred_id + 'btnSearch').click()
+        try:
+            self.driver.wait_id(soucred_id + 'userhead')
+            name = self.driver.find_id(soucred_id + 'name').text
+            print(name)
+            name2 = "米爱"
+            if name == name2:
+                self.driver.find_id(soucred_id + 'name').click()
+                self.driver.wait_id(soucred_id + 'btnRight')
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'btnBack').click()
+                time.sleep(2)
+            else:
+                print("未搜索到指定用户")
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'btnBack').click()
+        except(TimeoutException, NoSuchElementException):
+            self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+
+        #点击复制链接
+        self.driver.find_id(soucred_id + 'tv_share').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.31, self.y * 0.83)
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+        except(TimeoutException, NoSuchElementException):
+            try:
+                self.driver.wait_id(soucred_id + 'txtContent')
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'btnSubmit').click()
+            except:
+                pass
+        time.sleep(2)
+
+        #点击转发
+        self.driver.find_id(soucred_id + 'tv_share').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.88, self.y * 0.83)
+        time.sleep(2)
+        try:
+            self.driver.find_id(soucred_id + 'reprint')
+            self.driver.find_id(soucred_id + 'content').send_keys("不错，转发了！")
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'reprint').click()
+            try:
+                self.driver.wait_toast('//android.widget.Toast')
+            except(TimeoutException, NoSuchElementException):
+                try:
+                    self.driver.find_id(soucred_id + 'reprint')
+                    self.driver.find_id(soucred_id + 'reprint').click()
+                    self.driver.wait_toast('//android.widget.Toast')
+                except Exception as  e:
+                    print(e)
+        except(NoSuchElementException, TimeoutException):
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5,self.y * 0.937)
         time.sleep(2)
 
     # 切换视频
-    def test_p(self):
+    def test_k(self):
         for i in range(10):
             self.driver.swip_up()
             self.driver.wait_id(soucred_id + 'userhead')
