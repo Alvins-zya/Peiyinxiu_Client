@@ -172,10 +172,17 @@ class Test_a_Video_detail(Dubbing):
                 self.assertIn(check,exp_toast)
                 return None
             self.driver.find_id(soucred_id + 'free_count').click()
-            self.driver.wait_id(soucred_id + 'tv_video_detail_title')
             time.sleep(2)
-            self.driver.find_id(soucred_id + 'tv_exposure').click()
-            time.sleep(2)
+            try:
+                self.driver.find_xpath('会员中心')
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'btnBack').click()
+                time.sleep(2)
+            except:
+                self.driver.wait_id(soucred_id + 'tv_video_detail_title')
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'tv_exposure').click()
+                time.sleep(2)
         except Exception as e:
             print(e)
 
@@ -239,26 +246,31 @@ class Test_a_Video_detail(Dubbing):
 
     # 评论排序
     def test_h_a(self):
-        self.driver.find_id(soucred_id + 'tv_comment').click()
-        self.driver.wait_id(soucred_id + 'item_comment_video_more')
+        comments = self.driver.find_id(soucred_id + 'comment_count').text
+        num = re.findall(r'共(.*)条评论')
+        str_num = ''.join(num)
+        if str_num != '1':
+            self.driver.find_id(soucred_id + 'tv_comment').click()
+            self.driver.wait_id(soucred_id + 'item_comment_video_more')
+            time.sleep(2)
+            try:
+                self.driver.find_xpath('以上为置顶评论')
+                Comment = self.driver.find_ids(soucred_id + 'item_video_common_time')[1].text
+                time.sleep(1)
+                self.driver.find_id(soucred_id + 'shunxu').click()
+                time.sleep(2)
+                Comment1 = self.driver.find_ids(soucred_id + 'item_video_common_time')[1].text
+                self.assertNotEqual(Comment, Comment1, msg='评论切换顺序后评论内容校验错误')
+                time.sleep(2)
+            except:
+                Comment = self.driver.find_id(soucred_id + 'item_video_common_time').text
+                time.sleep(1)
+                self.driver.find_id(soucred_id + 'shunxu').click()
+                time.sleep(2)
+                Comment1 = self.driver.find_id(soucred_id + 'item_video_common_time').text
+                self.assertNotEqual(Comment,Comment1,msg='评论切换顺序后评论时间校验错误')
+                time.sleep(2)
         time.sleep(2)
-        try:
-            self.driver.find_xpath('以上为置顶评论')
-            Comment = self.driver.find_ids(soucred_id + 'item_video_common_time')[1].text
-            time.sleep(1)
-            self.driver.find_id(soucred_id + 'shunxu').click()
-            time.sleep(2)
-            Comment1 = self.driver.find_ids(soucred_id + 'item_video_common_time')[1].text
-            self.assertNotEqual(Comment, Comment1, msg='评论切换顺序后评论内容校验错误')
-            time.sleep(2)
-        except:
-            Comment = self.driver.find_id(soucred_id + 'item_video_common_time').text
-            time.sleep(1)
-            self.driver.find_id(soucred_id + 'shunxu').click()
-            time.sleep(2)
-            Comment1 = self.driver.find_id(soucred_id + 'item_video_common_time').text
-            self.assertNotEqual(Comment,Comment1,msg='评论切换顺序后评论时间校验错误')
-            time.sleep(2)
 
     # 评论举报
     def test_h_b(self):
@@ -333,24 +345,32 @@ class Test_a_Video_detail(Dubbing):
                         break
                     except:
                         pass
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'action').click()
+            self.driver.wait_download(soucred_id + 'title')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'complete').click()
+            self.driver.wait_id(soucred_id + 'txtTitle')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'saveToDraft').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnSubmit').click()
+            self.driver.wait_id(soucred_id + 'coor')
+            self.driver.find_id(soucred_id + 'close').click()
+            time.sleep(2)
         except Exception as e:
             print(e)
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'action').click()
-        self.driver.wait_download(soucred_id + 'title')
-        self.driver.Background()
+        try:
+            self.driver.find_id(soucred_id + 'close')
+            self.driver.find_id(soucred_id + 'close').click()
+        except:
+            pass
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'complete').click()
-        self.driver.wait_id(soucred_id + 'txtTitle')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'pri_switch_tv').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'saveToDraft').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnSubmit').click()
-        self.driver.wait_id(soucred_id + 'coor')
-        self.driver.find_id(soucred_id + 'close').click()
-        time.sleep(2)
+
 
     # 点击原声素材配音完成后保存草稿箱
     def test_i_a(self):

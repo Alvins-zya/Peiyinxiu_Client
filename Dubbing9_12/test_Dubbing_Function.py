@@ -1529,7 +1529,4 @@ class Test_k_Upload(Dubbing):
 
 
 if __name__ == "__main__":
-    # suite1 = unittest.TestLoader().loadTestsFromTestCase(Test_k_Upload)
-    # suite = unittest.TestSuite([suite1])
-    # unittest.TextTestRunner(verbosity=2).run(suite)
     unittest.main()
