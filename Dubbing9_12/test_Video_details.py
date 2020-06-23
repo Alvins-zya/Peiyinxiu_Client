@@ -18,7 +18,7 @@ class Test_a_Video_detail(Dubbing):
         self.driver.wait_id(soucred_id + 'fanscount')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
-        time.sleep(2)
+        time.sleep(4)
 
     # 关注-发私信
     def test_c(self):
@@ -36,21 +36,30 @@ class Test_a_Video_detail(Dubbing):
             except:
                 pass
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'follow_ta').click()
-        self.driver.wait_id(soucred_id + 'right_icon1')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'right_icon1').click()
-        time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x*0.5,self.y*0.859)
-        self.driver.wait_id(soucred_id + 'followcount')
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'follow_status').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnBack').click()
-        time.sleep(2)
-        self.driver.find_id(soucred_id + 'btnBack').click()
-        time.sleep(2)
+        #原创作品不做私信跳转
+        try:
+            self.driver.find_id(soucred_id + 'tv_dubbing')
+            time.sleep(1)
+            self.driver.find_id(soucred_id + 'follow_ta').click()
+            time.sleep(2)
+            self.driver.wait_id(soucred_id + 'right_icon1')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'right_icon1').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.tap(self.x*0.5,self.y*0.859)
+            self.driver.wait_id(soucred_id + 'followcount')
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'follow_status').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(soucred_id + 'btnBack').click()
+            time.sleep(2)
+        except Exception as e:
+            print(e)
+
+
 
     # 视频-弹幕开关
     def test_d(self):
@@ -122,7 +131,7 @@ class Test_a_Video_detail(Dubbing):
         self.driver.find_id(soucred_id + 'back').click()
         time.sleep(2)
         prices = self.driver.find_ids(soucred_id + 'rl')
-        peoples = ['30','60','300','500','1000','10000']
+        peoples = ['30','60','300','500','1000','5000','10000','30000']
         for i in range(len(prices)-1):
             self.driver.find_ids(soucred_id + 'rl')[i].click()
             people = self.driver.find_id(soucred_id + 'tv_personal_count').text
@@ -247,10 +256,13 @@ class Test_a_Video_detail(Dubbing):
     # 评论排序
     def test_h_a(self):
         comments = self.driver.find_id(soucred_id + 'comment_count').text
-        num = re.findall(r'共(.*)条评论')
+        num = re.findall(r'共(.*)条评论',comments)
         str_num = ''.join(num)
         if str_num != '1':
             self.driver.find_id(soucred_id + 'tv_comment').click()
+            time.sleep(2)
+            self.driver.back()
+            time.sleep(2)
             self.driver.wait_id(soucred_id + 'item_comment_video_more')
             time.sleep(2)
             try:
@@ -413,7 +425,7 @@ class Test_a_Video_detail(Dubbing):
         self.driver.wait_id(soucred_id + 'userhead')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
-        time.sleep(2)
+        time.sleep(4)
 
     # 配音完成后保存草稿箱
     def test_i_b(self):
@@ -438,7 +450,7 @@ class Test_a_Video_detail(Dubbing):
 
     #素材预览界面配音
     def test_i_d(self):
-        self.driver.find_id(soucred_id + 'dubbing').click()
+        self.driver.find_id(soucred_id + 'dubbing_fake').click()
         while True:
             try:
                 self.driver.find_id(soucred_id + 'action')
@@ -460,25 +472,30 @@ class Test_a_Video_detail(Dubbing):
                         break
                     except:
                         pass
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'action').click()
-            self.driver.wait_download(soucred_id + 'title')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'complete').click()
-            self.driver.wait_id(soucred_id + 'txtTitle')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'pri_switch_tv').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'saveToDraft').click()
-            time.sleep(4)
-            try:
-                self.driver.find_xpath('退出配音')
-                self.driver.find_xpath('退出配音').click()
-            except:
-                pass
-            self.driver.wait_id(soucred_id + 'userhead')
-            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'action').click()
+        self.driver.wait_download(soucred_id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'complete').click()
+        self.driver.wait_id(soucred_id + 'txtTitle')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'pri_switch_tv').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'saveToDraft').click()
+        time.sleep(4)
+        self.driver.find_id(soucred_id + 'btnSubmit').click()
+        time.sleep(2)
+        self.driver.wait_id(soucred_id + 'btnCancel')
+        try:
+            self.driver.find_xpath('退出配音')
+            self.driver.find_xpath('退出配音').click()
+        except:
+            pass
+        self.driver.wait_id(soucred_id + 'userhead')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
     #作品分享
     def test_j(self):
@@ -506,7 +523,7 @@ class Test_a_Video_detail(Dubbing):
             self.driver.tap(self.x * 0.68, self.y * 0.68)
         self.driver.wait_xpath('发送')
         time.sleep(2)
-        self.driver.find_id('om.sina.weibo:id/titleBack').click()
+        self.driver.find_id('com.sina.weibo:id/titleBack').click()
         time.sleep(2)
         try:
             self.driver.find_xpath('不保存')
