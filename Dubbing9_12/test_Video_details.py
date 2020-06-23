@@ -59,8 +59,6 @@ class Test_a_Video_detail(Dubbing):
         except Exception as e:
             print(e)
 
-
-
     # 视频-弹幕开关
     def test_d(self):
         self.driver.find_id(soucred_id + 'media_danmu_img').click()
@@ -261,8 +259,9 @@ class Test_a_Video_detail(Dubbing):
         if str_num != '1':
             self.driver.find_id(soucred_id + 'tv_comment').click()
             time.sleep(2)
-            self.driver.back()
+            self.driver.find_id(soucred_id + 'editContent').send_keys('暖一个！')
             time.sleep(2)
+            self.driver.find_id(soucred_id + 'btn_send').click()
             self.driver.wait_id(soucred_id + 'item_comment_video_more')
             time.sleep(2)
             try:
@@ -382,7 +381,6 @@ class Test_a_Video_detail(Dubbing):
         except:
             pass
         time.sleep(2)
-
 
     # 点击原声素材配音完成后保存草稿箱
     def test_i_a(self):
@@ -547,11 +545,10 @@ class Test_a_Video_detail(Dubbing):
         try:
             self.driver.wait_id(soucred_id + 'userhead')
             name = self.driver.find_id(soucred_id + 'name').text
-            print(name)
-            name2 = "米爱"
+            name2 = '米爱'
             if name == name2:
                 self.driver.find_id(soucred_id + 'name').click()
-                self.driver.wait_id(soucred_id + 'btnRight')
+                self.driver.wait_id(soucred_id + 'right_icon1')
                 time.sleep(2)
                 self.driver.find_id(soucred_id + 'btnBack').click()
                 time.sleep(2)
@@ -563,14 +560,14 @@ class Test_a_Video_detail(Dubbing):
             self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-        #点击复制链接
+        # 点击复制链接
         self.driver.find_id(soucred_id + 'tv_share').click()
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.31, self.y * 0.83)
         try:
             self.driver.wait_toast('//android.widget.Toast')
-        except(TimeoutException, NoSuchElementException):
+        except:
             try:
                 self.driver.wait_id(soucred_id + 'txtContent')
                 time.sleep(2)
@@ -592,14 +589,14 @@ class Test_a_Video_detail(Dubbing):
             self.driver.find_id(soucred_id + 'reprint').click()
             try:
                 self.driver.wait_toast('//android.widget.Toast')
-            except(TimeoutException, NoSuchElementException):
+            except:
                 try:
                     self.driver.find_id(soucred_id + 'reprint')
                     self.driver.find_id(soucred_id + 'reprint').click()
                     self.driver.wait_toast('//android.widget.Toast')
                 except Exception as  e:
                     print(e)
-        except(NoSuchElementException, TimeoutException):
+        except:
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5,self.y * 0.937)
         time.sleep(2)
