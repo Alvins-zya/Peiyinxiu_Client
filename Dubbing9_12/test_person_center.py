@@ -498,7 +498,6 @@ class Test_c_Person_works(Dubbing):
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         time.sleep(4)
 
-
     #个人空间-求合作
     def test_c(self):
         self.driver.find_id(sourced_id + 'coor_text').click()

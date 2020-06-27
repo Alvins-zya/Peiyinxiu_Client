@@ -47,7 +47,10 @@ class Test_a_Channel(Dubbing):
             time.sleep(1)
             self.driver.find_id(soucred_id + 'btnBack').click()
             time.sleep(2)
-
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+    @unittest.skip('9.13版本移除频道搜索')
     #更多频道-搜索频道
     def test_c(self):
         self.driver.find_xpath('更多频道').click()
@@ -75,7 +78,7 @@ class Test_a_Channel(Dubbing):
         #退出标签搜索
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
-
+    @unittest.skip('9.13版本移除热门频道列表')
     #热门频道
     def test_d(self):
         title  = self.driver.find_id(soucred_id + 'tv2').text
@@ -145,11 +148,6 @@ class Test_b_Near(Dubbing):
             self.driver.find_id(soucred_id + 'channel1')
         except:
             raise ('当前列表界面作品未显示频道标签')
-        time.sleep(2)
-        try:
-            self.driver.find_id(soucred_id + 'look')
-        except:
-            raise ('当前列表界面作品未显示播放量')
         time.sleep(2)
         distance = self.driver.find_ids(soucred_id + 'distance')
         count = self.driver.find_ids(soucred_id + 'userHead')
@@ -243,7 +241,7 @@ class Test_c_exposure(Dubbing):
                 self.driver.swip_up()
                 time.sleep(2)
         time.sleep(2)
-        self.driver.find_id(soucred_id + 'comment').click()
+        self.driver.find_id(soucred_id + 'tv_comment').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'editContent').send_keys('^.^')
         time.sleep(2)
@@ -262,13 +260,9 @@ class Test_c_exposure(Dubbing):
         progress_after = self.driver.find_id(soucred_id + 'progress_bar').text
         if progress_after == progress_before:
             value = '100.0'
-            if progress_after ==value:
-                pass
-            else:
+            if progress_after !=value:
                 raise ('曝光评论进度显示错误')
         elif progress_after > progress_before:
-            pass
-        else:
             pass
         time.sleep(2)
 
@@ -341,13 +335,13 @@ class Test_d_Rank(Dubbing):
                 time.sleep(2)
         time.sleep(2)
 
-    #富豪榜-列表加载
+    #获赞榜-列表加载
     def test_b(self):
         self.driver.find_id(soucred_id + 'tv_rich_rank').click()
         while True:
             time.sleep(2)
             try:
-                self.driver.wait_id(soucred_id + 'username1')
+                self.driver.wait_id(soucred_id + 'userHead1')
                 break
             except:
                 self.driver.find_id(soucred_id + 'btnBack').click()
@@ -355,28 +349,28 @@ class Test_d_Rank(Dubbing):
                 self.driver.find_id(soucred_id + 'tv_rich_rank').click()
         time.sleep(2)
 
-    #富豪榜-金额排序检查
+    #获赞榜-点赞数排序检查
     def test_c(self):
         count = self.driver.find_ids(soucred_id + 'desc')
         list = []
         for i in range(len(count)):
             limit = self.driver.find_ids(soucred_id + 'desc')[i].text
-            Screening = re.findall(r'消费(.*)万金币', limit)
-            str_Screening = ''.join(Screening)
-            int_num = int(float(str_Screening))
+            goods = re.findall(r'获赞(.*)', limit)
+            str_good_count = ''.join(goods)
+            int_num = int(str_good_count)
             list.append(int_num)
             time.sleep(1)
         list_set = sorted(list, reverse=True)
-        self.assertEqual(list, list_set, msg='富豪榜榜单金额排序验证错误')
+        self.assertEqual(list, list_set, msg='获赞榜点赞排序验证错误')
         time.sleep(2)
 
-    #富豪榜-用户信息
+    #获赞榜-用户信息
     def test_d(self):
         No1_name = self.driver.find_id(soucred_id + 'username1').text
         self.driver.find_id(soucred_id + 'userHead1').click()
         self.driver.wait_id(soucred_id + 'll_follow')
         No1_zoom_name = self.driver.find_id(soucred_id + 'username').text
-        self.assertEqual(No1_name,No1_zoom_name,msg='富豪榜第一用户名称与空间中的用户名称校验不一致')
+        self.assertEqual(No1_name,No1_zoom_name,msg='获赞榜第一用户名称与空间中的用户名称校验不一致')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
@@ -384,7 +378,7 @@ class Test_d_Rank(Dubbing):
             self.driver.swip_up()
             time.sleep(2)
 
-    #富豪榜-周榜，月榜查看
+    #获赞榜-周榜，月榜查看
     def test_e(self):
         self.driver.find_id(soucred_id + 'rl_tag2').click()
         time.sleep(2)
@@ -392,7 +386,7 @@ class Test_d_Rank(Dubbing):
         self.driver.find_id(soucred_id + 'userHead1').click()
         self.driver.wait_id(soucred_id + 'll_follow')
         No1_zoom_name = self.driver.find_id(soucred_id + 'username').text
-        self.assertEqual(No1_name, No1_zoom_name, msg='富豪榜第一用户名称与空间中的用户名称校验不一致')
+        self.assertEqual(No1_name, No1_zoom_name, msg='获赞榜第一用户名称与空间中的用户名称校验不一致')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
@@ -403,13 +397,13 @@ class Test_d_Rank(Dubbing):
         list = []
         for i in range(len(count)):
             limit = self.driver.find_ids(soucred_id + 'desc')[i].text
-            Screening = re.findall(r'消费(.*)万金币', limit)
-            str_Screening = ''.join(Screening)
-            int_num = int(float(str_Screening))
+            Screening = re.findall(r'获赞(.*)', limit)
+            str_goods = ''.join(Screening)
+            int_num = int(str_goods)
             list.append(int_num)
             time.sleep(1)
         list_set = sorted(list, reverse=True)
-        self.assertEqual(list, list_set, msg='富豪榜榜单金额排序验证错误')
+        self.assertEqual(list, list_set, msg='获赞榜榜单点赞排序验证错误')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'rl_tag3').click()
         time.sleep(2)
@@ -417,7 +411,7 @@ class Test_d_Rank(Dubbing):
         self.driver.find_id(soucred_id + 'userHead1').click()
         self.driver.wait_id(soucred_id + 'll_follow')
         No1_zoom_name = self.driver.find_id(soucred_id + 'username').text
-        self.assertEqual(No1_name, No1_zoom_name, msg='富豪榜第一用户名称与空间中的用户名称校验不一致')
+        self.assertEqual(No1_name, No1_zoom_name, msg='获赞榜第一用户名称与空间中的用户名称校验不一致')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
@@ -428,13 +422,13 @@ class Test_d_Rank(Dubbing):
         list = []
         for i in range(len(count)):
             limit = self.driver.find_ids(soucred_id + 'desc')[i].text
-            Screening = re.findall(r'消费(.*)万金币', limit)
+            Screening = re.findall(r'获赞(.*)', limit)
             str_Screening = ''.join(Screening)
             int_num = int(float(str_Screening))
             list.append(int_num)
             time.sleep(1)
         list_set = sorted(list, reverse=True)
-        self.assertEqual(list, list_set, msg='富豪榜榜单金额排序验证错误')
+        self.assertEqual(list, list_set, msg='获赞榜榜单点赞排序验证错误')
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
@@ -583,7 +577,7 @@ class Test_d_Rank(Dubbing):
         time.sleep(2)
         No1_name = self.driver.find_id(soucred_id + 'username1').text
         self.driver.find_id(soucred_id + 'userHead1').click()
-        self.driver.wait_id(soucred_id + 'll_follow')
+        self.driver.wait_id(soucred_id + 'll_fan')
         No1_zoom_name = self.driver.find_id(soucred_id + 'username').text
         self.assertEqual(No1_name, No1_zoom_name, msg='社团榜第一用户名称与空间中的用户名校验不一致')
         time.sleep(2)

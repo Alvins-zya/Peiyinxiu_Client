@@ -344,7 +344,9 @@ class Test_d_script(Dubbing):
         while True:
             self.driver.find_id(soucred_id + 'edit_subtitle').click()
             time.sleep(2)
-            self.driver.find_id(soucred_id + 'content_editor').clear()
+            Subtitles = self.driver.find_ids(soucred_id + 'content_editor')
+            for i in range(len(Subtitles)):
+                self.driver.find_ids(soucred_id + 'content_editor')[i].clear()
             time.sleep(2)
             self.driver.find_id(soucred_id + 'complete').click()
             try:
@@ -1358,7 +1360,7 @@ class Test_k_Upload(Dubbing):
             self.driver.find_id(soucred_id + 'wx')
             #点击查看视频详情
             self.driver.find_id(soucred_id + 'img_url').click()
-            self.driver.wait_id(soucred_id + 'btnBack')
+            self.driver.wait_id(soucred_id + 'tv_video_detail_title')
             self.driver.Background()
             time.sleep(2)
             self.driver.find_id(soucred_id + 'btnBack').click()
@@ -1438,8 +1440,8 @@ class Test_k_Upload(Dubbing):
             if self.y == 1920:
                 self.driver.swip_move(self.x * 0.507,self.y*0.24,self.x*0.897,self.y *0.24)
             time.sleep(2)
-        except:
-            print('视频上传失败，不执行视频分享用例')
+        except Exception as  e:
+            print(e)
 
     #上传成功进入视频详情删除视频
     def test_f(self):
@@ -1458,23 +1460,9 @@ class Test_k_Upload(Dubbing):
             self.assertIn(check,tip,msg='作品删除提示内容校验不一致')
             time.sleep(2)
             self.driver.find_id(soucred_id + 'btnSubmit').click()
-            self.driver.wait_id(soucred_id + 'wx')
-            self.driver.find_id(soucred_id + 'img_url').click()
-            toast_check = '作品已删除'
-            try:
-                toast = self.driver.find_id('//android.widget.Toast')
-                self.assertEqual(toast, toast_check, msg='作品删除后再点击提示文案校验失败')
-            except:
-                pass
             time.sleep(2)
-            #关闭上传结果
-            try:
-                self.driver.find_id(soucred_id + 'close')
-            except:
-                raise ('关注界面删除上传作品后未自动移除上传结果弹窗')
-            time.sleep(2)
-        except:
-            print('视频上传失败，不执行视频删除用例')
+        except Exception as e:
+            print(e)
 
     #上传失败保存草稿箱
     def test_f_a(self):
@@ -1486,8 +1474,8 @@ class Test_k_Upload(Dubbing):
             self.driver.wait_id(soucred_id + 'btnSubmit')
             self.driver.find_id(soucred_id + 'btnSubmit').click()
             time.sleep(2)
-        except:
-            print('作品上传成功，不执行失败检测用例')
+        except Exception as e:
+            print(e)
 
     # 上传失败查看失败原因
     def test_g(self):
@@ -1524,8 +1512,8 @@ class Test_k_Upload(Dubbing):
            else:
                raise ('未知错误')
            time.sleep(2)
-        except:
-            print('作品上传成功，不执行失败检测用例')
+        except Exception as  e:
+           print(e)
 
 
 if __name__ == "__main__":

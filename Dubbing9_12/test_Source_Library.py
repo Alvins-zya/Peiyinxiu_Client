@@ -111,11 +111,14 @@ class Test_a_Source_search(Dubbing):
         for i in range(len(label_touche)-1,-1,-1):
             self.driver.find_ids(soucred_id + 'types_name')[i].click()
             self.driver.wait_id(soucred_id + 'iv_source')
-            self.driver.find_id(soucred_id + 'iv_source').click()
-            self.driver.wait_id(soucred_id + 'userhead')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btnBack').click()
-            time.sleep(2)
+            try:
+                self.driver.find_id(soucred_id + 'iv_source').click()
+                self.driver.wait_id(soucred_id + 'userhead')
+                time.sleep(2)
+                self.driver.find_id(soucred_id + 'btnBack').click()
+                time.sleep(2)
+            except:
+                pass
         time.sleep(2)
         #上滑加载素材列表
         for i in range(10):
