@@ -1,54 +1,92 @@
+# -*- coding: utf-8 -*-
+# @Time    : 2019/11/17 20:08
+# @Author  : dailinqing
+# @Email   : dailinqing@126.com
+# @File    : print_to_ui.py
+# @Software: PyCharm
+
 import sys
-from PySide2.QtWidgets import QApplication, QPushButton
-from PySide2.QtCore import Slot,QObject,Signal
-from PySide2.QtWidgets import QApplication, QMessageBox
-from PySide2.QtUiTools import QUiLoader
-from PySide2.QtCore import QFile
-from PySide2 import QtCore,QtGui
-import PySide2.QtWidgets
-import os
-import subprocess
-import threading
-import re
 import time
-import sys
-class Ui_Main(QObject):
-    # 定义你的信号
-    output_str = QtCore.Signal(str)
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QApplication, QTextEdit
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import QThread, QTimer
+
+
+class Stream(QtCore.QObject):
+    """Redirects console output to text widget."""
+    newText = QtCore.pyqtSignal(str)
+
+    def write(self, text):
+        self.newText.emit(str(text))
+
+
+class QMyWindow(QMainWindow):
+    """Main application window."""
+
     def __init__(self):
-        super(Ui_Main, self).__init__()
-        # 从文件中加载UI定义
-        qfile = QFile('Test.ui')
-        qfile.open(QFile.ReadOnly)
-        qfile.close()
+        super().__init__()
 
-        # 从 UI 定义中动态 创建一个相应的窗口对象
-        # 注意：里面的控件对象也成为窗口对象的属性了
-        # 比如 self.ui.button , self.ui.textEdit
-        self.ui = QUiLoader().load(qfile)
-        self.ui.pushButton.clicked.connect(self.start_thread)
+        self.initUI()
+        # 注掉这句就可以打印到控制台，方便调试
+        sys.stdout = Stream(newText=self.onUpdateText)
+        # 初始化一个定时器
+        self.timer = QTimer(self)
+        # 将定时器超时信号与槽函数showTime()连接
+        self.timer.timeout.connect(self.fun)
+        self.num = 0
+
+    def fun(self):
+        self.num += 1
+        print(self.num)
+
+    def onUpdateText(self, text):
+        """Write console output to text widget."""
+        cursor = self.process.textCursor()
+        cursor.movePosition(QtGui.QTextCursor.End)
+        cursor.insertText(text)
+        self.process.setTextCursor(cursor)
+        self.process.ensureCursorVisible()
+
+    def closeEvent(self, event):
+        """Shuts down application on close."""
+        # Return stdout to defaults.
+        sys.stdout = sys.__stdout__
+        super().closeEvent(event)
+
+    def initUI(self):
+        """Creates UI window on launch."""
+        # Button for generating the master list.
+        btn = QPushButton('Run', self)
+        btn.move(450, 100)
+        btn.resize(100, 100)
+        btn.clicked.connect(self.OnBtnClicked)
+
+        # Create the text output widget.
+        self.process = QTextEdit(self, readOnly=True)
+        self.process.ensureCursorVisible()
+        self.process.setLineWrapColumnOrWidth(500)
+        self.process.setLineWrapMode(QTextEdit.FixedPixelWidth)
+        self.process.setFixedWidth(400)
+        self.process.setFixedHeight(150)
+        self.process.move(30, 100)
+
+        # Set window size and title, then show the window.
+        self.setGeometry(300, 300, 600, 300)
+        self.setWindowTitle('print to ui')
+        self.show()
+
+    def OnBtnClicked(self):
+        """Runs the main function."""
+        print('Running...')
+        self.timer.start(1000)
+        # time.sleep(5)  # time.sleep（）是一个阻塞任务，不允许Qt事件循环运行，从而阻止信号正常工作和GUI更新，解决方案是使用QTimer和QEventLoop替换该GUI睡眠。
+        print('Done.')
 
 
-    # 按钮点击触发的函数
-    def start_thread(self):
-        # 创建线程执行函数
-        t1 = threading.Thread(target=self.output)
-        print("start")
-        t1.start()
-
-    # 执行shell指令
-    def output(self):
-        T = os.system('adb devices')
-        self.ui.textEdit.insertPlainText(T)
-
-
-    # 用于接受信号数据的槽函数
-    @Slot(str)
-    def update(self, str):
-        print(str)
-        # 在文本输入框末尾添加新收到的字符数据
-        self.textEdit.insertPlainText(str)
-app = QApplication([])
-stats = Ui_Main()
-stats.ui.show()
-app.exec_()
+if __name__ == '__main__':
+    # Run the application.
+    app = QApplication(sys.argv)
+    # app.aboutToQuit.connect(app.deleteLater)
+    gui = QMyWindow()
+    print("main")
+    sys.exit(app.exec_())
