@@ -3,14 +3,15 @@ from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import QFile
 from PySide2 import QtCore,QtGui
 import PySide2.QtWidgets
+from PySide2.QtCore import Slot
 import os
 import subprocess
 import threading
 import re
 import time
 import sys
-class Stats:
 
+class Stats:
     def __init__(self):
         # 从文件中加载UI定义
         qfile = QFile('service.ui')
@@ -22,25 +23,30 @@ class Stats:
         # 比如 self.ui.button , self.ui.textEdit
         self.ui = QUiLoader().load(qfile)
 
-        self.ui.pushButton.clicked.connect(self.devices)
-        self.ui.pushButton_2.clicked.connect(self.main)
-        self.ui.pushButton_3.clicked.connect(self.single_install)
+        self.ui.devices_list.clicked.connect(self.devices)
+        self.ui.install_apps.clicked.connect(self.install_Apps)
+        self.ui.install_app.clicked.connect(self.single_install)
+
 
     def get_conn_dev(self):
         p = os.popen('adb devices')
         outstr = p.read()
-        print(outstr)
+        # print(outstr)
         connectdeviceid = re.findall(r'(\w+)\s+device\s', outstr)
         return connectdeviceid
+
+    #设备列表
     def devices(self):
         devices = Stats().get_conn_dev()
         for dev in devices:
-            self.ui.textEdit.setText(dev+',')
+            self.ui.listWidget.addItem(dev)
+        self.ui.listWidget.addItem(str(len(devices)))
 
     def excute(self,cmd):
         subprocess.Popen(cmd, shell=True)
 
-    def main(self):
+    #批量安装app
+    def install_Apps(self):
         connectdevice = Stats().get_conn_dev()
         commands = []
         path_file = self.ui.textEdit_2.toPlainText()
@@ -64,8 +70,9 @@ class Stats:
 
         for i in range(threads_count):
             threads[i].join()
+        self.ui.output.insertPlainText('done!\n批量安装完成！！！')
 
-
+    #单设备安装app
     def single_install(self):
         dev = self.ui.textEdit_4.toPlainText()
         print(dev)
@@ -90,6 +97,9 @@ class Stats:
 
         for i in range(threads_count):
             threads[i].join()
+        self.ui.output.insertPlainText('done!\n单设备安装完成！！！')
+
+
 
 
 app = QApplication([])
