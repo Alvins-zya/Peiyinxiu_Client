@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1085</width>
-    <height>828</height>
+    <width>1081</width>
+    <height>819</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -116,9 +116,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>320</y>
+     <y>360</y>
      <width>1041</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -208,7 +208,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>0</x>

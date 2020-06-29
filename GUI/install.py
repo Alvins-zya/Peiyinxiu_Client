@@ -102,7 +102,8 @@ class Stats:
 
 
 
-app = QApplication([])
+app = QApplication(sys.argv)
 stats = Stats()
 stats.ui.show()
 app.exec_()
+sys.exit(0)
