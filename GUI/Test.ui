@@ -29,10 +29,20 @@
   <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>180</y>
-     <width>841</width>
-     <height>371</height>
+     <x>160</x>
+     <y>420</y>
+     <width>741</width>
+     <height>131</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>160</y>
+     <width>651</width>
+     <height>192</height>
     </rect>
    </property>
   </widget>

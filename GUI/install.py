@@ -1,18 +1,19 @@
-from PySide2.QtWidgets import QApplication, QMessageBox
-from PySide2.QtUiTools import QUiLoader
-from PySide2.QtCore import QFile
-from PySide2 import QtCore,QtGui
-import PySide2.QtWidgets
-from PySide2.QtCore import Slot
-import os
+#pragma execution_character_set("utf-8")
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+import sys,os,time
+import threading,subprocess
+from PyQt5.uic import loadUi
 import subprocess
 import threading
 import re
-import time
-import sys
 
-class Stats:
+
+class Stats(QWidget):
+    signal = pyqtSignal(object)
     def __init__(self):
+        super().__init__()
         # 从文件中加载UI定义
         qfile = QFile('service.ui')
         qfile.open(QFile.ReadOnly)
@@ -21,12 +22,17 @@ class Stats:
         # 从 UI 定义中动态 创建一个相应的窗口对象
         # 注意：里面的控件对象也成为窗口对象的属性了
         # 比如 self.ui.button , self.ui.textEdit
-        self.ui = QUiLoader().load(qfile)
+        self.ui = loadUi('service.ui',self)
 
         self.ui.devices_list.clicked.connect(self.devices)
         self.ui.install_apps.clicked.connect(self.install_Apps)
         self.ui.install_app.clicked.connect(self.single_install)
-
+        self.ui.uninstall_apps.clicked.connect(self.uninstall)
+        self.ui.uninstall_app.clicked.connect(self.uninstall)
+        self.ui.close_apps.clicked.connect(self.closes)
+        self.ui.start_apps.clicked.connect(self.starts)
+        self.ui.shutdow.clicked.connect(self.close_dev)
+        self.signal.connect(self.outputs)
 
     def get_conn_dev(self):
         p = os.popen('adb devices')
@@ -43,25 +49,25 @@ class Stats:
         self.ui.listWidget.addItem(str(len(devices)))
 
     def excute(self,cmd):
-        subprocess.Popen(cmd, shell=True)
+        replay =subprocess.getoutput(cmd)
+        self.signal.emit(replay)
 
     #批量安装app
     def install_Apps(self):
-        connectdevice = Stats().get_conn_dev()
-        commands = []
+        connectdevice = self.get_conn_dev()
+        cmd_list = []
         path_file = self.ui.textEdit_2.toPlainText()
         Re_file = re.findall(r'file:///(.*)',path_file)
         str_file = ''.join(Re_file)
         for device in connectdevice:
             cmd = "adb -s %s install -r %s" % (device, str_file)
-            commands.append(cmd)
-        # self.ui.textEdit_3.setText(cmd)
+            cmd_list.append(cmd)
 
         threads = []
-        threads_count = len(commands)
+        threads_count = len(cmd_list)
 
         for i in range(threads_count):
-            t = threading.Thread(target=Stats().excute, args=(commands[i],))
+            t = threading.Thread(target=self.excute, args=(cmd_list[i],))
             threads.append(t)
 
         for i in range(threads_count):
@@ -70,25 +76,40 @@ class Stats:
 
         for i in range(threads_count):
             threads[i].join()
-        self.ui.output.insertPlainText('done!\n批量安装完成！！！')
 
     #单设备安装app
     def single_install(self):
         dev = self.ui.textEdit_4.toPlainText()
-        print(dev)
-        commands = []
         path_file = self.ui.textEdit_2.toPlainText()
         Re_file = re.findall(r'file:///(.*)', path_file)
         str_file = ''.join(Re_file)
-        cmd = "adb -s %s install -r %s" % (dev, str_file)
-        commands.append(cmd)
-        # self.ui.textEdit_3.setText(cmd)
+        dev_list = []
+        cmd_list = []
+        dev_list.append(dev)
+        print(dev_list)
+        for i in dev_list:
+            cmd = "adb -s %s install -r %s" % (i, str_file)
+            cmd_list.append(cmd)
+        print(cmd_list)
+        threads_count = len(cmd_list)
+        for i in range(threads_count):
+            T = threading.Thread(target=self.excute, args=(cmd_list[i],))
+            T.start()
+            # T.join()
+
+    #批量卸载APP
+    def uninstalls(self):
+        connectdevice = self.get_conn_dev()
+        cmd_list = []
+        for device in connectdevice:
+            cmd = "adb -s %s uninstall com.happyteam.dubbingshow" % (device)
+            cmd_list.append(cmd)
 
         threads = []
-        threads_count = len(commands)
+        threads_count = len(cmd_list)
 
         for i in range(threads_count):
-            t = threading.Thread(target=Stats().excute, args=(commands[i],))
+            t = threading.Thread(target=self.excute, args=(cmd_list[i],))
             threads.append(t)
 
         for i in range(threads_count):
@@ -97,13 +118,98 @@ class Stats:
 
         for i in range(threads_count):
             threads[i].join()
-        self.ui.output.insertPlainText('done!\n单设备安装完成！！！')
+
+    #单设备卸载APP
+    def uninstall(self):
+        dev = self.ui.textEdit_4.toPlainText()
+        dev_list = []
+        cmd_list = []
+        dev_list.append(dev)
+        for i in dev_list:
+            cmd = "adb -s %s uninstall com.happyteam.dubbingshow" % (i)
+            cmd_list.append(cmd)
+
+        threads_count = len(cmd_list)
+        for i in range(threads_count):
+            T = threading.Thread(target=self.excute, args=(cmd_list[i],))
+            T.start()
+            # T.join()
+
+    #批量启动APP
+    def starts(self):
+        connectdevice = self.get_conn_dev()
+        cmd_list = []
+        for device in connectdevice:
+            cmd = "adb -s %s shell am start -W -n com.happyteam.dubbingshow/.ui.StartActivity" % (device)
+            cmd_list.append(cmd)
+
+        threads = []
+        threads_count = len(cmd_list)
+
+        for i in range(threads_count):
+            t = threading.Thread(target=self.excute, args=(cmd_list[i],))
+            threads.append(t)
+
+        for i in range(threads_count):
+            time.sleep(1)  # 防止adb连接出错
+            threads[i].start()
+
+        for i in range(threads_count):
+            threads[i].join()
+
+    #批量关闭APP
+    def closes(self):
+        connectdevice = self.get_conn_dev()
+        cmd_list = []
+        for device in connectdevice:
+            cmd = "adb -s %s shell am force-stop com.happyteam.dubbingshow" % (device)
+            cmd_list.append(cmd)
+
+        threads = []
+        threads_count = len(cmd_list)
+
+        for i in range(threads_count):
+            t = threading.Thread(target=self.excute, args=(cmd_list[i],))
+            threads.append(t)
+
+        for i in range(threads_count):
+            time.sleep(1)  # 防止adb连接出错
+            threads[i].start()
+
+        for i in range(threads_count):
+            threads[i].join()
+
+    #批量关机
+    def close_dev(self):
+        connectdevice = self.get_conn_dev()
+        cmd_list = []
+        for device in connectdevice:
+            cmd = "adb -s %s shell reboot -p" % (device)
+            cmd_list.append(cmd)
+
+        threads = []
+        threads_count = len(cmd_list)
+
+        for i in range(threads_count):
+            t = threading.Thread(target=self.excute, args=(cmd_list[i],))
+            threads.append(t)
+
+        for i in range(threads_count):
+            time.sleep(1)  # 防止adb连接出错
+            threads[i].start()
+
+        for i in range(threads_count):
+            threads[i].join()
+
+    #输出结果至GUI界面
+    def outputs(self,info):
+        self.ui.output.setText(str(info))
 
 
 
-
-app = QApplication(sys.argv)
-stats = Stats()
-stats.ui.show()
-app.exec_()
-sys.exit(0)
+if __name__=="__main__":
+    app = QApplication([])
+    stats = Stats()
+    stats.show()
+    app.exec_()
+    sys.exit(0)
