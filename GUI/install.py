@@ -1,4 +1,3 @@
-#pragma execution_character_set("utf-8")
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -27,11 +26,12 @@ class Stats(QWidget):
         self.ui.devices_list.clicked.connect(self.devices)
         self.ui.install_apps.clicked.connect(self.install_Apps)
         self.ui.install_app.clicked.connect(self.single_install)
-        self.ui.uninstall_apps.clicked.connect(self.uninstall)
+        self.ui.uninstall_apps.clicked.connect(self.uninstalls)
         self.ui.uninstall_app.clicked.connect(self.uninstall)
         self.ui.close_apps.clicked.connect(self.closes)
         self.ui.start_apps.clicked.connect(self.starts)
         self.ui.shutdow.clicked.connect(self.close_dev)
+        self.ui.clear_devices.clicked.connect(self.clears)
         self.signal.connect(self.outputs)
 
     def get_conn_dev(self):
@@ -43,10 +43,11 @@ class Stats(QWidget):
 
     #设备列表
     def devices(self):
-        devices = Stats().get_conn_dev()
+        devices = self.get_conn_dev()
         for dev in devices:
             self.ui.listWidget.addItem(dev)
         self.ui.listWidget.addItem(str(len(devices)))
+        self.signal.emit(object)
 
     def excute(self,cmd):
         replay =subprocess.getoutput(cmd)
@@ -56,7 +57,7 @@ class Stats(QWidget):
     def install_Apps(self):
         connectdevice = self.get_conn_dev()
         cmd_list = []
-        path_file = self.ui.textEdit_2.toPlainText()
+        path_file = self.ui.file_path.toPlainText()
         Re_file = re.findall(r'file:///(.*)',path_file)
         str_file = ''.join(Re_file)
         for device in connectdevice:
@@ -79,18 +80,16 @@ class Stats(QWidget):
 
     #单设备安装app
     def single_install(self):
-        dev = self.ui.textEdit_4.toPlainText()
-        path_file = self.ui.textEdit_2.toPlainText()
+        dev = self.ui.put_device.toPlainText()
+        path_file = self.ui.file_path.toPlainText()
         Re_file = re.findall(r'file:///(.*)', path_file)
         str_file = ''.join(Re_file)
         dev_list = []
         cmd_list = []
         dev_list.append(dev)
-        print(dev_list)
         for i in dev_list:
             cmd = "adb -s %s install -r %s" % (i, str_file)
             cmd_list.append(cmd)
-        print(cmd_list)
         threads_count = len(cmd_list)
         for i in range(threads_count):
             T = threading.Thread(target=self.excute, args=(cmd_list[i],))
@@ -121,7 +120,7 @@ class Stats(QWidget):
 
     #单设备卸载APP
     def uninstall(self):
-        dev = self.ui.textEdit_4.toPlainText()
+        dev = self.ui.put_device.toPlainText()
         dev_list = []
         cmd_list = []
         dev_list.append(dev)
@@ -201,14 +200,20 @@ class Stats(QWidget):
         for i in range(threads_count):
             threads[i].join()
 
+    #清空设备列表
+    def clears(self):
+        self.listWidget.clear()
+
     #输出结果至GUI界面
     def outputs(self,info):
-        self.ui.output.setText(str(info))
+        self.ui.output.append(str(info))
+
 
 
 
 if __name__=="__main__":
     app = QApplication([])
+    app.setWindowIcon(QIcon('show.ico'))
     stats = Stats()
     stats.show()
     app.exec_()
