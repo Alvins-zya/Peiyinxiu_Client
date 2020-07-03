@@ -13,7 +13,7 @@ class Test_a_Person_zoom(Dubbing):
     def test_a(self):
         self.driver.wait_id(sourced_id + 'ivMineTab')
         self.driver.find_id(sourced_id + 'ivMineTab').click()
-        self.driver.find_id(sourced_id + 'username')
+        self.driver.wait_id(sourced_id + 'username')
         time.sleep(2)
 
     #我的界面点击头像进入个人空间
@@ -36,8 +36,8 @@ class Test_a_Person_zoom(Dubbing):
         else:
             follow_count1 = self.driver.find_ids(sourced_id + 'username')
             self.assertEqual(int(len(follow_count1)),int(follow_count),msg='我的界面关注数与关注列表关注用户量不一致')
-        time.sleep(2)
-        self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
 
     #我的界面点击粉丝进入粉丝列表
@@ -91,7 +91,7 @@ class Test_b_Person_Zoom(Dubbing):
     #个人空间搜索——作品搜索记录
     def test_c(self):
         self.driver.find_id(sourced_id + 'btnBack').click()
-        time.sleep(2)
+        time.sleep(4)
         self.driver.find_id(sourced_id + 'photo').click()
         self.driver.wait_id(sourced_id + 'txtKeyword')
         try:
@@ -114,7 +114,7 @@ class Test_b_Person_Zoom(Dubbing):
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSearch').click()
         try:
-            self.driver.wait_xpath('没有搜到任何内容')
+            self.driver.wait_xpath(sourced_id + 'll_noSearchResult')
         except:
             raise ('作品搜索无结果时未显示任何提示信息')
         time.sleep(2)
@@ -161,8 +161,8 @@ class Test_b_Person_Zoom(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5,self.y * 0.719)
-        else:
-            pass
+        elif self.y ==2280:
+            self.driver.tap(self.x * 0.5,self.y * 0.76)
         time.sleep(4)
         try:
             self.driver.find_xpath('个人资料')
@@ -176,16 +176,48 @@ class Test_b_Person_Zoom(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x *0.5,self.y * 0.793)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(2)
-        '''
-        以下操作只适用VIVOx9
-        '''
-        self.driver.wait_id('com.android.camera:id/shutter_button')
-        self.driver.find_id('com.android.camera:id/shutter_button').click()
-        time.sleep(4)
-        self.driver.find_id('com.android.camera:id/done_button').click()
+        try:
+            self.driver.find_id(sourced_id + 'next')
+            self.driver.find_id(sourced_id + 'next').click()
+            try:
+                self.driver.wait_sys('始终允许')
+            except:
+                try:
+                    self.driver.wait_sys('允许')
+                except:
+                    pass
+            self.driver.find_id(sourced_id + 'userhead').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5, self.y * 0.793)
+            elif self.y == 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.83)
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(3)
+        try:
+            '''
+            以下操作只适用VIVOx9
+            '''
+            self.driver.find_id('com.android.camera:id/shutter_button')
+            self.driver.find_id('com.android.camera:id/shutter_button').click()
+            time.sleep(4)
+            self.driver.find_id('com.android.camera:id/done_button').click()
+        except:
+            try:
+                '''
+                oppo r11
+                '''
+                self.driver.find_id('com.oppo.camera:id/shutter_button')
+                self.driver.find_id('com.oppo.camera:id/shutter_button').click()
+                time.sleep(4)
+                self.driver.find_id('com.oppo.camera:id/done_button').click()
+            except:
+                pass
         time.sleep(4)
         self.driver.find_id(sourced_id + 'confirm').click()
         try:
@@ -195,28 +227,29 @@ class Test_b_Person_Zoom(Dubbing):
         except:
             raise ('拍照更换头像未检测到toast提示')
         time.sleep(2)
-        self.driver.find_id(sourced_id + 'userhead').click()
-        time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.869)
-        else:
-            pass
-        time.sleep(2)
-        self.driver.find_xpath('阅图').click()
-        time.sleep(4)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.12, self.y * 0.182)
-        else:
-            pass
-        time.sleep(2)
-        self.driver.find_id(sourced_id + 'confirm').click()
-        try:
-            toast1 = self.driver.wait_toast('//android.widget.Toast')
-            check1 = '修改成功'
-            self.assertEqual(toast1,check1,msg='相册替换头像toast提示内容校验不一致')
-        except:
-            raise ('相册更换头像未检测到toast提示')
-        time.sleep(2)
+        #待开发优化（无法识别相册UI界面控件）
+        # self.driver.find_id(sourced_id + 'userhead').click()
+        # time.sleep(2)
+        # if self.y == 1920:
+        #     self.driver.tap(self.x * 0.5, self.y * 0.869)
+        # else:
+        #     pass
+        # time.sleep(2)
+        # self.driver.find_xpath('阅图').click()
+        # time.sleep(4)
+        # if self.y == 1920:
+        #     self.driver.tap(self.x * 0.12, self.y * 0.182)
+        # else:
+        #     pass
+        # time.sleep(2)
+        # self.driver.find_id(sourced_id + 'confirm').click()
+        # try:
+        #     toast1 = self.driver.wait_toast('//android.widget.Toast')
+        #     check1 = '修改成功'
+        #     self.assertEqual(toast1,check1,msg='相册替换头像toast提示内容校验不一致')
+        # except:
+        #     raise ('相册更换头像未检测到toast提示')
+        # time.sleep(2)
 
     #输入个人简介
     def test_i(self):
@@ -231,8 +264,8 @@ class Test_b_Person_Zoom(Dubbing):
         time.sleep(2)
         if self.y ==1920:
             self.driver.tap(self.x * 0.5,self.y * 0.872)
-        else:
-            pass
+        elif self.y ==2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.89)
         time.sleep(2)
 
     #修改地区
@@ -254,8 +287,8 @@ class Test_b_Person_Zoom(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.763,self.y * 0.773)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.75, self.y * 0.614)
         time.sleep(2)
 
     #用户名敏感词检测
@@ -293,15 +326,31 @@ class Test_b_Person_Zoom(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5 ,self.y * 0.792)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
         self.driver.wait_id(sourced_id + 'txtTitle')
         count = self.driver.find_ids(sourced_id + 'img')
-        for i in reversed(len(count)):
+        for i in range(len(count)-1,-1,-1):
             self.driver.find_ids(sourced_id + 'img')[i].click()
             time.sleep(1)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'txtContent')
+            self.driver.find_id(sourced_id + 'btnSubmit').click()
+            time.sleep(2)
+            try:
+                self.driver.find_id(sourced_id + 'renew')
+                self.driver.find_id(sourced_id + 'btnBack').click()
+            except:
+                pass
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnCancel').click()
         time.sleep(2)
 
     #会员空间装扮
@@ -310,12 +359,12 @@ class Test_b_Person_Zoom(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.867)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.89)
         self.driver.wait_id(sourced_id + 'txtTitle')
         time.sleep(2)
         count = self.driver.find_ids(sourced_id + 'img')
-        for i in reversed(len(count)):
+        for i in range(len(count)-1,-1,-1):
             self.driver.find_ids(sourced_id + 'img')[i].click()
             time.sleep(2)
         time.sleep(2)
@@ -443,16 +492,16 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.789)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(4)
         try:
             self.driver.find_id(sourced_id + 'img')
         except:
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5, self.y * 0.943)
-            else:
-                pass
+            elif self.y == 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.952)
             time.sleep(2)
             self.driver.find_ids(sourced_id + 'filmBg1')[0].click()
             self.driver.wait_id(sourced_id + 'tv_video_detail_title')
@@ -462,8 +511,8 @@ class Test_c_Person_works(Dubbing):
             time.sleep(2)
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5, self.y * 0.703)
-            else:
-                pass
+            elif self.y == 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.75)
             time.sleep(2)
             self.driver.find_id(sourced_id + 'btnSubmit').click()
             time.sleep(2)
@@ -476,8 +525,8 @@ class Test_c_Person_works(Dubbing):
             time.sleep(2)
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5, self.y * 0.789)
-            else:
-                pass
+            elif self.y == 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.83)
             time.sleep(4)
             try:
                 self.driver.find_id(sourced_id + 'img')
@@ -492,8 +541,8 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.868)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.895)
         time.sleep(4)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         time.sleep(4)
@@ -525,8 +574,8 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x* 0.5,self.y * 0.629)
-        else:
-            self.driver.back()
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.688)
         self.driver.wait_id(sourced_id + 'socialstatus')
         self.driver.find_id(sourced_id + 'socialstatus').click()
         time.sleep(2)
@@ -548,8 +597,8 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.703)
-        else:
-            self.driver.back()
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.746)
         time.sleep(2)
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
@@ -574,8 +623,8 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.857)
-        else:
-            self.driver.back()
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.877)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         try:
@@ -741,8 +790,8 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5 , self.y * 0.793)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5 ,self.y * 0.829)
         time.sleep(2)
         self.driver.find_id(sourced_id +'group_chat').click()
         time.sleep(2)
@@ -754,8 +803,8 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.871)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.895)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         try:
@@ -785,8 +834,8 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.871)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.895)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'content').send_keys('合辑')
         time.sleep(2)
@@ -823,8 +872,8 @@ class Test_c_Person_works(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.871)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.895)
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnSubmit').click()
         try:
@@ -881,11 +930,49 @@ class Test_d_my(Dubbing):
             self.driver.find_id(sourced_id + 'cancel').click()
             time.sleep(2)
 
-    # #会员特权
-    # def test_d(self):
-    #
-    # #会员装扮-头饰-空间
-    # def test_e(self):
+    #会员特权
+    def test_d(self):
+        try:
+            self.driver.find_xpath('作品编辑')
+        except:
+            if self.y ==2280:
+                self.driver.swip_move(self.x * 0.5 ,self.y * 0.818,self.x * 0.5, self.y * 0.585)
+        time.sleep(2)
+        Member_privileges_page1 =self.driver.find_ids(sourced_id + 'name')
+        privileges_list = []
+        for i in range(len(Member_privileges_page1)):
+            Name = self.driver.find_ids(sourced_id + 'name')[i].text
+            privileges_list.append(Name)
+        time.sleep(2)
+        Start_Locat = self.driver.find_ids(sourced_id + 'name')[-1].location
+        End_Locat = self.driver.find_ids(sourced_id + 'name')[-4].location
+        start_swip_x = Start_Locat['x']
+        start_swip_y = Start_Locat['y']
+        end_swip_x = End_Locat['x']
+        end_swip_y = End_Locat['y']
+        if self.y == 2280:
+            self.driver.swip_move(start_swip_x, start_swip_y, end_swip_x, end_swip_y)
+        time.sleep(2)
+        Member_privileges_page2 = self.driver.find_ids(sourced_id + 'name')
+        for i in range(len(Member_privileges_page2)):
+            Name1 = self.driver.find_ids(sourced_id + 'name')[i].text
+            privileges_list.append(Name1)
+        privileges_chck_list = ['双倍金币',
+                                '免费曝光',
+                                '推荐涨粉',
+                                '升级加速',
+                                '上榜历史',
+                                '作品下载',
+                                '评论置顶',
+                                '作品编辑',
+                                '云端存储',
+                                '语聊麦位',
+                                '专属挂件',
+                                '空间装扮']
+        self.assertEqual(privileges_list,privileges_chck_list)
+        time.sleep(2)
+        self.driver.find_id(sourced_id + 'btnBack').click()
+        time.sleep(2)
 
 class Test_e_Notices(Dubbing):
     #系统消息
@@ -901,17 +988,18 @@ class Test_e_Notices(Dubbing):
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
 
-    #礼物消息
-    def test_b(self):
+    #点赞消息
+    def test_c(self):
         self.driver.find_id(sourced_id + 'gift').click()
-        self.driver.wait_id(sourced_id + 'tab1')
+        time.sleep(2)
+        self.driver.wait_id(sourced_id + 'userhead')
         time.sleep(2)
         self.driver.find_id(sourced_id + 'userhead').click()
         self.driver.wait_id(sourced_id + 'll_follow')
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack')
         time.sleep(2)
-        self.driver.find_id(sourced_id + 'head_container').click()
+        self.driver.find_id(sourced_id + 'content').click()
         try:
             self.driver.wait_toast('//android.widget.Toast')
             time.sleep(2)
@@ -921,58 +1009,25 @@ class Test_e_Notices(Dubbing):
             self.driver.find_id(sourced_id + 'btnBack').click()
             time.sleep(2)
         time.sleep(2)
-
-
-    #礼物消息列表点击关注
-    def test_e(self):
-        text = self.driver.find_id(sourced_id + 'guanzhu').text
-        state = '发私信'
-        if text == state:
-            self.driver.find_id(sourced_id + 'guanzhu').click()
-            time.sleep(2)
-            self.driver.find_id(sourced_id + 'right_icon1').click()
-            time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.856)
-            else:
-                pass
-            self.driver.wait_id(sourced_id + 'll_follow')
-            time.sleep(2)
-            self.driver.find_id(sourced_id + 'follow_status').click()
-            time.sleep(4)
-            self.driver.find_id(sourced_id + 'btnBack').click()
-            time.sleep(2)
-            self.driver.find_id(sourced_id + 'btnBack').click()
-            time.sleep(2)
-        else:
-            self.driver.find_id(sourced_id + 'guanzhu').click()
-            time.sleep(2)
+        self.driver.find_id(sourced_id + 'guanzhu').click()
         time.sleep(2)
-
-    #上滑礼物消息列表
-    def test_f(self):
-        for i in range(4):
-            self.driver.swip_up()
-            time.sleep(2)
-
-    #钻石礼物
-    def test_g(self):
-        self.driver.find_id(sourced_id + 'rl_tag2').click()
-        time.sleep(2)
-
-    #礼物消息通知开关
-    def test_h(self):
         try:
-            self.driver.find_id(sourced_id + 'setPush')
-            self.driver.find_id(sourced_id + 'setPush').click()
+            self.driver.wait_time(10,sourced_id + 'tv_video_detail_title')
             time.sleep(2)
-            self.driver.back()
-            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
         except:
-            pass
+            try:
+                self.driver.find_id(sourced_id + 'll_follow')
+                time.sleep(2)
+                self.driver.find_id(sourced_id + 'btnBack').click()
+            except:
+                pass
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
+
+
+
 
     #合作消息
     def test_i(self):
@@ -1014,8 +1069,8 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.882)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5 ,self.y * 0.903)
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
             check = '删除合作消息成功'
@@ -1035,21 +1090,42 @@ class Test_e_Notices(Dubbing):
             time.sleep(2)
             self.driver.find_id(sourced_id + 'head_name').click()
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.793)
-            else:
-                pass
-            self.driver.wait_id(sourced_id + 'com.android.camera:id/shutter_button')
-            self.driver.find_id(sourced_id + 'com.android.camera:id/shutter_button').click()
-            time.sleep(4)
-            self.driver.find_id(sourced_id + 'com.android.camera:id/done_button').click()
+            self.driver.find_id(sourced_id + 'tv_take_photo').click()
+            # if self.y == 1920:
+            #     self.driver.tap(self.x * 0.5, self.y * 0.793)
+            # elif self.y == 2280:
+            #     self.driver.tap(self.x * 0.5, self.y * 0.833)
+            time.sleep(5)
+            try:
+                '''
+                以下操作只适用VIVOx9
+                '''
+                self.driver.find_id('com.android.camera:id/shutter_button')
+                self.driver.find_id('com.android.camera:id/shutter_button').click()
+                time.sleep(4)
+                self.driver.find_id('com.android.camera:id/done_button').click()
+            except:
+                try:
+                    '''
+                    oppo r11/r15
+                    '''
+                    self.driver.find_id('com.oppo.camera:id/shutter_button')
+                    self.driver.find_id('com.oppo.camera:id/shutter_button').click()
+                    time.sleep(4)
+                    self.driver.find_id('com.oppo.camera:id/done_button').click()
+                except:
+                    pass
             time.sleep(4)
             self.driver.find_id(sourced_id + 'confirm').click()
             time.sleep(3)
             self.driver.find_id(sourced_id + 'head_name').click()
             time.sleep(2)
-            self.driver.tap(self.x * 0.5, self.y * 0.864)
-            time.sleep(2)
+            # if self.y == 1920:
+            #     self.driver.tap(self.x * 0.5, self.y * 0.864)
+            # elif self.y == 2280:
+            #     self.driver.tap(self.x * 0.5, self.y * 0.833)
+            self.driver.find_id(sourced_id + 'tv_photo').click()
+            time.sleep(3)
             self.driver.find_id(sourced_id + 'photo_wall_item_photo').click()
             time.sleep(2)
             self.driver.find_id(sourced_id + 'confirm').click()
@@ -1106,10 +1182,6 @@ class Test_e_Notices(Dubbing):
         self.driver.find_id(sourced_id + 'btnBack').click()
         time.sleep(2)
 
-
-        for i in count:
-            i.click()
-
     #评论消息-跳转个人空间
     def test_o(self):
         self.driver.find_id(sourced_id + 'textView16').click()
@@ -1137,8 +1209,8 @@ class Test_e_Notices(Dubbing):
             time.sleep(2)
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5, self.y * 0.854)
-            else:
-                pass
+            elif self.y == 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.877)
             self.driver.wait_id(sourced_id + 'll_follow')
             time.sleep(2)
             self.driver.find_id(sourced_id + 'follow_status').click()
@@ -1155,8 +1227,8 @@ class Test_e_Notices(Dubbing):
             time.sleep(2)
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5, self.y * 0.854)
-            else:
-                pass
+            elif self.y == 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.877)
             self.driver.wait_id(sourced_id + 'll_follow')
             time.sleep(2)
             self.driver.find_id(sourced_id + 'follow_status').click()
@@ -1277,19 +1349,21 @@ class Test_e_Notices(Dubbing):
         self.driver.wait_xpath('撸串')
         self.driver.find_id(sourced_id + 'name').click()
         time.sleep(2)
-        #清楚聊天记录
+
+        #清除聊天记录
         self.driver.find_id(sourced_id + 'right_icon1').click()
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
+
         #发送文字
         self.driver.find_id(sourced_id + 'editContent').send_keys('功能测试')
         time.sleep(2)
@@ -1305,14 +1379,15 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
+
         #发送表情
         self.driver.find_id(sourced_id + 'btn_send_smile').click()
         time.sleep(2)
@@ -1329,14 +1404,15 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
+
         #发送语音
         self.driver.find_id(sourced_id + 'btn_change_input_mode').click()
         time.sleep(2)
@@ -1349,14 +1425,15 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
+
         #发送图片
         self.driver.find_id(sourced_id + 'show_action').click()
         time.sleep(2)
@@ -1371,14 +1448,15 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
+
         #拍照发送私信信息
         self.driver.find_id(sourced_id + 'show_action').click()
         time.sleep(2)
@@ -1391,16 +1469,18 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         self.driver.find_id(sourced_id + 'right_icon1').click()
         time.sleep(2)
+        time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
+
         #发送作品
         self.driver.find_id(sourced_id + 'show_action').click()
         time.sleep(2)
@@ -1415,14 +1495,15 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
+
         #发送红包
         self.driver.find_id(sourced_id + 'show_action').click()
         time.sleep(2)
@@ -1446,14 +1527,15 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
+
         #发送社团邀请
         self.driver.find_id(sourced_id + 'show_action').click()
         time.sleep(2)
@@ -1470,13 +1552,13 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.697)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.754)
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.662, self.y * 0.558)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.67, self.y * 0.546)
         time.sleep(2)
 
     #私信聊天界面举报用户-其它原因
@@ -1485,13 +1567,10 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.619)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.689)
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.875)
-        else:
-            pass
+        self.driver.find_id(sourced_id + 'tv_action_other').click()
         time.sleep(2)
         self.driver.find_id(sourced_id + 'txtKeyword').clear()
         time.sleep(2)
@@ -1519,8 +1598,8 @@ class Test_e_Notices(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.859)
-        else:
-            pass
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.877)
         self.driver.wait_id(sourced_id + 'll_fan')
         time.sleep(2)
         self.driver.find_id(sourced_id + 'btnBack').click()

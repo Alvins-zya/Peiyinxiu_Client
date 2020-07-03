@@ -1,6 +1,6 @@
 platformName: Android
-platformVersion: 8.1.0
-deviceName: 6c77030
+platformVersion: 9.0.0
+deviceName: JVINFQYPVSNF95TW
 appPackage: com.happyteam.dubbingshow
 appActivity: ui.StartActivity
 noReset: True

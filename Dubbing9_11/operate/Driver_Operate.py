@@ -186,7 +186,15 @@ class BaseOperate():
     def find_text(self,text):
         text = self.driver.find_element_by_id(text).text
         return text
-
+    def wait_time(self,Time,id):
+        '''
+        自主设定等待查询控件时间
+        :param Time:
+        :param id:
+        :return:
+        '''
+        el = WebDriverWait(self.driver,Time).until(lambda x:self.driver.find_element_by_id(id))
+        return el
     def wait_id(self, id):
         '''
         等待元素
