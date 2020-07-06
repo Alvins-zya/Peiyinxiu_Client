@@ -72,7 +72,7 @@ class Stats(QWidget):
             threads.append(t)
 
         for i in range(threads_count):
-            time.sleep(1)  # 防止adb连接出错
+            time.sleep(1)  # 防止adb连接出错se
             threads[i].start()
 
         for i in range(threads_count):
