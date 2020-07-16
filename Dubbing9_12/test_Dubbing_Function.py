@@ -12,7 +12,7 @@ sys.path.append(rootPath)
 from Dubbing9_11.Front import Dubbing
 
 soucred_id = 'com.happyteam.dubbingshow:id/'
-
+Skip = True
 
 class Test_a_Dub(Dubbing):
     #进入素材库
@@ -46,7 +46,6 @@ class Test_a_Dub(Dubbing):
                 time.sleep(2)
         time.sleep(4)
 
-
     #双配素材-进入配音界面
     def test2(self):
         self.driver.find_id(soucred_id + 'dubbing_fake').click()
@@ -78,6 +77,7 @@ class Test_a_Dub(Dubbing):
         self.driver.find_id(soucred_id + 'roleall').click()
         time.sleep(2)
 
+    @unittest.skipIf(condition=Skip)
     # 首次进入配音界面配音引导页
     def test3(self):
         try:
@@ -87,6 +87,7 @@ class Test_a_Dub(Dubbing):
             pass3
         time.sleep(2)
 
+    @unittest.skipIf(condition=Skip)
     #退出配音界面再进
     def test4(self):
         self.driver.find_id(soucred_id + 'back').click()
@@ -102,6 +103,7 @@ class Test_a_Dub(Dubbing):
         self.driver.find_id(soucred_id + 'roleall').click()
         time.sleep(2)
 
+    @unittest.skipIf(condition=Skip)
     # 双配素材配音界面配音角色切换
     def test5(self):
         self.driver.find_id(soucred_id + 'coopera').click()
@@ -166,6 +168,7 @@ class Test_a_Dub(Dubbing):
             print('配音界面返回跳转错误')
             self.driver.Quit()
 
+@unittest.skipIf(condition= Skip)
 class Test_b_Music(Dubbing):
     # 配音界面背景音开关
     def test0(self):
@@ -1143,7 +1146,7 @@ class Test_j_upload(Dubbing):
         elif self.y > 2250:
             self.driver.tap(self.x*0.5,self.y*0.752)
             time.sleep(2)
-            self.driver.swip_move(self.x*0.033,self.y*0.361,self.x*0.441,self.y*0.361)
+            self.driver.swip_move(self.x*0.33,self.y*0.361,self.x*0.441,self.y*0.361)
         else:
             pass
         time.sleep(4)
@@ -1159,7 +1162,7 @@ class Test_j_upload(Dubbing):
         elif self.y > 2250:
             self.driver.tap(self.x * 0.5, self.y * 0.752)
             time.sleep(2)
-            self.driver.swip_move(self.x * 0.033, self.y * 0.361, self.x * 0.441, self.y * 0.361)
+            self.driver.swip_move(self.x * 0.33, self.y * 0.361, self.x * 0.441, self.y * 0.361)
         else:
             pass
         time.sleep(4)
@@ -1183,7 +1186,7 @@ class Test_j_upload(Dubbing):
         elif self.y > 2250:
             self.driver.tap(self.x * 0.5, self.y * 0.752)
             time.sleep(2)
-            self.driver.swip_move(self.x * 0.033, self.y * 0.361, self.x * 0.441, self.y * 0.361)
+            self.driver.swip_move(self.x * 0.33, self.y * 0.361, self.x * 0.441, self.y * 0.361)
         else:
             pass
         time.sleep(4)
@@ -1218,7 +1221,7 @@ class Test_j_upload(Dubbing):
                 time.sleep(4)
             except:
                 try:
-                    # oppor11
+                    # oppor11/oppor15
                     self.driver.find_id('com.oppo.camera:id/shutter_button')
                     self.driver.find_id('com.oppo.camera:id/shutter_button').click()
                     time.sleep(4)
@@ -1375,6 +1378,8 @@ class Test_k_Upload(Dubbing):
             #视频下载
             if self.y == 1920:
                 self.driver.swip_move(self.x * 0.922, self.y * 0.232, self.x * 0.57, self.y * 0.232)
+            elif self.y == 2280:
+                self.driver.swip_move(self.x * 0.786, self.y * 0.186, self.x * 0.54, self.y * 0.186)
             time.sleep(2)
             self.driver.find_id(soucred_id + 'down').click()
             time.sleep(2)
@@ -1389,6 +1394,8 @@ class Test_k_Upload(Dubbing):
             time.sleep(2)
             if self.y == 1920:
                 self.driver.swip_move(self.x * 0.507, self.y * 0.24, self.x * 0.897, self.y * 0.24)
+            elif self.y == 2280:
+                self.driver.swip_move(self.x * 0.509, self.y * 0.186, self.x * 0.753, self.y * 0.186)
         except:
             print('视频上传失败，不执行视频下载用例')
         time.sleep(2)
@@ -1422,9 +1429,6 @@ class Test_k_Upload(Dubbing):
             time.sleep(2)
 
             #QQ空间分享
-            if self.y == 1920:
-                self.driver.swip_move(self.x * 0.922, self.y * 0.232, self.x * 0.57, self.y * 0.232)
-            time.sleep(2)
             self.driver.find_id(soucred_id + 'qqz').click()
             self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
             self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
@@ -1439,6 +1443,8 @@ class Test_k_Upload(Dubbing):
             time.sleep(2)
             if self.y == 1920:
                 self.driver.swip_move(self.x * 0.507,self.y*0.24,self.x*0.897,self.y *0.24)
+            elif self.y == 2280:
+                self.driver.swip_move(self.x * 0.786, self.y * 0.186, self.x * 0.54, self.y * 0.186)
             time.sleep(2)
         except Exception as  e:
             print(e)
