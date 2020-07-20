@@ -29,15 +29,15 @@ class Performance(QWidget):
         outstr = p.read()
         connectdeviceid = re.findall(r'(\w+)\s+device\s', outstr)
         if len(connectdeviceid) != 0:
-            lines = os.popen("adb shell dumpsys meminfo com.happyteam.dubbingshow").readlines() #逐行读取
-            total = "TOTAL"
-            mem_list = []
-            for line in lines:
-                if re.findall(total, line): # 找到TOTAL 这一行
-                    lis = line.split(" ")  #将这一行，按空格分割成一个list
-                    while '' in lis:       # 将list中的空元素删除
-                        lis.remove('')
-            return (lis[1]) #返回总共内存使用
+            cmd = r'adb shell dumpsys meminfo com.happyteam.dubbingshow  | findstr "TOTAL"'  # % apk_file
+            pr = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+            pr.wait()  # 不会马上返回输出的命令，需要等待
+            out = pr.stdout.readlines()  # out = pr.stdout.read().decode("UTF-8")
+            str_out = map(str, out)
+            number = []
+            for i in str_out:
+                number.append(int(re.findall('\d+', i)[0]))  # 正则匹配出字符串中的数字列表，按选择列表[0]的数字大写排序
+            return (number[0])
         else:
             return 0
 

@@ -12,7 +12,7 @@ sys.path.append(rootPath)
 from Dubbing9_11.Front import Dubbing
 
 soucred_id = 'com.happyteam.dubbingshow:id/'
-Skip = True
+
 
 class Test_a_Dub(Dubbing):
     #进入素材库
@@ -77,7 +77,6 @@ class Test_a_Dub(Dubbing):
         self.driver.find_id(soucred_id + 'roleall').click()
         time.sleep(2)
 
-    @unittest.skipIf(condition=Skip)
     # 首次进入配音界面配音引导页
     def test3(self):
         try:
@@ -87,7 +86,6 @@ class Test_a_Dub(Dubbing):
             pass3
         time.sleep(2)
 
-    @unittest.skipIf(condition=Skip)
     #退出配音界面再进
     def test4(self):
         self.driver.find_id(soucred_id + 'back').click()
@@ -103,7 +101,6 @@ class Test_a_Dub(Dubbing):
         self.driver.find_id(soucred_id + 'roleall').click()
         time.sleep(2)
 
-    @unittest.skipIf(condition=Skip)
     # 双配素材配音界面配音角色切换
     def test5(self):
         self.driver.find_id(soucred_id + 'coopera').click()
@@ -168,7 +165,6 @@ class Test_a_Dub(Dubbing):
             print('配音界面返回跳转错误')
             self.driver.Quit()
 
-@unittest.skipIf(condition= Skip)
 class Test_b_Music(Dubbing):
     # 配音界面背景音开关
     def test0(self):
