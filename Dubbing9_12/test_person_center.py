@@ -327,7 +327,7 @@ class Test_b_Person_Zoom(Dubbing):
         if self.y == 1920:
             self.driver.tap(self.x * 0.5 ,self.y * 0.792)
         elif self.y == 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+            self.driver.tap(self.x * 0.5, self.y * 0.823)
         self.driver.wait_id(sourced_id + 'txtTitle')
         count = self.driver.find_ids(sourced_id + 'img')
         for i in range(len(count)-1,-1,-1):
@@ -345,14 +345,13 @@ class Test_b_Person_Zoom(Dubbing):
                 self.driver.find_id(sourced_id + 'btnBack').click()
             except:
                 pass
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnCancel').click()
+            time.sleep(2)
         except:
             pass
-        time.sleep(2)
-        self.driver.find_id(sourced_id + 'btnBack').click()
-        time.sleep(2)
-        self.driver.find_id(sourced_id + 'btnCancel').click()
-        time.sleep(2)
-
     #会员空间装扮
     def test_o(self):
         self.driver.find_id(sourced_id + 'userhead').click()
@@ -376,16 +375,21 @@ class Test_b_Person_Zoom(Dubbing):
         self.driver.find_id(sourced_id + 'source_level').click()
         time.sleep(2)
         self.driver.find_id(sourced_id + 'img_vip').click()
-        self.driver.wait_id(sourced_id + 'renew')
         time.sleep(2)
-        self.driver.find_id(sourced_id + 'btnBack').click()
-        time.sleep(2)
-        self.driver.find_id(sourced_id + 'guize1').click()
-        time.sleep(2)
-        self.driver.find_id(sourced_id + 'btnBack').click()
-        time.sleep(2)
-        self.driver.find_id(sourced_id + 'btnBack').click()
-        time.sleep(2)
+        try:
+            self.driver.find_id(sourced_id + 'renew')
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'guize1').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            self.driver.find_id(sourced_id + 'btnBack').click()
+            time.sleep(2)
 
     #身份认证
     def test_q(self):
@@ -1678,6 +1682,8 @@ class Test_f_creates(Dubbing):
         self.driver.Long_Touche(el,3000)
         if self.y == 1920:
             self.driver.tap(self.x * 0.656, self.y * 0.552)
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.657, self.y * 0.546)
         else:
             pass
         time.sleep(2)
@@ -2395,6 +2401,8 @@ class Test_f_creates(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.124, self.y * 0.385, self.x * 0.688, self.y * 0.385)
+        elif self.y == 2280:
+            self.driver.swip_move(self.x * 0.156, self.y * 0.36, self.x * 0.708, self.y * 0.229)
         else:
             pass
         time.sleep(2)
@@ -2612,6 +2620,8 @@ class Test_f_creates(Dubbing):
         time.sleep(2)
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.104, self.y * 0.488, self.x * 0.626, self.y * 0.488)
+        elif self.y == 2280:
+            self.driver.swip_move(self.x * 0.095, self.y * 0.45, self.x * 0.699, self.y * 0.448)
         else:
             pass
         time.sleep(2)
@@ -2623,6 +2633,8 @@ class Test_f_creates(Dubbing):
     def test_f_s(self):
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.844, self.y * 0.641, self.x * 0.189, self.y * 0.641)
+        elif self.y == 2280:
+            self.driver.swip_move(self.x * 0.819, self.y * 0.579, self.x * 0.196, self.y * 0.578)
         else:
             pass
         time.sleep(2)
@@ -2641,6 +2653,14 @@ class Test_f_creates(Dubbing):
             except:
                 if self.y == 1920:
                     self.driver.tap(self.x * 0.5, self.y * 0.542)
+                    time.sleep(2)
+                    try:
+                        self.driver.find_id(sourced_id + 'btnSubmit')
+                        break
+                    except:
+                        pass
+                elif self.y ==2280:
+                    self.driver.tap(self.x * 0.5, self.y * 0.536)
                     time.sleep(2)
                     try:
                         self.driver.find_id(sourced_id + 'btnSubmit')
@@ -2673,6 +2693,8 @@ class Test_f_creates(Dubbing):
         time.sleep(2)
         if self.y == 1920 :
             self.driver.tap(self.x * 0.5 ,self.y * 0.869)
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.888)
         else:
             pass
         time.sleep(2)
