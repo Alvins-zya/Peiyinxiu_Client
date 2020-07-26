@@ -50,6 +50,7 @@ class Test_a_Channel(Dubbing):
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
+
     @unittest.skip('9.13版本移除频道搜索')
     #更多频道-搜索频道
     def test_c(self):
@@ -1106,7 +1107,6 @@ class Test_e_Pia(Dubbing):
         time.sleep(2)
         self.driver.find_id(soucred_id + 'close').click()
         time.sleep(2)
-
 
     #作品列表
     def test_g(self):
