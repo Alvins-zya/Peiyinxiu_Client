@@ -283,16 +283,9 @@ class Test_Dub(Dubbing):
             pass
         time.sleep(2)
 
-    # 点击录音按钮配音
-    def test_b(self):
-        try:
-            self.driver.find_id(sourced_id + 'play')
-            self.driver.find_id(sourced_id + 'action').click()
-        except:
-            pass
-
     # 手动点击提交进入配音预览界面
     def test_c(self):
+        self.driver.find_id(sourced_id + 'action').click()
         self.driver.wait_download(sourced_id + 'title')
         self.driver.Background()
         time.sleep(2)
