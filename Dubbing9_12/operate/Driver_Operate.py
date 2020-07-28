@@ -359,6 +359,14 @@ class BaseOperate():
     def Background(self):
         self.driver.background_app(3)
 
+    def hide_Keyboard(self):
+        '''
+        隐藏输出法键盘
+        :return:
+        '''
+        self.driver.hide_keyboard()
+
+
     def close_app(self):
         '''
         退出应用
