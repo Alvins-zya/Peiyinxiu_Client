@@ -17,9 +17,10 @@ curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
 filePath = os.path.dirname(__file__)
-with open('devices_caps.yaml', 'r')as file:
+with open('D:\Git_pyhthon\Public\devices_caps.yaml', 'r')as file:
     data = yaml.load(file, Loader=yaml.FullLoader)
 dev = data['deviceName']
+resource_id = 'com.happyteam.dubbingshow:id/'
 class BaseOperate():
     def __init__(self):
         self.driver = appium_desired()

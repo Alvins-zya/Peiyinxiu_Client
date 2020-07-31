@@ -1,6 +1,6 @@
 import unittest
 import time
-from Dubbing9_11.Front import Dubbing
+from Front import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
 class Test_a_Source_search(Dubbing):
 

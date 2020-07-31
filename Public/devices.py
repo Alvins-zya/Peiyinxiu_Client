@@ -21,10 +21,10 @@ def appium_desired():
     desired_caps = {}
     desired_caps['platformName'] = data['platformName']
     desired_caps['platformVersion'] = data['platformVersion']
-    # desired_caps['deviceName'] = data['deviceName']
-    # desired_caps['udid'] = data['deviceName']
-    desired_caps['deviceName'] = 'b490dce3'
-    desired_caps['udid'] = 'b490dce3'
+    desired_caps['deviceName'] = data['deviceName']
+    desired_caps['udid'] = data['deviceName']
+    # desired_caps['deviceName'] = 'b490dce3'
+    # desired_caps['udid'] = 'b490dce3'
     desired_caps['appPackage'] = data['appPackage']
     desired_caps['appActivity'] = data['appActivity']
     desired_caps['noReset'] = data['noReset']

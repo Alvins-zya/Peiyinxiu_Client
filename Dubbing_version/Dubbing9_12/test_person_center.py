@@ -1,11 +1,10 @@
 
 import unittest
 import random
-import pytest
 import time
 import re
 from collections import Counter
-from Dubbing9_11.Front import Dubbing
+from Front import Dubbing
 sourced_id = 'com.happyteam.dubbingshow:id/'
 
 class Test_a_Person_zoom(Dubbing):
