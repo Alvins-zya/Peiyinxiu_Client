@@ -133,7 +133,6 @@ class Video_detail_function():
         new1 = re.findall(r'(.*)人', Peo_num)
         str_new1 = ''.join(new1)
         check1 = '24000'
-        self.assertIn(check1, str_new1)
         time.sleep(2)
 
     # 金币曝光
@@ -203,7 +202,7 @@ class Video_detail_function():
         time.sleep(2)
 
     # 视频评论
-    def test_h(self):
+    def Video_comments(self):
         while True:
             try:
                 self.driver.find_id(self.id + 'tv_hide')
@@ -212,26 +211,22 @@ class Video_detail_function():
                 self.driver.Background()
                 time.sleep(2)
             except:
-                pass
-            time.sleep(2)
-            try:
-                self.driver.find_id(self.id + 'tv_shafa')
-                self.driver.swip_up()
-                time.sleep(2)
-                self.driver.Background()
-                time.sleep(2)
-            except:
-                pass
-            time.sleep(2)
-            try:
-                self.driver.find_id(self.id + 'comment_count')
-                break
-            except:
-                pass
+                try:
+                    self.driver.find_id(self.id + 'tv_shafa')
+                    self.driver.swip_up()
+                    time.sleep(2)
+                    self.driver.Background()
+                    time.sleep(2)
+                except:
+                    try:
+                        self.driver.find_id(self.id + 'comment_count')
+                        break
+                    except:
+                        pass
         time.sleep(2)
 
     # 评论排序
-    def test_h_a(self):
+    def Video_comment_sort(self):
         comments = self.driver.find_id(self.id + 'comment_count').text
         num = re.findall(r'共(.*)条评论', comments)
         str_num = ''.join(num)
@@ -250,7 +245,7 @@ class Video_detail_function():
                 self.driver.find_id(self.id + 'shunxu').click()
                 time.sleep(2)
                 Comment1 = self.driver.find_ids(self.id + 'item_video_common_time')[1].text
-                self.assertNotEqual(Comment, Comment1, msg='评论切换顺序后评论内容校验错误')
+                assert Comment != Comment1
                 time.sleep(2)
             except:
                 Comment = self.driver.find_id(self.id + 'item_video_common_time').text
@@ -258,12 +253,12 @@ class Video_detail_function():
                 self.driver.find_id(self.id + 'shunxu').click()
                 time.sleep(2)
                 Comment1 = self.driver.find_id(self.id + 'item_video_common_time').text
-                self.assertNotEqual(Comment, Comment1, msg='评论切换顺序后评论时间校验错误')
+                assert Comment != Comment1
                 time.sleep(2)
         time.sleep(2)
 
     # 评论举报
-    def test_h_b(self):
+    def Video_comment_report(self):
         self.driver.find_id(self.id + 'item_comment_video_more').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'tv_action_one').click()
@@ -296,7 +291,7 @@ class Video_detail_function():
         time.sleep(2)
 
     # 评论列表上滑加载
-    def test_h_c(self):
+    def Video_comments_load(self):
         for i in range(5):
             self.driver.swip_up()
             time.sleep(2)
@@ -305,7 +300,7 @@ class Video_detail_function():
         time.sleep(2)
 
     # 点击合作配音完成后保存草稿箱
-    def test_i(self):
+    def Video_Coor_dubbing(self):
         while True:
             try:
                 self.driver.find_xpath('配音/合作')
@@ -426,7 +421,7 @@ class Video_detail_function():
         time.sleep(2)
 
     # 素材预览界面配音
-    def test_i_d(self):
+    def Video_source_dub(self):
         self.driver.find_id(self.id + 'dubbing_fake').click()
         while True:
             try:
@@ -475,7 +470,7 @@ class Video_detail_function():
         time.sleep(2)
 
     # 作品分享
-    def test_j(self):
+    def Video_share(self):
         self.driver.find_id(self.id + 'tv_share').click()
         time.sleep(2)
         # 朋友圈
@@ -581,7 +576,7 @@ class Video_detail_function():
         time.sleep(2)
 
     # 切换视频
-    def test_k(self):
+    def Video_switch(self):
         for i in range(10):
             self.driver.swip_up()
             self.driver.wait_id(self.id + 'userhead')
