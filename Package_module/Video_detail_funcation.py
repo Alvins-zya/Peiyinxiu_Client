@@ -31,9 +31,7 @@ class Video_detail_function():
     def Video_follow(self):
         self.driver.find_id(self.id + 'follow_ta').click()
         try:
-            follow_toast = self.driver.wait_toast('//android.widget.Toast')
-            toast = '关注成功'
-            self.assertEqual(follow_toast, toast, msg='toast提示信息内容校验不一致')
+            self.driver.wait_toast('//android.widget.Toast')
         except:
             try:
                 self.driver.find_id(self.id + 'right_icon1')
@@ -64,7 +62,7 @@ class Video_detail_function():
         time.sleep(2)
 
     # 作品信息
-    def test_e_a(self):
+    def Video_title(self):
         video_name = self.driver.find_id(self.id + 'tv_video_detail_title').text
         play_count_inside = self.driver.find_id(self.id + 'tv_video_play_num_in').text
         play_count_out = self.driver.find_id(self.id + 'tv_good').text
@@ -74,31 +72,32 @@ class Video_detail_function():
         time.sleep(2)
 
     # 点赞
-    def test_f(self):
+    def Video_good(self):
         num = self.driver.find_id(self.id + 'tv_good').text
         try:
             self.driver.find_id(self.id + + 'good_svga').click()
             tip = self.driver.wait_toast('//android.widget.Toast')
-            assert
+            check = '恭喜你获得300金币'
+            assert tip == check
         except:
             self.driver.find_id(self.id + 'tv_good').click()
         self.driver.wait_id(self.id + 'svgaImageView')
         num1 = self.driver.find_id(self.id + 'tv_good').text
         try:
-            self.assertNotEqual(num, num1)
+            assert num != num1
         except Exception as e:
             print(e)
         time.sleep(2)
 
     # 曝光
-    def test_g(self):
+    def Video_exposure(self):
         tv_title = self.driver.find_id(self.id + 'tv_video_detail_title').text
         self.driver.find_id(self.id + 'tv_exposure').click()
         self.driver.wait_id(self.id + 'txtTitle')
         time.sleep(2)
         tv_title1 = self.driver.find_id(self.id + 'tv_source_title').text
         try:
-            self.assertIn(tv_title1, tv_title)
+            assert tv_title1 == tv_title
         except Exception as e:
             print(e)
         time.sleep(2)
