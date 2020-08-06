@@ -276,7 +276,7 @@ class Video_detail_function():
         self.driver.find_id(self.id + 'follow_ta').click()
         time.sleep(2)
 
-    # 点击合作配音完成后保存草稿箱
+    # 点击合作配音
     def Video_Coor_dubbing(self):
         while True:
             try:
