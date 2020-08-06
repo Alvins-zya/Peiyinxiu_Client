@@ -307,18 +307,6 @@ class Video_detail_function():
                         pass
             time.sleep(2)
             self.driver.find_id(self.id + 'action').click()
-            self.driver.wait_download(self.id + 'title')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.find_id(self.id + 'complete').click()
-            self.driver.wait_id(self.id + 'txtTitle')
-            time.sleep(2)
-            self.driver.find_id(self.id + 'pri_switch_tv').click()
-            time.sleep(2)
-            self.driver.find_id(self.id + 'saveToDraft').click()
-            time.sleep(2)
-            self.driver.find_id(self.id + 'btnSubmit').click()
-            self.driver.wait_id(self.id + 'coor')
             self.driver.find_id(self.id + 'close').click()
             time.sleep(2)
         except Exception as e:
