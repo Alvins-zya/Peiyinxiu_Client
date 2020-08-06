@@ -53,7 +53,7 @@ class Video_detail_function():
         time.sleep(2)
 
     # 全屏播放
-    def test_e(self):
+    def Video_fullscreen(self):
         self.driver.Background()
         time.sleep(2)
         self.driver.find_id(self.id + 'iv_fullscreen_open').click()
@@ -89,8 +89,8 @@ class Video_detail_function():
             print(e)
         time.sleep(2)
 
-    # 曝光
-    def Video_exposure(self):
+    # 曝光界面功能按钮点击
+    def Video_exposure_touch(self):
         tv_title = self.driver.find_id(self.id + 'tv_video_detail_title').text
         self.driver.find_id(self.id + 'tv_exposure').click()
         self.driver.wait_id(self.id + 'txtTitle')
@@ -101,10 +101,24 @@ class Video_detail_function():
         except Exception as e:
             print(e)
         time.sleep(2)
+        #曝光券
+        self.driver.find_id(self.id + 'tv_right').click()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'tv_right').click()
+        self.driver.wait_id(self.id + 'btnClose')
+        self.driver.find_id(self.id + 'btnClose').click()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'tab2').click()
+        time.sleep(1)
+        self.driver.find_id(self.id + 'tab1').click()
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
+        #评论推荐人预览
         self.driver.find_id(self.id + 'tv_preview').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'sure').click()
         time.sleep(2)
+        #充值界面跳转
         self.driver.find_id(self.id + 'img_right').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'price_tv').click()
@@ -113,30 +127,35 @@ class Video_detail_function():
         time.sleep(2)
         self.driver.find_id(self.id + 'back').click()
         time.sleep(2)
+        #曝光价格列表
         prices = self.driver.find_ids(self.id + 'rl')
-        # peoples = ['40','80','300','500','1000','5000','10000','30000']
         for i in range(len(prices) - 1):
             self.driver.find_ids(self.id + 'rl')[i].click()
-            # people = self.driver.find_id(self.id + 'tv_personal_count').text
-            # new = re.findall(r'(.*)人',people)
-            # str_new = ''.join(new)
-            # self.assertIn(str_new,peoples)
-            # time.sleep(1)
         time.sleep(2)
+        #曝光服务协议
+        self.driver.find_id(self.id + 'tv_xieyi').click()
+        self.driver.wait_id(self.id + 'btnClose')
+        self.driver.find_id(self.id + 'btnClose').click()
+        time.sleep(2)
+        #作品曝光要求
+        self.driver.find_id(self.id + 'tv_yaoqiu').click()
+        self.driver.wait_id(self.id + 'btnClose')
+        self.driver.find_id(self.id + 'btnClose').click()
+        time.sleep(2)
+        #自定义钻石价格
         self.driver.find_ids(self.id + 'rl')[-1].click()
         time.sleep(2)
         self.driver.find_id(self.id + 'edit').send_keys('200')
         time.sleep(1)
         self.driver.find_id(self.id + 'sure').click()
         time.sleep(2)
-        Peo_num = self.driver.find_id(self.id + 'tv_personal_count').text
-        new1 = re.findall(r'(.*)人', Peo_num)
-        str_new1 = ''.join(new1)
-        check1 = '24000'
+        self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
 
     # 金币曝光
-    def test_g_a(self):
+    def Video_exposure_gold(self):
+        self.driver.find_id(self.id + 'tv_exposure').click()
+        time.sleep(2)
         self.driver.find_id(self.id + 'rl').click()
         golds = self.driver.find_id(self.id + 'tv_gold').text
         if int(golds) >= 5000:
@@ -145,45 +164,43 @@ class Video_detail_function():
             self.driver.find_id(self.id + 'gold_count').click()
             gold_toast = self.driver.wait_toast('//android.widget.Toast')
             check = '金币余额不足'
-            self.assertIn(check, gold_toast)
+            assert check == gold_toast
+        self.driver.wait_id(self.id + 'btnBack')
+        self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
 
     # 会员曝光
-    def test_g_b(self):
-        try:
-            self.driver.find_id(self.id + 'free_count')
-            count = self.driver.find_id(self.id + 'free_count').text
-            if count == '当前剩余0次':
-                self.driver.find_id(self.id + 'free_count').click()
-                exp_toast = self.driver.wait_toast('//android.widget.Toast')
-                check = '曝光机会用完'
-                self.assertIn(check, exp_toast)
-                return None
+    def Video_exposure_freevip(self):
+        self.driver.find_id(self.id + 'tv_exposure').click()
+        time.sleep(2)
+        count = self.driver.find_id(self.id + 'free_count').text
+        if count == '当前剩余0次':
             self.driver.find_id(self.id + 'free_count').click()
+            exp_toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '曝光机会用完'
+            self.assertIn(check, exp_toast)
+            return None
+        self.driver.find_id(self.id + 'free_count').click()
+        time.sleep(2)
+        try:
+            self.driver.find_xpath('会员中心')
             time.sleep(2)
-            try:
-                self.driver.find_xpath('会员中心')
-                time.sleep(2)
-                self.driver.find_id(self.id + 'btnBack').click()
-                time.sleep(2)
-            except:
-                pass
-        except Exception as e:
-            print(e)
+            self.driver.find_id(self.id + 'btnBack').click()
+            time.sleep(2)
+        except:
+            pass
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
 
     # 自定义钻石曝光
-    def test_g_c(self):
+    def Video_exposure_diamond(self):
+        self.driver.find_id(self.id + 'tv_exposure').click()
+        time.sleep(2)
         self.driver.find_ids(self.id + 'rl')[-1].click()
         time.sleep(2)
         self.driver.find_id(self.id + 'edit').send_keys('200')
         time.sleep(1)
         self.driver.find_id(self.id + 'sure').click()
-        time.sleep(2)
-        Peo_num = self.driver.find_id(self.id + 'tv_personal_count').text
-        new = re.findall(r'(.*)人', Peo_num)
-        str_new = ''.join(new)
-        check = '24000'
-        self.assertIn(check, str_new)
         time.sleep(2)
         self.driver.find_id(self.id + 'bottom').click()
         time.sleep(2)
@@ -205,75 +222,37 @@ class Video_detail_function():
     def Video_comments(self):
         while True:
             try:
-                self.driver.find_id(self.id + 'tv_hide')
+                self.driver.find_id(self.id + 'comment_count')
+                break
+            except:
                 self.driver.swip_up()
-                time.sleep(2)
                 self.driver.Background()
                 time.sleep(2)
-            except:
-                try:
-                    self.driver.find_id(self.id + 'tv_shafa')
-                    self.driver.swip_up()
-                    time.sleep(2)
-                    self.driver.Background()
-                    time.sleep(2)
-                except:
-                    try:
-                        self.driver.find_id(self.id + 'comment_count')
-                        break
-                    except:
-                        pass
+            time.sleep(2)
+
+    # 发送评论
+    def Video_comment_send(self):
+        self.driver.find_id(self.id + 'tv_comment').click()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'editContent').send_keys('暖一个！')
+        time.sleep(2)
+        self.driver.find_id(self.id + 'btn_send').click()
+        self.driver.wait_id(self.id + 'item_comment_video_more')
+        time.sleep(2)
+        self.driver.find_id(self.id + 'shunxu').click()
         time.sleep(2)
 
-    # 评论排序
-    def Video_comment_sort(self):
-        comments = self.driver.find_id(self.id + 'comment_count').text
-        num = re.findall(r'共(.*)条评论', comments)
-        str_num = ''.join(num)
-        if str_num != '1':
-            self.driver.find_id(self.id + 'tv_comment').click()
-            time.sleep(2)
-            self.driver.find_id(self.id + 'editContent').send_keys('暖一个！')
-            time.sleep(2)
-            self.driver.find_id(self.id + 'btn_send').click()
-            self.driver.wait_id(self.id + 'item_comment_video_more')
-            time.sleep(2)
-            try:
-                self.driver.find_xpath('以上为置顶评论')
-                Comment = self.driver.find_ids(self.id + 'item_video_common_time')[1].text
-                time.sleep(1)
-                self.driver.find_id(self.id + 'shunxu').click()
-                time.sleep(2)
-                Comment1 = self.driver.find_ids(self.id + 'item_video_common_time')[1].text
-                assert Comment != Comment1
-                time.sleep(2)
-            except:
-                Comment = self.driver.find_id(self.id + 'item_video_common_time').text
-                time.sleep(1)
-                self.driver.find_id(self.id + 'shunxu').click()
-                time.sleep(2)
-                Comment1 = self.driver.find_id(self.id + 'item_video_common_time').text
-                assert Comment != Comment1
-                time.sleep(2)
-        time.sleep(2)
 
     # 评论举报
     def Video_comment_report(self):
-        self.driver.find_id(self.id + 'item_comment_video_more').click()
+        self.driver.find_ids(self.id + 'item_comment_video_more')[-1].click()
         time.sleep(2)
         self.driver.find_id(self.id + 'tv_action_one').click()
         time.sleep(2)
-        reason = self.driver.find_id(self.id + 'txtTitle').text
-        check = '政治'
-        self.assertIn(check, reason, msg='选择的举报理由中未包含政治关键字')
-        time.sleep(2)
         self.driver.find_id(self.id + 'btnSubmit').click()
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            check_toast = '举报成功'
-            self.assertEqual(toast, check_toast, msg='举报toast内容校验不一致')
-        except:
-            pass
+        toast = self.driver.wait_toast('//android.widget.Toast')
+        check_toast = '举报成功'
+        assert toast == check_toast
         time.sleep(2)
         self.driver.find_id(self.id + 'item_comment_video_more').click()
         time.sleep(2)
@@ -282,12 +261,8 @@ class Video_detail_function():
         self.driver.find_id(self.id + 'txtKeyword').send_keys('举报功能测试')
         time.sleep(2)
         self.driver.find_id(self.id + 'right_icon1').click()
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            check_toast = '举报成功'
-            self.assertEqual(toast, check_toast, msg='举报toast内容校验不一致')
-        except:
-            pass
+        toast1 = self.driver.wait_toast('//android.widget.Toast')
+        assert toast1 == check_toast
         time.sleep(2)
 
     # 评论列表上滑加载
@@ -347,7 +322,7 @@ class Video_detail_function():
             self.driver.find_id(self.id + 'close').click()
             time.sleep(2)
         except Exception as e:
-            print(e)
+            raise e
         time.sleep(2)
         try:
             self.driver.find_id(self.id + 'close')
