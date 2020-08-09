@@ -341,6 +341,8 @@ class Video_detail_function():
         # 朋友圈
         if self.y == 1920:
             self.driver.tap(self.x * 0.12, self.y * 0.68)
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.126,self.y * 0.712)
         self.driver.wait_xpath('发表')
         self.driver.find_id('com.tencent.mm:id/dn').click()
         time.sleep(3)
@@ -350,6 +352,8 @@ class Video_detail_function():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.49, self.y * 0.68)
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.126,self.y * 0.712)
         self.driver.wait_xpath('发表')
         self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
         time.sleep(3)
@@ -359,6 +363,8 @@ class Video_detail_function():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.68, self.y * 0.68)
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.323,self.y * 0.712)
         self.driver.wait_xpath('发送')
         time.sleep(2)
         self.driver.find_id('com.sina.weibo:id/titleBack').click()
@@ -375,6 +381,8 @@ class Video_detail_function():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.12, self.y * 0.83)
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.126,self.y * 0.833)
         self.driver.wait_id(self.id + 'filter_edit')
         time.sleep(2)
         self.driver.find_id(self.id + 'filter_edit').click()
@@ -405,6 +413,8 @@ class Video_detail_function():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.31, self.y * 0.83)
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.493,self.y * 0.833)
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
@@ -421,6 +431,8 @@ class Video_detail_function():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.88, self.y * 0.83)
+        elif self.y == 2280:
+            self.driver.tap(self.x * 0.87,self.y * 0.833)
         time.sleep(2)
         try:
             self.driver.find_id(self.id + 'reprint')
@@ -437,8 +449,11 @@ class Video_detail_function():
                 except Exception as  e:
                     print(e)
         except:
+            #点击取消分享弹窗按钮
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5, self.y * 0.937)
+            elif self.y == 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.947)
         time.sleep(2)
 
     # 切换视频
