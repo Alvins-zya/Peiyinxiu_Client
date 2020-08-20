@@ -5,7 +5,7 @@
 from Public.Driver_Operate import BaseOperate,resource_id
 import time
 
-class Video_detail_function():
+class Video_detail_functions():
     def __init__(self):
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
@@ -21,13 +21,11 @@ class Video_detail_function():
 
     # 点击用户头像进入个人空间
     def Head_into_zoom_back(self):
-        Heads = self.driver.find_ids(self.id + 'userhead')
-        for i in range(len(Heads)):
-            self.driver.find_ids(self.id + 'userhead')[i].click()
-            self.driver.wait_id(self.id + 'fanscount')
-            time.sleep(2)
-            self.driver.find_id(self.id + 'btnBack').click()
-            time.sleep(3)
+        self.driver.find_id(self.id + 'userhead').click()
+        self.driver.wait_id(self.id + 'fanscount')
+        time.sleep(2)
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(3)
 
     # 关注
     def Video_follow(self):

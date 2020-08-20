@@ -12,8 +12,13 @@ class Live_funcation():
     def Into_live_detail(self):
         self.driver.find_id(self.id + 'fram').click()
         self.driver.wait_id(self.id + 'name')
+
+    #退出语聊间
+    def out_live(self):
         self.driver.find_id(self.id + 'home_close').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'btnSubmit').click()
         self.driver.wait_id(self.id + 'fram')
         time.sleep(1)
+
+
