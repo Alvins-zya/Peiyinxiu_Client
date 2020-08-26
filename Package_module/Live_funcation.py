@@ -150,7 +150,7 @@ class Live_funcation():
             time.sleep(3)
 
     #语聊间私信
-    def Live_persion_information(self):
+    def Live_persion_notice(self):
         self.driver.find_id(self.id + 'function_more').click()
         time.sleep(2)
         if self.y == 1520:
@@ -162,10 +162,13 @@ class Live_funcation():
                 time.sleep(2)
             except:
                 pass
+        elif self.y == 2280:
+
         time.sleep(2)
 
     #语聊间黑名单
     def Live_blacklist(self):
+
 
 
 

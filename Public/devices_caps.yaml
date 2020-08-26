@@ -1,6 +1,6 @@
 platformName: Android
-platformVersion: 7.1.2
-deviceName: b490dce3
+platformVersion:
+deviceName: JVINFQYPVSNF95TW
 appPackage: com.happyteam.dubbingshow
 appActivity: ui.StartActivity
 noReset: True

@@ -6,8 +6,8 @@ create on 2020年2月9日
 
 import threading
 
-from Dubbing_910.Test_case.Dubbing import Dub
-from Public import get_conn_dev
+from Test_case.test_start_app import Test
+from Thread_script.devices_list import get_conn_dev
 
 devices_list = get_conn_dev()
 
@@ -15,15 +15,15 @@ def start_devices_action(udid,port,systemport):
 
     # appium_desired(udid,port)
 
-    s = Dub(udid,port,systemport)
-    s.Dub_start()
+    s = Test()
+    s.start_app()
 
 
 
 def devices_start_sync():
 
     print('==devices_start==')
-
+    print(devices_list)
     desiried_process = []
 
     for i in range(len(devices_list)):
@@ -32,9 +32,9 @@ def devices_start_sync():
         systemport = 8200 + 1*i
 
         # desired = multiprocessing.Process(target= start_devices_action, args=(devices_list[i],port,systemport))
-        desired = threading.Thread(target=start_devices_action,args=(devices_list[i],port,systemport))
+        desired = threading.Thread(target=start_devices_action,args=(devices_list[i],port,systemport)
 
-        desiried_process.append(desired)
+        desiried_process.append(desired))
 
     for desired in desiried_process:
         desired.start()
@@ -44,7 +44,5 @@ def devices_start_sync():
 
 
 if __name__=='__main__':
-    # appium_start_sync()
-
     devices_start_sync()
 
