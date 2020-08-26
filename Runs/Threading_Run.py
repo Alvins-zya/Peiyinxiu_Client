@@ -32,9 +32,9 @@ def devices_start_sync():
         systemport = 8200 + 1*i
 
         # desired = multiprocessing.Process(target= start_devices_action, args=(devices_list[i],port,systemport))
-        desired = threading.Thread(target=start_devices_action,args=(devices_list[i],port,systemport)
+        desired = threading.Thread(target=start_devices_action,args=(devices_list[i],port,systemport))
 
-        desiried_process.append(desired))
+        desiried_process.append(desired)
 
     for desired in desiried_process:
         desired.start()
