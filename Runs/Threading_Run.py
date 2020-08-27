@@ -5,7 +5,6 @@ create on 2020年2月9日
 '''
 
 import threading
-
 from Test_case.test_start_app import Test
 from Thread_script.devices_list import get_conn_dev
 
@@ -15,7 +14,7 @@ def start_devices_action(udid,port,systemport):
 
     # appium_desired(udid,port)
 
-    s = Test()
+    s = Test(udid,port,systemport)
     s.start_app()
 
 

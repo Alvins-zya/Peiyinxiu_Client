@@ -13,7 +13,7 @@ import time
 from Thread_script.devices import appium_desired
 from Thread_script.devices_list import get_conn_dev
 class BaseOperate():
-    def __init__(self):
+    def __init__(self,udid,port,systemport):
         self.driver = appium_desired(udid,port,systemport)
         self.dev = get_conn_dev()
 

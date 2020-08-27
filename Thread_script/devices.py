@@ -11,7 +11,7 @@ import os
 def appium_desired(udid,port,systemport):
     desired_caps = {}
     desired_caps['platformName'] = 'Android'
-    desired_caps['platformVersion'] = '7.1.2'
+    desired_caps['platformVersion'] = '8.1.0'
     desired_caps['deviceName'] = udid
     desired_caps['udid'] = udid
     # desired_caps['deviceName'] = 'b490dce3'
@@ -28,6 +28,6 @@ def appium_desired(udid,port,systemport):
     desired_caps['normalizeTagNames'] = True
     desired_caps['systemPort'] = systemport
     print('appium port: %s start run %s at %s' % (port, udid ,ctime()))
-    driver = webdriver.Remote('http://localhost' + ':' + port +'/wd/hub', desired_caps)
+    driver = webdriver.Remote('http://localhost: %s /wd/hub'%(port), desired_caps )
     return driver
 
