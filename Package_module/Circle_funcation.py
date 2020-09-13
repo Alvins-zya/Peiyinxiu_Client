@@ -19,12 +19,12 @@ class Circle():
         time.sleep(2)
 
     #帖子浏览历史
-    def Circle_history(self):
+    def Circle_post_history(self):
         self.driver.find_id(soucred_id + 'history').click()
         time.sleep(2)
 
     #进入帖子详情
-    def Circle_Post_detail(self):
+    def Circle_post_detail(self):
         try:
             self.driver.find_id(soucred_id + 'title')
             self.driver.find_id(soucred_id + 'title').click()
@@ -39,7 +39,7 @@ class Circle():
             print(e)
 
     #历史记录帖子删除
-    def Circle_Post_delete(self):
+    def Circle_history_post_delete(self):
         delete_before = self.driver.find_id(soucred_id + 'title').text
         el = self.driver.find_id(soucred_id + 'title')
         self.driver.Long_Touche(el, 3000)
@@ -54,7 +54,7 @@ class Circle():
         time.sleep(2)
 
     #清空帖子浏览记录
-    def Circle_Post_clear(self):
+    def Circle_history_clear(self):
         try:
             self.driver.find_id(soucred_id + 'empty_text')
             self.driver.find_id(soucred_id + 'btnBack').click()
