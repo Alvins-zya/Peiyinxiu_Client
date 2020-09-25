@@ -1,3 +1,4 @@
+from itertools import chain
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -23,7 +24,7 @@ class Stats(QWidget):
         # 比如 self.ui.button , self.ui.textEdit
         self.ui = loadUi('service.ui',self)
 
-        self.ui.devices_list.clicked.connect(self.devices)
+        self.ui.devices_list.clicked.connect(self.show_dev)
         self.ui.install_apps.clicked.connect(self.install_Apps)
         self.ui.install_app.clicked.connect(self.single_install)
         self.ui.uninstall_apps.clicked.connect(self.uninstalls)
@@ -32,6 +33,7 @@ class Stats(QWidget):
         self.ui.start_apps.clicked.connect(self.starts)
         self.ui.shutdow.clicked.connect(self.close_dev)
         self.ui.clear_devices.clicked.connect(self.clears)
+        self.ui.single_clear.clicked.connect(self.Single_clear)
         self.signal.connect(self.outputs)
 
     def get_conn_dev(self):
@@ -41,6 +43,14 @@ class Stats(QWidget):
         connectdeviceid = re.findall(r'(\w+)\s+device\s', outstr)
         return connectdeviceid
 
+    def get_dev_name(self):
+        devs = self.get_conn_dev()
+        dev_name = []
+        for d in devs:
+            dev = os.popen('adb -s %s shell getprop ro.product.model'%d)
+            dev_name.append(dev.read())
+        return dev_name
+
     #设备列表
     def devices(self):
         devices = self.get_conn_dev()
@@ -48,6 +58,17 @@ class Stats(QWidget):
             self.ui.listWidget.addItem(dev)
         self.ui.listWidget.addItem(str(len(devices)))
         self.signal.emit(object)
+
+    #将设备名称显示在窗口中
+    def show_dev(self):
+        devs = self.get_dev_name()
+        dev_info = self.get_conn_dev()
+        lists = list(chain.from_iterable(zip(devs,dev_info)))
+        for info in lists:
+            self.ui.listWidget.addItem(info)
+        self.signal.emit(object)
+
+
 
     def excute(self,cmd):
         replay =subprocess.getoutput(cmd)
@@ -204,9 +225,14 @@ class Stats(QWidget):
     def clears(self):
         self.listWidget.clear()
 
+    #清空单个设备号输入框
+    def Single_clear(self):
+        self.put_device.clear()
+
     #输出结果至GUI界面
     def outputs(self,info):
         self.ui.output.append(str(info))
+
 
 
 
