@@ -34,7 +34,12 @@ class Stats(QWidget):
         self.ui.shutdow.clicked.connect(self.close_dev)
         self.ui.clear_devices.clicked.connect(self.clears)
         self.ui.single_clear.clicked.connect(self.Single_clear)
+        self.ui.file_path_clear.clicked.connect(self.File_path_clear)
+        self.ui.output_clear.clicked.connect(self.Output_clear)
+        self.ui.clear_apps_data.clicked.connect(self.Clear_apps_data)
+        self.ui.clear_app_data.clicked.connect(self.Clear_app_data)
         self.signal.connect(self.outputs)
+
 
     def get_conn_dev(self):
         p = os.popen('adb devices')
@@ -48,7 +53,7 @@ class Stats(QWidget):
         dev_name = []
         for d in devs:
             dev = os.popen('adb -s %s shell getprop ro.product.model'%d)
-            dev_name.append(dev.read())
+            dev_name.append(dev.read().rstrip('\n'))
         return dev_name
 
     #设备列表
@@ -67,8 +72,6 @@ class Stats(QWidget):
         for info in lists:
             self.ui.listWidget.addItem(info)
         self.signal.emit(object)
-
-
 
     def excute(self,cmd):
         replay =subprocess.getoutput(cmd)
@@ -221,6 +224,43 @@ class Stats(QWidget):
         for i in range(threads_count):
             threads[i].join()
 
+    #批量清空应用数据
+    def Clear_apps_data(self):
+        dev = self.get_conn_dev()
+        cmd_list =  []
+        for d in dev:
+            cmd = "adb -s %s shell pm clear com.happyteam.dubbingshow"%(d)
+            cmd_list.append(cmd)
+
+        threads = []
+        threads_count = len(cmd_list)
+        for i in range(threads_count):
+            t = threading.Thread(target=self.excute,args=(cmd_list[i],))
+            threads.append(t)
+
+        for i in range(threads_count):
+            time.sleep(1)
+            threads[i].start()
+
+        for i in range(threads_count):
+            threads[i].join()
+
+    #单设备清空应用数据
+    def Clear_app_data(self):
+        dev = self.ui.put_device.toPlainText()
+        dev_list = []
+        cmd_list = []
+        dev_list.append(dev)
+        for i in dev_list:
+            cmd = "adb -s %s shell pm clear com.happyteam.dubbingshow " % (i)
+            cmd_list.append(cmd)
+        threads_count = len(cmd_list)
+        for i in range(threads_count):
+            T = threading.Thread(target=self.excute, args=(cmd_list[i],))
+            T.start()
+            # T.join()
+
+
     #清空设备列表
     def clears(self):
         self.listWidget.clear()
@@ -229,10 +269,17 @@ class Stats(QWidget):
     def Single_clear(self):
         self.put_device.clear()
 
+    #清空文件路径输入框
+    def File_path_clear(self):
+        self.file_path.clear()
+
     #输出结果至GUI界面
     def outputs(self,info):
         self.ui.output.append(str(info))
 
+    #清空输出结果
+    def Output_clear(self):
+        self.output.clear()
 
 
 
