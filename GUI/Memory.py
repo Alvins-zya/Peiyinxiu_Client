@@ -50,7 +50,7 @@ class Performance(QWidget):
                 Men_Mb = int(int(mem) / 1024)
                 time.sleep(1)
                 if mem == '0':
-                    self.Signal.emit(mem)
+                    pass
                 else:
                     self.Signal.emit(Men_Mb)
                 mem_list.append(Men_Mb)
@@ -82,8 +82,6 @@ class Performance(QWidget):
     def Thread(self):
         T = threading.Thread(target=self.run)
         T.start()
-
-
 
     def stop(self):
         self.flag = 0

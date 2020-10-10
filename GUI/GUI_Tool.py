@@ -12,6 +12,7 @@ import re
 
 class Stats(QWidget):
     signal = pyqtSignal(object)
+    signal_Mem_max = pyqtSignal(int)
     def __init__(self):
         super().__init__()
         # 从文件中加载UI定义
@@ -23,7 +24,7 @@ class Stats(QWidget):
         # 注意：里面的控件对象也成为窗口对象的属性了
         # 比如 self.ui.button , self.ui.textEdit
         self.ui = loadUi('service.ui',self)
-
+        self.flag = 0
         self.ui.devices_list.clicked.connect(self.show_dev)
         self.ui.install_apps.clicked.connect(self.install_Apps)
         self.ui.install_app.clicked.connect(self.single_install)
@@ -38,6 +39,12 @@ class Stats(QWidget):
         self.ui.output_clear.clicked.connect(self.Output_clear)
         self.ui.clear_apps_data.clicked.connect(self.Clear_apps_data)
         self.ui.clear_app_data.clicked.connect(self.Clear_app_data)
+        self.ui.delete_dubbing.clicked.connect(self.Delete_dub)
+        self.ui.deletes_dubbing.clicked.connect(self.Delete_batch_dub)
+        self.ui.Memory_start.clicked.connect(self.Run_Thread)
+        self.ui.Memory_stop.clicked.connect(self.Stop_Mem)
+        self.signal_Mem_max.connect(self.Show_Mem_Max)
+        self.ui.Flow.clicked.connect(self.Get_send_recv)
         self.signal.connect(self.outputs)
 
 
@@ -156,10 +163,63 @@ class Stats(QWidget):
         for i in range(threads_count):
             T = threading.Thread(target=self.excute, args=(cmd_list[i],))
             T.start()
-            # T.join()
+            T.join()
+
+    #应用内存获取
+    def Memory_info(self):
+        Dev = self.ui.put_device.toPlainText()
+        if len(Dev) !=0:
+            cmd = r'adb -s %s shell dumpsys meminfo com.happyteam.dubbingshow | findstr "TOTAL"'%(Dev)
+            run_cmd = subprocess.Popen(cmd,stdout=subprocess.PIPE,shell=True)
+            run_cmd.wait()
+            result_out = run_cmd.stdout.readlines()
+            str_out = map(str,result_out)
+            num = []
+            for i in str_out:
+                num.append(int(re.findall('\d+',i)[0]))
+            return (num[0])
+        else:
+            return 0
+
+    #内存筛选
+    def Memory_filter(self):
+        self.flag = 1
+        Men_list = []
+        while True:
+            if self.flag == 1:
+                Mem = self.Memory_info()
+                Mem_Mb = int(int(Mem)/1024)
+                if Mem == 0:
+                    pass
+                else:
+                    self.signal.emit(Mem_Mb)
+                Men_list.append(Mem_Mb)
+                self.signal_Mem_max.emit(max(Men_list))
+                time.sleep(5)
+            else:
+                break
+
+    #显示内存
+    def Show_Mem(self,Mem):
+        self.ui.output.append(str(Mem))
+
+    #显示内存最大值
+    def Show_Mem_Max(self,max):
+        self.ui.Mem_show_max.setPlainText(str(max))
+
+    def Run_Thread(self):
+        self.ui.output.append(str('===开始显示内存==='))
+        T = threading.Thread(target=self.Memory_filter)
+        T.start()
+
+    #停止获取内存
+    def Stop_Mem(self):
+        self.flag=0
+        self.ui.output.append(str('===已停止==='))
 
     #批量启动APP
     def starts(self):
+        self.ui.output.append(str('===开始批量启动APP==='))
         connectdevice = self.get_conn_dev()
         cmd_list = []
         for device in connectdevice:
@@ -182,6 +242,7 @@ class Stats(QWidget):
 
     #批量关闭APP
     def closes(self):
+        self.ui.output.append(str('===开始批量关闭APP==='))
         connectdevice = self.get_conn_dev()
         cmd_list = []
         for device in connectdevice:
@@ -204,6 +265,7 @@ class Stats(QWidget):
 
     #批量关机
     def close_dev(self):
+        self.ui.output.append(str('===批量关机==='))
         connectdevice = self.get_conn_dev()
         cmd_list = []
         for device in connectdevice:
@@ -226,6 +288,7 @@ class Stats(QWidget):
 
     #批量清空应用数据
     def Clear_apps_data(self):
+        self.ui.output.append(str('===开始批量清除dubbing文件==='))
         dev = self.get_conn_dev()
         cmd_list =  []
         for d in dev:
@@ -244,6 +307,7 @@ class Stats(QWidget):
 
         for i in range(threads_count):
             threads[i].join()
+        self.ui.output.append(str('===批量清除成功==='))
 
     #单设备清空应用数据
     def Clear_app_data(self):
@@ -258,8 +322,79 @@ class Stats(QWidget):
         for i in range(threads_count):
             T = threading.Thread(target=self.excute, args=(cmd_list[i],))
             T.start()
-            # T.join()
+            T.join()
+        time.sleep(1)
 
+    #批量删除手机dubbing文件夹
+    def Delete_batch_dub(self):
+        self.ui.output.append(str('===开始批量删除dubbing文件==='))
+        dev = self.get_conn_dev()
+        cmd_list = []
+        for d in dev:
+            cmd = "adb -s %s shell rm -r /sdcard/dubbing"%(d)
+            cmd_list.append(cmd)
+
+        threads = []
+        threads_count = len(cmd_list)
+        for i in range(threads_count):
+            T = threading.Thread(target=self.excute,args=(cmd_list[i],))
+            threads.append(T)
+
+        for x in range(threads_count):
+            time.sleep(1)
+            threads[i].start()
+
+        for y in range(threads_count):
+            threads[i].join()
+        self.ui.output.append(str('===已完成批量删除dubbing文件==='))
+    #单设备删除手机dubbing文件夹
+    def Delete_dub(self):
+        self.ui.output.append(str('===开始==='))
+        dev = self.ui.put_device.toPlainText()
+        dev_list = []
+        cmd_list = []
+        dev_list.append(dev)
+        for d in dev_list:
+            cmd = "adb -s %s shell rm -r /sdcard/dubbing"%(d)
+            cmd_list.append(cmd)
+
+        thread_list = len(cmd_list)
+        for i in range(thread_list):
+            T = threading.Thread(target=self.excute,args=(cmd_list[i],))
+            T.start()
+        time.sleep(1)
+        self.ui.output.append(str('===结束==='))
+
+    #获取应用pid
+    def Get_app_pid(self):
+        Dev = self.ui.put_device.toPlainText()
+        p = os.popen('adb -s %s shell ps | findstr "com.happyteam.dubbingshow"'%(Dev))
+        outstr = p.readline()
+        pid = re.findall(r'      (.*?) ', outstr)
+        return pid
+    #获取应用uid
+    def Get_app_uid(self):
+        p = self.Get_app_pid()
+        Dev = self.ui.put_device.toPlainText()
+        U = os.popen('adb -s %s shell cat /proc/%s/status'%(Dev,p[0]))
+        out = U.read()
+        uid = re.findall(r'Uid:\t(.*?)\t',out)
+        return uid
+
+    #获取应用上传、下载流量
+    def Get_send_recv(self):
+        self.ui.output.append(str("应用上传流量"))
+        U = self.Get_app_uid()
+        Dev = self.ui.put_device.toPlainText()
+        send = os.popen('adb -s %s shell cat /proc/uid_stat/%s/tcp_snd'%(Dev,U[0]))
+        send_out = send.read()
+        send_Mb = int(int(send_out)/1024/1024)
+        self.ui.output.append(str('%s\Mb'%send_Mb))
+        self.ui.output.append(str("应用下载流量"))
+        recv = os.popen('adb -s %s shell cat /proc/uid_stat/%s/tcp_rcv'%(Dev,U[0]))
+        recv_out = recv.read()
+        recv_Mb = int(int(recv_out)/1024/1024)
+        self.ui.output.append(str('%s\Mb'%recv_Mb))
 
     #清空设备列表
     def clears(self):
