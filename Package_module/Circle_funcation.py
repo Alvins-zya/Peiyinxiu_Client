@@ -89,7 +89,6 @@ class Circle():
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-
     #圈子列表界面点击圈子标签
     def Cricle_tag(self):
         tag_name = self.driver.find_id(soucred_id + 'tag').text
@@ -332,7 +331,6 @@ class Circle():
             raise ('帖子发布失败')
         time.sleep(2)
 
-
     #删除图文帖
     def test_e_f(self):
         self.driver.find_id(soucred_id + 'right_icon1').click()
@@ -474,7 +472,6 @@ class Circle():
             self.driver.find_id(soucred_id + 'btnBack').click()
             raise ('帖子发布失败')
         time.sleep(2)
-
 
     # 删除语音帖
     def test_f_d(self):

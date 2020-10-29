@@ -167,7 +167,7 @@ class Live_funcation():
         time.sleep(2)
 
     #语聊间黑名单
-    def Live_blacklist(self):
+    # def Live_blacklist(self):
 
 
 

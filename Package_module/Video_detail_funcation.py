@@ -12,8 +12,12 @@ class Video_detail_functions():
         self.y = self.driver.touch_Y()
         self.id = resource_id
 
+    def Btnback(self):
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
+
     # 首页点击作品封面进入视频详情
-    def Home_into_video(self):
+    def Into_video(self):
         self.driver.find_id(self.id + 'film_img2').click()
         self.driver.wait_id(self.id + 'tv_video_detail_title')
         self.driver.Background()
@@ -23,11 +27,9 @@ class Video_detail_functions():
     def Head_into_zoom_back(self):
         self.driver.find_id(self.id + 'userhead').click()
         self.driver.wait_id(self.id + 'fanscount')
-        time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(3)
+        self.Btnback()
 
-    # 关注
+    # 视频详情点击关注
     def Video_follow(self):
         self.driver.find_id(self.id + 'follow_ta').click()
         try:
@@ -36,40 +38,34 @@ class Video_detail_functions():
             try:
                 self.driver.find_id(self.id + 'right_icon1')
                 time.sleep(2)
-                self.driver.find_id(self.id + 'btnBack').click()
-                time.sleep(2)
+                self.Btnback()
             except:
                 pass
         time.sleep(2)
 
-    # 视频-弹幕开关
-    def Video_danmu(self):
-        self.driver.find_id(self.id + 'media_danmu_img').click()
-        time.sleep(2)
-        self.driver.find_id(self.id + 'play').click()
-        time.sleep(20)
-        self.driver.Background()
-        self.driver.wait_id(self.id + 'play')
-        time.sleep(2)
+    # # 视频-弹幕开关
+    # def Video_danmu(self):
+    #     try:
+    #         self.driver.find_id(self.id + 'play').click()
+    #     except:
+    #         pass
+    #     self.driver.find_id(self.id + 'media_danmu_img').click()
+    #     time.sleep(2)
+    #     self.driver.find_id(self.id + 'play').click()
+    #     time.sleep(20)
+    #     self.driver.Background()
+    #     self.driver.wait_id(self.id + 'play')
+    #     time.sleep(2)
+    #
+    # # 全屏播放
+    # def Video_fullscreen(self):
+    #     self.driver.Background()
+    #     time.sleep(2)
+    #     self.driver.find_id(self.id + 'iv_fullscreen_open').click()
+    #     time.sleep(2)
+    #     self.driver.Background()
+    #     time.sleep(2)
 
-    # 全屏播放
-    def Video_fullscreen(self):
-        self.driver.Background()
-        time.sleep(2)
-        self.driver.find_id(self.id + 'iv_fullscreen_open').click()
-        time.sleep(2)
-        self.driver.Background()
-        time.sleep(2)
-
-    # 作品信息
-    def Video_title(self):
-        video_name = self.driver.find_id(self.id + 'tv_video_detail_title').text
-        play_count_inside = self.driver.find_id(self.id + 'tv_video_play_num_in').text
-        play_count_out = self.driver.find_id(self.id + 'tv_good').text
-        # print('作品名称：',video_name,
-        #       '站内播放量:',play_count_inside,
-        #       '点赞量:',play_count_out)
-        time.sleep(2)
 
     # 点赞
     def Video_good(self):

@@ -1,0 +1,5 @@
+Q、安装python后，cmd启动直接跳转到了微软应用商店
+S、环境变量下删除：
+    1、%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
+    2、C:\Users\Gold\AppData\Local\Microsoft\WindowsApps
+    cmd重新输入python即可正常启动。
