@@ -12,19 +12,19 @@ class Home():
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
 
-    def tips(self):
+    def Tips(self):
         self.driver.find_id(self.id + 'img_hot').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'img_hot').click()
         time.sleep(2)
 
     #每日任务列表加载
-    def task_list(self):
+    def Task_list(self):
         self.driver.find_id(self.id + 'task_box').click()
         self.driver.wait_id(self.id + 'rl1')
 
     #每日签到
-    def task_daily_attendance(self):
+    def Task_daily_attendance(self):
         #奖池
         self.driver.find_id(self.id + 'tv_right').click()
         time.sleep(2)
@@ -52,7 +52,7 @@ class Home():
             raise ('每日签到错误')
 
     #日常任务
-    def task_Daily_tasks(self):
+    def Task_Daily_tasks(self):
         check = ['上传一个带频道的作品','分享作品至朋友圈','收听语聊10分钟','用钻石曝光1个作品','评论5个曝光区作品','看完5个作品']
         task_list = []
         tasks = self.driver.find_ids(self.id + 'title')

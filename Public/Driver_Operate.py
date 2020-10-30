@@ -11,7 +11,7 @@ import os,sys
 import re
 import time
 from Public.devices import appium_desired
-from Public.devices_list import get_conn_dev
+from Public.devices_list import get_connect_device_id
 import yaml
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
@@ -24,7 +24,7 @@ resource_id = 'com.happyteam.dubbingshow:id/'
 class BaseOperate():
     def __init__(self):
         self.driver = appium_desired()
-        self.dev = get_conn_dev()
+        self.dev = get_connect_device_id()
 
     def lanuch_app(self):
         '''

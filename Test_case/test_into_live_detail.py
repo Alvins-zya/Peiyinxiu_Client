@@ -1,5 +1,5 @@
 #coding=utf-8
-from Public.Front import Dubbing
+from Public.Unittest_import import Dubbing
 import unittest
 
 class Test_Live(Dubbing):

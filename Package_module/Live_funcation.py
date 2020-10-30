@@ -150,21 +150,21 @@ class Live_funcation():
             time.sleep(3)
 
     #语聊间私信
-    def Live_persion_notice(self):
-        self.driver.find_id(self.id + 'function_more').click()
-        time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.497, self.y * 0.814)
-            time.sleep(2)
-            try:
-                self.driver.find_id(self.id +'tab1')
-                self.driver.find_id(self.id + 'btnBack').click()
-                time.sleep(2)
-            except:
-                pass
-        elif self.y == 2280:
-
-        time.sleep(2)
+    # def Live_persion_notice(self):
+    #     self.driver.find_id(self.id + 'function_more').click()
+    #     time.sleep(2)
+    #     if self.y == 1520:
+    #         self.driver.tap(self.x * 0.497, self.y * 0.814)
+    #         time.sleep(2)
+    #         try:
+    #             self.driver.find_id(self.id +'tab1')
+    #             self.driver.find_id(self.id + 'btnBack').click()
+    #             time.sleep(2)
+    #         except:
+    #             pass
+    #     elif self.y == 2280:
+    #
+    #     time.sleep(2)
 
     #语聊间黑名单
     # def Live_blacklist(self):

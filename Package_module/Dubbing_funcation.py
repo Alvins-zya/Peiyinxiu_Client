@@ -12,6 +12,7 @@ class Dubb_funcation():
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
         self.id = resource_id
+
     #合作素材
     def Material_library_dubble(self):
         self.driver.wait_id(self.id + 'task_box')
@@ -23,25 +24,6 @@ class Dubb_funcation():
         time.sleep(2)
         self.driver.swip_down()
         time.sleep(2)
-        try:
-            self.driver.wait_id(self.id + 'iv_source')
-        except:
-            self.driver.swip_down()
-        time.sleep(3)
-
-    # 进入素材预览界面
-    def Source_detail(self):
-        while True:
-            self.driver.find_id(self.id + 'iv_source').click()
-            try:
-                self.driver.wait_id(self.id + 'userhead')
-                self.driver.Background()
-                time.sleep(2)
-                break
-            except:
-                self.driver.back()
-                time.sleep(2)
-        time.sleep(4)
 
     # 双配素材-进入配音界面
     def Into_Dubbing_double(self):

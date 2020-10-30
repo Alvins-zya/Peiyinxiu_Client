@@ -1,6 +1,6 @@
 #coding=utf-8
 
-from Public.Front import Dubbing
+from Public.Unittest_import import Dubbing
 import unittest
 class Test_single(Dubbing):
     def test_a(self):

@@ -9,11 +9,14 @@ sys.path.append(rootPath)
 from Package_module.Dubbing_funcation import Dubb_funcation
 from Package_module.Live_funcation import Live_funcation
 from Public.Driver_Operate import BaseOperate
+from Package_module.Source_list import Source_funcation
+
+
 class Dubbing(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         warnings.simplefilter('ignore',ResourceWarning)
-        self.Dub = Dubb_funcation()
+        self.S = Source_funcation()
         self.Live = Live_funcation()
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
