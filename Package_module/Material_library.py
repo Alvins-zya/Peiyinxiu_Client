@@ -10,7 +10,7 @@ import time, datetime
 from Public.Driver_Operate import BaseOperate,resource_id
 
 
-class Source_funcation():
+class Source():
     def __init__(self):
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
@@ -482,8 +482,6 @@ class Source_funcation():
         name2 = self.driver.find_id(self.id + 'username').text
         self.assertEqual(name1, name2, msg='素材视频详情界面的用户名称与空间中的用户名称校验不一致')
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
 
     # 关注按钮
     def Source_detail_follow(self):
@@ -504,8 +502,6 @@ class Source_funcation():
         self.driver.wait_id(self.id + 'fanscount')
         self.driver.find_id(self.id + 'follow_status').click()
         time.sleep(4)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
 
     # 素材预览界面点击素材标签
     def Source_detail_types(self):
