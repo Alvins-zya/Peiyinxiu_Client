@@ -104,13 +104,20 @@ class BaseOperate():
         '''
         控件长按
         '''
-        TouchAction(self.driver).long_press(El,duration=time).release().perform()
+        TouchAction(self.driver).long_press(el=El,duration=time).perform()
+        # TouchAction(self.driver).long_press(x=El_x,y=El_y,duration=time).perform()
+        # el = self.driver.find_element_by_id(element)
+        # el_x = el.location.get('x')
+        # el_y = el.location.get('y')
+        # TouchAction(self.driver).long_press(x=int(el_x), y=int(el_y), duration=3000).release().perform()
+        # time.sleep(2)
 
-    def Long_press_move(self,el,pointx,pointy):
+
+    def Long_press_move(self,el,point_x,point_y):
         '''
         长按控件后移动
         '''
-        TouchAction(self.driver).press(el).wait(2000).move_to(x=int(pointx),y=int(pointy)).wait(2000).release().perform()
+        TouchAction(self.driver).press(el).wait(2000).move_to(x=int(point_x),y=int(point_y)).wait(2000).release().perform()
 
     def press_move(self,start_x,start_y,end_x,end_y):
         '''
