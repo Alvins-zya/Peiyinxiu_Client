@@ -103,8 +103,15 @@ class BaseOperate():
     def Long_Touche(self,El,time):
         '''
         控件长按
+        默认点击位置在元素的左上角，会导致长按等操作无法触发。
+        可将其改为中心后，问题解决
         '''
-        TouchAction(self.driver).long_press(el=El,duration=time).perform()
+        # element = self.driver.find_element_by_id(El)
+        # element = EL.rect
+        el = El.rect
+        el_x = int(el['x'] + el['width'] / 2.0)
+        el_y = int(el['y'] + el['height'] / 2.0)
+        TouchAction(self.driver).long_press(x=el_x, y=el_y, duration=time).perform()
         # TouchAction(self.driver).long_press(x=El_x,y=El_y,duration=time).perform()
         # el = self.driver.find_element_by_id(element)
         # el_x = el.location.get('x')
@@ -113,11 +120,14 @@ class BaseOperate():
         # time.sleep(2)
 
 
-    def Long_press_move(self,el,point_x,point_y):
+    def Long_press_move(self,El,point_x,point_y):
         '''
         长按控件后移动
         '''
-        TouchAction(self.driver).press(el).wait(2000).move_to(x=int(point_x),y=int(point_y)).wait(2000).release().perform()
+        el = El.rect
+        el_x = int(el['x'] + el['width'] / 2.0)
+        el_y = int(el['y'] + el['height'] / 2.0)
+        TouchAction(self.driver).press(x=el_x,y=el_y).wait(2000).move_to(x=int(point_x),y=int(point_y)).wait(2000).release().perform()
 
     def press_move(self,start_x,start_y,end_x,end_y):
         '''
@@ -249,7 +259,7 @@ class BaseOperate():
         :return:
         '''
         xpath_elemnt = ("//*[@text = '%s']" % xpath)
-        element = WebDriverWait(self.driver, 60).until(lambda x: self.driver.find_element_by_xpath(xpath_elemnt))
+        element = WebDriverWait(self.driver, 120).until(lambda x: self.driver.find_element_by_xpath(xpath_elemnt))
         return element
 
     def wait_sys(self,system):
