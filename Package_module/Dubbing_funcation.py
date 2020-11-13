@@ -6,12 +6,13 @@ import time, datetime
 from Public.Driver_Operate import BaseOperate,resource_id
 
 
-class Dubb_funcation():
+class Dubb():
     def __init__(self):
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
         self.id = resource_id
+
     #合作素材
     def Material_library_dubble(self):
         self.driver.wait_id(self.id + 'task_box')
@@ -23,25 +24,6 @@ class Dubb_funcation():
         time.sleep(2)
         self.driver.swip_down()
         time.sleep(2)
-        try:
-            self.driver.wait_id(self.id + 'iv_source')
-        except:
-            self.driver.swip_down()
-        time.sleep(3)
-
-    # 进入素材预览界面
-    def Source_detail(self):
-        while True:
-            self.driver.find_id(self.id + 'iv_source').click()
-            try:
-                self.driver.wait_id(self.id + 'userhead')
-                self.driver.Background()
-                time.sleep(2)
-                break
-            except:
-                self.driver.back()
-                time.sleep(2)
-        time.sleep(4)
 
     # 双配素材-进入配音界面
     def Into_Dubbing_double(self):
@@ -187,7 +169,6 @@ class Dubb_funcation():
             self.driver.find_id(self.id + 'cancelBn').click()
         time.sleep(2)
 
-
     # 修改台词后点击完成，再次进入编辑界面查看修改后的台词
     def Dub_Script_edit(self):
         self.driver.find_id(self.id + 'edit_subtitle').click()
@@ -232,7 +213,6 @@ class Dubb_funcation():
         time.sleep(2)
         self.driver.find_id(self.id + 'btnSubmit').click()
         time.sleep(3)
-
 
     # 切换系统默认台词
     def Dub_Script_default(self):
@@ -382,7 +362,6 @@ class Dubb_funcation():
         self.driver.wait_id(self.id + 'title')
         self.driver.find_id(self.id + 'back').click()
         time.sleep(2)
-
 
     # 试听过程中，点击退出配音界面
     def Dub_Video_review_quit(self):
@@ -757,89 +736,31 @@ class Dubb_funcation():
         time.sleep(2)
 
     # 修改作品封面-视频截图
-    def Upload_screenshot(self):
-        self.driver.find_id(self.id + 'btn_setting_cover_tip').click()
-        time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x*0.5,self.y*0.708)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.37,self.y*0.422,self.x*0.74,self.y*0.422)
-        elif self.y > 2250:
-            self.driver.tap(self.x*0.5,self.y*0.752)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.33,self.y*0.361,self.x*0.441,self.y*0.361)
-        else:
-            pass
-        time.sleep(4)
-        self.driver.find_id(self.id + 'back').click()
-        time.sleep(2)
-        self.driver.find_id(self.id + 'btn_setting_cover_tip').click()
-        time.sleep(2)
-        # 选择视频截图
+    def Upload_work_Cover_Screenshots(self):
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.708)
             time.sleep(2)
             self.driver.swip_move(self.x * 0.37, self.y * 0.422, self.x * 0.74, self.y * 0.422)
-        elif self.y > 2250:
+        elif self.y == 2250:
             self.driver.tap(self.x * 0.5, self.y * 0.752)
             time.sleep(2)
-            self.driver.swip_move(self.x * 0.33, self.y * 0.361, self.x * 0.441, self.y * 0.361)
-        else:
-            pass
-        time.sleep(4)
-        self.driver.find_id(self.id + 'complete').click()
-        time.sleep(2)
-
-    # 修改作品封面-拍照
-    def Upload_photograph(self):
-        self.driver.find_id(self.id + 'btn_setting_cover_tip').click()
-        time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.755)
-        elif self.y > 2250:
-            self.driver.tap(self.x * 0.5, self.y * 0.82)
-        else:
-            pass
-        time.sleep(5)
-        try:
-            #米5
-            self.driver.find_id('com.android.camera:id/v9_camera_picker')
-            self.driver.find_id('com.android.camera:id/v9_camera_picker').click()
-            time.sleep(5)
-            self.driver.find_id('com.android.camera:id/inten_done_apply').click()
+            self.driver.swip_move(self.x * 0.033, self.y * 0.361, self.x * 0.441, self.y * 0.361)
+        elif self.y == 2340:
+            self.driver.tap(self.x * 0.5, self.y * 0.752)
             time.sleep(2)
-        except:
-            #VivoX21
-            try:
-                self.driver.find_id('com.android.camera:id/shutter_button')
-                self.driver.find_id('com.android.camera:id/shutter_button').click()
-                time.sleep(4)
-                self.driver.find_id('com.android.camera:id/done_button').click()
-                time.sleep(4)
-            except:
-                try:
-                    # oppor11/oppor15
-                    self.driver.find_id('com.oppo.camera:id/shutter_button')
-                    self.driver.find_id('com.oppo.camera:id/shutter_button').click()
-                    time.sleep(4)
-                    self.driver.find_id('com.oppo.camera:id/done_button').click()
-                    time.sleep(3)
-                except:
-                    pass
-        time.sleep(2)
-        self.driver.find_id(self.id + 'confirm').click()
+            self.driver.swip_move(self.x * 0.066, self.y * 0.351, self.x * 0.5, self.y * 0.351)
+        time.sleep(4)
+        self.driver.find_id(sourced_id + 'complete').click()
         time.sleep(2)
 
-    # 修改作品封面-拍照-拍照以后点击取消
-    def Upload_photograph(self):
-        self.driver.find_id(self.id + 'btn_setting_cover_tip').click()
+    #修改作品封面-拍照
+    def Dubbing_work_Cover_Photo(self):
+        self.driver.find_id(sourced_id + 'btn_setting_cover_tip').click()
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.755)
         elif self.y > 2250:
             self.driver.tap(self.x * 0.5, self.y * 0.82)
-        else:
-            pass
         time.sleep(5)
         try:
             # 米5
@@ -847,10 +768,10 @@ class Dubb_funcation():
             self.driver.find_id('com.android.camera:id/v9_camera_picker').click()
             time.sleep(5)
             self.driver.find_id('com.android.camera:id/inten_done_apply').click()
-            time.sleep(2)
+            time.sleep(4)
         except:
-            # VivoX21
             try:
+                # VivoX21、VivoX9
                 self.driver.find_id('com.android.camera:id/shutter_button')
                 self.driver.find_id('com.android.camera:id/shutter_button').click()
                 time.sleep(4)
@@ -858,23 +779,19 @@ class Dubb_funcation():
                 time.sleep(4)
             except:
                 try:
-                    # oppor11
-                    self.driver.find_id('com.oppo.camera:id/shutter_button')
-                    self.driver.find_id('com.oppo.camera:id/shutter_button').click()
+                    self.driver.find_id('com.huawei.camera:id/shutter_button')
+                    self.driver.find_id('com.huawei.camera:id/shutter_button').click()
                     time.sleep(4)
-                    self.driver.find_id('com.oppo.camera:id/done_button').click()
-                    time.sleep(3)
+                    self.driver.find_id('com.huawei.camera:id/done_button').click()
+                    time.sleep(4)
                 except:
                     pass
-        time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
-        self.driver.find_id('android:id/button1').click()
-        time.sleep(4)
+        self.driver.find_id(sourced_id + 'confirm').click()
+        time.sleep(3)
 
-    # 修改作品封面-相册
-    def Upload_picture(self):
-        self.driver.find_id(self.id + 'btn_setting_cover_tip').click()
+    # 修改作品封面——相册
+    def Dubbing_work_Cover_Album(self):
+        self.driver.find_id(sourced_id + 'btn_setting_cover_tip').click()
         time.sleep(3)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.856)
@@ -883,11 +800,16 @@ class Dubb_funcation():
         else:
             pass
         time.sleep(2)
-        photo_count = self.driver.find_ids(self.id + 'photo_wall_item_photo')
-        select = random.randint(0,len(photo_count)-1)
-        self.driver.find_ids(self.id + 'photo_wall_item_photo')[select].click()
-        time.sleep(3)
-        self.driver.find_id(self.id + 'confirm').click()
+        photo_count = self.driver.find_ids(sourced_id + 'photo_wall_item_photo')
+        select = random.randint(0, len(photo_count) - 1)
+        self.driver.find_ids(sourced_id + 'photo_wall_item_photo')[select].click()
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+            select = random.randint(0, len(photo_count) - 1)
+            self.driver.find_ids(sourced_id + 'photo_wall_item_photo')[select].click()
+        except:
+            pass
+        self.driver.find_id(sourced_id + 'confirm').click()
         time.sleep(4)
 
     # 标题名称-输入30个字符
@@ -937,7 +859,7 @@ class Dubb_funcation():
             self.driver.find_id(self.id + 'tv_right').click()
             time.sleep(2)
             label_check = self.driver.find_id(self.id + 'tv1').text
-            assert  label_name == label_check
+            assert  label_name == label_check,'标签对比不一致，%s,%s' % (label_name, label_check)
             time.sleep(2)
         except:
             self.driver.find_id(self.id + 'btnBack').click()
@@ -945,14 +867,34 @@ class Dubb_funcation():
 
     #上传界面设置私密
     def Upload_privacy(self):
-        self.driver.find_id(self.id + 'pri_switch_tv').click()
         try:
-            self.driver.find_id(self.id + 'private_top_tv2')
+            self.driver.find_id(self.id + 'tv1')
+            self.driver.find_id(self.id + 'pri_switch_tv').click()
+            time.sleep(2)
+            try:
+                self.driver.find_id(self.id + 'private_top_tv2')
+            except:
+                raise ('点击私密后未显示私密提示文案')
+            time.sleep(2)
         except:
-            raise ('点击私密后未显示私密提示文案')
+            pass
         time.sleep(2)
 
-    # 点击上传按钮
+    # 上传界面-求合作开关
+    def Dubbing_Coor_switch(self):
+        try:
+            self.driver.find_id(self.id + 'check_box_add_square')
+            state = self.driver.find_id(self.id + 'check_box_add_square').get_attribute('checked')
+            if state == True:
+                self.driver.find_id(self.id + 'check_box_add_square').click()
+                time.sleep(2)
+            else:
+                pass
+        except:
+            pass
+        time.sleep(2)
+
+    # 作品上传按钮
     def Upload(self):
         self.driver.find_id(self.id + 'uploadbtn').click()
         self.driver.wait_id(self.id + 'close')

@@ -342,11 +342,12 @@ class Stats(QWidget):
 
         for x in range(threads_count):
             time.sleep(1)
-            threads[i].start()
-
-        for y in range(threads_count):
-            threads[i].join()
+            threads[x].start()
+        #
+        # for y in range(threads_count):
+        #     threads[y].join()
         self.ui.output.append(str('===已完成批量删除dubbing文件==='))
+
     #单设备删除手机dubbing文件夹
     def Delete_dub(self):
         self.ui.output.append(str('===开始==='))

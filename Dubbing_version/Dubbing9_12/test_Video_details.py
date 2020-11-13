@@ -1,6 +1,6 @@
 import unittest
 import time,re
-from Public.Front import Dubbing
+from Public.Unittest_import import Dubbing
 soucred_id = 'com.happyteam.dubbingshow:id/'
 
 class Test_a_Video_detail(Dubbing):
