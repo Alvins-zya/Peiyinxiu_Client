@@ -212,6 +212,7 @@ class BaseOperate():
         :return:
         '''
         element = WebDriverWait(self.driver, 60).until(lambda x: self.driver.find_element_by_id(id))
+        time.sleep(2)
         return element
 
     def wait_not_id(self, id):

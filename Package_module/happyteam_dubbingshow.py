@@ -3914,7 +3914,7 @@ class Person():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.793)
-        elif self.y > 2280:
+        elif self.y >= 2280:
             self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(2)
         try:
@@ -3962,7 +3962,7 @@ class Person():
                     self.driver.find_id('com.huawei.camera:id/done_button').click()
                 except:
                     self.driver.back()
-        time.sleep(4)
+        time.sleep(6)
         self.driver.find_id(self.id + 'confirm').click()
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
@@ -4212,8 +4212,15 @@ class Person():
             self.driver.find_id(self.id + 'back').click()
             time.sleep(2)
         except:
-            pass
+            self.driver.find_id(self.id + 'img_url').click()
+            self.driver.wait_id(self.id + 'userhead')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
+        self.driver.find_id(self.id + 'back').click()
+        time.sleep(2)
+
 
 
     # 作品列表
@@ -4260,7 +4267,7 @@ class Person():
             elif self.y >= 2280:
                 self.driver.tap(self.x * 0.5, self.y * 0.952)
             time.sleep(2)
-            self.driver.find_ids(self.id + 'filmBg1')[0].click()
+            self.driver.find_id(self.id + 'filmBg1').click()
             self.driver.wait_id(self.id + 'tv_video_detail_title')
             self.driver.Background()
             time.sleep(2)
@@ -4272,12 +4279,12 @@ class Person():
                 self.driver.tap(self.x * 0.5, self.y * 0.75)
             time.sleep(2)
             self.driver.find_id(self.id + 'btnSubmit').click()
-            time.sleep(2)
+            time.sleep(3)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
             self.driver.swip_down()
             time.sleep(4)
-            el = self.driver.find_ids(self.id + 'filmBg1')[0]
+            el = self.driver.find_id(self.id + 'filmBg1')
             self.driver.Long_Touche(el, 3000)
             time.sleep(2)
             if self.y == 1920:
@@ -4309,7 +4316,7 @@ class Person():
         self.driver.find_id(self.id + 'coor_text').click()
         self.driver.wait_id(self.id + 'btnCooperate')
         self.driver.find_id(self.id + 'islook').click()
-        self.driver.wait_download(self.id + 'play')
+        self.driver.wait_download(self.id + 'video_play_btn')
         self.driver.back()
         time.sleep(2)
         self.driver.find_id(self.id + 'btnCooperate').click()
@@ -4346,8 +4353,14 @@ class Person():
         self.driver.find_id(self.id + 'reprint').click()
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
-            check = '邀请成功'
-            assert toast == check
+            success_check = '邀请成功'
+            Not_accept_check = '该用户暂不接受合作'
+            if toast == success_check:
+                pass
+            elif toast == Not_accept_check:
+                self.driver.find_id(self.id + 'cancel').click()
+                time.sleep(2)
+                self.driver.find_id(self.id + 'btnBack').click()
         except:
             print ('发送邀请后未检测到toast提示')
         time.sleep(2)
@@ -4536,10 +4549,8 @@ class Person():
         time.sleep(2)
         self.driver.find_xpath('帖子').click()
         time.sleep(4)
-        self.driver.swip_up()
-        time.sleep(2)
         self.driver.find_id(self.id + 'good').click()
-        time.sleep(2)
+        time.sleep(4)
         self.driver.find_id(self.id + 'tag').click()
         self.driver.wait_id(self.id + 'img_subscribe')
         self.driver.find_id(self.id + 'back').click()
@@ -4548,6 +4559,7 @@ class Person():
         self.driver.wait_id(self.id + 'editContent')
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
+
 
     # 帖子-转发私信-删除
     def Person_Zoom_forword_and_delete(self):
@@ -4704,11 +4716,13 @@ class Person():
         self.driver.wait_id(self.id + 'user_head')
         self.driver.find_id(self.id + 'user_head').click()
         self.driver.wait_id(self.id + 'll_follow')
+        time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'send').click()
         time.sleep(2)
         self.driver.wait_id(self.id + 'renew')
+        time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
@@ -4786,12 +4800,12 @@ class Person():
             self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
 
-    #CP空间
-    def Person_Cp_Zoom(self):
-
-    #达人
-    def Person_Daren(self):
-        self.driver.find_id(self.id + 'img_daren').click()
+    # #CP空间
+    # def Person_Cp_Zoom(self):
+    #
+    # #达人
+    # def Person_Daren(self):
+    #     self.driver.find_id(self.id + 'img_daren').click()
 
 
     # 系统消息
@@ -4801,6 +4815,7 @@ class Person():
         time.sleep(2)
         self.driver.find_id(self.id + 'userhead').click()
         self.driver.wait_id(self.id + 'll_follow')
+        time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
         try:
@@ -4822,6 +4837,7 @@ class Person():
             self.driver.find_id(self.id + 'gift_point')
             self.driver.find_id(self.id + 'gift').click()
             self.driver.wait_id(self.id + 'userhead')
+            time.sleep(2)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
             try:
@@ -4835,6 +4851,7 @@ class Person():
         self.driver.find_id(self.id + 'gift').click()
         time.sleep(2)
         self.driver.wait_id(self.id + 'userhead')
+        time.sleep(2)
         self.driver.find_id(self.id + 'userhead').click()
         self.driver.wait_id(self.id + 'll_follow')
         time.sleep(2)
@@ -4846,6 +4863,7 @@ class Person():
             time.sleep(2)
         except:
             self.driver.wait_id(self.id + 'tv_video_detail_title')
+            time.sleep(2)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
         time.sleep(2)
@@ -4853,6 +4871,7 @@ class Person():
         # 回赞
         self.driver.find_id(self.id + 'guanzhu').click()
         self.driver.wait_id(self.id + 'tv_video_detail_title')
+        time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
@@ -4864,6 +4883,7 @@ class Person():
             self.driver.find_id(self.id + 'cooper_count')
             self.driver.find_id(self.id + 'textView15').click()
             self.driver.wait_id(self.id + 'userhead')
+            time.sleep(2)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
             try:
@@ -4876,6 +4896,7 @@ class Person():
         time.sleep(2)
         self.driver.find_id(self.id + 'textView15').click()
         self.driver.wait_id(self.id + 'more')
+        time.sleep(2)
         self.driver.find_id(self.id + 'userhead').click()
         self.driver.wait_id(self.id + 'll_follow')
         time.sleep(2)
@@ -5022,6 +5043,7 @@ class Person():
             self.driver.find_id(self.id + 'comment_count')
             self.driver.find_id(self.id + 'textView16').click()
             self.driver.wait_id(self.id + 'reply')
+            time.sleep(2)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
             try:
@@ -5123,6 +5145,7 @@ class Person():
     def Person_Comment_Post_Notices(self):
         self.driver.find_id(self.id + 'tab2').click()
         self.driver.wait_id(self.id + 'content')
+        time.sleep(2)
         self.driver.find_id(self.id + 'content').click()
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
@@ -5130,6 +5153,7 @@ class Person():
             assert check == toast, '帖子跳转失败'
         except:
             self.driver.wait_id(self.id + 'editContent')
+            time.sleep(2)
             self.driver.find_id(self.id + 'editContent').send_keys('hhh')
             time.sleep(2)
             self.driver.find_id(self.id + 'btn_send').click()
@@ -5151,11 +5175,13 @@ class Person():
             self.driver.find_id(self.id + 'chat_count')
             self.driver.find_id(self.id + 'chat').click()
             self.driver.wait_id(self.id + 'right_icon1')
+            time.sleep(2)
             while True:
                 try:
                     self.driver.find_id(self.id + 'txtCount')
                     self.driver.find_id(self.id + 'txtCount').click()
                     self.driver.wait_id(self.id + 'editContent')
+                    time.sleep(2)
                     self.driver.find_id(self.id + 'btnBack').click()
                     time.sleep(2)
                 except:
@@ -5229,6 +5255,7 @@ class Person():
         self.driver.find_id(self.id + 'btn_send').click()
         time.sleep(2)
         self.driver.wait_id(self.id + 'content')
+        time.sleep(2)
         try:
             self.driver.find_xpath('功能测试')
         except:
@@ -5254,6 +5281,7 @@ class Person():
         time.sleep(2)
         self.driver.find_id(self.id + 'btn_send').click()
         self.driver.wait_id(self.id + 'content')
+        time.sleep(2)
         try:
             self.driver.find_id(self.id + 'content')
         except:
@@ -5278,6 +5306,7 @@ class Person():
         el = self.driver.find_id(self.id + 'btn_record_voice')
         self.driver.Long_Touche(el, 3000)
         self.driver.wait_id(self.id + 'btn_play_sound_content_layout')
+        time.sleep(2)
         self.driver.find_id(self.id + 'btn_play_sound_content_layout').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'right_icon1').click()
@@ -5409,6 +5438,7 @@ class Person():
         time.sleep(4)
         self.driver.find_id(self.id + 'userName').click()
         self.driver.wait_id(self.id + 'union_inviter_apply')
+        time.sleep(2)
         self.driver.find_id(self.id + 'union_inviter_apply').click()
         self.driver.wait_id(self.id + 'll_fan')
         time.sleep(2)
@@ -5558,8 +5588,13 @@ class Person():
     # 草稿箱-草稿箱作品视频预览
     def Person_Draft_Video_Preview(self):
         self.driver.find_id(self.id + 'imgSource').click()
-        time.sleep(2)
-        self.driver.wait_download(self.id + 'play')
+        time.sleep(10)
+        try:
+            self.driver.find_id(self.id + 'imgSource')
+            self.driver.find_id(self.id + 'imgSource').click()
+        except:
+            pass
+        self.driver.wait_download(self.id + 'video_play_btn')
         time.sleep(2)
         self.driver.back()
         time.sleep(3)
@@ -5614,6 +5649,7 @@ class Person():
                     break
             time.sleep(2)
         self.driver.wait_id(self.id + 'action')
+        time.sleep(2)
         self.driver.find_id(self.id + 'action').click()
         self.driver.wait_download(self.id + 'title')
         self.driver.Background()
@@ -5637,6 +5673,7 @@ class Person():
         self.driver.find_id(self.id + 'source').click()
         time.sleep(2)
         self.driver.wait_id(self.id + 'iv_source')
+        time.sleep(2)
 
     # 已配素材列表界面点击配音
     def Person_Already_source_dubbing(self):
@@ -5666,6 +5703,7 @@ class Person():
                         break
             time.sleep(2)
             self.driver.wait_id(self.id + 'action')
+            time.sleep(2)
             self.driver.find_id(self.id + 'back').click()
             time.sleep(2)
             self.driver.find_id(self.id + 'btnSubmit').click()
@@ -5736,6 +5774,7 @@ class Person():
             time.sleep(2)
             self.driver.find_id(self.id + 'btn_more').click()
             self.driver.wait_id(self.id + 'iv_source')
+            time.sleep(2)
             self.driver.swip_up()
             time.sleep(2)
             count = self.driver.find_ids(self.id + 'iv_source')
@@ -5818,6 +5857,7 @@ class Person():
         time.sleep(2)
         self.driver.find_ids('android:id/title')[1].click()
         self.driver.wait_id(self.id + 'next')
+        time.sleep(2)
 
     # 视频剪辑
     def Person_Self_Control_Video_Clip(self):
@@ -5855,6 +5895,7 @@ class Person():
         # 添加字幕
         self.driver.find_id(self.id + 'tv_add_zimu').click()
         self.driver.wait_id(self.id + 'et')
+        time.sleep(2)
         self.driver.find_id(self.id + 'close_zimu').click()
         time.sleep(2)
         roles = ['tv_role1', 'tv_role2']
@@ -5862,6 +5903,7 @@ class Person():
         for i in range(len(roles)):
             self.driver.find_id(self.id + 'tv_add_zimu').click()
             self.driver.wait_id(self.id + 'et')
+            time.sleep(2)
             self.driver.find_id(self.id + roles[i]).click()
             self.driver.find_id(self.id + 'et').send_keys(words[i])
             time.sleep(2)
@@ -5944,6 +5986,7 @@ class Person():
         # 添加素材音乐
         self.driver.find_id(self.id + 'addMusic').click()
         self.driver.wait_id(self.id + 'title')
+        time.sleep(2)
         self.driver.find_id(self.id + 'title').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'local_music').click()
@@ -6081,6 +6124,7 @@ class Person():
     def Person_My_earnings(self):
         self.driver.find_id(self.id + 'gold').click()
         self.driver.wait_id(self.id + 'gold_count')
+        time.sleep(2)
 
         # 常见问题
         self.driver.find_id(self.id + 'tv_right').click()
@@ -6115,6 +6159,7 @@ class Person():
             self.driver.find_id(self.id + 'userhead')
             self.driver.find_id(self.id + 'userhead').click()
             self.driver.wait_id(self.id + 'll_fan')
+            time.sleep(2)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
         except:
@@ -6138,6 +6183,7 @@ class Person():
         self.driver.find_id(self.id + 'tv_right').click()
         time.sleep(2)
         self.driver.wait_id(self.id + 'btnClose')
+        time.sleep(2)
         self.driver.find_id(self.id + 'btnClose').click()
         time.sleep(2)
 
@@ -6309,6 +6355,7 @@ class Video_detail():
         tv_title = self.driver.find_id(self.id + 'tv_video_detail_title').text
         self.driver.find_id(self.id + 'tv_exposure').click()
         self.driver.wait_id(self.id + 'txtTitle')
+        time.sleep(2)
         tv_title1 = self.driver.find_id(self.id + 'tv_source_title').text
         try:
             assert tv_title1 == tv_title
@@ -6325,6 +6372,7 @@ class Video_detail():
         time.sleep(2)
         self.driver.find_id(self.id + 'tv_right').click()
         self.driver.wait_id(self.id + 'btnClose')
+        time.sleep(2)
         self.Btnback()
         time.sleep(2)
         self.Btnback()
@@ -6355,6 +6403,7 @@ class Video_detail():
         #曝光服务协议
         self.driver.find_id(self.id + 'tv_xieyi').click()
         self.driver.wait_id(self.id + 'btnClose')
+        time.sleep(2)
         self.driver.find_id(self.id + 'btnClose').click()
         time.sleep(2)
 
