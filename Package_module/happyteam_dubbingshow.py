@@ -7,7 +7,9 @@
 
 '''
 import time,random
-file = open('D:/Git_pyhthon/Package_module/topic_words.txt', 'r', encoding='UTF-8')
+import os,sys
+filePath = os.path.dirname(__file__)
+file = open(filePath+'\\topic_words.txt', 'r', encoding='UTF-8')
 from Public.Driver_Operate import BaseOperate,resource_id
 
 
@@ -5773,7 +5775,12 @@ class Person():
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
             self.driver.find_id(self.id + 'btn_more').click()
-            self.driver.wait_id(self.id + 'iv_source')
+            time.sleep(2)
+            try:
+                self.driver.find_id(self.id + 'bg_view')
+                self.driver.find_id(self.id + 'change_type').click()
+            except:
+                pass
             time.sleep(2)
             self.driver.swip_up()
             time.sleep(2)
@@ -6059,12 +6066,13 @@ class Person():
         elif self.y >= 2280:
             self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(4)
-        self.driver.find_id(self.id + 'et_title').send_keys('素材信息修改测试')
+        title = random.randint(1,20)
+        self.driver.find_id(self.id + 'et_title').send_keys(title)
         time.sleep(2)
         self.driver.find_id(self.id + 'next').click()
         while True:
             try:
-                self.driver.find_id(self.id + 'iv_dub')
+                self.driver.find_id(self.id + 'userhead')
                 break
             except:
                 self.driver.find_id(self.id + 'music_text').click()
@@ -6102,7 +6110,8 @@ class Person():
         time.sleep(2)
 
         # 点击购买钻石
-        for i in range(6):
+        num = self.driver.find_ids(self.id + 'price_tv')
+        for i in range(len(num)):
             price = self.driver.find_ids(self.id + 'price_tv')[i].text
             time.sleep(1)
             self.driver.find_ids(self.id + 'price_tv')[i].click()
@@ -6110,9 +6119,14 @@ class Person():
             self.driver.find_id(self.id + 'tv_pay').click()
             self.driver.wait_id('android:id/text1')
             time.sleep(2)
+            try:
+                self.driver.find_xpath(price)
+            except:
+                print('钻石购买额度与微信实际支付额度不一致',price)
+            time.sleep(2)
             self.driver.find_id('com.tencent.mm:id/dn').click()
             time.sleep(2)
-            self.driver.find_id('com.tencent.mm:id/dm3').click()
+            self.driver.find_id('com.tencent.mm:id/doz').click()
             time.sleep(2)
             self.driver.find_id(self.id + 'close_icon').click()
             time.sleep(2)
