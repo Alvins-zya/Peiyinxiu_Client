@@ -19,10 +19,14 @@ class Home():
         self.y = self.driver.touch_Y()
 
     def Tips(self):
-        self.driver.find_id(self.id + 'img_hot').click()
-        time.sleep(2)
-        self.driver.find_id(self.id + 'img_hot').click()
-        time.sleep(2)
+        try:
+            self.driver.find_id(self.id + 'img_hot')
+            self.driver.find_id(self.id + 'img_hot').click()
+            time.sleep(2)
+            self.driver.find_id(self.id + 'img_hot').click()
+            time.sleep(2)
+        except:
+            pass
 
     #每日任务列表加载
     def Task_list(self):
@@ -63,11 +67,11 @@ class Home():
         task_list = []
         tasks = self.driver.find_ids(self.id + 'title')
         for i in range(len(tasks)):
-            task = self.driver.find_ids(self + 'title')[i].text
+            task = self.driver.find_ids(self.id + 'title')[i].text
             task_list.append(task)
         time.sleep(2)
         if sorted(check) != sorted(task_list):
-            print
+            print('日常任务列表校验错误')
         time.sleep(2)
         for i in range(len(task_list)):
             result = ('{0},{1}',format(i,task_list[i]))
@@ -117,8 +121,7 @@ class Home():
                 time.sleep(2)
 
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
+
 
     #首页搜索
     def Home_search(self):
@@ -188,11 +191,6 @@ class Home():
         self.driver.find_id(self.id + 'status_icon').click()
         time.sleep(2)
 
-    #返回上一界面
-    def Btnback(self):
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
-
     #列表上、下滑动
     def Work_list_load(self):
         for i in range(5):
@@ -203,35 +201,41 @@ class Home():
             time.sleep(2)
 
     #作品列表界面点击进入视频详情
-    def touch_into_video(self):
+    def Touch_into_video(self):
         #点击作品封面进入视频详情
         self.driver.find_id(self.id + 'film_img2').click()
         self.driver.wait_id(self.id + 'userhead')
-        self.Btnback()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
 
         #列表界面点击用户头像进入视频详情
         self.driver.find_id(self.id + 'user_head').click()
         self.driver.wait_id(self.id + 'btnBack')
         self.driver.Background()
         time.sleep(2)
-        self.Btnback()
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
 
         #列表界面点击作品标题进入视频详情
         self.driver.find_id(self.id + 'title2').click()
         self.driver.wait_id(self.id + 'btnBack')
         self.driver.Background()
         time.sleep(2)
-        self.Btnback()
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
 
         #列表界面点击作品标签
         self.driver.find_id(self.id + 'film2_channel1').click()
         self.driver.wait_id(self.id + 'filmBg')
         time.sleep(2)
-        self.Btnback()
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
         self.driver.find_id(self.id + 'film2_channel2').click()
         self.driver.wait_id(self.id + 'filmBg')
         time.sleep(2)
-        self.Btnback()
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
 
 class Home_Function():
     def __init__(self):
@@ -282,8 +286,6 @@ class Home_Function():
             time.sleep(1)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
-        time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
 
     # 热门频道
@@ -385,10 +387,9 @@ class Home_Function():
                 time.sleep(2)
             self.driver.swip_up()
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
 
-    # 进入曝光去
+
+    # 进入曝光区
     def Function_Exposure(self):
         while True:
             try:
@@ -539,15 +540,14 @@ class Home_Function():
         self.driver.find_id(self.id + 'userHead1').click()
         self.driver.wait_id(self.id + 'll_follow')
         No1_zoom_name = self.driver.find_id(self.id + 'username').text
-        self.assertEqual(No1_name, No1_zoom_name, msg='榜一用户名称与空间中的用户名称校验不一致')
+        assert No1_name == No1_zoom_name, '榜一用户名称与空间中的用户名称校验不一致'
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
         for i in range(5):
             self.driver.swip_up()
             time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
+
 
     # 主播榜
     def Function_Rank_Anchor(self):
@@ -622,7 +622,7 @@ class Home_Function():
         time.sleep(2)
 
     # 素材榜-素材数排序检查
-    def test_m(self):
+    def Function_Rank_Sources_sort(self):
         count = self.driver.find_ids(self.id + 'desc')
         list = []
         for i in range(len(count)):
@@ -785,8 +785,6 @@ class Home_Function():
             self.driver.swip_up()
             time.sleep(2)
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
 
     # 进入在线pia戏
     def Function_Pia(self):
@@ -819,11 +817,10 @@ class Home_Function():
         try:
             self.driver.find_id(self.id + 'userHead')
             time.sleep(2)
-            self.driver.find_id(self.id + 'btnBack').click()
-            time.sleep(2)
         except:
             print ('未加载显示勋章列表')
         time.sleep(2)
+
 
     # 道具商城
     def Function_Pia_Prop_Mall(self):
@@ -862,8 +859,7 @@ class Home_Function():
             except:
                 pass
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
+
 
     # Pia戏装扮
     def Function_Pia_Prop_Mall_Dress_up(self):
@@ -871,8 +867,7 @@ class Home_Function():
         for i in range(len(num)):
             self.driver.find_ids(self.id + 'img')[i].click()
             time.sleep(1)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
+
 
     # 创建pia戏房间
     def Function_Pia_Create_room(self):
@@ -1012,10 +1007,6 @@ class Home_Function():
     def Function_Pia_Draft(self):
         self.driver.find_id(self.id + 'draft').click()
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
 
     # 有声漫画
     def Function_Cartoon(self):
@@ -1048,8 +1039,6 @@ class Home_Function():
         self.driver.wait_id(self.id + 'start_play')
         detail_name = self.driver.find_id(self.id + 'tvTitle').text
         assert name == detail_name, '推荐列表中声漫名称与声漫详情界面名称不一致'
-        time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
 
     # #声漫更新集数校验
@@ -1140,10 +1129,7 @@ class Home_Function():
         title_name = self.driver.find_id(self.id + 'tv_video_detail_title').text
         assert new_num == title_name, '声漫切换集数校验不一致'
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
+
 
     # 最新列表-话集更新检查
     def Function_Cartoon_Update_check(self):
@@ -1159,8 +1145,7 @@ class Home_Function():
         detail_name = self.driver.find_id(self.id + 'user_name').text
         assert union == detail_name, '社团名称校验不一致'
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
+
 
     # 声漫分类列表
     def Function_Cartoon_Classification_list(self):
@@ -1220,8 +1205,7 @@ class Home_Function():
         self.driver.find_id(self.id + 'tv_sure').click()
         self.driver.wait_toast('//android.widget.Toast')
         time.sleep(2)
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
+
 
     # 我的漫画
     def Function_Cartoon_My(self):
