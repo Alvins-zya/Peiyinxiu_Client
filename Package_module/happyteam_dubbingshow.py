@@ -1408,7 +1408,7 @@ class Dub():
         self.driver.find_id(self.id + 'roleall').click()
         time.sleep(2)
 
-    #首次进入配音节目引导界面
+    #首次进入配音节目引导界面(9.19版本移除）
     def Dub_Guidance(self):
         try:
             self.driver.find_id(self.id + 'subtitleView').click()
@@ -1449,7 +1449,7 @@ class Dub():
         try:
             tips = self.driver.find_id(self.id + 'txtContent').text
             check = '开启背景音需要插上耳机！'
-            self.assertEqual(tips, check, msg='耳机提示文案不一致')
+            assert tips == check,'耳机提示文案不一致'
             time.sleep(2)
             self.driver.find_id(self.id + 'btnSubmit').click()
         except:
@@ -1643,7 +1643,7 @@ class Dub():
         self.driver.find_id(self.id + 'btnSubmit').click()
         self.driver.wait_id(self.id + 'edit_subtitle')
 
-    # 配音界面点击预览视频
+    # 配音界面点击预览原声视频
     def Dub_Video_play(self):
         self.driver.find_id(self.id + 'play').click()
         try:
@@ -1681,11 +1681,13 @@ class Dub():
             except:
                 self.driver.wait_sys('允许')
         except:
-            pass
+            self.driver.wait_download(self.id + 'title')
+            self.driver.find_id(self.id + 'back').click()
+            time.sleep(2)
         time.sleep(2)
 
     # 手动点击提交进入配音预览界面
-    def Dub_Dub_into_preview(self):
+    def Dub_Manual_into_preview(self):
         self.driver.find_id(self.id + 'complete').click()
         self.driver.wait_download(self.id + 'title')
         self.driver.Background()
@@ -1725,7 +1727,7 @@ class Dub():
         time.sleep(2)
         tip = self.driver.find_id(self.id + 'txtContent').text
         tip_check = '确定放弃吗？'
-        self.assertEqual(tip,tip_check,msg="退出配音界面弹窗提示文案错误")
+        assert tip == tip_check,"退出配音界面弹窗提示文案错误"
         self.driver.find_id(self.id + 'btnCancel').click()
         time.sleep(2)
 
@@ -1764,7 +1766,7 @@ class Dub():
     def Dub_Audio_track_move(self):
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.185,self.y *0.65,self.x *0.787,self.y *0.65)
-        elif self.y == 2280:
+        elif self.y >= 2280:
             self.driver.swip_move(self.x * 0.24, self.y * 0.71, self.x * 0.81, self.y * 0.71)
         else:
             pass
@@ -1860,8 +1862,6 @@ class Dub():
             self.driver.wait_download(self.id + 'play_button')
             time.sleep(2)
             self.driver.swip_move(self.x * 0.364, self.y * 0.627, self.x * 0.107,self.y * 0.627)  # 延后播放人声进度
-        else:
-            pass
         time.sleep(2)
 
     # 人声变声调节
@@ -1924,8 +1924,6 @@ class Dub():
             self.driver.find_id(self.id + 'play_button').click()
             self.driver.wait_download(self.id + 'play_button')
             time.sleep(2)
-        else:
-            pass
         # try:
         #     self.driver.find_xpath('确定')
         #     self.driver.find_xpath('确定').click()
@@ -1954,8 +1952,6 @@ class Dub():
             self.driver.wait_download(self.id + 'play_button')
             time.sleep(2)
             self.driver.swip_move(self.x*0.607,self.y*0.591,self.x*0.884,self.y*0.571)#增大背景音音量
-        else:
-            pass
         time.sleep(2)
 
     #关闭背景音音量
@@ -2031,8 +2027,7 @@ class Dub():
             time.sleep(2)
             TouchAction(self.driver).press(x=986, y=1177).move_to(x=980, y=1636).release().perform()
             time.sleep(2)
-        else:
-            pass
+
 
     # 下载系统推荐背景音音乐
     def Preview_download_music(self):
@@ -2044,8 +2039,6 @@ class Dub():
             self.driver.tap(self.x * 0.5, self.y * 0.955)
         elif self.y > 2250:
             self.driver.tap(self.x*0.5, self.y*0.96)
-        else:
-            pass
         self.driver.wait_id(self.id + 'btnRight')
         while True:
             try:
@@ -2070,8 +2063,6 @@ class Dub():
             self.driver.swip_move(self.x*0.052,self.y*0.487,self.x*0.704,self.y*0.487)
         elif self.y > 2250:
             self.driver.swip_move(self.x*0.052,self.y*0.448,self.x*0.633,self.y*0.448)
-        else:
-            pass
         time.sleep(2)
         self.driver.find_id(self.id + 'play_button').click()
         self.driver.wait_download(self.id + 'play_button')
@@ -2363,7 +2354,7 @@ class Dub():
             time.sleep(2)
             tip = self.driver.find_id(self.id + 'txtContent').text
             check = '删除作品'
-            self.assertIn(check,tip,msg='作品删除提示内容校验不一致')
+            assert check in tip,'作品删除提示内容校验不一致'
             time.sleep(2)
             self.driver.find_id(self.id + 'btnSubmit').click()
             time.sleep(2)
@@ -3717,7 +3708,7 @@ class Material():
 
 
     # 素材库界面素材上传按钮
-    def test_a(self):
+    def Source_upload(self):
         self.driver.find_id(self.id + 'upload').click()
         time.sleep(2)
         self.driver.wait_id(self.id + 'tv_upload')
