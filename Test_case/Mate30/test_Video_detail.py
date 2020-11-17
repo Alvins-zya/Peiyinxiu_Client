@@ -377,6 +377,27 @@ class Dubbing_function(Dubbing):
         self.D.Upload_fail_save()
         self.D.Upload_fail_reason()
 
+class Home_Follow(Dubbing):
+    def test_a(self):
+        self.F.Follow_jump()
+        self.F.Follow_chat_list()
+        self.F.Follow_person_zoom()
+        self.V.Btnback()
+        self.F.Follow_Up_refresh()
+        self.F
+        self.F
+        self.F
+        self.F
+        self.F
+        self.F
+        self.F
+        self.F
+        self.F
+        self.F
+        self.F
+
+
+
 
 
 

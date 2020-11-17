@@ -2444,42 +2444,30 @@ class Follow():
         self.driver.wait_id(self.id + 'll_follow')
         Name = self.driver.find_id(self.id + 'username').text
         assert name == Name
+
+    #切换分类
+    def Follow_Switch_Classification(self):
+        self.driver.find_id(self.id + 'tv_film').click()
+        time.sleep(2)
+        try:
+            self.driver.find_id(self.id + 'userhead')
+        except:
+            self.driver.swip_down()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'userhead').click()
+        self.driver.wait_id(self.id + 'll_fan')
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
-
-    #视频播放
-    def Follow_play_video(self):
-        while True:
-            try:
-                self.driver.find_id(self.id + 'play')
-                self.driver.find_id(self.id + 'play').click()
-                self.driver.wait_download(self.id + 'play')
-                time.sleep(2)
-                break
-            except:
-                self.driver.swip_up()
-                time.sleep(2)
+        self.driver.find_id(self.id + 'content').click()
+        self.driver.wait_id(self.id + 'tv_video_detail_title')
+        self.driver.Background()
         time.sleep(2)
-        while True:
-            try:
-                self.driver.find_id(self.id + 'content').click()
-                try:
-                    self.driver.wait_id(self.id + 'tv_video_detail_title')
-                    self.driver.find_id(self.id + 'btnBack').click()
-                    time.sleep(2)
-                    break
-                except:
-                    self.driver.find_id(self.id + 'btnBack').click()
-                    time.sleep(2)
-                    self.driver.swip_up()
-            except:
-                self.driver.swip_up()
-                time.sleep(2)
+        self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
-
-    #关注界面作品分享
-    def Follow_work_share(self):
-        count =  self.driver.find_id(self.id + 'item_attention_share_num').text
+        self.driver.find_id(self.id + 'play').click()
+        self.driver.Background()
+        time.sleep(2)
+        count = self.driver.find_id(self.id + 'item_attention_share_num').text
         self.driver.find_id(self.id + 'item_attention_share_num').click()
         time.sleep(2)
 
@@ -2578,7 +2566,6 @@ class Follow():
                 except:
                     pass
 
-
         # 点击复制链接
         self.driver.find_id(self.id + 'item_attention_share_num').click()
         time.sleep(2)
@@ -2626,7 +2613,123 @@ class Follow():
             elif self.y > 2280:
                 self.driver.tap(self.x * 0.5, self.y * 0.947)
         time.sleep(2)
+        # 关注界面点赞
+        while True:
+            try:
+                self.driver.find_id(self.id + 'item_attention_praise')
+                break
+            except:
+                self.driver.swip_up()
+                time.sleep(2)
+        num = self.driver.find_id(self.id + 'item_attention_praise').text
+        self.driver.find_id(self.id + 'item_attention_praise').click()
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+        except:
+            pass
+        new_num = self.driver.find_id(self.id + 'item_attention_praise').text
+        assert new == new_num
+        time.sleep(2)
 
+        # 关注界面评论作品
+        while True:
+            try:
+                self.driver.find_id(self.id + 'item_attention_comment_count')
+                break
+            except:
+                self.driver.swip_up()
+                time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id(self.id + 'item_attention_comment_count').click()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'editContent').send_keys('日常评论下！^.^')
+        time.sleep(2)
+        self.driver.find_id(self.id + 'btn_send').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '成功'
+            assert check in toast,'关注界面发送评论提示校验不一致'
+        except:
+            print('未检测到评论发送toast提示')
+        time.sleep(2)
+
+        self.driver.find_id(self.id + 'tv_tiezi').click()
+        time.sleep(2)
+        # 设置关注区权限
+        self.driver.find_id(self.id + 'more').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.794)
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.7)
+        time.sleep(2)
+        self.driver.find_id(self.id + 'check').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        time.sleep(2)
+        self.driver.find_id(self.id + 'check').click()
+        self.driver.wait_toast('//android.widget.Toast')
+        time.sleep(2)
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
+
+        # 特别关注
+        for i in range(2):
+            self.driver.find_id(self.id + 'more').click()
+            time.sleep(2)
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5, self.y * 0.864)
+            elif self.y >= 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.77)
+            try:
+                toast = self.driver.wait_toast('//android.widget.Toast')
+                check = '成功'
+                assert check in toast, '特别关注toast提示检验失败'+toast
+            except:
+                print ('未检测到特别关注toast提示')
+            time.sleep(2)
+
+        #转发私信
+        self.driver.find_id(self.id + 'more').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.864)
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        time.sleep(2)
+        self.driver.find_id(self.id + 'group_chat').click()
+        self.driver.wait_id(self.id + 'userhead')
+        self.driver.find_id(self.id + 'userhead').click()
+        self.driver.wait_id(self.id + 'editContent')
+        self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
+
+        #帖子举报
+        self.driver.find_id(self.id + 'more').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.864)
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.89)
+        time.sleep(2)
+        self.driver.find_id(self.id + 'tv_action_other').click()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'txtKeyword').send_keys('举报功能测试！')
+        time.sleep(2)
+        self.driver.find_id(self.id + 'right_icon1').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '举报成功'
+            if toast != check:
+                print(toast)
+                self.driver.find_id(self.id + 'btnBack').click()
+        except:
+            print ('未检测到举报toast提示')
+        time.sleep(2)
+        self.driver.find_id(self.id + 'tv_source').click()
+        time.sleep(2)
+
+        self.driver.find_id(self.id + 'tv_attention').click()
+        time.sleep(2)
 
     #关注界面送礼9.12版本不再支持送礼
     # def test_h(self):
@@ -2647,47 +2750,9 @@ class Follow():
 
 
 
-    # 关注界面点赞
-    def Follow_good(self):
-        while True:
-            try:
-                self.driver.find_id(self.id + 'item_attention_pprint')
-                break
-            except:
-                self.driver.swip_up()
-                time.sleep(2)
-        num = self.driver.find_id(self.id + 'item_attention_pprint').text
-        self.driver.find_id(self.id + 'item_attention_pprint').click()
-        try:
-            self.driver.wait_toast('//android.widget.Toast')
-        except:
-            pass
-        new_Pprint = self.driver.find_id(self.id + 'item_attention_pprint').text
-        assert new == new_Pprint
-        time.sleep(2)
 
-    #关注界面评论作品
-    def Follow_comment(self):
-        while True:
-            try:
-                self.driver.find_id(self.id + 'item_attention_comment_count')
-                break
-            except:
-                self.driver.swip_up()
-                time.sleep(2)
-        time.sleep(2)
-        self.driver.find_id(self.id + 'item_attention_comment_count').click()
-        time.sleep(2)
-        self.driver.find_id(self.id + 'editContent').send_keys('日常评论下！^.^')
-        time.sleep(2)
-        self.driver.find_id(self.id + 'btn_send').click()
-        try:
-            toast =  self.driver.wait_toast('//android.widget.Toast')
-            check = '成功'
-            self.assertIn(check,toast,msg='关注界面发送评论提示校验不一致')
-        except:
-            print ('未检测到评论发送toast提示')
-        time.sleep(2)
+
+
 
     #关注界面素材预览-配音
     def Follow_source(self):
@@ -2795,6 +2860,11 @@ class Follow():
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
+
+    def Follow_Up_refresh(self):
+        for i in range(4):
+            self.driver.swip_up()
+            time.sleep(2)
 
 class Live():
     def __init__(self):
