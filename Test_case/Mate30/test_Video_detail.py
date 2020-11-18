@@ -27,6 +27,8 @@ class Video_detail(Dubbing):
         self.V.Video_source()
         self.V.Video_share()
         self.V.Video_switch()
+        self.V.Video_Hot_work()
+        self.V.Btnback()
 
 class Person_center(Dubbing):
     def test_a(self):
@@ -384,17 +386,7 @@ class Home_Follow(Dubbing):
         self.F.Follow_person_zoom()
         self.V.Btnback()
         self.F.Follow_Up_refresh()
-        self.F
-        self.F
-        self.F
-        self.F
-        self.F
-        self.F
-        self.F
-        self.F
-        self.F
-        self.F
-        self.F
+        self.F.Follow_Switch_Classification()
 
 
 
