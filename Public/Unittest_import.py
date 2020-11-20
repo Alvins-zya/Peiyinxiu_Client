@@ -7,7 +7,7 @@ curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
 from Public.Driver_Operate import BaseOperate,resource_id
-from Package_module.happyteam_dubbingshow import Home,Home_Function,Dub,Follow,Live,Material,Person,Video_detail,Circle
+from Package_module.happyteam_dubbingshow import Home,Home_Function,Dub,Follow,Live,Material,Person,Video_detail,Circle,Society
 
 class Dubbing(unittest.TestCase):
     @classmethod
@@ -26,6 +26,7 @@ class Dubbing(unittest.TestCase):
         self.P = Person()
         self.V = Video_detail()
         self.C = Circle()
+        self.S = Society()
 
 
 

@@ -2098,12 +2098,12 @@ class Dub():
             time.sleep(2)
             self.driver.swip_move(self.x * 0.066, self.y * 0.351, self.x * 0.5, self.y * 0.351)
         time.sleep(4)
-        self.driver.find_id(sourced_id + 'complete').click()
+        self.driver.find_id(self.id + 'complete').click()
         time.sleep(2)
 
     #修改作品封面-拍照
     def Dubbing_work_Cover_Photo(self):
-        self.driver.find_id(sourced_id + 'btn_setting_cover_tip').click()
+        self.driver.find_id(self.id + 'btn_setting_cover_tip').click()
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.755)
@@ -2134,12 +2134,12 @@ class Dub():
                     time.sleep(4)
                 except:
                     pass
-        self.driver.find_id(sourced_id + 'confirm').click()
+        self.driver.find_id(self.id + 'confirm').click()
         time.sleep(3)
 
     # 修改作品封面——相册
     def Dubbing_work_Cover_Album(self):
-        self.driver.find_id(sourced_id + 'btn_setting_cover_tip').click()
+        self.driver.find_id(self.id + 'btn_setting_cover_tip').click()
         time.sleep(3)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.856)
@@ -2148,16 +2148,16 @@ class Dub():
         else:
             pass
         time.sleep(2)
-        photo_count = self.driver.find_ids(sourced_id + 'photo_wall_item_photo')
+        photo_count = self.driver.find_ids(self.id + 'photo_wall_item_photo')
         select = random.randint(0, len(photo_count) - 1)
-        self.driver.find_ids(sourced_id + 'photo_wall_item_photo')[select].click()
+        self.driver.find_ids(self.id + 'photo_wall_item_photo')[select].click()
         try:
             self.driver.wait_toast('//android.widget.Toast')
             select = random.randint(0, len(photo_count) - 1)
-            self.driver.find_ids(sourced_id + 'photo_wall_item_photo')[select].click()
+            self.driver.find_ids(self.id + 'photo_wall_item_photo')[select].click()
         except:
             pass
-        self.driver.find_id(sourced_id + 'confirm').click()
+        self.driver.find_id(self.id + 'confirm').click()
         time.sleep(4)
 
     # 标题名称-输入30个字符
@@ -2731,10 +2731,10 @@ class Follow():
         self.driver.wait_id(self.id + 'img_subscribe')
         self.driver.find_id(self.id + 'back').click()
         time.sleep(2)
-        self.driver.find_id(sourced_id + 'content').click()
-        self.driver.wait_id(sourced_id + 'right_icon1')
+        self.driver.find_id(self.id + 'content').click()
+        self.driver.wait_id(self.id + 'right_icon1')
         time.sleep(2)
-        self.driver.find_id(sourced_id + 'btnBack').click()
+        self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
         try:
             self.driver.find_id(self.id + 'img1')
@@ -3747,7 +3747,7 @@ class Material():
         self.driver.find_id(self.id + 'userhead').click()
         self.driver.wait_id(self.id + 'fanscount')
         name2 = self.driver.find_id(self.id + 'username').text
-        assert (name1, name2, msg='素材视频详情界面的用户名称与空间中的用户名称校验不一致')
+        assert name1 in name2,'素材视频详情界面的用户名称与空间中的用户名称校验不一致'
         time.sleep(2)
 
     # 关注按钮
@@ -3756,7 +3756,7 @@ class Material():
         try:
             follow_toast = self.driver.wait_toast('//android.widget.Toast')
             check = '关注成功'
-            assert (follow_toast, check, msg='关注toast内容校验不一致')
+            assert check in follow_toast, '关注toast内容校验不一致'
         except:
             try:
                 self.driver.find_id(self.id + 'editContent')
@@ -3778,7 +3778,7 @@ class Material():
             self.driver.find_ids(self.id + 'types_name')[i].click()
             self.driver.wait_id(self.id + 'tag_name')
             name1 = self.driver.find_id(self.id + 'tag_name').text
-            assert (name1, name, msg='素材预览界面点击的标签与标签详情界面的标签校验不一致')
+            assert name1 in name,'素材预览界面点击的标签与标签详情界面的标签校验不一致'
             time.sleep(2)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
@@ -4058,7 +4058,7 @@ class Person():
             try:
                 toast1 = self.driver.wait_toast('//android.widget.Toast')
                 check1 = '修改成功'
-                assert (toast1, check1, msg='相册替换头像toast提示内容校验不一致')
+                assert check1 in toast1,'相册替换头像toast提示内容校验不一致'
             except:
                 print ('相册更换头像未检测到toast提示')
             time.sleep(2)
@@ -4285,7 +4285,6 @@ class Person():
         time.sleep(2)
         self.driver.find_id(self.id + 'back').click()
         time.sleep(2)
-
 
 
     # 作品列表
@@ -6897,12 +6896,10 @@ class Circle():
     def Circle_history_clear(self):
         try:
             self.driver.find_id(self.id + 'empty_text')
-            self.driver.find_id(self.id + 'btnBack').click()
         except:
             self.driver.find_id(self.id + 'tv_right').click()
             try:
                 self.driver.wait_toast('//android.widget.Toast')
-                self.driver.find_id(self.id + 'btnBack').click()
             except:
                 self.driver.find_id(self.id + 'btnSubmit').click()
                 time.sleep(2)
@@ -6911,7 +6908,8 @@ class Circle():
                     print ('帖子清空失败')
                 except:
                     pass
-                self.driver.find_id(self.id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
 
     # 圈子主界面帖子转发
@@ -6921,7 +6919,7 @@ class Circle():
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.802)
         elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.829)
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
         self.driver.wait_id(self.id + 'group_chat')
         self.driver.find_id(self.id + 'group_chat').click()
         time.sleep(2)
@@ -6951,6 +6949,8 @@ class Circle():
 
     #圈子热门帖子列表界面点赞
     def Circle_good(self):
+        self.driver.swip_up()
+        time.sleep(1)
         touche_good_before = self.driver.find_id(self.id + 'good').text
         self.driver.find_id(self.id + 'good').click()
         time.sleep(2)
@@ -6963,10 +6963,10 @@ class Circle():
 
     # 点击帖子内容进入帖子详情
     def Circle_content(self):
-        self.driver.find_id(sourced_id + 'content').click()
-        self.driver.wait_id(sourced_id + 'right_icon1')
+        self.driver.find_id(self.id + 'content').click()
+        self.driver.wait_id(self.id + 'right_icon1')
         time.sleep(2)
-        self.driver.find_id(sourced_id + 'btnBack').click()
+        self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
 
     #圈子热门列表刷新
@@ -7007,7 +7007,7 @@ class Circle():
             self.driver.find_ids(self.id + 'tv')[i].click()
             self.driver.wait_id(self.id + 'img_subscribe')
             tv_detail_name = self.driver.find_id(self.id + 'topic_name').text
-            assert (tv_detail_name, tv_name, msg='标签名称校验不一致')
+            assert tv_detail_name in tv_name, '标签名称校验不一致'
             time.sleep(2)
             self.driver.swip_up()
             time.sleep(2)
@@ -7022,7 +7022,7 @@ class Circle():
             self.driver.find_id(soucred_id +'title').click()
             self.driver.wait_id(self.id + 'img_subscribe')
             tv_detail_name = self.driver.find_id(self.id + 'topic_name').text
-            assert (tv_detail_name, name, msg='标签名称校验不一致')
+            assert tv_detail_name in name, '标签名称校验不一致'
             time.sleep(2)
             self.driver.swip_up()
             time.sleep(2)
@@ -7044,7 +7044,7 @@ class Circle():
         self.driver.wait_id(self.id + 'img_subscribe')
         check = '测试'
         tv_detail_name = self.driver.find_id(self.id + 'topic_name').text
-        self.assertIn(check, tv_detail_name, msg='标签名称校验不一致')
+        assert check in tv_detail_name, '标签名称校验不一致'
         self.driver.find_id(self.id + 'back').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
@@ -7055,7 +7055,7 @@ class Circle():
         self.driver.find_id(self.id + 'send').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'image_tie').click()
-        time.sleep(2)
+        time.sleep(4)
 
     #图文贴内容
     def Circle_word_topic_content(self):
@@ -7169,7 +7169,7 @@ class Circle():
         if self.y ==1920:
             self.driver.tap(self.x * 0.5 ,self.y * 0.885)
         elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.829)
+            self.driver.tap(self.x * 0.5, self.y * 0.87)
         time.sleep(2)
         self.driver.find_id(self.id + 'btnSubmit').click()
         del_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -7185,9 +7185,6 @@ class Circle():
         self.driver.find_id(self.id + 'voice_tie').click()
         time.sleep(2)
 
-    #语音帖内容
-    def Circle_voice_topic(self):
-        self.Circle_word_topic_content()
 
     #录制语音
     def Circle_voice_topic_record(self):
@@ -7213,7 +7210,7 @@ class Circle():
         self.driver.find_id(self.id + 'dubbing').click()
         time.sleep(10)
         self.driver.Background()
-        time.sleep(2)
+        time.sleep(4)
 
     #语音帖发布界面
     def Circle_voice_topic_next(self):
@@ -7232,8 +7229,7 @@ class Circle():
         self.driver.wait_id(self.id + 'photo_wall_item_photo')
         self.driver.find_id(self.id + 'photo_wall_item_photo').click()
         time.sleep(2)
-        self.Circle_word_topic_insert_topic()
-        self.Circle_word_topic_at()
+
 
     #圈子主页发布听评帖
     def Circle_Home_listen_topic(self):
@@ -7814,8 +7810,8 @@ class Society():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5,self.y * 0.573)
-        else:
-            pass
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.64)
         time.sleep(2)
         self.driver.find_id(soucred_id + 'check').click()
         try:
@@ -7831,12 +7827,12 @@ class Society():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.685)
-            try:
-                self.driver.wait_toast('//android.widget.Toast')
-            except:
-                raise ('特别关注没有toast提示')
-        else:
-            pass
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.71)
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+        except:
+            raise ('特别关注没有toast提示')
         time.sleep(2)
 
         #消息免打扰
@@ -7844,12 +7840,13 @@ class Society():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.729)
-            try:
-                self.driver.wait_toast('//android.widget.Toast')
-            except:
-                raise ('消息免打扰没有toast提示')
-        else:
-            pass
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.77)
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+        except:
+            print ('消息免打扰没有toast提示')
+
         time.sleep(2)
 
         #添加社团素材
@@ -7857,8 +7854,8 @@ class Society():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.802)
-        else:
-            pass
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(2)
         self.driver.wait_id(soucred_id + 'iv_source')
         time.sleep(2)
@@ -7877,8 +7874,8 @@ class Society():
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.875)
-        else:
-            pass
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.87)
         time.sleep(2)
         try:
             self.driver.find_id(soucred_id + 'btnSubmit')
@@ -8367,13 +8364,15 @@ class Society():
             print('非社长身份，无法删除社团作品')
 
     #社团作品-创建合辑
-    def test_h(self):
+    def Society_create_collection(self):
         self.driver.find_id(soucred_id + 'tab2').click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'addfilm').click()
         time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5,self.y * 0.802)
+        elif self.y >=2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(2)
         self.driver.find_id(soucred_id + 'content').send_keys('测试合辑')
         time.sleep(2)
@@ -8385,19 +8384,22 @@ class Society():
             self.driver.find_ids(soucred_id + 'choice')[i].click()
         time.sleep(2)
         self.driver.find_id(soucred_id + 'tv_right').click()
-        create_toast = self.driver.wait_toast('//android.widget.Toast')
-        check = '创建成功'
-        assert (create_toast,check)
+        try:
+            create_toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '创建成功'
+            assert check in create_toast
+        except:
+            pass
         self.driver.swip_down()
         time.sleep(2)
         try:
             self.driver.find_xpath('测试合辑')
         except:
-            raise ('未显示创建的合辑')
+            print ('未显示创建的合辑')
         time.sleep(2)
 
     #我的社团-编辑合辑作品
-    def test_h_a(self):
+    def Society_edit_collection(self):
         self.driver.find_id(soucred_id + 'title').click()
         time.sleep(2)
         #点击合辑作品
@@ -8411,17 +8413,23 @@ class Society():
         self.driver.Long_Touche(el,3000)
         time.sleep(2)
         self.driver.find_id(soucred_id + 'tv_zhiding').click()
-        ZD_toast = self.driver.wait_toast('//android.widget.Toast')
-        check = '第一个位置'
-        self.assertIn(check,ZD_toast)
+        try:
+            ZD_toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '第一个位置'
+            assert check in ZD_toast
+        except:
+            pass
         time.sleep(2)
         el2 = self.driver.find_ids(soucred_id + 'img')[-1]
         self.driver.Long_Touche(el2, 2000)
         time.sleep(2)
         self.driver.find_id(soucred_id + 'tv_zhiding').click()
-        SY_toast = self.driver.wait_toast('//android.widget.Toast')
-        check1 = '上移成功'
-        self.assertIn(check1, SY_toast)
+        try:
+            SY_toast = self.driver.wait_toast('//android.widget.Toast')
+            check1 = '上移成功'
+            assert check1 in SY_toast
+        except:
+            pass
         time.sleep(2)
 
         #移除作品
@@ -8435,7 +8443,7 @@ class Society():
         if del_toast == '无权操作' or del_toast == '删除成功':
             pass
         else:
-            raise ('合辑作品移除失败')
+            print ('合辑作品移除失败')
 
         #添加合辑作品
         self.driver.find_id(soucred_id + 'right_icon1').click()
@@ -8446,7 +8454,7 @@ class Society():
         self.driver.find_id(soucred_id + 'tv_right').click()
         add_toast = self.driver.wait_toast('//android.widget.Toast')
         check3 = '添加成功'
-        assert (check3, add_toast)
+        assert check3 in add_toast
         time.sleep(2)
         try:
             self.driver.find_xpath(title_before)
@@ -8456,17 +8464,18 @@ class Society():
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
-    #我的社团-编辑合辑
-    def test_h_b(self):
+        #我的社团-编辑合辑
         el = self.driver.find_id(soucred_id + 'filmBg')
         self.driver.Long_Touche(el,2000)
         time.sleep(2)
         #合辑置顶
         if self.y ==1920:
             self.driver.tap(self.x * 0.5 ,self.y * 0.807)
+        elif self.y >=2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
         zhiding_toast = self.driver.wait_toast('//android.widget.Toast')
         zhiding_check = '成功'
-        self.assertIn(zhiding_check,zhiding_toast)
+        assert zhiding_check in zhiding_toast
         time.sleep(2)
 
         #删除合辑
@@ -8474,6 +8483,8 @@ class Society():
         time.sleep(2)
         if self.y ==1920:
             self.driver.tap(self.x * 0.5 ,self.y * 0.885)
+        elif self.y >=2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.87)
         time.sleep(2)
         self.driver.find_id(soucred_id + 'btnSubmit').click()
         del_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -8486,7 +8497,7 @@ class Society():
         time.sleep(2)
 
     #我的社团-申请蓝V
-    def test_i(self):
+    def Society_V(self):
         self.driver.find_id(soucred_id + 'apply_lv').click()
         time.sleep(2)
         try:
@@ -8497,7 +8508,7 @@ class Society():
             pass
 
     #我的社团-入社权限
-    def test_j(self):
+    def Society_Entry_conditions(self):
         self.driver.find_id(soucred_id + 'society_apply_jurisdiction').click()
         time.sleep(2)
         #招募内容
@@ -8521,110 +8532,100 @@ class Society():
         time.sleep(2)
         self.driver.find_id(soucred_id + 'tv_right').click()
         time.sleep(2)
-
-    #我的社团-社团消息通知开关
-    def test_k(self):
+        #我的社团-社团消息通知开关
         self.driver.find_id(soucred_id + 'btn_push').click()
         time.sleep(2)
 
     #我的社团-社团财富、社团钱包
-    def test_l(self):
+    def Society_Wealth(self):
         self.driver.swip_up()
-        try:
-            self.driver.find_id(soucred_id + 'gold_match')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'gold_match').click()
-            time.sleep(2)
-            # 分配钻石
-            self.driver.find_id(soucred_id + 'distribution_diamond').click()
-            self.driver.wait_id(soucred_id + 'userhead')
-            self.driver.find_id(soucred_id + 'userhead').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'gold_count').send_keys('100')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'remark').send_keys('分配钻石')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'sure').click()
-            Diamond_toast = self.driver.wait_toast('//android.widget.Toast')
-            check = '钻石'
-            self.assertIn(check, Diamond_toast)
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btnBack').click()
-            time.sleep(2)
-            # 分配金币
-            self.driver.find_id(soucred_id + 'distribution_gold').click()
-            self.driver.wait_id(soucred_id + 'userhead')
-            self.driver.find_id(soucred_id + 'userhead').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'gold_count').send_keys('10000')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'remark').send_keys('分配金币')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'sure').click()
-            gold_toast = self.driver.wait_toast('//android.widget.Toast')
-            check1 = '金币'
-            self.assertIn(check1, gold_toast)
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btnBack').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btnBack').click()
-            time.sleep(2)
-        except Exception as e:
-            print(e)
-
-
-    #我的社团-允许他人下载社团作品
-    def test_m(self):
-        try:
-            self.driver.find_id(soucred_id + 'btn_load')
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btn_load').click()
-            time.sleep(2)
-        except Exception as e:
-            print(e)
+        self.driver.find_id(soucred_id + 'gold_match')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'gold_match').click()
+        time.sleep(2)
+        # 分配钻石
+        self.driver.find_id(soucred_id + 'distribution_diamond').click()
+        self.driver.wait_id(soucred_id + 'userhead')
+        self.driver.find_id(soucred_id + 'userhead').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'gold_count').send_keys('100')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'remark').send_keys('分配钻石')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'sure').click()
+        Diamond_toast = self.driver.wait_toast('//android.widget.Toast')
+        check = '钻石'
+        assert check in Diamond_toast
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        # 分配金币
+        self.driver.find_id(soucred_id + 'distribution_gold').click()
+        self.driver.wait_id(soucred_id + 'userhead')
+        self.driver.find_id(soucred_id + 'userhead').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'gold_count').send_keys('10000')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'remark').send_keys('分配金币')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'sure').click()
+        gold_toast = self.driver.wait_toast('//android.widget.Toast')
+        check1 = '金币'
+        assert check1 in gold_toast
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
 
 
 
-    #我的社团-社团管理须知
-    def test_n(self):
+    def Society_other_function(self):
+        # 我的社团-允许他人下载社团作品
+        self.driver.find_id(soucred_id + 'btn_load')
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btn_load').click()
+        time.sleep(2)
+        #我的社团-社团管理须知
         self.driver.find_xpath('《社团管理须知》').click()
         self.driver.wait_id(soucred_id + 'webview')
         self.driver.find_id(soucred_id + 'btnBack').click()
         time.sleep(2)
 
     #我的社团-转让社团/解散社团
-    def test_o(self):
-        try:
-            self.driver.find_id(soucred_id + 'right_icon1')
-            self.driver.find_id(soucred_id + 'right_icon1').click()
-            time.sleep(2)
-            if self.y ==1920:
-                self.driver.tap(self.x * 0.5,self.y *0.807)
-            self.driver.wait_xpath('转让社团')
-            self.driver.find_ids(soucred_id + 'username')[-1].click()
-            time.sleep(2)
-            Transfer_content = self.driver.find_id(soucred_id + 'txtContent').text
-            check = '您确定要将社团转让给'
-            self.assertIn(check,Transfer_content)
-            self.driver.find_id(soucred_id + 'btnCancel').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'btnBack').click()
-            time.sleep(2)
-            self.driver.find_id(soucred_id + 'right_icon1').click()
-            time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.885)
-            time.sleep(2)
-            Dissolved_content = self.driver.find_id(soucred_id + 'txtContent').text
-            check1 = '你真的要解散社团吗？请提前处理好社团钱包中的收益，解散后无法恢复社团'
-            assert (check1, Dissolved_content)
-            self.driver.find_id(soucred_id + 'btnCancel').click()
-            time.sleep(2)
-        except Exception as e:
-            print(e)
+    def Society_Transfer_Dissolved(self):
+        self.driver.find_id(soucred_id + 'right_icon1')
+        self.driver.find_id(soucred_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.807)
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.driver.wait_xpath('转让社团')
+        self.driver.find_ids(soucred_id + 'username')[-1].click()
+        time.sleep(2)
+        Transfer_content = self.driver.find_id(soucred_id + 'txtContent').text
+        check = '您确定要将社团转让给'
+        assert check in Transfer_content
+        self.driver.find_id(soucred_id + 'btnCancel').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'btnBack').click()
+        time.sleep(2)
+        self.driver.find_id(soucred_id + 'right_icon1').click()
+        time.sleep(2)
+        if self.y == 1920:
+            self.driver.tap(self.x * 0.5, self.y * 0.885)
+        elif self.y >= 2280:
+            self.driver.tap(self.x * 0.5, self.y * 0.87)
+        time.sleep(2)
+        Dissolved_content = self.driver.find_id(soucred_id + 'txtContent').text
+        check1 = '你真的要解散社团吗？请提前处理好社团钱包中的收益，解散后无法恢复社团'
+        assert check1 in Dissolved_content
+        self.driver.find_id(soucred_id + 'btnCancel').click()
+        time.sleep(2)
 
     #返回社团主界面
-    def test_p(self):
+    def Society_Quit_Manager(self):
         self.driver.close_app()
         time.sleep(2)
         self.driver.lanuch_app()
