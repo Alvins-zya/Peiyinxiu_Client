@@ -382,11 +382,11 @@ class Home_Function:
             label2 = 'lr'
             if label2 in name:
                 new_Name = re.findall(r"lr (.*)", name)  # 获取list类型的字符串['xxxx']
-                str_name = ''.join(new_Name)  # 转换成纯字符串'xxxx'
-                assert str_name in title_list, u'视频详情标题不在标题列表中'
+                str_name = ''.join(new_Name)  #转换成纯字符串'xxxx'
+                assert str_name in title_list, '视频详情标题不在标题列表中'
                 time.sleep(2)
             else:
-                new_Name1 = re.findall(r"ch (.*)", Name)
+                new_Name1 = re.findall(r"ch (.*)", name)
                 str_name1 = ''.join(new_Name1)
                 assert str_name1 in title_list, u'视频详情标题不在标题列表中'
                 time.sleep(2)
@@ -397,6 +397,7 @@ class Home_Function:
     #进入曝光区
     def Function_Exposure(self):
         while True:
+            # noinspection PyBroadException
             try:
                 self.driver.find_xpath('曝光区')
                 break
@@ -498,16 +499,16 @@ class Home_Function:
     #获赞榜-点赞数排序检查
     def Function_Rank_Good_Rank_Sort(self):
         count = self.driver.find_ids(self.id + 'desc')
-        list = []
+        lists = []
         for i in range(len(count)):
             limit = self.driver.find_ids(self.id + 'desc')[i].text
             goods = re.findall(r'获赞(.*)', limit)
             str_good_count = ''.join(goods)
             int_num = int(str_good_count)
-            list.append(int_num)
+            lists.append(int_num)
             time.sleep(1)
-        list_set = sorted(list, reverse=True)
-        assert list == list_set, '获赞榜点赞排序验证错误'
+        list_set = sorted(lists, reverse=True)
+        assert lists == list_set, '获赞榜点赞排序验证错误'
         time.sleep(2)
 
     #获赞榜-用户信息
@@ -571,16 +572,16 @@ class Home_Function:
     #主播榜-参与人排序检查
     def Function_Rank_Anchor_Sort(self):
         count = self.driver.find_ids(self.id + 'desc')
-        list = []
+        lists = []
         for i in range(len(count)):
             limit = self.driver.find_ids(self.id + 'desc')[i].text
             Screening = re.findall(r'直播总参与(.*)人', limit)
             str_Screening = ''.join(Screening)
             int_num = int(str_Screening)
-            list.append(int_num)
+            lists.append(int_num)
             time.sleep(1)
-        list_set = sorted(list, reverse=True)
-        assert list == list_set, '=主播榜人数排序验证错误'
+        list_set = sorted(lists, reverse=True)
+        assert lists == list_set, '=主播榜人数排序验证错误'
         time.sleep(2)
 
     #社团榜
@@ -600,16 +601,16 @@ class Home_Function:
     #社团榜-作品数排序检查
     def Function_Rank_Societies_Sort(self):
         count = self.driver.find_ids(self.id + 'desc')
-        list = []
+        lists = []
         for i in range(len(count)):
             limit = self.driver.find_ids(self.id + 'desc')[i].text
             Screening = re.findall(r'(.*)作品', limit)
             str_Screening = ''.join(Screening)
             int_num = int(str_Screening)
-            list.append(int_num)
+            lists.append(int_num)
             time.sleep(1)
-        list_set = sorted(list, reverse=True)
-        assert list == list_set, '=社团榜作品数排序验证错误'
+        list_set = sorted(lists, reverse=True)
+        assert lists == list_set, '=社团榜作品数排序验证错误'
         time.sleep(2)
 
     #素材榜
@@ -629,16 +630,16 @@ class Home_Function:
     #素材榜-素材数排序检查
     def Function_Rank_Sources_sort(self):
         count = self.driver.find_ids(self.id + 'desc')
-        list = []
+        lists = []
         for i in range(len(count)):
             limit = self.driver.find_ids(self.id + 'desc')[i].text
             Screening = re.findall(r'(.*)收录', limit)
             str_Screening = ''.join(Screening)
             int_num = int(str_Screening)
-            list.append(int_num)
+            lists.append(int_num)
             time.sleep(1)
         list_set = sorted(list, reverse=True)
-        assert list == list_set, '素材榜素材收录数排序验证错误'
+        assert lists == list_set, '素材榜素材收录数排序验证错误'
         time.sleep(2)
 
     #作品榜-列表标题是视频详情标题校验
@@ -1964,7 +1965,7 @@ class Dub:
         self.driver.find_id(self.id + 'voice_open').click()
         el = self.driver.find_id(self.id + 'voice_open').get_attribute('checked')
         if el != 'true':
-            raise ('状态点击背景音关闭按钮后，状态没有显示关闭')
+            print ('状态点击背景音关闭按钮后，状态没有显示关闭')
         self.driver.find_id(self.id + 'play_button').click()
         self.driver.wait_download(self.id + 'play_button')
         time.sleep(2)
@@ -2621,18 +2622,18 @@ class Follow:
         # 关注界面点赞
         while True:
             try:
-                self.driver.find_id(self.id + 'item_attention_praise')
+                self.driver.find_id(self.id + 'item_attention_pprint()')
                 break
             except:
                 self.driver.swip_up()
                 time.sleep(2)
-        num = self.driver.find_id(self.id + 'item_attention_praise').text
-        self.driver.find_id(self.id + 'item_attention_praise').click()
+        num = self.driver.find_id(self.id + 'item_attention_pprint()').text
+        self.driver.find_id(self.id + 'item_attention_pprint()').click()
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
             pass
-        new_num = self.driver.find_id(self.id + 'item_attention_praise').text
+        new_num = self.driver.find_id(self.id + 'item_attention_pprint()').text
         assert num == new_num
         time.sleep(2)
 
@@ -3397,8 +3398,8 @@ class Material:
 
     # 素材库主界面8个大分类
     def Source_Classification(self):
-        tv_Main = self.driver.find_ids(self.id + 'tv')
-        for i in range(len(tv_Main)):
+        tv_main = self.driver.find_ids(self.id + 'tv')
+        for i in range(len(tv_main)):
             self.driver.find_ids(self.id + 'tv')[i].click()
             self.driver.wait_id(self.id + 'iv_source')
             # 热门推荐标签
@@ -4104,7 +4105,7 @@ class Person:
         self.driver.find_ids(self.id + 'name')[select].click()
         time.sleep(2)
         area1 = self.driver.find_id(self.id + 'tv_area').text
-        assert area != area1, '地区修改前后显示未刷新,%s' % (area1)
+        assert area != area1, '地区修改前后显示未刷新,%s' %area1
         time.sleep(2)
 
     # 修改生日
@@ -5670,16 +5671,16 @@ class Person:
     # 草稿箱作品时间重复性检查
     def Person_Draft_Repeat(self):
         date = self.driver.find_ids(self.id + 'date')
-        list = []
+        lists = []
         for i in range(len(date)):
             times = self.driver.find_ids(self.id + 'date')[i].text
-            list.append(times)
+            lists.append(times)
             time.sleep(1)
-        set_list = set(list)  # set会生成一个元素无序且不重复的可迭代对象，也就是我们常说的去重
-        if len(list) == len(set_list):
+        set_list = set(lists)  # set会生成一个元素无序且不重复的可迭代对象，也就是我们常说的去重
+        if len(lists) == len(set_list):
             pass
         else:
-            Dic = dict(Counter(list))
+            Dic = dict(Counter(lists))
             print([key for key, value in Dic.items() if value > 1])  # 展示重复元素
         time.sleep(2)
 
@@ -6835,7 +6836,7 @@ class Video_detail:
         while True:
             title = self.driver.find_id(self.id + 'tv_video_detail_title').text
             hot_tv = 'ch'
-            if (hot_tv in title):
+            if hot_tv in title:
                 self.driver.find_xpath('ch')
                 try:
                     self.driver.find_id(self.id + 'txtTitle')
@@ -7747,17 +7748,17 @@ class Society:
         try:
             self.driver.find_id(self.id + 'tv_id')
         except:
-            raise ('社团id信息未显示')
+            print ('社团id信息未显示')
         time.sleep(2)
         try:
             self.driver.find_id(self.id + 'tv_nickname')
         except:
-            raise ('社团昵称信息未显示')
+            print('社团昵称信息未显示')
         time.sleep(2)
         try:
             self.driver.find_id(self.id + 'tv_sign')
         except:
-            raise ('社团简介信息未显示')
+            print ('社团简介信息未显示')
         time.sleep(2)
         #举报
         self.driver.find_id(self.id + 'tv_right').click()
@@ -7783,9 +7784,9 @@ class Society:
             try:
                 self.driver.find_id(self.id + 'tv_diamond')
             except:
-                raise ('社团财富界面未显示余额信息')
+                print ('社团财富界面未显示余额信息')
         except:
-            raise ('社团财富界面未显示余额信息')
+            print ('社团财富界面未显示余额信息')
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
@@ -7811,7 +7812,7 @@ class Society:
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
-            raise ('动态开关设置后没有toast提示')
+            print ('动态开关设置后没有toast提示')
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
@@ -7826,7 +7827,7 @@ class Society:
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
-            raise ('特别关注没有toast提示')
+            print ('特别关注没有toast提示')
         time.sleep(2)
 
         #消息免打扰
@@ -8453,7 +8454,7 @@ class Society:
         try:
             self.driver.find_xpath(title_before)
         except:
-            raise ('合辑作品列表未显示添加的新作品')
+            print('合辑作品列表未显示添加的新作品')
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
@@ -8485,7 +8486,7 @@ class Society:
         if del_toast == '无权操作' or del_toast == '删除成功':
             pass
         else:
-            raise ('合辑删除失败')
+            print('合辑删除失败')
         time.sleep(2)
         self.driver.find_id(self.id + 'btnBack').click()
         time.sleep(2)
