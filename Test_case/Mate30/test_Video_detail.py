@@ -433,12 +433,12 @@ class Community_Circle(Dubbing):
 
 class Community_Society(Dubbing):
     def test_a(self):
-        self.S.Society_Home()
-        self.S.Society_My_society()
-        self.S.Society_Group_chat()
-        self.S.Society_Activity_day()
-        self.S.Society_Activity_week()
-        self.S.Society_Rank()
+        # self.S.Society_Home()
+        # self.S.Society_My_society()
+        # self.S.Society_Group_chat()
+        # self.S.Society_Activity_day()
+        # self.S.Society_Activity_week()
+        # self.S.Society_Rank()
         self.S.Society_Space()
         self.S.Society_Manager()
         self.S.Society_Edit_info()

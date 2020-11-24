@@ -129,6 +129,13 @@ class BaseOperate():
         el_y = int(el['y'] + el['height'] / 2.0)
         TouchAction(self.driver).press(x=el_x,y=el_y).wait(2000).move_to(x=int(point_x),y=int(point_y)).wait(2000).release().perform()
 
+    def Double_touche(self,X,Y):
+        '''
+        屏幕双击
+        :return:
+        '''
+        TouchAction(self.driver).press(x= int(X), y= int(Y)).release().perform().press(x=int(X), y=int(Y)).release().perform()
+
     def press_move(self,start_x,start_y,end_x,end_y):
         '''
         点击坐标移动到另一个坐标
@@ -158,7 +165,7 @@ class BaseOperate():
         :param xpath:
         :return:
         '''
-        xpath_elemnt = ("//*[@* = '%s']" % xpath)
+        xpath_elemnt = ("//*[@text='%s']" % xpath)
         el = self.driver.find_element_by_xpath(xpath_elemnt)
         return el
     def find_Xpath(self,Xpath):
@@ -376,7 +383,8 @@ class BaseOperate():
         self.driver.set_network_connection(ConnectionType.ALL_NETWORK_ON)
 
     def Background(self):
-        self.driver.background_app(3)
+        self.driver.background_app(2)
+        time.sleep(2)
 
     def hide_Keyboard(self):
         '''

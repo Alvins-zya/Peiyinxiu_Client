@@ -7342,19 +7342,6 @@ class Society:
         self.driver.find_id(self.id + 'btn_change_input_mode').click()
         time.sleep(2)
         el = self.driver.find_id(self.id + 'btn_record_voice')
-        self.driver.Long_Touche(el,10000)
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            print(toast)
-        except:
-            self.driver.wait_id(self.id + 'btn_play_sound_content_layout')
-            self.driver.find_ids(self.id + 'btn_play_sound_content_layout')[-1].click()
-            try:
-                toast = self.driver.wait_toast('//android.widget.Toast')
-                print(toast)
-            except:
-                pass
-        time.sleep(2)
         #发送60s语音
         self.driver.Long_Touche(el, 60000)
         try:
@@ -7473,7 +7460,7 @@ class Society:
         self.driver.find_xpath('活动').click()
         time.sleep(2)
         title = self.driver.find_id(self.id + 'desc').text
-        if title == '给社团成员的作品点赞2次':
+        if title == '给社团成员作品点赞2次':
             # 点赞两次
             self.driver.find_id(self.id + 'task_box').click()
             time.sleep(2)
@@ -7484,20 +7471,26 @@ class Society:
                 pass
             time.sleep(2)
             try:
-                self.driver.find_xpath('给社团成员的作品送礼2次')
+                self.driver.find_xpath('给社团成员作品点赞2次')
             except:
                 self.driver.wait_id(self.id + 'filmBg')
                 self.driver.find_ids(self.id + 'filmBg')[0].click()
                 self.driver.wait_id(self.id + 'tv_video_detail_title')
                 self.driver.Background()
-                self.driver.find_id(self.id + 'tv_good').click()
+                try:
+                    self.driver.find_id(self.id + 'tv_good1').click()
+                except:
+                    self.driver.find_id(self.id + 'tv_good').click()
                 time.sleep(2)
                 self.driver.find_id(self.id + 'btnBack').click()
                 time.sleep(2)
                 self.driver.find_ids(self.id + 'filmBg')[1].click()
                 self.driver.wait_id(self.id + 'tv_video_detail_title')
                 self.driver.Background()
-                self.driver.find_id(self.id + 'tv_good').click()
+                try:
+                    self.driver.find_id(self.id + 'tv_good1').click()
+                except:
+                    self.driver.find_id(self.id + 'tv_good').click()
                 time.sleep(2)
                 self.driver.find_id(self.id + 'btnBack').click()
                 time.sleep(2)
@@ -7522,7 +7515,7 @@ class Society:
                 self.driver.find_ids(self.id + 'filmBg')[0].click()
                 self.driver.wait_id(self.id + 'tv_video_detail_title')
                 self.driver.Background()
-                self.driver.find_id(self.id + 'comment').click()
+                self.driver.find_id(self.id + 'tv_comment').click()
                 time.sleep(2)
                 self.driver.find_id(self.id + 'editContent').send_keys('作品评论')
                 time.sleep(2)
@@ -7539,7 +7532,7 @@ class Society:
                 self.driver.find_ids(self.id + 'filmBg')[1].click()
                 self.driver.wait_id(self.id + 'tv_video_detail_title')
                 self.driver.Background()
-                self.driver.find_id(self.id + 'comment').click()
+                self.driver.find_id(self.id + 'tv_comment').click()
                 time.sleep(2)
                 self.driver.find_id(self.id + 'editContent').send_keys('作品评论')
                 time.sleep(2)
@@ -7639,66 +7632,65 @@ class Society:
             toast = self.driver.wait_toast('//android.widget.Toast')
             check = '创建成功'
             check1 = '配音秀:创建成功'
-            if toast != check or toast != check1:
+            if toast != check and toast != check1:
                 self.driver.find_id(self.id + 'btnBack').click()
         except:
             pass
         time.sleep(2)
 
         # 社团活动素材配音
+        self.driver.find_id(self.id + 'dubbing')
+        self.driver.find_id(self.id + 'dubbing').click()
         try:
-            self.driver.find_id(self.id + 'dubbing')
-            self.driver.find_id(self.id + 'dubbing').click()
-            try:
-                self.driver.find_id(self.id + 'btn_close')
-                self.driver.find_id(self.id + 'btn_close').click()
-            except:
-                while True:
-                    try:
-                        self.driver.find_id(self.id + 'btnSubmit')
-                        self.driver.find_id(self.id + 'btnSubmit').click()
-                        try:
-                            self.driver.find_id(self.id + 'roleall')
-                            self.driver.find_id(self.id + 'roleall').click()
-                        except:
-                            pass
-                        break
-                    except:
-                        try:
-                            self.driver.find_id(self.id + 'action')
-                            break
-                        except:
-                            try:
-                                self.driver.find_id(self.id + 'roleall')
-                                self.driver.find_id(self.id + 'roleall').click()
-                                break
-                            except:
-                                pass
-                time.sleep(2)
-                self.driver.find_id(self.id + 'action').click()
-                self.driver.wait_download(self.id + 'title')
-                self.driver.Background()
-                self.driver.find_id(self.id + 'complete').click()
-                self.driver.wait_id(self.id + 'pri_switch_tv')
-                self.driver.swip_up()
-                try:
-                    self.driver.find_id(self.id + 'check_box_add_square')
-                    self.driver.find_id(self.id + 'check_box_add_square').click()
-                except:
-                    pass
-                time.sleep(2)
-                self.driver.find_id(self.id + 'uploadbtn').click()
-                self.driver.wait_download(self.id + 'down')
-                self.driver.find_id(self.id + 'ivNewsTab').click()
-                time.sleep(2)
-                self.driver.find_id(self.id + 'society').click()
-                time.sleep(2)
-                self.driver.find_id(self.id + 'time').click()
-                self.driver.wait_id(self.id + 'btn_change_input_mode')
-                self.driver.find_xpath('活动').click()
-                time.sleep(2)
+            self.driver.find_id(self.id + 'btn_close')
+            self.driver.find_id(self.id + 'btn_close').click()
         except:
             pass
+        while True:
+            try:
+                self.driver.find_id(self.id + 'btnSubmit')
+                self.driver.find_id(self.id + 'btnSubmit').click()
+                try:
+                    self.driver.find_id(self.id + 'roleall')
+                    self.driver.find_id(self.id + 'roleall').click()
+                except:
+                    pass
+                break
+            except:
+                try:
+                    self.driver.find_id(self.id + 'action')
+                    break
+                except:
+                    try:
+                        self.driver.find_id(self.id + 'roleall')
+                        self.driver.find_id(self.id + 'roleall').click()
+                        break
+                    except:
+                        pass
+        time.sleep(2)
+        self.driver.find_id(self.id + 'action').click()
+        self.driver.wait_download(self.id + 'title')
+        self.driver.Background()
+        self.driver.find_id(self.id + 'complete').click()
+        self.driver.wait_id(self.id + 'pri_switch_tv')
+        self.driver.swip_up()
+        try:
+            self.driver.find_id(self.id + 'check_box_add_square')
+            self.driver.find_id(self.id + 'check_box_add_square').click()
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id(self.id + 'uploadbtn').click()
+        self.driver.wait_download(self.id + 'exposure')
+        self.driver.find_id(self.id + 'ivNewsTab').click()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'society').click()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'time').click()
+        self.driver.wait_id(self.id + 'btn_change_input_mode')
+        self.driver.find_xpath('活动').click()
+        time.sleep(2)
+
 
     #我的社团-榜单
     def Society_Rank(self):
@@ -7738,10 +7730,6 @@ class Society:
     def Society_Space(self):
         self.driver.find_id(self.id + 'btn_space_jump').click()
         self.driver.wait_id(self.id + 'll_fan')
-        self.driver.find_id(self.id + 'btnBack').click()
-        time.sleep(2)
-
-
         #社团空间-头像
         self.driver.find_id(self.id + 'userhead').click()
         time.sleep(2)
@@ -7856,6 +7844,7 @@ class Society:
         time.sleep(2)
         self.driver.find_id(self.id + 'iv_source').click()
         time.sleep(2)
+        self.driver.Background()
         self.driver.find_id(self.id + 'btnSelect').click()
         insert_toast = self.driver.wait_toast('//android.widget.Toast')
         if insert_toast == '该素材存在':
@@ -7900,7 +7889,7 @@ class Society:
             new_user_list.append(name)
         time.sleep(1)
         D_user_list = dict(Counter(new_user_list))
-        for key,value in D_user_list:
+        for key,value in D_user_list.items():
             if value > 1:
                 print(key,'粉丝列表用户信息显示重复')
         time.sleep(2)
@@ -7924,7 +7913,7 @@ class Society:
             new_user_list.append(name)
         time.sleep(1)
         D_user_list = dict(Counter(new_user_list))
-        for key, value in D_user_list:
+        for key, value in D_user_list.items():
             if value > 1:
                 print(key, '成员列表用户信息显示重复')
         time.sleep(2)
@@ -8022,7 +8011,11 @@ class Society:
         self.driver.find_id(self.id + 'tv_key_word_help').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'txtKeyword').send_keys('141095541')
+        self.driver.find_id(self.id + 'btnSearch').click()
+        time.sleep(2)
         self.driver.wait_id(self.id + 'userhead')
+        self.driver.find_id(self.id + 'userhead').click()
+        self.driver.wait_id(self.id + 'll_fan')
         self.driver.find_id(self.id + 'btnRight').click()
         time.sleep(2)
         if self.y == 1920:
@@ -8058,7 +8051,7 @@ class Society:
             time.sleep(2)
             if self.y == 1920:
                 self.driver.tap(self.x * 0.5, self.y * 0.793)
-            elif self.y == 2280:
+            elif self.y >= 2280:
                 self.driver.tap(self.x * 0.5, self.y * 0.83)
             time.sleep(2)
         except:
