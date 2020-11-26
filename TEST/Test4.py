@@ -1,6 +1,13 @@
 # coding: utf-8
 a = 1
-b = 'ch  lr 他泰版。来咯——-'
-c = ['嗯没啥正人君子的感觉了', '卑微', '你为什么不来', '黄忠', '知趣/秀友投稿', '《北方的树林》海子', '楚国八百年04-称霸3', '我又有几分像从前']
+def  test1():
+    if a == 1:
+        return True
+    else:
+        return False
 
-assert b in c,'error'
+def test2():
+    print(test1())
+
+if __name__ == '__main__':
+    test2()

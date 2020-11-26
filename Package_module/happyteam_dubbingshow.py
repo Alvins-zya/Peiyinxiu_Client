@@ -1368,12 +1368,12 @@ class Dub:
         time.sleep(2)
         self.driver.find_xpath('热门').click()
         time.sleep(2)
-        self.driver.swip_down()
+        self.driver.swip_up()
         time.sleep(2)
 
     # 双配素材-进入配音界面
     def Into_Dubbing_double(self):
-        self.driver.find_id(self.id + 'dubbing_fake').click()
+        self.driver.find_id(self.id + 'dubbing').click()
         time.sleep(2)
         try:
             self.driver.find_id(self.id + 'next')
@@ -1506,8 +1506,13 @@ class Dub:
             self.driver.find_id(self.id + 'scirpt').click()
             self.driver.wait_id(self.id + 'titleTextView')
             count = self.driver.find_ids(self.id + 'titleTextView')
-            for i in range((count)-1, -1, -1):
+            for i in range(len(count) -1, -1, -1):
                 self.driver.find_ids(self.id + 'titleTextView')[i].click()
+                try:
+                    self.driver.find_id(self.id + 'roleall')
+                    self.driver.find_id(self.id + 'roleall').click()
+                except:
+                    pass
                 self.driver.wait_id(self.id + 'edit_subtitle')
                 self.driver.find_id(self.id + 'scirpt').click()
                 self.driver.wait_id(self.id + 'titleTextView')
@@ -1532,12 +1537,18 @@ class Dub:
         time.sleep(2)
         self.driver.find_id(self.id + 'btnSubmit').click()
         time.sleep(2)
+        try:
+            self.driver.find_id(self.id + 'roleall')
+            self.driver.find_id(self.id + 'roleall').click()
+        except:
+            pass
+        time.sleep(2)
         self.driver.find_id(self.id + 'edit_subtitle').click()
         time.sleep(2)
         self.driver.hide_Keyboard()
         content = self.driver.find_ids(self.id + 'content_editor')[0].text
         content_check = '台词修改'
-        assert content == content_check
+        assert content_check in content
         time.sleep(2)
         self.driver.find_id(self.id + 'back').click()
         time.sleep(2)
@@ -1555,7 +1566,7 @@ class Dub:
         time.sleep(2)
         tip = self.driver.find_id(self.id + 'txtContent').text
         tip_check = '真的要放弃本次台词编辑吗？'
-        assert tip_check == tip
+        assert tip_check in tip
         time.sleep(2)
         self.driver.find_id(self.id + 'btnSubmit').click()
         time.sleep(3)
@@ -1606,16 +1617,15 @@ class Dub:
         self.driver.find_id(self.id + 'content_editor').send_keys('∯∰∱∲∳')
         time.sleep(2)
         self.driver.find_id(self.id + 'complete').click()
+        time.sleep(3)
+        self.driver.find_id(self.id + 'btnSubmit').click()
         time.sleep(2)
         try:
-            self.driver.find_id(self.id + 'btnSubmit')
-            self.driver.find_id(self.id + 'btnSubmit').click()
-            self.driver.wait_id(self.id + 'edit_subtitle')
+            self.driver.find_id(self.id + 'roleall')
+            self.driver.find_id(self.id + 'roleall').click()
         except:
-            self.driver.find_id(self.id + 'back').click()
-            time.sleep(2)
-            self.driver.find_id(self.id + 'btnSubmit').click()
-            self.driver.wait_id(self.id + 'edit_subtitle')
+            pass
+        time.sleep(2)
 
     #单行台词输入超过30个字符
     def Dub_Script_char_lenth(self):
@@ -1627,12 +1637,24 @@ class Dub:
         self.driver.find_id(self.id + 'content_editor').send_keys('123456789012345678901234567890123456789')
         tip = self.driver.wait_toast('//android.widget.Toast')
         check = '单行台词不能超过30个字符'
-        assert tip == check
+        assert tip in check
         time.sleep(2)
         self.driver.find_id(self.id + 'back').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'btnSubmit').click()
         self.driver.wait_id(self.id + 'edit_subtitle')
+
+    #耳返开关
+    def Dub_earreturn(self):
+        self.driver.find_id(self.id + 'earreturn').click()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '耳返'
+            assert check in toast
+        except:
+            print('点击耳返开关未弹出toast提示')
+        time.sleep(2)
+
 
     # 配音界面点击预览原声视频
     def Dub_Video_play(self):
@@ -1654,7 +1676,6 @@ class Dub:
     # 播放过程中推到后台
     def Dub_Video_background(self):
         self.driver.find_id(self.id + 'play').click()
-        time.sleep(2)
         self.driver.Background()
         self.driver.wait_id(self.id + 'play')
         time.sleep(2)
@@ -1682,6 +1703,8 @@ class Dub:
         self.driver.find_id(self.id + 'complete').click()
         self.driver.wait_download(self.id + 'title')
         self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id(self.id + 'back').click()
         time.sleep(2)
 
     # 在完整录制后的基础上点击原声试听，查看视频播放是否从头开始播放
@@ -1714,7 +1737,7 @@ class Dub:
     # 试听过程中，点击退出配音界面
     def Dub_Video_review_quit(self):
         self.driver.find_id(self.id + 'review').click()
-        self.driver.find_id(self.id + 'back').click()
+        self.driver.back()
         time.sleep(2)
         tip = self.driver.find_id(self.id + 'txtContent').text
         tip_check = '确定放弃吗？'
@@ -1735,13 +1758,12 @@ class Dub:
     # 录制过程中暂停
     def Dub_Record_pause(self):
         self.driver.find_id(self.id + 'action').click()
-        time.sleep(2)
         self.driver.Background()
         time.sleep(2)
         try:
             self.driver.find_id(self.id + 'dubbingWaveform')
-        except Exception as e:
-            print(e, '没有显示音轨，未录制进人声')
+        except:
+            print('没有显示音轨，未录制进人声')
         time.sleep(2)
 
     # 录制完成后自动跳转再返回配音界面
@@ -1780,21 +1802,23 @@ class Dub:
         self.driver.Long_Touche(el, 3000)
         time.sleep(2)
 
+    def Dub_into_preview(self):
+        self.driver.find_id(self.id + 'action').click()
+        self.driver.wait_download(self.id + 'title')
+        self.driver.Background()
+        time.sleep(2)
+
     # 播放完整的视频
     def Preview_video_play(self):
         self.driver.find_id(self.id + 'play_button').click()
+        self.driver.Background()
+        time.sleep(2)
         self.driver.wait_download(self.id + 'play_button')
         time.sleep(2)
 
     # 字幕开关
     def Preview_subtitle_onoff(self):
         el = self.driver.find_id(self.id + 'add_subtitle_cb').get_attribute('checked')
-        check = 'true'
-        if el == check:
-            print('字幕默认开启')
-        else:
-            print('字幕默认关闭')
-        time.sleep(2)
         self.driver.find_id(self.id + 'add_subtitle_cb').click()
         time.sleep(2)
         self.driver.find_id(self.id + 'back').click()
@@ -1804,7 +1828,7 @@ class Dub:
         self.driver.Background()
         time.sleep(2)
         el1 = self.driver.find_id(self.id + 'add_subtitle_cb').get_attribute('checked')
-        assert el != el1
+        assert el != el1,'字幕开关状态校验失败'
         self.driver.find_id(self.id + 'add_subtitle_cb').click()
         time.sleep(2)
 
@@ -1820,8 +1844,9 @@ class Dub:
         self.driver.Background()
         time.sleep(2)
         el1 = self.driver.find_id(self.id + 'clear_voice').get_attribute('checked')
-        assert el != el1
+        assert el != el1,'降噪开关状态校验失败'
         self.driver.find_id(self.id + 'clear_voice').click()
+        self.driver.Background()
         time.sleep(2)
 
     # 预览界面人声
@@ -2099,7 +2124,7 @@ class Dub:
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.755)
         elif self.y > 2250:
-            self.driver.tap(self.x * 0.5, self.y * 0.82)
+            self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(5)
         try:
             # 米5
@@ -2236,13 +2261,26 @@ class Dub:
     # 作品上传按钮
     def Upload(self):
         self.driver.find_id(self.id + 'uploadbtn').click()
-        self.driver.wait_id(self.id + 'close')
-        time.sleep(2)
+
+
+    #上传结果
+    def Upload_result(self):
+        while True:
+            try:
+                self.driver.find_id(self.id + 'close')
+                break
+                return True
+            except:
+                try:
+                    self.driver.find_id(self.id + 're_update')
+                    break
+                    return False
+                except:
+                    pass
 
     #上传成功后点击查看视频详情
     def Upload_video_detial(self):
-        try:
-            self.driver.find_id(self.id + 'wx')
+        if self.Upload_result() == True:
             #点击查看视频详情
             self.driver.find_id(self.id + 'img_url').click()
             self.driver.wait_id(self.id + 'tv_video_detail_title')
@@ -2250,13 +2288,6 @@ class Dub:
             time.sleep(2)
             self.driver.find_id(self.id + 'btnBack').click()
             time.sleep(2)
-        except:
-            print('视频上传失败，不执行视频查看用例')
-
-    #上传成功后下载视频到本地
-    def Video_download(self):
-        try:
-            self.driver.find_id(self.id + 'wx')
             #视频下载
             if self.y == 1920:
                 self.driver.swip_move(self.x * 0.922, self.y * 0.232, self.x * 0.57, self.y * 0.232)
@@ -2278,16 +2309,7 @@ class Dub:
                 self.driver.swip_move(self.x * 0.507, self.y * 0.24, self.x * 0.897, self.y * 0.24)
             elif self.y == 2280:
                 self.driver.swip_move(self.x * 0.509, self.y * 0.186, self.x * 0.753, self.y * 0.186)
-        except:
-            pass
-        time.sleep(2)
-
-    #上传成功后视频站外分享
-    def Upload_video_share(self):
-        try:
-            self.driver.find_id(self.id + 'wx')
             #微信分享
-            self.driver.find_id(self.id + 'wx').click()
             time.sleep(4)
             self.driver.wait_id('com.tencent.mm:id/ch')
             time.sleep(2)
@@ -2328,13 +2350,8 @@ class Dub:
             elif self.y == 2280:
                 self.driver.swip_move(self.x * 0.786, self.y * 0.186, self.x * 0.54, self.y * 0.186)
             time.sleep(2)
-        except Exception as e:
-            print(e)
 
-    #上传成功进入视频详情删除视频
-    def Upload_video_delete(self):
-        try:
-            self.driver.find_id(self.id + 'wx')
+            #上传成功进入视频详情删除视频
             self.driver.find_id(self.id + 'img_url').click()
             self.driver.wait_id(self.id + 'btnBack')
             self.driver.Background()
@@ -2349,25 +2366,17 @@ class Dub:
             time.sleep(2)
             self.driver.find_id(self.id + 'btnSubmit').click()
             time.sleep(2)
-        except Exception as e:
-            print(e)
 
     #上传失败保存草稿箱
     def Upload_fail_save(self):
-        try:
-            self.driver.find_id(self.id + 're_update')
+        if self.Upload_result() == False:
             self.driver.find_id(self.id + 'saveToDraft').click()
             time.sleep(3)
             self.driver.find_xpath('保存草稿').click()
             self.driver.wait_id(self.id + 'btnSubmit')
             self.driver.find_id(self.id + 'btnSubmit').click()
             time.sleep(2)
-        except Exception as e:
-            print(e)
-
-    # 上传失败查看失败原因
-    def Upload_fail_reason(self):
-        try:
+            #上传失败查看失败原因
             self.driver.find_id(self.id + 're_update')
             self.driver.find_id(self.id + 'rl_bg').click()
             try:
@@ -2400,8 +2409,6 @@ class Dub:
             else:
                 print('未知错误')
             time.sleep(2)
-        except:
-            pass
 
 class Follow:
     def __init__(self):
