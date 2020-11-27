@@ -122,7 +122,10 @@ class BaseOperate():
 
     def Long_press_move(self,El,point_x,point_y):
         '''
-        长按控件后移动
+        :param El:获取控件的坐标位置
+        :param point_x: 需要移动到的坐标位置X
+        :param point_y: 需要移动到的坐标位置Y
+        :return:
         '''
         el = El.rect
         el_x = int(el['x'] + el['width'] / 2.0)
@@ -149,6 +152,17 @@ class BaseOperate():
         '''
         TouchAction(self.driver).tap(x=int(X),y=int(Y)).perform()
 
+    def tap_el(self,El):
+        '''
+        获取控件按钮后点击控件居中坐标位置
+        :param X:
+        :param Y:
+        :return:
+        '''
+        el = El.rect
+        el_x = int(el['x'] + el['width'] / 2.0)
+        el_y = int(el['y'] + el['height'] / 2.0)
+        TouchAction(self.driver).tap(x=el_x,y=el_y).perform()
 
     def find_id(self, id):
         '''

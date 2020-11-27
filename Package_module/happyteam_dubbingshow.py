@@ -1694,6 +1694,7 @@ class Dub:
                 self.driver.wait_sys('允许')
         except:
             self.driver.wait_download(self.id + 'title')
+            self.driver.Background()
             self.driver.find_id(self.id + 'back').click()
             time.sleep(2)
         time.sleep(2)
@@ -1802,6 +1803,7 @@ class Dub:
         self.driver.Long_Touche(el, 3000)
         time.sleep(2)
 
+    #点击配音进入预览界面
     def Dub_into_preview(self):
         self.driver.find_id(self.id + 'action').click()
         self.driver.wait_download(self.id + 'title')
@@ -1811,6 +1813,7 @@ class Dub:
     # 播放完整的视频
     def Preview_video_play(self):
         self.driver.find_id(self.id + 'play_button').click()
+        time.sleep(3)
         self.driver.Background()
         time.sleep(2)
         self.driver.wait_download(self.id + 'play_button')
@@ -1827,8 +1830,6 @@ class Dub:
         self.driver.wait_id(self.id + 'title')
         self.driver.Background()
         time.sleep(2)
-        el1 = self.driver.find_id(self.id + 'add_subtitle_cb').get_attribute('checked')
-        assert el != el1,'字幕开关状态校验失败'
         self.driver.find_id(self.id + 'add_subtitle_cb').click()
         time.sleep(2)
 
@@ -1859,9 +1860,7 @@ class Dub:
         elif self.y > 2250:
             self.driver.swip_move(self.x*0.245, self.y*0.535, self.x*0.376, self.y*0.633)  #调大音量
             time.sleep(4)
-            self.driver.swip_move(self.x*0.364, self.y*0.627, self.x*0.107, self.y*0.627)  #调小音量
-        else:
-            pass
+            self.driver.swip_move(self.x*0.38, self.y*0.62, self.x*0.17, self.y*0.62)  #调小音量
         time.sleep(4)
 
     # 声音校准
@@ -1870,14 +1869,14 @@ class Dub:
         time.sleep(2)
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37, self.y * 0.718)  # 提前播放人声进度
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_move(self.x * 0.37, self.y * 0.718, self.x * 0.115, self.y * 0.628)  # 延后播放人声进度
         elif self.y > 2250:
             self.driver.swip_move(self.x * 0.245, self.y * 0.535, self.x * 0.376, self.y * 0.633)  # 提前播放人声进度
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
-            self.driver.swip_move(self.x * 0.364, self.y * 0.627, self.x * 0.107, self.y * 0.627)  # 延后播放人声进度
+            self.driver.swip_move(self.x*0.38, self.y*0.62, self.x*0.17, self.y*0.62)  # 延后播放人声进度
         time.sleep(2)
 
     # 人声变声调节
@@ -1886,16 +1885,15 @@ class Dub:
         time.sleep(2)
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37, self.y * 0.718)  # #人声声线加粗
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_move(self.x * 0.37, self.y * 0.718, self.x * 0.115, self.y * 0.628)  #人声声线变细
         elif self.y > 2250:
             self.driver.swip_move(self.x * 0.245, self.y * 0.535, self.x * 0.376, self.y * 0.633)  #人声声线加粗
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
-            self.driver.swip_move(self.x * 0.364, self.y * 0.627, self.x * 0.107, self.y * 0.627)  #人声声线变细
-        else:
-            pass
+            self.driver.swip_move(self.x*0.38, self.y*0.62, self.x*0.17, self.y*0.62)  #人声声线变细
+            self.driver.Background()
         time.sleep(2)
 
     #人声混响调节
@@ -1910,7 +1908,7 @@ class Dub:
             self.driver.swip_move(self.x * 0.419, self.y * 0.8, self.x * 0.419, self.y * 0.59)  # 增加回声效果值
             time.sleep(2)
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_move(self.x * 0.093, self.y * 0.59, self.x * 0.093, self.y * 0.8)  # 减小混响效果值
             time.sleep(2)
@@ -1919,7 +1917,7 @@ class Dub:
             self.driver.swip_move(self.x * 0.419, self.y * 0.59, self.x * 0.419, self.y * 0.8)  # 减小回声效果值
             time.sleep(2)
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
         elif self.y > 2250:
             self.driver.swip_move(self.x * 0.098, self.y * 0.7, self.x * 0.098, self.y * 0.553)  # 增加混响效果值
@@ -1929,7 +1927,7 @@ class Dub:
             self.driver.swip_move(self.x * 0.413, self.y * 0.7, self.x * 0.413, self.y * 0.553)  # 增加回声效果值
             time.sleep(2)
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_move(self.x * 0.098, self.y * 0.553, self.x * 0.098, self.y * 0.7)  # 减小混响效果值
             time.sleep(2)
@@ -1938,34 +1936,29 @@ class Dub:
             self.driver.swip_move(self.x * 0.413, self.y * 0.553, self.x * 0.413, self.y * 0.7)  # 减小回声效果值
             time.sleep(2)
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
-        # try:
-        #     self.driver.find_xpath('确定')
-        #     self.driver.find_xpath('确定').click()
-        #     print("服务端关闭人声混响功能，不做混响调节测试")
-        # except:
 
     # 背景音音量调节
     def Preview_background_music(self):
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.632, self.y * 0.62, self.x * 0.893, self.y * 0.67)#增大背景音音量
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_move(self.x * 0.893, self.y * 0.67, self.x * 0.632, self.y * 0.62)#减小背景音音量
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_move(self.x * 0.632, self.y * 0.62, self.x * 0.893, self.y * 0.67)  # 增大背景音音量
         elif self.y > 2250:
             self.driver.swip_move(self.x * 0.607, self.y * 0.591, self.x * 0.884, self.y * 0.571)#增大背景音音量
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_move(self.x * 0.884, self.y * 0.571, self.x * 0.607, self.y * 0.591)#减小背景音音量
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_move(self.x * 0.607, self.y * 0.591, self.x * 0.884, self.y * 0.571)#增大背景音音量
         time.sleep(2)
@@ -1977,7 +1970,8 @@ class Dub:
         if el != 'true':
             print ('状态点击背景音关闭按钮后，状态没有显示关闭')
         self.driver.find_id(self.id + 'play_button').click()
-        self.driver.wait_download(self.id + 'play_button')
+        time.sleep(2)
+        self.driver.Background()
         time.sleep(2)
 
     # 背景音音乐列表中选择其它音乐
@@ -2034,7 +2028,8 @@ class Dub:
             self.driver.swip_move(self.x*0.913, self.y*0.702,self.x*0.907, self.y*0.538)
             time.sleep(2)
             self.driver.find_id(self.id + 'play_button').click()
-            self.driver.wait_download(self.id + 'play_button')
+            time.sleep(2)
+            self.driver.Background()
             time.sleep(2)
             #减小混响效果
             self.driver.swip_move(self.x*0.595, self.y*0.539,self.x * 0.593, self.y * 0.699)
@@ -2074,11 +2069,21 @@ class Dub:
         self.driver.find_id(self.id + 'play_button').click()
         self.driver.wait_download(self.id + 'play_button')
         time.sleep(2)
+
         #选中音乐后进入音乐试听界面，拖动视频进度条
+        El = self.driver.find_id(self.id + 'video_seekbar')
         if self.y == 1920:
-            self.driver.swip_move(self.x*0.052,self.y*0.487,self.x*0.704,self.y*0.487)
+            self.driver.tap_el(El)
         elif self.y > 2250:
-            self.driver.swip_move(self.x*0.052,self.y*0.448,self.x*0.633,self.y*0.448)
+            self.driver.tap_el(El)
+        time.sleep(2)
+        el = self.driver.find_id(self.id + 'waveformView').rect
+        el_x = int(el['x'] + el['width'] / 2.0)
+        el_y = int(el['y'] + el['height'] / 2.0)
+        if self.y == 1920:
+            self.driver.swip_move(el_x, el_y,el_x - 300, el_y)
+        elif self.y > 2250:
+            self.driver.swip_move(el_x, el_y,el_x - 300, el_y)
         time.sleep(2)
         self.driver.find_id(self.id + 'play_button').click()
         self.driver.wait_download(self.id + 'play_button')
@@ -2087,7 +2092,7 @@ class Dub:
         self.driver.wait_id(self.id + 'clear_voice')
         time.sleep(2)
 
-    # 上滑加载背景音音乐列表并点击下载按钮
+    # 上滑加载背景音音乐列表
     def Preview_load_music_list(self):
         for i in range(10):
             self.driver.swip_up()
@@ -2101,18 +2106,15 @@ class Dub:
 
     # 修改作品封面-视频截图
     def Upload_work_Cover_Screenshots(self):
+        self.driver.find_id(self.id + 'btn_setting_cover_tip').click()
+        time.sleep(2)
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.708)
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.37, self.y * 0.422, self.x * 0.74, self.y * 0.422)
-        elif self.y == 2250:
+        elif self.y >= 2280:
             self.driver.tap(self.x * 0.5, self.y * 0.752)
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.033, self.y * 0.361, self.x * 0.441, self.y * 0.361)
-        elif self.y == 2340:
-            self.driver.tap(self.x * 0.5, self.y * 0.752)
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.066, self.y * 0.351, self.x * 0.5, self.y * 0.351)
+        time.sleep(2)
+        El = self.driver.find_id(self.id + 'seekbar')
+        self.driver.tap_el(El)
         time.sleep(4)
         self.driver.find_id(self.id + 'complete').click()
         time.sleep(2)
@@ -2267,14 +2269,14 @@ class Dub:
     def Upload_result(self):
         while True:
             try:
-                self.driver.find_id(self.id + 'close')
-                break
+                self.driver.find_id(self.id + 'wx')
                 return True
+                break
             except:
                 try:
                     self.driver.find_id(self.id + 're_update')
-                    break
                     return False
+                    break
                 except:
                     pass
 
@@ -2291,7 +2293,7 @@ class Dub:
             #视频下载
             if self.y == 1920:
                 self.driver.swip_move(self.x * 0.922, self.y * 0.232, self.x * 0.57, self.y * 0.232)
-            elif self.y == 2280:
+            elif self.y >= 2280:
                 self.driver.swip_move(self.x * 0.786, self.y * 0.186, self.x * 0.54, self.y * 0.186)
             time.sleep(2)
             self.driver.find_id(self.id + 'down').click()
@@ -2307,14 +2309,15 @@ class Dub:
             time.sleep(2)
             if self.y == 1920:
                 self.driver.swip_move(self.x * 0.507, self.y * 0.24, self.x * 0.897, self.y * 0.24)
-            elif self.y == 2280:
+            elif self.y >= 2280:
                 self.driver.swip_move(self.x * 0.509, self.y * 0.186, self.x * 0.753, self.y * 0.186)
             #微信分享
-            time.sleep(4)
+            self.driver.find_id(self.id + 'wx').click()
+            time.sleep(2)
             self.driver.wait_id('com.tencent.mm:id/ch')
             time.sleep(2)
             self.driver.find_id('com.tencent.mm:id/dn').click()
-            self.driver.wait_id(self.id + 'wx')
+            self.driver.wait_id(self.id + 'close')
             time.sleep(2)
 
             #朋友圈分享
@@ -2322,7 +2325,7 @@ class Dub:
             self.driver.wait_id('com.tencent.mm:id/ch')
             time.sleep(2)
             self.driver.find_id('com.tencent.mm:id/dn').click()
-            self.driver.wait_id(self.id + 'wx')
+            self.driver.wait_id(self.id + 'close')
             time.sleep(2)
 
             #QQ分享
@@ -2335,20 +2338,8 @@ class Dub:
             #QQ空间分享
             self.driver.find_id(self.id + 'qqz').click()
             self.driver.wait_id('com.tencent.mobileqq:id/ivTitleBtnRightText')
+            time.sleep(2)
             self.driver.find_id('com.tencent.mobileqq:id/ivTitleBtnLeft').click()
-            time.sleep(2)
-
-            #微博分享
-            self.driver.find_id(self.id + 'wb').click()
-            self.driver.wait_id('com.sina.weibo:id/titleSave')
-            self.driver.find_id('com.sina.weibo:id/titleBack').click()
-            time.sleep(2)
-            self.driver.find_xpath('不保存').click()
-            time.sleep(2)
-            if self.y == 1920:
-                self.driver.swip_move(self.x * 0.507, self.y * 0.24, self.x * 0.897, self.y * 0.24)
-            elif self.y == 2280:
-                self.driver.swip_move(self.x * 0.786, self.y * 0.186, self.x * 0.54, self.y * 0.186)
             time.sleep(2)
 
             #上传成功进入视频详情删除视频
@@ -2358,7 +2349,10 @@ class Dub:
             time.sleep(2)
             self.driver.find_id(self.id + 'setting').click()
             time.sleep(2)
-            self.driver.tap(self.x * 0.5,self.y * 0.854)
+            if self.y == 1920:
+                self.driver.tap(self.x * 0.5,self.y * 0.854)
+            elif self.y >= 2280:
+                self.driver.tap(self.x * 0.5, self.y * 0.87)
             time.sleep(2)
             tip = self.driver.find_id(self.id + 'txtContent').text
             check = '删除作品'
@@ -2366,10 +2360,8 @@ class Dub:
             time.sleep(2)
             self.driver.find_id(self.id + 'btnSubmit').click()
             time.sleep(2)
-
-    #上传失败保存草稿箱
-    def Upload_fail_save(self):
-        if self.Upload_result() == False:
+        #上传失败保存草稿箱
+        elif self.Upload_result() == False:
             self.driver.find_id(self.id + 'saveToDraft').click()
             time.sleep(3)
             self.driver.find_xpath('保存草稿').click()
