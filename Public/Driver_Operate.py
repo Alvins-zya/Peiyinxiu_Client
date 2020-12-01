@@ -25,6 +25,7 @@ class BaseOperate():
     def __init__(self):
         self.driver = appium_desired()
         self.dev = get_connect_device_id()
+        self.id = resource_id
 
     def lanuch_app(self):
         '''
@@ -108,7 +109,7 @@ class BaseOperate():
         '''
         # element = self.driver.find_element_by_id(El)
         # element = EL.rect
-        el = El.rect
+        el = self.driver.find_element_by_id(self.id + El).rect
         el_x = int(el['x'] + el['width'] / 2.0)
         el_y = int(el['y'] + el['height'] / 2.0)
         TouchAction(self.driver).long_press(x=el_x, y=el_y, duration=time).perform()
@@ -127,7 +128,7 @@ class BaseOperate():
         :param point_y: 需要移动到的坐标位置Y
         :return:
         '''
-        el = El.rect
+        el = self.driver.find_element_by_id(self.id + El).rect
         el_x = int(el['x'] + el['width'] / 2.0)
         el_y = int(el['y'] + el['height'] / 2.0)
         TouchAction(self.driver).press(x=el_x,y=el_y).wait(2000).move_to(x=int(point_x),y=int(point_y)).wait(2000).release().perform()
@@ -159,7 +160,7 @@ class BaseOperate():
         :param Y:
         :return:
         '''
-        el = El.rect
+        el = self.driver.find_element_by_id(self.id + El).rect
         el_x = int(el['x'] + el['width'] / 2.0)
         el_y = int(el['y'] + el['height'] / 2.0)
         TouchAction(self.driver).tap(x=el_x,y=el_y).perform()
@@ -170,7 +171,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        el = self.driver.find_element_by_id(id)
+        el = self.driver.find_element_by_id(self.id + id)
         return el
 
     def find_xpath(self, xpath):
@@ -232,7 +233,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver, 60).until(lambda x: self.driver.find_element_by_id(id))
+        element = WebDriverWait(self.driver, 60).until(lambda x: self.driver.find_element_by_id(self.id + id))
         time.sleep(2)
         return element
 
@@ -242,7 +243,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver).until_not(lambda x: self.driver.find_element_by_id(id))
+        element = WebDriverWait(self.driver).until_not(lambda x: self.driver.find_element_by_id(self.id + id))
         return element
 
     def wait_xpath(self, xpath):
@@ -272,7 +273,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver, 299).until(lambda x: self.driver.find_element_by_id(id))
+        element = WebDriverWait(self.driver, 299).until(lambda x: self.driver.find_element_by_id(self.id + id))
         return element
 
     def wait_load(self, xpath):
@@ -299,7 +300,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        el = self.driver.find_elements_by_id(id)
+        el = self.driver.find_elements_by_id(self.id + id)
         return el
 
     def find_xpaths(self, xpath):
@@ -336,7 +337,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver, 30).until(lambda x: self.driver.find_elements_by_id(id))
+        element = WebDriverWait(self.driver, 30).until(lambda x: self.driver.find_elements_by_id(self.id + id))
         return element
 
     def screenshot(self):

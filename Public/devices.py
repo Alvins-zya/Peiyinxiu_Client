@@ -40,5 +40,6 @@ def appium_desired():
 
     # logging.info("启动APP...")
     driver = webdriver.Remote('http://localhost' + ':' + '4725' +'/wd/hub', desired_caps)
+    # driver.implicitly_wait(5)
     return driver
 
