@@ -10,7 +10,7 @@
 import datetime
 import re
 import time, random
-from time import sleep,ctime
+# from time import sleep,ctime
 from typing import Counter
 
 file = open('D:/Git_pyhthon/Package_module/topic_words.txt', 'r', encoding='UTF-8')
@@ -347,7 +347,7 @@ class Home_Function:
 
     # 视频详情切换-列表作品名称与视频详情作品名称校验
     def Function_Channel_Nearby_work_detail(self):
-        name = self.driver.find_ids_click('title')
+        name = self.driver.find_ids('title')
         title_list = []
         for title in range(len(name)):
             title_name = self.driver.find_ids_text('title',title)
@@ -839,7 +839,7 @@ class Home_Function:
 
     # Pia戏装扮
     def Function_Pia_Prop_Mall_Dress_up(self):
-        num = self.driver.find_ids_click('img')
+        num = self.driver.find_ids('img')
         for i in range(len(num)):
             self.driver.find_ids_click('img',i)
             time.sleep(1)
@@ -1428,7 +1428,7 @@ class Dub:
         self.driver.find_id_click('scirpt')
         time.sleep(2)
         self.driver.wait_id('titleTextView')
-        count = self.driver.find_ids_click('titleTextView')
+        count = self.driver.find_ids('titleTextView')
         num = len(count)
         if num > 4:
             self.driver.swip_up()
@@ -1651,7 +1651,7 @@ class Dub:
         self.driver.wait_download('play')
         time2 = datetime.datetime.now()
         time_result = time2 - time1
-        time_video = self.driver.v('video_time')
+        time_video = self.driver.find_id_text('video_time')
         print('视频时间：', time_video, '实际播放时间：', time_result)
         time.sleep(2)
 
@@ -1767,9 +1767,10 @@ class Dub:
         self.driver.wait_id('title')
         self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('add_subtitle_cb')
+        el1 = self.driver.find_id('add_subtitle_cb').get_attribute('checked')
+        if el != el1:
+            print('字幕开关状态显示错误，未显示默认状态')
         time.sleep(2)
-
     #降噪开关
     def Preview_voice_onoff(self):
         el = self.driver.find_id('clear_voice').get_attribute('checked')
@@ -2207,12 +2208,10 @@ class Dub:
             try:
                 self.driver.find_id('wx')
                 return True
-                break
             except:
                 try:
                     self.driver.find_id('re_update')
                     return False
-                    break
                 except:
                     pass
 
@@ -2920,7 +2919,7 @@ class Live:
     def Live_comments(self):
         self.driver.find_id_click('function_comment_layout')
         time.sleep(2)
-        self.driver.find_id_send('editContent''这是一个语聊间！')
+        self.driver.find_id_send('editContent', '这是一个语聊间！')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         self.driver.wait_id('home_comment_comments')
@@ -4190,7 +4189,7 @@ class Person:
     def Person_Zoom_work_switch_label(self):
         self.driver.find_id_click('film_all_count')
         time.sleep(2)
-        count = self.driver.find_ids_click('title')
+        count = self.driver.find_ids('title')
         time.sleep(2)
         self.driver.back()
         time.sleep(2)
@@ -4640,7 +4639,7 @@ class Person:
 
     # 会员价格
     def Person_Vip_Price(self):
-        price = self.driver.find_ids_click('tv_now_money')
+        price = self.driver.find_ids('tv_now_money')
         for i in range(len(price)):
             Price = self.driver.find_ids_text('tv_now_money',i)
             self.driver.find_ids_click('rl_all',i)
@@ -4844,7 +4843,7 @@ class Person:
     # 合作配音
     def Person_Coor_Dubbing(self):
         try:
-            self.driver.find_xpaths('合作配音')[1]
+            self.driver.find_xpaths('合作配音')[1].click()
             self.driver.wait_download('action')
             time.sleep(2)
             self.driver.find_id_click('back')
@@ -4883,7 +4882,7 @@ class Person:
     def Person_Coor_Generate_works(self):
         self.driver.find_id_click('rl_tag2')
         time.sleep(2)
-        self.driver.find_xpaths('生成作品')[1]
+        self.driver.find_xpaths('生成作品')[1].click()
         time.sleep(2)
         self.driver.find_id_click('head_name')
         time.sleep(2)
@@ -5672,7 +5671,7 @@ class Person:
         time.sleep(10)
         self.driver.swip_down()
         time.sleep(2)
-        Refresh_after = self.driver.fit('tv_source_title')
+        Refresh_after = self.driver.find_id_text('tv_source_title')
         assert delete_before == Refresh_after, '断网情况下删除已配素材再联网刷新列表，未显示之前删除的素材'
         time.sleep(2)
 
@@ -5708,7 +5707,7 @@ class Person:
             time.sleep(2)
             self.driver.swip_up()
             time.sleep(2)
-            count = self.driver.find_ids_click('iv_source')
+            count = self.driver.find_ids('iv_source')
             for i in range(len(count)):
                 self.driver.find_ids_click('iv_source',i)
                 self.driver.wait_id('btn_video_detail_follow')
@@ -6906,11 +6905,11 @@ class Circle:
     #图文贴内容
     def Circle_word_topic_content(self):
         topic_read = file.read()
-        self.driver.find_id_send('content',topic_read,'\n')
+        self.driver.find_id_send('content',(topic_read,'\n'))
         time.sleep(2)
         self.driver.find_id('content').clear()
         time.sleep(2)
-        self.driver.find_id_send('content',topic_read,'\n')
+        self.driver.find_id_send('content',(topic_read,'\n'))
         time.sleep(2)
 
     #添加图片
@@ -7318,7 +7317,7 @@ class Society:
                 time.sleep(2)
                 self.driver.find_id_click('btnBack')
                 time.sleep(2)
-                self.driver.find_ids('filmBg',1)
+                self.driver.find_ids('filmBg', 1)
                 self.driver.wait_id('tv_video_detail_title')
                 self.driver.Background()
                 try:
@@ -7551,7 +7550,7 @@ class Society:
             pass
         self.driver.find_id_click('btnBack')
         time.sleep(2)
-        ranks = self.driver.find_ids_click('img_rank')
+        ranks = self.driver.find_ids('img_rank')
         for i in range(len(ranks)):
             self.driver.find_ids_click('img_rank',i)
             self.driver.wait_id('tv_right')
@@ -8037,7 +8036,7 @@ class Society:
         time.sleep(2)
 
         #社团管理-移除成员
-        members = self.driver.find_ids('username',-1)
+        members = self.driver.find_ids('username', -1)
         self.driver.Long_Touche(members, 2000)
         time.sleep(2)
         self.driver.find_id_click('txtContent')
@@ -8340,7 +8339,7 @@ class Society:
         self.driver.find_id_click('sure')
         diamond_toast = self.driver.wait_toast('//android.widget.Toast')
         check = '钻石'
-        if check not in Diamond_toast:
+        if check not in diamond_toast:
             print('社团分配钻石',diamond_toast)
         time.sleep(2)
         self.driver.find_id_click('btnBack')
@@ -8386,7 +8385,7 @@ class Society:
         elif self.y >= 2280:
             self.driver.tap(self.x * 0.5, self.y * 0.83)
         self.driver.wait_xpath('转让社团')
-        self.driver.find_ids_click('username')[-1]
+        self.driver.find_ids_click('username', -1)
         time.sleep(2)
         transfer_content = self.driver.find_id_text('txtContent')
         check = '您确定要将社团转让给'
