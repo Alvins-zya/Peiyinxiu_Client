@@ -146,9 +146,9 @@ class Home:
         time.sleep(2)
         hot_works = self.driver.find_ids('tv')
         for i in range(len(hot_works)):
-            self.driver.find_ids_click()('tv',i)
+            self.driver.find_ids_click('tv',i)
             self.driver.wait_id_click('filmBg')
-            self.driver.wait_id('tv_good')
+            self.driver.wait_id('tv_comment')
             self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.find_id_click('btnClear')
@@ -163,7 +163,7 @@ class Home:
         self.driver.find_id_click('txtKeyword')
         user_list = ['148207791', '152726825', '159420264', '141130466']
         for i in user_list:
-            self.driver.find_id('txtKeyword').send_keys(i)
+            self.driver.find_id_send('txtKeyword',i)
             time.sleep(2)
             self.driver.find_id_click('btnSearch')
             self.driver.wait_id('userhead')
@@ -420,7 +420,7 @@ class Home_Function:
         time.sleep(2)
         self.driver.find_id_click('tv_comment')
         time.sleep(2)
-        self.driver.find_id('editContent').send_keys('哈哈')
+        self.driver.find_id_send('editContent','哈哈')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         try:
@@ -861,7 +861,7 @@ class Home_Function:
     def Function_Pia_Room_comment(self):
         self.driver.find_id_click('show_comment')
         time.sleep(2)
-        self.driver.find_id('editContent').send_keys('哈哈哈')
+        self.driver.find_id_send('editContent','哈哈哈')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         self.driver.wait_id('rl')
@@ -1115,7 +1115,7 @@ class Home_Function:
     def Function_Cartoon_detail(self):
         self.driver.find_id_click('btn_add')
         time.sleep(2)
-        self.driver.find_id('txtKeyword').send_keys('你听说过女大学生吗')
+        self.driver.find_id_send('txtKeyword','你听说过女大学生吗')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         time.sleep(2)
@@ -1465,7 +1465,7 @@ class Dub:
         self.driver.hide_Keyboard()
         self.driver.find_ids('content_editor')[0].clear()
         time.sleep(2)
-        self.driver.find_ids('content_editor')[0].send_keys("台词修改")
+        self.driver.find_ids_send('content_editor',0,"台词修改")
         time.sleep(2)
         self.driver.find_id_click('complete')
         time.sleep(2)
@@ -1498,7 +1498,7 @@ class Dub:
         self.driver.find_id_click('edit_subtitle')
         time.sleep(2)
         self.driver.hide_Keyboard()
-        self.driver.find_ids('content_editor')[0].send_keys('台词修改')
+        self.driver.find_ids_send('content_editor',0,'台词修改')
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
@@ -1551,7 +1551,7 @@ class Dub:
         self.driver.hide_Keyboard()
         self.driver.find_id_click('content_editor').clear()
         time.sleep(2)
-        self.driver.find_id_click('content_editor').send_keys('∯∰∱∲∳')
+        self.driver.find_id_send('content_editor','∯∰∱∲∳')
         time.sleep(2)
         self.driver.find_id_click('complete')
         time.sleep(3)
@@ -1571,7 +1571,7 @@ class Dub:
         self.driver.hide_Keyboard()
         self.driver.find_id_click('content_editor').clear()
         time.sleep(2)
-        self.driver.find_id_click('content_editor').send_keys('123456789012345678901234567890123456789')
+        self.driver.find_id_send('content_editor','123456789012345678901234567890123456789')
         tip = self.driver.wait_toast('//android.widget.Toast')
         check = '单行台词不能超过30个字符'
         assert tip in check
@@ -2116,7 +2116,7 @@ class Dub:
 
     # 标题名称-输入30个字符
     def Upload_title(self):
-        self.driver.find_id('title').send_keys('123456789012345678901234567890')
+        self.driver.find_id_send('title','123456789012345678901234567890')
         time.sleep(2)
         char = self.driver.find_id_text('title')
         char_check = '123456789012345678901234567890'
@@ -2320,7 +2320,7 @@ class Dub:
                 time.sleep(2)
                 self.driver.find_id('edit').clear()
                 time.sleep(2)
-                self.driver.find_id('edit').send_keys('标题修改')
+                self.driver.find_id_send('edit','标题修改')
                 self.driver.find_id_click('btnSubmit')
                 time.sleep(2)
                 try:
@@ -2442,7 +2442,7 @@ class Follow:
             self.driver.tap(self.x * 0.126, self.y * 0.846)
         self.driver.wait_id_click('filter_edit')
         time.sleep(2)
-        self.driver.find_id('filter_edit').send_keys("15697802")
+        self.driver.find_id_send('filter_edit',"15697802")
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         try:
@@ -2516,7 +2516,7 @@ class Follow:
         time.sleep(2)
         try:
             self.driver.find_id('reprint')
-            self.driver.find_id('content').send_keys("不错，转发了！")
+            self.driver.find_id_send('content',"不错，转发了！")
             time.sleep(2)
             self.driver.find_id_click('reprint')
             try:
@@ -2564,7 +2564,7 @@ class Follow:
         time.sleep(2)
         self.driver.find_id_click('item_attention_comment_count')
         time.sleep(2)
-        self.driver.find_id('editContent').send_keys('日常评论下！^.^')
+        self.driver.find_id_send('editContent','日常评论下！^.^')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         try:
@@ -2635,7 +2635,7 @@ class Follow:
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
-        self.driver.find_id_click('txtKeyword').send_keys('举报功能测试！')
+        self.driver.find_id_send('txtKeyword','举报功能测试！')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         try:
@@ -2837,7 +2837,7 @@ class Live:
         time.sleep(2)
         self.driver.find_id_click('title')
         time.sleep(2)
-        self.driver.find_id('title').send_keys('空')
+        self.driver.find_id_send('title','空')
         time.sleep(2)
         self.driver.find_id_click('tag_name')
         time.sleep(2)
@@ -2920,7 +2920,7 @@ class Live:
     def Live_comments(self):
         self.driver.find_id_click('function_comment_layout')
         time.sleep(2)
-        self.driver.find_id_click('editContent').send_keys('这是一个语聊间！')
+        self.driver.find_id_send('editContent''这是一个语聊间！')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         self.driver.wait_id('home_comment_comments')
@@ -2933,7 +2933,7 @@ class Live:
         self.driver.Long_Touche(el,3000)
         try:
             self.driver.find_id_click('editContent')
-            content = self.driver.find_id_click('editContent').text
+            content = self.driver.find_id_text('editContent')
             check = '@'
             assert check in content
             time.sleep(1)
@@ -2953,9 +2953,9 @@ class Live:
         elif self.y >= 2280:
             self.driver.tap(self.x * 0.1, self.y * 0.812)
         time.sleep(2)
-        self.driver.find_id_click('cash_num').send_keys('0.1')
+        self.driver.find_id_send('cash_num','0.1')
         time.sleep(1)
-        self.driver.find_id_click('people_num').send_keys('1')
+        self.driver.find_id_send('people_num','1')
         time.sleep(2)
         self.driver.find_id_click('generate_red_packet')
         time.sleep(2)
@@ -3087,9 +3087,9 @@ class Live:
         time.sleep(2)
         self.driver.find_id_click('btn_sure')
         time.sleep(2)
-        self.driver.find_id_click('et_title').send_keys('哈哈')
+        self.driver.find_id_send('et_title','哈哈')
         time.sleep(2)
-        self.driver.find_id_click('et_content').send_keys('哈哈')
+        self.driver.find_id_send('et_content','哈哈')
         time.sleep(2)
         self.driver.find_id_click('tv_save')
         time.sleep(2)
@@ -3268,7 +3268,7 @@ class Material:
 
     # 搜索素材
     def Source_search(self):
-        self.driver.find_id('txtKeyword').send_keys('配音')
+        self.driver.find_id_send('txtKeyword','配音')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         self.driver.wait_id_click('iv_source')
@@ -3423,7 +3423,7 @@ class Material:
     def Source_coor_search(self):
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        self.driver.find_id_click('et_search_keyword').send_keys('配音')
+        self.driver.find_id_send('et_search_keyword','配音')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         self.driver.wait_id_click('item_sh_cooperate_article_image')
@@ -3445,7 +3445,7 @@ class Material:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        self.driver.find_id_click('et_search_keyword').send_keys('槛花笼鹤')
+        self.driver.find_id_send('et_search_keyword','槛花笼鹤')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         time.sleep(5)
@@ -3771,7 +3771,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('photo')
         time.sleep(2)
-        self.driver.find_id_click('txtKeyword').send_keys(search_title)
+        self.driver.find_id_send('txtKeyword',search_title)
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         self.driver.wait_id_click('filmBg')
@@ -3798,7 +3798,7 @@ class Person:
         time.sleep(2)
 
         # 个人空间搜索——作品搜索无结果显示
-        self.driver.find_id_click('txtKeyword').send_keys('配音秀')
+        self.driver.find_id_send('txtKeyword','配音秀')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         try:
@@ -3819,7 +3819,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('ll_source')
         time.sleep(2)
-        self.driver.find_id_click('txtKeyword').send_keys('配音秀')
+        self.driver.find_id_send('txtKeyword','配音秀')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         try:
@@ -3829,7 +3829,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('ll_source')
         time.sleep(2)
-        self.driver.find_id_click('txtKeyword').send_keys(search_title)
+        self.driver.find_id_send('txtKeyword',search_title)
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         time.sleep(4)
@@ -3957,7 +3957,7 @@ class Person:
     def Person_Zoom_Introduction(self):
         self.driver.find_id_click('tv_sign').clear()
         time.sleep(2)
-        self.driver.find_id_click('tv_sign').send_keys('空空空')
+        self.driver.find_id_send('tv_sign','空空空')
         time.sleep(2)
 
     # 修改性别
@@ -4004,7 +4004,7 @@ class Person:
     def Person_Zoom_username_check(self):
         self.driver.find_id('et_nickname').clear()
         time.sleep(2)
-        self.driver.find_id_click('et_nickname').send_keys('政府')
+        self.driver.find_id_send('et_nickname','政府')
         time.sleep(2)
         self.driver.find_id_click('tv_right')
         try:
@@ -4298,7 +4298,7 @@ class Person:
             self.driver.tap(self.x * 0.5, self.y * 0.688)
         self.driver.wait_id_click('socialstatus')
         time.sleep(2)
-        self.driver.find_id('content').send_keys('给自己的合作！')
+        self.driver.find_id_send('content','给自己的合作！')
         time.sleep(2)
         self.driver.find_id_click('reprint')
         try:
@@ -4560,7 +4560,7 @@ class Person:
         elif self.y >= 2280:
             self.driver.tap(self.x * 0.5, self.y * 0.895)
         time.sleep(2)
-        self.driver.find_id('content').send_keys('合辑')
+        self.driver.find_id_send('content','合辑')
         time.sleep(2)
         self.driver.find_id_click('ok')
         time.sleep(3)
@@ -4714,7 +4714,7 @@ class Person:
             self.driver.find_id('invite')
             self.driver.find_id_click('invite')
             time.sleep(2)
-            self.driver.find_id('filter_edit').send_keys('1247792')
+            self.driver.find_id_send('filter_edit','1247792')
             time.sleep(2)
             self.driver.find_id_click('btnSearch')
             time.sleep(2)
@@ -4730,7 +4730,7 @@ class Person:
             self.driver.find_id_click('btnSubmit')
             self.driver.wait_id_click('invite')
             time.sleep(2)
-            self.driver.find_id('filter_edit').send_keys('1247792')
+            self.driver.find_id_send('filter_edit','1247792')
             time.sleep(2)
             self.driver.find_id_click('btnSearch')
             time.sleep(2)
@@ -4925,7 +4925,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('confirm')
         time.sleep(3)
-        self.driver.find_id('title').send_keys('功能测试')
+        self.driver.find_id_send('title','功能测试')
         time.sleep(2)
         try:
             self.driver.find_id('tv')
@@ -5069,7 +5069,7 @@ class Person:
     def Person_Comment_Reply(self):
         self.driver.find_id_click('reply_btn')
         time.sleep(2)
-        self.driver.find_id('editContent').send_keys('哈哈哈')
+        self.driver.find_id_send('editContent','哈哈哈')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         self.driver.wait_toast('//android.widget.Toast')
@@ -5090,7 +5090,7 @@ class Person:
         except:
             self.driver.wait_id('editContent')
             time.sleep(2)
-            self.driver.find_id('editContent').send_keys('hhh')
+            self.driver.find_id_send('editContent','hhh')
             time.sleep(2)
             self.driver.find_id_click('btn_send')
             try:
@@ -5158,7 +5158,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id('filter_edit').clear()
         time.sleep(2)
-        self.driver.find_id('filter_edit').send_keys('1247792')
+        self.driver.find_id_send('filter_edit','1247792')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         self.driver.wait_xpath('逍遥剑仙')
@@ -5186,7 +5186,7 @@ class Person:
         time.sleep(2)
 
         # 发送文字
-        self.driver.find_id('editContent').send_keys('功能测试')
+        self.driver.find_id_send('editContent','功能测试')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         time.sleep(2)
@@ -5340,7 +5340,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('redpacket')
         time.sleep(2)
-        self.driver.find_id('cash_num').send_keys('0.1')
+        self.driver.find_id_send('cash_num','0.1')
         time.sleep(3)
         self.driver.find_id_click('generate_red_packet')
         time.sleep(2)
@@ -5403,7 +5403,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id('txtKeyword').clear()
         time.sleep(2)
-        self.driver.find_id('txtKeyword').send_keys('功能测试，可忽略此举报信息')
+        self.driver.find_id_send('txtKeyword','功能测试，可忽略此举报信息')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         try:
@@ -5811,13 +5811,13 @@ class Person:
         time.sleep(2)
 
         # 素材添加角色名称
-        self.driver.find_id('et_content').send_keys('角色1')
+        self.driver.find_id_send('et_content','角色1')
         time.sleep(2)
         self.driver.find_id_click('rl_role2')
         time.sleep(2)
         self.driver.find_id_click('add_role_tv')
         time.sleep(2)
-        self.driver.find_id('et_content2').send_keys('角色2')
+        self.driver.find_id_send('et_content2','角色2')
         self.driver.find_id_click('rl_role3')
         time.sleep(2)
         self.driver.find_id_click('sure')
@@ -5836,7 +5836,7 @@ class Person:
             self.driver.wait_id('et')
             time.sleep(2)
             self.driver.find_id_click(roles[i])
-            self.driver.find_id('et').send_keys(words[i])
+            self.driver.find_id_send('et',words[i])
             time.sleep(2)
             self.driver.find_id_click('complete_zimu')
             time.sleep(2)
@@ -5899,7 +5899,7 @@ class Person:
         # 素材上传封面中添加文字
         self.driver.find_id_click('add_text')
         time.sleep(2)
-        self.driver.find_id('editContent').send_keys('素材封面图')
+        self.driver.find_id_send('editContent','素材封面图')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         time.sleep(2)
@@ -5911,7 +5911,7 @@ class Person:
         time.sleep(2)
 
         # 素材名称
-        self.driver.find_id('et_title').send_keys('素材上传测试')
+        self.driver.find_id_send('et_title','素材上传测试')
         time.sleep(2)
 
         # 添加素材音乐
@@ -5937,7 +5937,7 @@ class Person:
         # 添加素材标签
         self.driver.find_id_click('tv1')
         time.sleep(2)
-        self.driver.find_id('edit_text').send_keys('测试')
+        self.driver.find_id_send('edit_text','测试')
         self.driver.find_id_click('btn_search')
         time.sleep(2)
         self.driver.find_id_click('tv')
@@ -5986,7 +5986,7 @@ class Person:
         elif self.y >= 2280:
             self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(4)
-        self.driver.find_id('et_title').send_keys('素材信息修改测试')
+        self.driver.find_id_send('et_title','素材信息修改测试')
         time.sleep(2)
         self.driver.find_id_click('next')
         while True:
@@ -6335,7 +6335,7 @@ class Video_detail:
         #自定义钻石价格
         self.driver.find_ids_click('rl',-1)
         time.sleep(2)
-        self.driver.find_id('edit').send_keys('20000')
+        self.driver.find_id_send('edit','20000')
         time.sleep(1)
         self.driver.find_id_click('sure')
         time.sleep(2)
@@ -6382,7 +6382,7 @@ class Video_detail:
         time.sleep(2)
         self.driver.find_ids_click('rl',-1)
         time.sleep(2)
-        self.driver.find_id('edit').send_keys('20000')
+        self.driver.find_id_send('edit','20000')
         time.sleep(1)
         self.driver.find_id_click('sure')
         time.sleep(2)
@@ -6417,7 +6417,7 @@ class Video_detail:
     def Video_comment_send(self):
         self.driver.find_id_click('comment_count')
         time.sleep(2)
-        self.driver.find_id('editContent').send_keys('暖一个！')
+        self.driver.find_id_send('editContent','暖一个！')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         self.driver.Background()
@@ -6446,7 +6446,7 @@ class Video_detail:
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
-        self.driver.find_id('txtKeyword').send_keys('举报功能测试')
+        self.driver.find_id_send('txtKeyword','举报功能测试')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         toast1 = self.driver.wait_toast('//android.widget.Toast')
@@ -6567,7 +6567,7 @@ class Video_detail:
             self.driver.tap(self.x * 0.126, self.y * 0.846)
         self.driver.wait_id_click('filter_edit')
         time.sleep(2)
-        self.driver.find_id('filter_edit').send_keys("15697802")
+        self.driver.find_id_send('filter_edit',"15697802")
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         time.sleep(2)
@@ -6642,7 +6642,7 @@ class Video_detail:
         time.sleep(2)
         try:
             self.driver.find_id('reprint')
-            self.driver.find_id('content').send_keys("不错，转发了！")
+            self.driver.find_id_send('content',"不错，转发了！")
             time.sleep(2)
             self.driver.find_id_click('reprint')
             try:
@@ -6882,7 +6882,7 @@ class Circle:
     def Circle_topic_search(self):
         self.driver.find_id('et_key_word').clear()
         time.sleep(1)
-        self.driver.find_id('et_key_word').send_keys('测试')
+        self.driver.find_id_send('et_key_word','测试')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         time.sleep(2)
@@ -6906,11 +6906,11 @@ class Circle:
     #图文贴内容
     def Circle_word_topic_content(self):
         topic_read = file.read()
-        self.driver.find_id('content').send_keys(topic_read,'\n')
+        self.driver.find_id_send('content',topic_read,'\n')
         time.sleep(2)
         self.driver.find_id('content').clear()
         time.sleep(2)
-        self.driver.find_id('content').send_keys(topic_read,'\n')
+        self.driver.find_id_send('content',topic_read,'\n')
         time.sleep(2)
 
     #添加图片
@@ -6971,7 +6971,7 @@ class Circle:
     def Circle_word_topic_insert_topic(self):
         self.driver.find_id_click('add_topic')
         self.driver.wait_id('tv')
-        self.driver.find_id('et_key_word').send_keys('一个人的话题')
+        self.driver.find_id_send('et_key_word','一个人的话题')
         time.sleep(1)
         self.driver.find_id_click('btnSearch')
         time.sleep(2)
@@ -6982,7 +6982,7 @@ class Circle:
     def Circle_word_topic_at(self):
         self.driver.find_id_click('at')
         time.sleep(2)
-        self.driver.find_id('filter_edit').send_keys('16461675')
+        self.driver.find_id_send('filter_edit','16461675')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         time.sleep(2)
@@ -7062,7 +7062,7 @@ class Circle:
         self.driver.find_id_click('tv_right')
         self.driver.wait_id('play')
         time.sleep(2)
-        self.driver.find_id('content').send_keys('有什么好说的呢？么有哦~')
+        self.driver.find_id_send('content','有什么好说的呢？么有哦~')
         time.sleep(2)
         self.driver.find_id_click('play')
         time.sleep(10)
@@ -7160,7 +7160,7 @@ class Society:
         self.driver.find_id_click('time')
         self.driver.wait_id('btn_change_input_mode')
         select = random.choice('社团聊天文字测试')
-        self.driver.find_id('editContent').send_keys(select)
+        self.driver.find_id_send('editContent',select)
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         try:
@@ -7270,9 +7270,9 @@ class Society:
         time.sleep(2)
         self.driver.find_id_click('redpacket')
         time.sleep(2)
-        self.driver.find_id('cash_num').send_keys('0.1')
+        self.driver.find_id_send('cash_num','0.1')
         time.sleep(2)
-        self.driver.find_id('people_num').send_keys('1')
+        self.driver.find_id_send('people_num','1')
         time.sleep(3)
         self.driver.find_id_click('generate_red_packet')
         time.sleep(2)
@@ -7351,7 +7351,7 @@ class Society:
                 self.driver.Background()
                 self.driver.find_id_click('tv_comment')
                 time.sleep(2)
-                self.driver.find_id('editContent').send_keys('作品评论')
+                self.driver.find_id_send('editContent','作品评论')
                 time.sleep(2)
                 self.driver.find_id_click('btn_send')
                 try:
@@ -7368,7 +7368,7 @@ class Society:
                 self.driver.Background()
                 self.driver.find_id_click('tv_comment')
                 time.sleep(2)
-                self.driver.find_id('editContent').send_keys('作品评论')
+                self.driver.find_id_send('editContent','作品评论')
                 time.sleep(2)
                 self.driver.find_id_click('btn_send')
                 try:
@@ -7456,7 +7456,7 @@ class Society:
             self.driver.find_id('choice_source')
             self.driver.find_id_click('choice_source')
             self.driver.wait_id('txtKeyword')
-            self.driver.find_id('txtKeyword').send_keys('配音')
+            self.driver.find_id_send('txtKeyword','配音')
             self.driver.find_id_click('btnSearch')
             self.driver.wait_id_click('iv_source')
             time.sleep(2)
@@ -7586,7 +7586,7 @@ class Society:
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
-        self.driver.find_id('txtKeyword').send_keys('测试')
+        self.driver.find_id_send('txtKeyword','测试')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         try:
@@ -7840,7 +7840,7 @@ class Society:
     def Society_Manager(self):
         self.driver.find_id_click('tv_key_word_help')
         time.sleep(2)
-        self.driver.find_id('txtKeyword').send_keys('141095541')
+        self.driver.find_id_send('txtKeyword','141095541')
         self.driver.find_id_click('btnSearch')
         time.sleep(1)
         self.driver.wait_id_click('userhead')
@@ -7918,7 +7918,7 @@ class Society:
         #修改社团名称
         before_name = self.driver.find_id_text('society_name')
         time.sleep(2)
-        self.driver.find_id('society_name').send_keys('属于我自己的社团哦~')
+        self.driver.find_id_send('society_name','属于我自己的社团哦~')
         time.sleep(2)
         self.driver.find_id_click('tv_right')
         try:
@@ -7928,11 +7928,11 @@ class Society:
         except:
             pass
         time.sleep(2)
-        self.driver.find_id('society_name').send_keys(before_name)
+        self.driver.find_id_send('society_name',before_name)
         time.sleep(2)
 
         #社团简介
-        self.driver.find_id('brief_content').send_keys('这是一个严肃的社团简介~')
+        self.driver.find_id_send('brief_content','这是一个严肃的社团简介~')
         time.sleep(2)
 
         #社团频道
@@ -7944,7 +7944,7 @@ class Society:
             time.sleep(2)
         except:
             pass
-        self.driver.find_id('edit_text').send_keys('测试')
+        self.driver.find_id_send('edit_text','测试')
         time.sleep(2)
         self.driver.find_id_click('btn_search')
         time.sleep(2)
@@ -7977,7 +7977,7 @@ class Society:
         time.sleep(2)
         self.driver.wait_id('isCheck')
         #搜索用户
-        self.driver.find_id('filter_edit').send_keys('15697799')
+        self.driver.find_id_send('filter_edit','15697799')
         time.sleep(2)
         self.driver.find_id_click('btnSearch')
         self.driver.wait_xpath('大黑')
@@ -8055,7 +8055,7 @@ class Society:
         self.driver.find_id_click('edit_gonggao')
         time.sleep(2)
         choice = random.choice('这是一个严肃的社团公告')
-        self.driver.find_id('content').send_keys(choice)
+        self.driver.find_id_send('content',choice)
         time.sleep(2)
         self.driver.find_id_click('complete')
         gonggao_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -8086,7 +8086,7 @@ class Society:
         self.driver.find_ids_click('android:id/title',1)
         time.sleep(2)
         #作品标题
-        self.driver.find_id('title').send_keys('随便传个社团原创作品')
+        self.driver.find_id_send('title','随便传个社团原创作品')
         time.sleep(2)
         #作品封面
         self.driver.find_id_click('upload_cover')
@@ -8096,7 +8096,7 @@ class Society:
         #添加配音表用户
         self.driver.find_id_click('mem')
         time.sleep(2)
-        self.driver.find_id('role').send_keys('我')
+        self.driver.find_id_send('role','我')
         time.sleep(2)
         self.driver.find_id_click('add_mem')
         self.driver.wait_id_click('userhead')
@@ -8162,7 +8162,7 @@ class Society:
         elif self.y >= 2280:
             self.driver.tap(self.x * 0.5, self.y * 0.83)
         time.sleep(2)
-        self.driver.find_id('content').send_keys('测试合辑')
+        self.driver.find_id_send('content','测试合辑')
         time.sleep(2)
         self.driver.find_id_click('ok')
         self.driver.wait_id('choice')
@@ -8302,7 +8302,7 @@ class Society:
         #招募内容
         self.driver.find_id_click('modify')
         time.sleep(2)
-        self.driver.find_id('content').send_keys('本社团并不招人')
+        self.driver.find_id_send('content','本社团并不招人')
         time.sleep(2)
         self.driver.find_id_click('complete')
         time.sleep(2)
@@ -8333,9 +8333,9 @@ class Society:
         self.driver.find_id_click('distribution_diamond')
         self.driver.wait_id_click('userhead')
         time.sleep(2)
-        self.driver.find_id('gold_count').send_keys('100')
+        self.driver.find_id_send('gold_count','100')
         time.sleep(2)
-        self.driver.find_id('remark').send_keys('分配钻石')
+        self.driver.find_id_send('remark','分配钻石')
         time.sleep(2)
         self.driver.find_id_click('sure')
         diamond_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -8349,9 +8349,9 @@ class Society:
         self.driver.find_id_click('distribution_gold')
         self.driver.wait_id_click('userhead')
         time.sleep(2)
-        self.driver.find_id('gold_count').send_keys('10000')
+        self.driver.find_id_send('gold_count','10000')
         time.sleep(2)
-        self.driver.find_id('remark').send_keys('分配金币')
+        self.driver.find_id_send('remark','分配金币')
         time.sleep(2)
         self.driver.find_id_click('sure')
         gold_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -8451,13 +8451,13 @@ class Society:
         time.sleep(3)
         self.driver.find_id_click('tv_key_word_help')
         time.sleep(2)
-        self.driver.find_id('txtKeyword').send_keys('10885432')
+        self.driver.find_id_send('txtKeyword','10885432')
         time.sleep(1)
         self.driver.find_id_click('btnSearch')
         self.driver.wait_xpath('天魔琴音')
         self.driver.find_id_click('join')
         time.sleep(2)
-        self.driver.find_id('content').send_keys('社团加入申请测试')
+        self.driver.find_id_send('content','社团加入申请测试')
         time.sleep(2)
         self.driver.find_id_click('bg_rl1')
         self.driver.wait_id_click('filmBg')

@@ -1,0 +1,28 @@
+platformName: Android
+platforVersion: 9
+deviceName: 79URX18B09001391
+appPackage: com.happyteam.dubbingshow
+appActivity: ui.StartActivity
+unicodeKeyboard: True
+resetKeyboard: True
+noReset: False
+ignoreUnimportantViews : True
+dontStopAppOnReset : True
+newCommandTimeout : 10000
+automationName : Uiautomator2
+systemPort : 8200
+ip: 127.0.0.1
+port: 4723
+
+
+#
+#platformName: Android
+#platforVersion: 8.1
+#deviceName: WCPJY9YP49IZEMSW
+#appPackage: com.happyteam.dubbingshow
+#appActivity: ui.StartActivity
+#unicodeKeyboard: True
+#resetKeyboard: True
+#noReset: False
+#ip: 127.0.0.1
+#port: 4723

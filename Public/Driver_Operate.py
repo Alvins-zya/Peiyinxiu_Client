@@ -168,6 +168,14 @@ class BaseOperate():
     def find_id(self,id):
         self.driver.find_element_by_id(self.id + id)
 
+    def find_id_send(self,id,value):
+        el = self.driver.find_element_by_id(self.id + id).send_keys(value)
+        return el
+
+    def find_ids_send(self,id,num,value):
+        el = self.driver.find_elements_by_id(self.id + id)[num].send_keys(value)
+        return el
+
     def find_id_click(self, id):
         '''
         点击元素(单数）
