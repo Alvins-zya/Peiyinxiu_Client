@@ -217,11 +217,12 @@ class Person_center(Dubbing):
 
 class Home_Page(Dubbing):
     def test_a(self):
-        self.H.Tips()
-        self.H.Task_list()
-        self.H.Task_daily_attendance()
-        self.H.Task_Daily_tasks()
-        self.V.Btnback()
+        # self.H.Tips()
+        # self.H.Task_list()
+        # self.H.Task_daily_attendance()
+        # self.H.Task_Daily_tasks()
+        # self.V.Btnback()
+        self.H.Home_search()
         self.H.Source_search()
         self.H.Work_search()
         self.H.User_search()
@@ -359,7 +360,7 @@ class Dubbing_function(Dubbing):
         self.D.Preview_reverberation()
         self.D.Preview_background_music()
         self.D.Preview_close_background_music()
-        self.D.Preview_chage_music()
+        self.D.Preview_change_music()
         self.D.Preview_background_reverberation()
         self.D.Preview_load_music_list()
         self.D.Preview_download_music()
@@ -374,7 +375,7 @@ class Dubbing_function(Dubbing):
         self.D.Upload_privacy()
         self.D.Dubbing_Coor_switch()
         self.D.Upload()
-        self.D.Upload_video_detial()
+        self.D.Upload_video_detail()
 
 class Home_Follow(Dubbing):
     def test_a(self):

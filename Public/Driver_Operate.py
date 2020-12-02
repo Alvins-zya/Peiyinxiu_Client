@@ -4,6 +4,7 @@ create on 2020年2月18日
 @author : Alvin_zhu
 '''
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.connectiontype import ConnectionType
@@ -120,7 +121,6 @@ class BaseOperate():
         # TouchAction(self.driver).long_press(x=int(el_x), y=int(el_y), duration=3000).release().perform()
         # time.sleep(2)
 
-
     def Long_press_move(self,El,point_x,point_y):
         '''
         :param El:获取控件的坐标位置
@@ -165,14 +165,24 @@ class BaseOperate():
         el_y = int(el['y'] + el['height'] / 2.0)
         TouchAction(self.driver).tap(x=el_x,y=el_y).perform()
 
-    def find_id(self, id):
+    def find_id(self,id):
+        self.driver.find_element_by_id(self.id + id)
+
+    def find_id_click(self, id):
         '''
-        定位元素(单数）
+        点击元素(单数）
         :param id:
         :return:
         '''
-        el = self.driver.find_element_by_id(self.id + id)
-        return el
+        self.driver.find_element_by_id(self.id + id).click()
+
+    def find_id_text(self,id):
+        '''
+        获取元素ID文案内容
+        :param id:
+        :return:
+        '''
+        self.driver.find_element_by_id(self.id + id).text
 
     def find_xpath(self, xpath):
         '''
@@ -183,6 +193,7 @@ class BaseOperate():
         xpath_elemnt = ("//*[@text='%s']" % xpath)
         el = self.driver.find_element_by_xpath(xpath_elemnt)
         return el
+
     def find_Xpath(self,Xpath):
         '''
         使用绝对路径获取元素
@@ -227,24 +238,28 @@ class BaseOperate():
         text = self.driver.find_element_by_id(text).text
         return text
 
-    def wait_id(self, id):
+    def wait_id_click(self, id):
         '''
-        等待元素
+        :param id:显示选择的ID
+        :return:点击元素ID
+        '''
+        WebDriverWait(self.driver,60).until(EC.element_to_be_clickable((By.ID,self.id + id))).click()
+        # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='u1']/a[8]"))).click()
+
+    def wait_id(self,id):
+        '''
+        等待选择ID
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver, 60).until(lambda x: self.driver.find_element_by_id(self.id + id))
-        time.sleep(2)
-        return element
-
+        WebDriverWait(self.driver, 60,).until(lambda x: self.driver.find_element_by_id(self.id + id))
     def wait_not_id(self, id):
         '''
         等待元素消失
         :param id:
         :return:
         '''
-        element = WebDriverWait(self.driver).until_not(lambda x: self.driver.find_element_by_id(self.id + id))
-        return element
+        WebDriverWait(self.driver).until_not(lambda x: self.driver.find_element_by_id(self.id + id))
 
     def wait_xpath(self, xpath):
         '''
@@ -252,10 +267,10 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        xpath_elemnt = ("//*[@text = '%s']" % xpath)
-        element = WebDriverWait(self.driver, 30).until(lambda x: self.driver.find_element_by_xpath(xpath_elemnt))
+        xpath_element = ("//*[@text = '%s']" % xpath)
+        WebDriverWait(self.driver, 30).until(lambda x: self.driver.find_element_by_xpath(xpath_element))
         time.sleep(2)
-        return element
+
 
     def wait_toast(self, xpath):
         '''
@@ -294,6 +309,22 @@ class BaseOperate():
         el = WebDriverWait(self.driver,5).until(EC.presence_of_element_located(loc))
         el.click()
 
+    def find_ids_click(self, id, i):
+        '''
+        获取元素列表
+        :param id:
+        :return:
+        '''
+        self.driver.find_elements_by_id(self.id + id)[i].click()
+
+    def find_ids_text(self, id, i):
+        '''
+        获取元素列表
+        :param id:
+        :return:
+        '''
+        content = self.driver.find_elements_by_id(self.id + id)[i].text
+        return content
     def find_ids(self, id):
         '''
         获取元素列表
