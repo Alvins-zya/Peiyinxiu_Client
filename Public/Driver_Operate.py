@@ -120,6 +120,15 @@ class BaseOperate():
         # el_y = el.location.get('y')
         # TouchAction(self.driver).long_press(x=int(el_x), y=int(el_y), duration=3000).release().perform()
         # time.sleep(2)
+    def Long_Touches(self,EL,num,time):
+        '''
+        控件list中选择一个
+        :return:
+        '''
+        el = self.driver.find_elements_by_id(self.id + El)[num].rect
+        el_x = int(el['x'] + el['width'] / 2.0)
+        el_y = int(el['y'] + el['height'] / 2.0)
+        TouchAction(self.driver).long_press(x=el_x, y=el_y, duration=time).perform()
 
     def Long_press_move(self,El,point_x,point_y):
         '''

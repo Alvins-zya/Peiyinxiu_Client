@@ -15,13 +15,15 @@ from typing import Counter
 
 file = open('D:/Git_pyhthon/Package_module/topic_words.txt', 'r', encoding='UTF-8')
 from Public.Driver_Operate import BaseOperate
-
+from Package_module.Location_list import location
 
 class Home:
     def __init__(self):
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
+
 
     def Tips(self):
         try:
@@ -236,6 +238,7 @@ class Home_Function:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
 
     # 进入首页频道列表界面
     def Function_Channel(self):
@@ -248,13 +251,7 @@ class Home_Function:
                 self.driver.find_xpath('频道')
                 break
             except:
-                if self.y == 1920:
-                    self.driver.swip_move(self.x * 0.854, self.y * 0.197, self.x * 0.249, self.y * 0.197)
-                    time.sleep(2)
-                elif self.y >= 2280:
-                    self.driver.swip_move(self.x * 0.85, self.y * 0.15, self.x * 0.18, self.y * 0.15)
-                    time.sleep(2)
-
+                self.loc.home_func()
         time.sleep(2)
         self.driver.find_xpath('频道').click()
         self.driver.wait_id('tv')
@@ -301,12 +298,7 @@ class Home_Function:
                 self.driver.find_xpath('附近')
                 break
             except:
-                if self.y == 1920:
-                    self.driver.swip_move(self.x * 0.854, self.y * 0.189, self.x * 0.249, self.y * 0.197)
-                    time.sleep(2)
-                elif self.y >= 2280:
-                    self.driver.swip_move(self.x * 0.85, self.y * 0.15, self.x * 0.18, self.y * 0.15)
-                    time.sleep(2)
+                self.loc.home_func()
         time.sleep(2)
         self.driver.find_xpath('附近').click()
         time.sleep(2)
@@ -385,12 +377,7 @@ class Home_Function:
                 self.driver.find_xpath('曝光区')
                 break
             except:
-                if self.y == 1920:
-                    self.driver.swip_move(self.x * 0.854, self.y * 0.189, self.x * 0.249, self.y * 0.197)
-                    time.sleep(2)
-                elif self.y >= 2280:
-                    self.driver.swip_move(self.x * 0.85, self.y * 0.15, self.x * 0.18, self.y * 0.15)
-                    time.sleep(2)
+                self.loc.home_func()
         time.sleep(2)
         self.driver.find_xpath('曝光区').click()
         time.sleep(2)
@@ -446,12 +433,7 @@ class Home_Function:
                 self.driver.find_xpath('排行榜')
                 break
             except:
-                if self.y == 1920:
-                    self.driver.swip_move(self.x * 0.854, self.y * 0.189, self.x * 0.249, self.y * 0.197)
-                    time.sleep(2)
-                elif self.y >= 2280:
-                    self.driver.swip_move(self.x * 0.85, self.y * 0.15, self.x * 0.18, self.y * 0.15)
-                    time.sleep(2)
+                self.loc.home_func()
         time.sleep(2)
         self.driver.find_xpath('排行榜').click()
         time.sleep(2)
@@ -779,10 +761,7 @@ class Home_Function:
                 self.driver.find_xpath('在线pia戏')
                 break
             except:
-                if self.y == 1920:
-                    self.driver.swip_move(self.x * 0.854, self.y * 0.189, self.x * 0.249, self.y * 0.197)
-                elif self.y >= 2280:
-                    self.driver.swip_move(self.x * 0.85, self.y * 0.15, self.x * 0.18, self.y * 0.15)
+                self.loc.home_func()
         time.sleep(2)
         self.driver.find_xpath('在线pia戏').click()
         time.sleep(2)
@@ -984,12 +963,7 @@ class Home_Function:
                 self.driver.find_xpath('有声漫画')
                 break
             except:
-                if self.y == 1920:
-                    self.driver.swip_move(self.x * 0.854, self.y * 0.189, self.x * 0.249, self.y * 0.197)
-                    time.sleep(2)
-                elif self.y >= 2280:
-                    self.driver.swip_move(self.x * 0.85, self.y * 0.15, self.x * 0.18, self.y * 0.15)
-                    time.sleep(2)
+                self.loc.home_func()
         time.sleep(2)
         while True:
             self.driver.find_xpath('有声漫画').click()
@@ -1082,7 +1056,7 @@ class Home_Function:
     def Function_Cartoon_Update_check(self):
         self.driver.find_id_click('tab2')
         time.sleep(2)
-        # update = self.driver.find_id_click()('update').text
+        # update = self.driver.find_id_text('update')
         union = self.driver.find_id_text('union_name')
         # new_update = re.findall(r'更新至(.*)', update)
         self.driver.find_id_click('play')
@@ -1224,10 +1198,8 @@ class Home_Function:
         self.driver.find_id_click("add")
         self.driver.find_id_click('tv_preview')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.swip_move(self.x * 0.045, self.y * 0.718, self.x * 0.891, self.y * 0.683)
-        elif self.y >= 2280:
-            self.driver.swip_move(self.x * 0.934, self.y * 0.785, self.x * 0.066, self.y * 0.785)
+        # 声漫背景音界面裁剪添加背景音
+        self.loc.carton_cut_music()
         time.sleep(2)
         self.driver.find_id_click('tv_preview')
         time.sleep(5)
@@ -1306,6 +1278,7 @@ class Dub:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
 
 
     #合作素材
@@ -1324,7 +1297,7 @@ class Dub:
         self.driver.find_id_click('dubbing')
         time.sleep(2)
         try:
-            self.driver.find_id_click('next')
+            self.driver.find_id('next')
             self.driver.find_id_click('close')
             time.sleep(2)
             try:
@@ -1715,13 +1688,7 @@ class Dub:
 
     # 手动拖音轨
     def Dub_Audio_track_move(self):
-        if self.y == 1920:
-            self.driver.swip_move(self.x * 0.185, self.y * 0.65, self.x * 0.787, self.y * 0.65)
-        elif self.y >= 2280:
-            self.driver.swip_move(self.x * 0.24, self.y * 0.71, self.x * 0.81, self.y * 0.71)
-        else:
-            pass
-        time.sleep(2)
+        self.loc.dub_track()
 
     # 重新录制
     def Dub_Restart_record_dubbing(self):
@@ -1736,8 +1703,7 @@ class Dub:
 
     # 长按回撤按钮
     def Dub_Long_withdraw(self):
-        el = 'withdraw'
-        self.driver.Long_Touche(el, 3000)
+        self.driver.Long_Touche('withdraw', 3000)
         time.sleep(2)
 
     #点击配音进入预览界面
@@ -1791,114 +1757,55 @@ class Dub:
     # 预览界面人声
     def Preview_voice_volume(self):
         #调节人声音量
-        if self.y == 1920:
-            self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37, self.y * 0.718)  #调大音量
-            time.sleep(4)
-            self.driver.swip_move(self.x * 0.37, self.y * 0.718, self.x * 0.115, self.y * 0.628)  # 调小音量
-        elif self.y > 2250:
-            self.driver.swip_move(self.x*0.245, self.y*0.535, self.x*0.376, self.y*0.633)  #调大音量
-            time.sleep(4)
-            self.driver.swip_move(self.x*0.38, self.y*0.62, self.x*0.17, self.y*0.62)  #调小音量
+        self.loc.voice_increase()
+        time.sleep(2)
+        self.loc.voice_reduce()
         time.sleep(4)
 
     # 声音校准
     def Preview_voice_calibration(self):
         self.driver.find_id_click('trim')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37, self.y * 0.718)  # 提前播放人声进度
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.37, self.y * 0.718, self.x * 0.115, self.y * 0.628)  # 延后播放人声进度
-        elif self.y > 2250:
-            self.driver.swip_move(self.x * 0.245, self.y * 0.535, self.x * 0.376, self.y * 0.633)  # 提前播放人声进度
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.38, self.y*0.62, self.x*0.17, self.y*0.62)  # 延后播放人声进度
+        self.loc.voice_increase()
+        self.driver.Background()
+        time.sleep(2)
+        self.loc.voice_reduce()
+        self.driver.Background()
         time.sleep(2)
 
     # 人声变声调节
     def Preview_Voice_Changer(self):
         self.driver.find_id_click('pitch')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.swip_move(self.x * 0.24, self.y * 0.592, self.x * 0.37, self.y * 0.718)  # #人声声线加粗
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.37, self.y * 0.718, self.x * 0.115, self.y * 0.628)  #人声声线变细
-        elif self.y > 2250:
-            self.driver.swip_move(self.x * 0.245, self.y * 0.535, self.x * 0.376, self.y * 0.633)  #人声声线加粗
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.38, self.y*0.62, self.x*0.17, self.y*0.62)  #人声声线变细
-            self.driver.Background()
+        self.loc.voice_increase()
+        self.driver.Background()
+        time.sleep(2)
+        self.loc.voice_reduce()
+        self.driver.Background()
         time.sleep(2)
 
     #人声混响调节
     def Preview_reverberation(self):
         self.driver.find_id_click('fx')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.swip_move(self.x * 0.093, self.y * 0.8, self.x * 0.093, self.y * 0.59)  # 增加混响效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.254, self.y * 0.8, self.x * 0.254, self.y * 0.59)  # 增加空间效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.419, self.y * 0.8, self.x * 0.419, self.y * 0.59)  # 增加回声效果值
-            time.sleep(2)
-            self.driver.find_id_click('play_button')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.093, self.y * 0.59, self.x * 0.093, self.y * 0.8)  # 减小混响效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.254, self.y * 0.59, self.x * 0.254, self.y * 0.8)  # 减小空间效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.419, self.y * 0.59, self.x * 0.419, self.y * 0.8)  # 减小回声效果值
-            time.sleep(2)
-            self.driver.find_id_click('play_button')
-            self.driver.Background()
-            time.sleep(2)
-        elif self.y > 2250:
-            self.driver.swip_move(self.x * 0.098, self.y * 0.7, self.x * 0.098, self.y * 0.553)  # 增加混响效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.252, self.y * 0.7, self.x * 0.252, self.y * 0.553)  # 增加空间效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.413, self.y * 0.7, self.x * 0.413, self.y * 0.553)  # 增加回声效果值
-            time.sleep(2)
-            self.driver.find_id_click('play_button')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.098, self.y * 0.553, self.x * 0.098, self.y * 0.7)  # 减小混响效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.252, self.y * 0.553, self.x * 0.252, self.y * 0.7)  # 减小空间效果值
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.413, self.y * 0.553, self.x * 0.413, self.y * 0.7)  # 减小回声效果值
-            time.sleep(2)
-            self.driver.find_id_click('play_button')
-            self.driver.Background()
-            time.sleep(2)
+        self.loc.voice_reverberation_increase()
+        self.driver.find_id_click('play_button')
+        self.driver.Background()
+        time.sleep(2)
+        self.loc.voice_reverberation_reduce()
+        self.driver.find_id_click('play_button')
+        self.driver.Background()
+        time.sleep(2)
 
     # 背景音音量调节
     def Preview_background_music(self):
-        if self.y == 1920:
-            self.driver.swip_move(self.x * 0.632, self.y * 0.62, self.x * 0.893, self.y * 0.67)#增大背景音音量
-            self.driver.find_id_click('play_button')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.893, self.y * 0.67, self.x * 0.632, self.y * 0.62)#减小背景音音量
-            self.driver.find_id_click('play_button')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.632, self.y * 0.62, self.x * 0.893, self.y * 0.67)  # 增大背景音音量
-        elif self.y > 2250:
-            self.driver.swip_move(self.x * 0.607, self.y * 0.591, self.x * 0.884, self.y * 0.571)#增大背景音音量
-            self.driver.find_id_click('play_button')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.884, self.y * 0.571, self.x * 0.607, self.y * 0.591)#减小背景音音量
-            self.driver.find_id_click('play_button')
-            self.driver.Background()
-            time.sleep(2)
-            self.driver.swip_move(self.x * 0.607, self.y * 0.591, self.x * 0.884, self.y * 0.571)#增大背景音音量
+        self.loc.back_music_increase()
+        self.driver.find_id_click('play_button')
+        self.driver.Background()
+        time.sleep(2)
+        self.loc.back_music_reduce()
+        time.sleep(2)
+        self.loc.back_music_increase()
         time.sleep(2)
 
     #关闭背景音音量
@@ -1930,52 +1837,16 @@ class Dub:
     def Preview_background_reverberation(self):
         self.driver.find_id_click('bgfx')
         time.sleep(2)
-        try:
-            self.driver.find_xpath('确定')
-            self.driver.find_xpath('确定').click()
-            print("服务端关闭人声混响功能，不做混响调节测试")
-        except:
-            el = self.driver.find_id('bgfx').get_attribute('checked')
-            if el != 'true':
-                print('状态点击背景音混响按钮后，状态没有显示选中')
-            time.sleep(2)
-        if self.y == 1920:
-            #增加混响效果
-            self.driver.swip_move(self.x*0.588, self.y*0.8, self.x*0.588, self.y*0.59)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.75, self.y*0.8, self.x*0.75, self.y*0.59)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.91, self.y*0.8, self.x*0.91, self.y*0.59)
-            time.sleep(2)
-            self.driver.find_id_click('play_button')
-            self.driver.wait_download('play_button')
-            time.sleep(2)
-            #减小背景音混响效果
-            self.driver.swip_move(self.x*0.588, self.y*0.59, self.x*0.588, self.y*0.8)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.75, self.y*0.59, self.x*0.75, self.y*0.8)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.91, self.y*0.59, self.x*0.91, self.y*0.8)
-            time.sleep(2)
-        elif self.y > 2250:
-            #增加混响效果
-            self.driver.swip_move(self.x * 0.593, self.y * 0.699,self.x*0.595, self.y*0.539)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.748, self.y*0.704,self.x*0.755, self.y*0.536)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.913, self.y*0.702,self.x*0.907, self.y*0.538)
-            time.sleep(2)
-            self.driver.find_id_click('play_button')
-            time.sleep(2)
-            self.driver.Background()
-            time.sleep(2)
-            #减小混响效果
-            self.driver.swip_move(self.x*0.595, self.y*0.539,self.x * 0.593, self.y * 0.699)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.755, self.y*0.536,self.x*0.748, self.y*0.704)
-            time.sleep(2)
-            self.driver.swip_move(self.x*0.907, self.y*0.538,self.x*0.913, self.y*0.702,)
-            time.sleep(2)
+        el = self.driver.find_id('bgfx').get_attribute('checked')
+        if el != 'true':
+            print('状态点击背景音混响按钮后，状态没有显示选中')
+        time.sleep(2)
+        self.loc.back_music_reverberation_increase()
+        self.driver.find_id_click('play_button')
+        self.driver.wait_download('play_button')
+        time.sleep(2)
+        self.loc.back_music_reverberation_reduce()
+        time.sleep(2)
 
     # 下载系统推荐背景音音乐
     def Preview_download_music(self):
@@ -1983,10 +1854,7 @@ class Dub:
         time.sleep(2)
         self.driver.find_id_click('imgBgCount')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.955)
-        elif self.y > 2250:
-            self.driver.tap(self.x*0.5, self.y*0.96)
+        self.loc.one_from_last()
         self.driver.wait_id('btnRight')
         while True:
             try:
@@ -2045,10 +1913,7 @@ class Dub:
     def Upload_work_Cover_Screenshots(self):
         self.driver.find_id_click('btn_setting_cover_tip')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.708)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.752)
+        self.loc.four_from_last()
         time.sleep(2)
         El = self.driver.find_id('seekbar')
         self.driver.tap_el(El)
@@ -2060,10 +1925,7 @@ class Dub:
     def Dubbing_work_Cover_Photo(self):
         self.driver.find_id_click('btn_setting_cover_tip')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.755)
-        elif self.y > 2250:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.two_from_last()
         time.sleep(5)
         try:
             # 米5
@@ -2096,12 +1958,7 @@ class Dub:
     def Dubbing_work_Cover_Album(self):
         self.driver.find_id_click('btn_setting_cover_tip')
         time.sleep(3)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.856)
-        elif self.y > 2250:
-            self.driver.tap(self.x * 0.5, self.y * 0.875)
-        else:
-            pass
+        self.loc.three_from_last()
         time.sleep(2)
         photo_count = self.driver.find_ids('photo_wall_item_photo')
         select = random.randint(0, len(photo_count) - 1)
@@ -2225,27 +2082,7 @@ class Dub:
             time.sleep(2)
             self.driver.find_id_click('btnBack')
             time.sleep(2)
-            #视频下载
-            if self.y == 1920:
-                self.driver.swip_move(self.x * 0.922, self.y * 0.232, self.x * 0.57, self.y * 0.232)
-            elif self.y >= 2280:
-                self.driver.swip_move(self.x * 0.786, self.y * 0.186, self.x * 0.54, self.y * 0.186)
-            time.sleep(2)
-            self.driver.find_id_click('down')
-            time.sleep(2)
-            try:
-                self.driver.find_xpath('直接下载')
-                self.driver.find_xpath('直接下载').click()
-                self.driver.wait_id('btnSubmit')
-                self.driver.find_id_click('btnSubmit')
-            except:
-                self.driver.wait_id('btnSubmit')
-                self.driver.find_id_click('btnSubmit')
-            time.sleep(2)
-            if self.y == 1920:
-                self.driver.swip_move(self.x * 0.507, self.y * 0.24, self.x * 0.897, self.y * 0.24)
-            elif self.y >= 2280:
-                self.driver.swip_move(self.x * 0.509, self.y * 0.186, self.x * 0.753, self.y * 0.186)
+
             #微信分享
             self.driver.find_id_click('wx')
             time.sleep(2)
@@ -2277,6 +2114,21 @@ class Dub:
             self.driver.find_id_click('com.tencent.mobileqq:id/ivTitleBtnLeft')
             time.sleep(2)
 
+            # 视频下载
+            self.loc.upload_share_swipe()
+            time.sleep(2)
+            self.driver.find_id_click('down')
+            time.sleep(2)
+            try:
+                self.driver.find_xpath('直接下载')
+                self.driver.find_xpath('直接下载').click()
+                self.driver.wait_id('btnSubmit')
+                self.driver.find_id_click('btnSubmit')
+            except:
+                self.driver.wait_id('btnSubmit')
+                self.driver.find_id_click('btnSubmit')
+            time.sleep(2)
+
             #上传成功进入视频详情删除视频
             self.driver.find_id_click('img_url')
             self.driver.wait_id('btnBack')
@@ -2284,10 +2136,7 @@ class Dub:
             time.sleep(2)
             self.driver.find_id_click('setting')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5,self.y * 0.854)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.87)
+            self.loc.two_from_last()
             time.sleep(2)
             tip = self.driver.find_id_text('txtContent')
             check = '删除作品'
@@ -2341,7 +2190,7 @@ class Follow:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
-
+        self.loc = location()
 
     #首页关注主界面
     def Follow_jump(self):
@@ -2395,10 +2244,7 @@ class Follow:
         time.sleep(2)
 
         # 朋友圈
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.12, self.y * 0.68)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.126, self.y * 0.712)
+        self.loc.share_pyq()
         self.driver.wait_xpath('发表')
         self.driver.find_id_click('com.tencent.mm:id/dn')
         time.sleep(3)
@@ -2406,10 +2252,7 @@ class Follow:
         # QQ空间
         self.driver.find_id_click('item_attention_share_num')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.49, self.y * 0.68)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.712)
+        self.loc.share_QQ_zone()
         self.driver.wait_xpath('发表')
         self.driver.find_id_click('com.tencent.mobileqq:id/ivTitleBtnLeft')
         time.sleep(3)
@@ -2417,10 +2260,7 @@ class Follow:
         # 点击新浪
         self.driver.find_id_click('item_attention_share_num')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.68, self.y * 0.68)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.682, self.y * 0.712)
+        self.loc.share_sina()
         self.driver.wait_xpath('发送')
         time.sleep(2)
         self.driver.find_id_click('com.sina.weibo:id/titleBack')
@@ -2435,10 +2275,7 @@ class Follow:
         # 点击私信
         self.driver.find_id_click('item_attention_share_num')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.12, self.y * 0.83)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.126, self.y * 0.846)
+        self.loc.share_message_friend()
         self.driver.wait_id_click('filter_edit')
         time.sleep(2)
         self.driver.find_id_send('filter_edit',"15697802")
@@ -2464,10 +2301,7 @@ class Follow:
 
         # 点击下载视频到本地
         self.driver.find_id_click('item_attention_share_num')
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.31, self.y * 0.807)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.311, self.y * 0.846)
+        self.loc.share_download()
         # 先判断点击是否为下载按钮，若是复制按钮则会toast提示，不是复制按钮则判断是否有非会员弹窗，不是则直接等待作品下载完成
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
@@ -2478,22 +2312,17 @@ class Follow:
             try:
                 self.driver.find_xpath('直接下载')
                 self.driver.find_xpath('直接下载').click()
-                self.driver.wait_id('btnSubmit')
-                self.driver.find_id_click('btnSubmit')
+                self.driver.wait_id_click('btnSubmit')
             except:
                 try:
-                    self.driver.wait_id('btnSubmit')
-                    self.driver.find_id_click('btnSubmit')
+                    self.driver.wait_id_click('btnSubmit')
                 except:
                     pass
 
         # 点击复制链接
         self.driver.find_id_click('item_attention_share_num')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.31, self.y * 0.83)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.846)
+        self.loc.share_copy_link()
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
@@ -2508,10 +2337,7 @@ class Follow:
         # 点击转发
         self.driver.find_id_click('item_attention_share_num')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.88, self.y * 0.83)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.87, self.y * 0.846)
+        self.loc.share_forward()
         time.sleep(2)
         try:
             self.driver.find_id('reprint')
@@ -2529,10 +2355,7 @@ class Follow:
                     print(e)
         except:
             # 点击取消分享弹窗按钮
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.937)
-            elif self.y > 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.947)
+            self.loc.one_from_last()
         time.sleep(2)
         # 关注界面点赞
         while True:
@@ -2580,10 +2403,7 @@ class Follow:
         # 设置关注区权限
         self.driver.find_id_click('more')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.794)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.7)
+        self.loc.five_from_last()
         time.sleep(2)
         self.driver.find_id_click('check')
         self.driver.wait_toast('//android.widget.Toast')
@@ -2598,10 +2418,7 @@ class Follow:
         for i in range(2):
             self.driver.find_id_click('more')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.864)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.77)
+            self.loc.four_from_last()
             try:
                 toast = self.driver.wait_toast('//android.widget.Toast')
                 check = '成功'
@@ -2613,10 +2430,7 @@ class Follow:
         #转发私信
         self.driver.find_id_click('more')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.864)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         time.sleep(2)
         self.driver.find_id_click('group_chat')
         self.driver.wait_id_click('userhead')
@@ -2627,10 +2441,7 @@ class Follow:
         #帖子举报
         self.driver.find_id_click('more')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.864)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.89)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
@@ -2685,10 +2496,7 @@ class Follow:
         self.driver.find_id_click('more')
         time.sleep(2)
         #设置关注区权限
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.864)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         time.sleep(2)
         self.driver.find_id_click('check')
         self.driver.wait_toast('//android.widget.Toast')
@@ -2702,10 +2510,7 @@ class Follow:
         for i in range(2):
             self.driver.find_id_click('more')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.864)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.89)
+            self.loc.two_from_last()
             try:
                 toast = self.driver.wait_toast('//android.widget.Toast')
                 check = '成功'
@@ -2770,10 +2575,7 @@ class Follow:
         for i in range(2):
             self.driver.find_id_click('more')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.864)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.89)
+            self.loc.two_from_last()
             try:
                 toast = self.driver.wait_toast('//android.widget.Toast')
                 check = '成功'
@@ -2792,6 +2594,7 @@ class Live:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
 
     def Live_list(self):
         while True:
@@ -2799,12 +2602,7 @@ class Live:
                 self.driver.find_xpath('频道')
                 break
             except:
-                if self.y == 1920:
-                    self.driver.swip_move(self.x * 0.854, self.y * 0.197, self.x * 0.249, self.y * 0.197)
-                    time.sleep(2)
-                elif self.y >= 2280:
-                    self.driver.swip_move(self.x * 0.85, self.y * 0.15, self.x * 0.18, self.y * 0.15)
-                    time.sleep(2)
+                self.loc.home_func()
 
         time.sleep(2)
         self.driver.find_xpath('语聊').click()
@@ -2886,8 +2684,7 @@ class Live:
 
     #查看头像简介
     def Live_Head_Introduction(self):
-        el = self.driver.find_id('userhead')
-        self.driver.Long_Touche(el,3000)
+        self.driver.Long_Touche('userhead', 3000)
         try:
             self.driver.find_id('user_id')
             self.driver.find_id_click('icon_close')
@@ -2907,7 +2704,7 @@ class Live:
         time.sleep(2)
         self.driver.find_id_click('confirm')
         time.sleep(2)
-        self.driver.tap(self.x * 0.5,self.y * 0.5)
+        self.driver.back()
         time.sleep(2)
 
     #点赞
@@ -2928,8 +2725,7 @@ class Live:
 
     #长按用户名@用户
     def Live_at(self):
-        el = self.driver.find_id('username')
-        self.driver.Long_Touche(el,3000)
+        self.driver.Long_Touche('username', 3000)
         try:
             self.driver.find_id_click('editContent')
             content = self.driver.find_id_text('editContent')
@@ -2947,10 +2743,7 @@ class Live:
     def Live_red(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.097, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.1, self.y * 0.812)
+        self.loc.chat_red()
         time.sleep(2)
         self.driver.find_id_send('cash_num','0.1')
         time.sleep(1)
@@ -2971,13 +2764,10 @@ class Live:
     def Live_share(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.301, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.295, self.y * 0.812)
-            time.sleep(2)
+        self.loc.chat_share()
+        time.sleep(2)
         #私信
-        self.driver.tap(self.x * 0.122, self.y * 0.912)
+        self.loc.chat_share_message_friend()
         self.driver.wait_id('group_chat')
         self.driver.find_id_click('btnBack')
         time.sleep(3)
@@ -2986,10 +2776,7 @@ class Live:
     def Live_persion_notice(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.497, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.499, self.y * 0.812)
+        self.loc.chat_message_friend()
         time.sleep(2)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
@@ -2998,10 +2785,7 @@ class Live:
     def Live_blacklist(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.497, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.698, self.y * 0.812)
+        self.loc.chat_blacklist()
         time.sleep(2)
         self.driver.find_id_click('btn_close')
         time.sleep(2)
@@ -3010,10 +2794,7 @@ class Live:
     def Live_Manager(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.497, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.894, self.y * 0.812)
+        self.loc.chat_manager()
         time.sleep(2)
         self.driver.find_id_click('btn_close')
         time.sleep(2)
@@ -3022,10 +2803,7 @@ class Live:
     def Live_Games(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.497, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.1, self.y * 0.908)
+        self.loc.chat_games()
         time.sleep(2)
         self.driver.find_id_click('btn_close')
         time.sleep(2)
@@ -3042,10 +2820,7 @@ class Live:
     def Live_Mic_count(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.497, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.295, self.y * 0.908)
+        self.loc.chat_mic_num()
         time.sleep(2)
         self.driver.find_id_click('check2')
         time.sleep(2)
@@ -3056,10 +2831,7 @@ class Live:
     def Live_Pia(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.497, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.496, self.y * 0.908)
+        self.loc.chat_pia()
         time.sleep(2)
         self.driver.find_id_click('iv_close')
         time.sleep(2)
@@ -3068,10 +2840,7 @@ class Live:
     def Live_Cp(self):
         self.driver.find_id_click('function_more')
         time.sleep(2)
-        if self.y == 1520:
-            self.driver.tap(self.x * 0.497, self.y * 0.814)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.704, self.y * 0.908)
+        self.loc.chat_cp()
         time.sleep(2)
         self.driver.find_id_click('tv_check')
         time.sleep(2)
@@ -3178,6 +2947,7 @@ class Material:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
 
 
     #进入素材库
@@ -3705,6 +3475,7 @@ class Person:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
 
 
     # 退出当前界面
@@ -3850,10 +3621,7 @@ class Person:
     def Person_Zoom_edit_info(self):
         self.driver.find_id_click('userhead')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.719)
-        elif self.y > 2279:
-            self.driver.tap(self.x * 0.5, self.y * 0.76)
+        self.loc.four_from_last()
         time.sleep(4)
         try:
             self.driver.find_xpath('个人资料')
@@ -3866,10 +3634,7 @@ class Person:
         # 点击头像-拍照
         self.driver.find_id_click('userhead')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.793)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         time.sleep(2)
         try:
             self.driver.find_id('next')
@@ -3883,10 +3648,7 @@ class Person:
                     pass
             self.driver.find_id_click('userhead')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.793)
-            elif self.y == 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.83)
+            self.loc.three_from_last()
             time.sleep(2)
         except:
             pass
@@ -3928,10 +3690,7 @@ class Person:
         # 更换相册图片
         self.driver.find_id_click('userhead')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.869)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.89)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_click('com.android.gallery3d:id/ic_public_arrow_right')
         time.sleep(2)
@@ -3954,7 +3713,7 @@ class Person:
 
     # 输入个人简介
     def Person_Zoom_Introduction(self):
-        self.driver.find_id_click('tv_sign').clear()
+        self.driver.find_id('tv_sign').clear()
         time.sleep(2)
         self.driver.find_id_send('tv_sign','空空空')
         time.sleep(2)
@@ -3965,18 +3724,12 @@ class Person:
         if gender == '女':
             self.driver.find_id_click('tv_gender')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.872)
-            elif self.y > 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.83)
+            self.loc.three_from_last()
             time.sleep(2)
         else:
             self.driver.find_id_click('tv_gender')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.872)
-            elif self.y > 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.89)
+            self.loc.two_from_last()
             time.sleep(2)
 
     # 修改地区
@@ -4013,7 +3766,7 @@ class Person:
         except:
             print('用户名包含有敏感词，点击保存未弹出敏感词toast提示')
         time.sleep(2)
-        self.driver.find_id_click('et_nickname').clear()
+        self.driver.find_id('et_nickname').clear()
         time.sleep(2)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
@@ -4024,10 +3777,7 @@ class Person:
     def Person_Zoom_Vip_headwear(self):
         self.driver.find_id_click('userhead')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.792)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.823)
+        self.loc.three_from_last()
         self.driver.wait_id('txtTitle')
         count = self.driver.find_ids('img')
         for i in range(len(count) - 1, -1, -1):
@@ -4057,10 +3807,7 @@ class Person:
     def Person_Zoom_Vip_Dress(self):
         self.driver.find_id_click('userhead')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.867)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.89)
+        self.loc.two_from_last()
         self.driver.wait_id('txtTitle')
         time.sleep(2)
         count = self.driver.find_ids('img')
@@ -4201,21 +3948,14 @@ class Person:
 
     # 置顶作品
     def Person_Zoom_work_top(self):
-        el = self.driver.find_id('filmBg1')
-        self.driver.Long_Touche(el,3000)
+        self.driver.Long_Touche('filmBg1', 3000)
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.789)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         time.sleep(4)
         try:
             self.driver.find_id('img')
         except:
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.943)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.952)
+            self.loc.one_from_last()
             time.sleep(2)
             self.driver.find_id_click('filmBg1')
             self.driver.wait_id('tv_video_detail_title')
@@ -4223,10 +3963,7 @@ class Person:
             time.sleep(2)
             self.driver.find_id_click('setting')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.703)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.75)
+            self.loc.four_from_last()
             time.sleep(2)
             self.driver.find_id_click('btnSubmit')
             time.sleep(3)
@@ -4234,13 +3971,9 @@ class Person:
             time.sleep(2)
             self.driver.swip_down()
             time.sleep(4)
-            el = self.driver.find_id('filmBg1')
-            self.driver.Long_Touche(el, 3000)
+            self.driver.Long_Touche('filmBg1', 3000)
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.789)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.83)
+            self.loc.three_from_last()
             time.sleep(4)
             try:
                 self.driver.find_id('img')
@@ -4250,13 +3983,9 @@ class Person:
 
     # 作品列表界面长按删除作品
     def Person_Zoom_work_delete(self):
-        el = self.driver.find_id('filmBg1')
-        self.driver.Long_Touche(el,3000)
+        self.driver.Long_Touche('filmBg1', 3000)
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.868)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.895)
+        self.loc.two_from_last()
         time.sleep(4)
         self.driver.find_id_click('btnSubmit')
         time.sleep(4)
@@ -4288,13 +4017,9 @@ class Person:
         self.driver.find_id_click('invitation_count')
         self.driver.wait_id('item_sh_cooperate_article_image')
         time.sleep(2)
-        el = self.driver.find_id('item_sh_cooperate_article_image')
-        self.driver.Long_Touche(el, 3000)
+        self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.629)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.688)
+        self.loc.five_from_last()
         self.driver.wait_id_click('socialstatus')
         time.sleep(2)
         self.driver.find_id_send('content','给自己的合作！')
@@ -4316,13 +4041,9 @@ class Person:
 
     # 求合作-私密（公开）
     def Person_Zoom_coor_Private_public(self):
-        el = self.driver.find_id('item_sh_cooperate_article_image')
-        self.driver.Long_Touche(el, 3000)
+        self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.703)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.746)
+        self.loc.four_from_last()
         time.sleep(2)
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
@@ -4342,13 +4063,9 @@ class Person:
 
     # 求合作删除
     def Person_Zoom_coor_delete(self):
-        el = self.driver.find_id('item_sh_cooperate_article_image')
-        self.driver.Long_Touche(el, 3000)
+        self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.857)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.877)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
         try:
@@ -4431,8 +4148,7 @@ class Person:
         time.sleep(2)
         num = self.driver.find_id_text('look')
         if num == '0':
-            el = self.driver.find_id('filmBg')
-            self.driver.Long_Touche(el, 3000)
+            self.driver.Long_Touche('filmBg', 3000)
             time.sleep(2)
             self.driver.find_id_click('btnSubmit')
             time.sleep(2)
@@ -4473,8 +4189,7 @@ class Person:
         # 作品转发列表——删除作品
         title = self.driver.find_id_text('title')
         count = self.driver.find_id_text('film_all_count')
-        el = self.driver.find_id('filmBg')
-        self.driver.Long_Touche(el, 3000)
+        self.driver.Long_Touche('filmBg', 3000)
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
         time.sleep(2)
@@ -4509,10 +4224,7 @@ class Person:
     def Person_Zoom_forword_and_delete(self):
         self.driver.find_id_click('action')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.793)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.829)
+        self.loc.three_from_last()
         time.sleep(2)
         self.driver.find_id_click('group_chat')
         time.sleep(2)
@@ -4522,10 +4234,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('action')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.871)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.895)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
         try:
@@ -4554,10 +4263,7 @@ class Person:
     def Person_Zoom_create_compilation(self):
         self.driver.find_id_click('btnRight')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.871)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.895)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_send('content','合辑')
         time.sleep(2)
@@ -4589,13 +4295,9 @@ class Person:
         time.sleep(2)
         self.driver.find_xpath('合辑')
         self.driver.wait_id('filmBg')
-        el = self.driver.find_id('filmBg')
-        self.driver.Long_Touche(el, 3000)
+        self.driver.Long_Touche('filmBg', 3000)
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.871)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.895)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
         try:
@@ -4673,12 +4375,6 @@ class Person:
 
     # 会员特权
     def Person_Vip_Privileges(self):
-        try:
-            self.driver.find_xpath('作品编辑')
-        except:
-            if self.y <= 2280:
-                self.driver.swip_move(self.x * 0.5, self.y * 0.818, self.x * 0.5, self.y * 0.585)
-        time.sleep(2)
         Member_privileges_page1 = self.driver.find_ids('name')
         privileges_list = []
         for i in range(len(Member_privileges_page1)):
@@ -4866,10 +4562,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('more')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.882)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.903)
+        self.loc.two_from_last()
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
             check = '删除合作消息成功'
@@ -4959,16 +4652,10 @@ class Person:
         # print(count)
         # self.id = re.findall(r'resource-id="com.happyteam.dubbingshow:id/(.*?)"',count)
         # print(self.id)
-        self.driver.find_id_click('acceptAll')
-        time.sleep(2)
-        self.driver.find_id_click('acceptFirends')
-        time.sleep(2)
-        self.driver.find_id_click('acceptNone')
-        time.sleep(2)
-        self.driver.find_id_click('clearAllInviter')
-        time.sleep(2)
-        self.driver.find_id_click('btnCancel')
-        time.sleep(2)
+        el_list = ['acceptAll','acceptFirends','acceptNone','clearAllInviter','btnCancel']
+        for i in el_list:
+            self.driver.find_id_click(i)
+            time.sleep(2)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('btnBack')
@@ -5014,10 +4701,7 @@ class Person:
             time.sleep(2)
             self.driver.find_id_click('right_icon1')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.854)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.877)
+            self.loc.two_from_last()
             self.driver.wait_id('ll_follow')
             time.sleep(2)
             self.driver.find_id_click('follow_status')
@@ -5032,10 +4716,7 @@ class Person:
             time.sleep(2)
             self.driver.find_id_click('right_icon1')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.854)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.877)
+            self.loc.two_from_last()
             self.driver.wait_id('ll_follow')
             time.sleep(2)
             self.driver.find_id_click('follow_status')
@@ -5107,7 +4788,7 @@ class Person:
     # 聊天消息
     def Person_Chat_Notices(self):
         try:
-            self.driver.find_id_click('chat_count')
+            self.driver.find_id('chat_count')
             self.driver.find_id_click('chat')
             self.driver.wait_id('right_icon1')
             time.sleep(2)
@@ -5173,15 +4854,9 @@ class Person:
         # 清除聊天记录
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
         # 发送文字
@@ -5198,15 +4873,9 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
         # 发送表情
@@ -5224,37 +4893,24 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
         # 发送语音
         self.driver.find_id_click('btn_change_input_mode')
         time.sleep(2)
-        el = self.driver.find_id('btn_record_voice')
-        self.driver.Long_Touche(el, 3000)
+        self.driver.Long_Touche('btn_record_voice', 3000)
         self.driver.wait_id('btn_play_sound_content_layout')
         time.sleep(2)
         self.driver.find_id_click('btn_play_sound_content_layout')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
         # 发送图片
@@ -5267,15 +4923,9 @@ class Person:
         self.driver.find_id_click('next_step_tv')
         self.driver.wait_id('chat_image')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
         # 拍照发送私信信息
@@ -5300,15 +4950,9 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
         # 发送作品
@@ -5323,15 +4967,9 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
         # 发送红包
@@ -5353,15 +4991,9 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
         # 发送社团邀请
@@ -5378,25 +5010,16 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.697)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.754)
+        self.loc.four_from_last()
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.662, self.y * 0.558)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.67, self.y * 0.546)
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
 
     # 私信聊天界面举报用户-其它原因
     def Person_Chat_Report(self):
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.619)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.689)
+        self.loc.five_from_last()
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
@@ -5424,10 +5047,7 @@ class Person:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.859)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.877)
+        self.loc.two_from_last()
         self.driver.wait_id('ll_fan')
         time.sleep(2)
         self.driver.find_id_click('btnBack')
@@ -5437,7 +5057,7 @@ class Person:
     def Person_Chat_list_delete(self):
         self.driver.find_id_click('btnBack')
         time.sleep(2)
-        el = self.driver.find_xpath('逍遥剑仙')
+        el = 'textView'
         self.driver.Long_Touche(el, 3000)
         time.sleep(2)
         self.driver.find_id_click('delete')
@@ -5445,7 +5065,7 @@ class Person:
         self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         try:
-            self.driver.find_xpath('撸串')
+            self.driver.find_xpath('逍遥剑仙')
             print('列表中长按用户删除失败')
         except:
             pass
@@ -5466,7 +5086,7 @@ class Person:
             time.sleep(2)
             self.driver.find_id_click('btnBack')
             time.sleep(2)
-            el = self.driver.find_id('userhead')
+            el = 'userhead'
             self.driver.Long_Touche(el, 3000)
             time.sleep(2)
             self.driver.find_id_click('delete')
@@ -5499,14 +5119,9 @@ class Person:
         date_before = self.driver.find_id_text('date')
         self.driver.Disconnect_network()
         time.sleep(2)
-        el = self.driver.find_id('date')
+        el = 'date'
         self.driver.Long_Touche(el, 3000)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.656, self.y * 0.552)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.657, self.y * 0.546)
-        else:
-            pass
+        self.loc.screen_confirm_buttem()
         time.sleep(2)
         self.driver.Only_wifi()
         time.sleep(15)
@@ -5641,7 +5256,7 @@ class Person:
 
     # 已配素材列表界面删除已配素材
     def Person_Alread_Source_delete(self):
-        source = self.driver.find_id('iv_source')
+        source = 'iv_source'
         self.driver.Long_Touche(source, 3000)
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
@@ -5659,7 +5274,7 @@ class Person:
         delete_before = self.driver.find_id_text('tv_source_title')
         self.driver.Disconnect_network()
         time.sleep(2)
-        el = self.driver.find_id('tv_source_title')
+        el = 'tv_source_title'
         self.driver.Long_Touche(el, 3000)
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
@@ -5980,10 +5595,7 @@ class Person:
         #素材信息编辑
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.789)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         time.sleep(4)
         self.driver.find_id_send('et_title','素材信息修改测试')
         time.sleep(2)
@@ -6000,10 +5612,7 @@ class Person:
         #素材删除
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.868)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.895)
+        self.loc.two_from_last()
         time.sleep(4)
         self.driver.find_id_click('btnSubmit')
         time.sleep(4)
@@ -6020,14 +5629,9 @@ class Person:
         self.driver.find_id_click('toBill')
         self.driver.wait_id_click('btnClose')
         time.sleep(2)
-        # ids = self.driver.search_id()
-        # print(ids)
-        # list = re.findall('content-desc="(.*?)"', ids)
-        # print(list)
 
         # 点击购买钻石
         for i in range(6):
-            # price = self.driver.find_ids_click()('price_tv')[i].text
             time.sleep(1)
             self.driver.find_ids_click('price_tv',i)
             time.sleep(2)
@@ -6064,10 +5668,7 @@ class Person:
         # 绑定支付宝
         self.driver.find_id_click('right')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.868)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.895)
+        self.loc.two_from_last()
         time.sleep(4)
         self.driver.find_id_click('send_code')
         try:
@@ -6116,10 +5717,7 @@ class Person:
         time.sleep(2)
 
         # 朋友圈
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.12, self.y * 0.68)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.126, self.y * 0.712)
+        self.loc.share_pyq()
         self.driver.wait_xpath('发表')
         time.sleep(2)
         self.driver.find_id_click('com.tencent.mm:id/dn')
@@ -6128,20 +5726,14 @@ class Person:
         # QQ空间
         self.driver.find_id_click('tv_invite')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.49, self.y * 0.68)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.712)
+        self.loc.share_QQ_zone()
         self.driver.wait_xpath('发表')
         time.sleep(2)
         self.driver.find_id_click('com.tencent.mobileqq:id/ivTitleBtnLeft')
         time.sleep(3)
 
         # 点击复制链接（QQ取消分享返回应用，分享弹窗还会显示）
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.12, self.y * 0.83)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.126, self.y * 0.833)
+        self.loc.share_message_friend()
         try:
             tip = self.driver.wait_toast('//android.widget.Toast')
             check = '成功'
@@ -6158,10 +5750,7 @@ class Person:
             self.driver.find_id('userhead')
             self.driver.find_id_click('re_update')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.12, self.y * 0.83)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.126, self.y * 0.833)
+            self.loc.share_message_friend()
             try:
                 tip = self.driver.wait_toast('//android.widget.Toast')
                 check = '成功'
@@ -6198,6 +5787,7 @@ class Video_detail:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
 
 
     def Btnback(self):
@@ -6520,10 +6110,7 @@ class Video_detail:
         time.sleep(2)
 
         # 朋友圈
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.12, self.y * 0.68)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.126, self.y * 0.712)
+        self.loc.share_pyq()
         self.driver.wait_xpath('发表')
         self.driver.find_id_click('com.tencent.mm:id/dn')
         time.sleep(3)
@@ -6531,10 +6118,7 @@ class Video_detail:
         # QQ空间
         self.driver.find_id_click('tv_share')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.49, self.y * 0.68)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.712)
+        self.loc.share_QQ_zone()
         self.driver.wait_xpath('发表')
         self.driver.find_id_click('com.tencent.mobileqq:id/ivTitleBtnLeft')
         time.sleep(3)
@@ -6542,10 +6126,7 @@ class Video_detail:
         # 点击新浪
         self.driver.find_id_click('tv_share')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.68, self.y * 0.68)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.682, self.y * 0.712)
+        self.loc.share_sina()
         self.driver.wait_xpath('发送')
         time.sleep(2)
         self.driver.find_id_click('com.sina.weibo:id/titleBack')
@@ -6560,10 +6141,7 @@ class Video_detail:
         # 点击私信
         self.driver.find_id_click('tv_share')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.12, self.y * 0.83)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.126, self.y * 0.846)
+        self.loc.share_message_friend()
         self.driver.wait_id_click('filter_edit')
         time.sleep(2)
         self.driver.find_id_send('filter_edit',"15697802")
@@ -6590,10 +6168,7 @@ class Video_detail:
 
         # 点击下载视频到本地
         self.driver.find_id_click('tv_share')
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.31, self.y * 0.807)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.311, self.y * 0.846)
+        self.loc.share_download()
         # 先判断点击是否为下载按钮，若是复制按钮则会toast提示，不是复制按钮则判断是否有非会员弹窗，不是则直接等待作品下载完成
         try:
             toast = self.driver.wait_toast('//android.widget.Toast')
@@ -6614,10 +6189,7 @@ class Video_detail:
         # 点击复制链接
         self.driver.find_id_click('tv_share')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.31, self.y * 0.83)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.846)
+        self.loc.share_copy_link()
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
@@ -6634,10 +6206,7 @@ class Video_detail:
         # 点击转发
         self.driver.find_id_click('tv_share')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.88, self.y * 0.83)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.87, self.y * 0.846)
+        self.loc.share_forward()
         time.sleep(2)
         try:
             self.driver.find_id('reprint')
@@ -6655,10 +6224,7 @@ class Video_detail:
                     print(e)
         except:
             # 点击取消分享弹窗按钮
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.937)
-            elif self.y > 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.947)
+            self.loc.one_from_last()
         time.sleep(2)
 
     # 切换视频
@@ -6699,6 +6265,7 @@ class Circle:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
 
     #进入圈子界面
     def Circle_into(self):
@@ -6727,7 +6294,7 @@ class Circle:
     #历史记录帖子删除
     def Circle_post_history_delete(self):
         delete_before = self.driver.find_id_text('title')
-        el = self.driver.find_id('title')
+        el = 'title'
         self.driver.Long_Touche(el, 3000)
         time.sleep(1)
         self.driver.find_id_click('btnSubmit')
@@ -6763,10 +6330,7 @@ class Circle:
     def Circle_Post_forward(self):
         self.driver.find_id_click('action')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.802)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         self.driver.wait_id('group_chat')
         self.driver.find_id_click('group_chat')
         time.sleep(2)
@@ -7010,10 +6574,7 @@ class Circle:
     def Circle_word_topic_delete(self):
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.885)
-        elif self.y > 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.87)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
         del_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -7097,6 +6658,7 @@ class Society:
         self.driver = BaseOperate()
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
+        self.loc = location()
 
 
     #点击进入社团主界面
@@ -7135,24 +6697,6 @@ class Society:
             self.driver.find_id_click('ivNewsTab')
             time.sleep(2)
             print(list_society)
-    #
-    # '''我的社团点击查看'''
-    # def test_b_a(self):
-    #     state = Test_Society().test_b()
-    #     if state == False:
-    #         pass
-    #     else:
-    #         try:
-    #             self.driver.find_id_click('more_img')
-    #             self.driver.find_id_click('more_img')
-    #         except:
-    #             pass
-    #         time.sleep(2)
-    #         for item in state:
-    #             self.driver.find_xpath(item)
-    #             self.driver.wait_id('btn_change_input_mode')
-    #             self.driver.find_id_click('btnBack')
-    #             time.sleep(2)
 
     '''我的社团聊天-文字'''
     def Society_Group_chat(self):
@@ -7177,7 +6721,7 @@ class Society:
         self.driver.find_id_click('time')
         self.driver.wait_id_click('btn_change_input_mode')
         time.sleep(2)
-        el = self.driver.find_id('btn_record_voice')
+        el = 'btn_record_voice'
         #发送60s语音
         self.driver.Long_Touche(el, 60000)
         try:
@@ -7623,10 +7167,7 @@ class Society:
         # 设置关注区权限
         self.driver.find_id_click('btnRight')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5,self.y * 0.573)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.64)
+        self.loc.six_from_last()
         time.sleep(2)
         self.driver.find_id_click('check')
         try:
@@ -7640,10 +7181,7 @@ class Society:
         #特别关注
         self.driver.find_id_click('btnRight')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.685)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.71)
+        self.loc.five_from_last()
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
@@ -7653,10 +7191,7 @@ class Society:
         #消息免打扰
         self.driver.find_id_click('btnRight')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.729)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.77)
+        self.loc.four_from_last()
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
@@ -7666,10 +7201,7 @@ class Society:
         #添加社团素材
         self.driver.find_id_click('btnRight')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.802)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         time.sleep(2)
         self.driver.wait_id_click('iv_source')
         time.sleep(2)
@@ -7685,10 +7217,7 @@ class Society:
         #管理/退出社团
         self.driver.find_id_click('btnRight')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.875)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.87)
+        self.loc.two_from_last()
         time.sleep(2)
         try:
             self.driver.find_id('btnSubmit')
@@ -7846,10 +7375,7 @@ class Society:
         self.driver.wait_id('ll_fan')
         self.driver.find_id_click('btnRight')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5,self.y * 0.796)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5,self.y * 0.89)
+        self.loc.two_from_last()
         self.driver.wait_id('userHead')
         time.sleep(2)
 
@@ -7860,10 +7386,7 @@ class Society:
         # 点击头像-拍照
         self.driver.find_id_click('userhead')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.793)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         time.sleep(2)
         try:
             self.driver.find_id('next')
@@ -7877,10 +7400,7 @@ class Society:
                     pass
             self.driver.find_id_click('userhead')
             time.sleep(2)
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.793)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.83)
+            self.loc.three_from_last()
             time.sleep(2)
         except:
             pass
@@ -8036,8 +7556,7 @@ class Society:
         time.sleep(2)
 
         #社团管理-移除成员
-        members = self.driver.find_ids('username', -1)
-        self.driver.Long_Touche(members, 2000)
+        self.driver.Long_Touche('username', -1, 2000)
         time.sleep(2)
         self.driver.find_id_click('txtContent')
         content = self.driver.find_id_text('txtContent')
@@ -8077,10 +7596,7 @@ class Society:
         #社团作品-添加作品
         self.driver.find_id_click('addfilm')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5,self.y * 0.875)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.89)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_ids_click('android:id/title',1)
         time.sleep(2)
@@ -8134,21 +7650,15 @@ class Society:
         time.sleep(2)
         self.driver.find_id_click('setting')
         time.sleep(2)
-        try:
-            if self.y == 1920:
-                self.driver.tap(self.x * 0.5, self.y * 0.875)
-            elif self.y >= 2280:
-                self.driver.tap(self.x * 0.5, self.y * 0.87)
-            time.sleep(2)
-            self.driver.find_id_click('btnSubmit')
-            delete_toast = self.driver.wait_toast('//android.widget.Toast')
-            check = '删除作品成功'
-            assert check in delete_toast
-            time.sleep(2)
-            self.driver.swip_down()
-            time.sleep(2)
-        except:
-            pass
+        self.loc.two_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        delete_toast = self.driver.wait_toast('//android.widget.Toast')
+        check = '删除作品成功'
+        assert check in delete_toast
+        time.sleep(2)
+        self.driver.swip_down()
+        time.sleep(2)
 
     #社团作品-创建合辑
     def Society_create_collection(self):
@@ -8156,10 +7666,7 @@ class Society:
         time.sleep(2)
         self.driver.find_id_click('addfilm')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5,self.y * 0.802)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         time.sleep(2)
         self.driver.find_id_send('content','测试合辑')
         time.sleep(2)
@@ -8196,8 +7703,7 @@ class Society:
         time.sleep(2)
 
         #长按调节作品列表
-        el = self.driver.find_id('img')
-        self.driver.Long_Touche(el,3000)
+        self.driver.Long_Touche('img',3000)
         time.sleep(2)
         self.driver.find_id_click('tv_zhiding')
         try:
@@ -8207,8 +7713,7 @@ class Society:
         except:
             pass
         time.sleep(2)
-        el2 = self.driver.find_ids('img')[-1]
-        self.driver.Long_Touche(el2, 2000)
+        self.driver.Long_Touches('img', -1, 2000)
         time.sleep(2)
         self.driver.find_id_click('tv_zhiding')
         try:
@@ -8220,8 +7725,7 @@ class Society:
         time.sleep(2)
 
         #移除作品
-        el3 = self.driver.find_id('img')
-        self.driver.Long_Touche(el3, 2000)
+        self.driver.Long_Touche('img', 2000)
         time.sleep(2)
         self.driver.find_id_click('tv_shanchu')
         time.sleep(2)
@@ -8251,14 +7755,10 @@ class Society:
         time.sleep(2)
 
         #我的社团-编辑合辑
-        el = self.driver.find_id('filmBg')
-        self.driver.Long_Touche(el,2000)
+        self.driver.Long_Touche('filmBg', 2000)
         time.sleep(2)
         #合辑置顶
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.807)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         zhiding_toast = self.driver.wait_toast('//android.widget.Toast')
         zhiding_check = '成功'
         if zhiding_check not in zhiding_toast:
@@ -8266,12 +7766,9 @@ class Society:
         time.sleep(2)
 
         #删除合辑
-        self.driver.Long_Touche(el, 2000)
+        self.driver.Long_Touche('filmBg', 2000)
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.885)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.87)
+        self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
         del_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -8380,10 +7877,7 @@ class Society:
     def Society_Transfer_Dissolved(self):
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.807)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.83)
+        self.loc.three_from_last()
         self.driver.wait_xpath('转让社团')
         self.driver.find_ids_click('username', -1)
         time.sleep(2)
@@ -8397,10 +7891,7 @@ class Society:
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
-        if self.y == 1920:
-            self.driver.tap(self.x * 0.5, self.y * 0.885)
-        elif self.y >= 2280:
-            self.driver.tap(self.x * 0.5, self.y * 0.87)
+        self.loc.two_from_last()
         time.sleep(2)
         dissolved_content = self.driver.find_id_text('txtContent')
         check1 = '你真的要解散社团吗？请提前处理好社团钱包中的收益，解散后无法恢复社团'
@@ -8424,9 +7915,9 @@ class Society:
         self.driver.find_id_click('guize')
         time.sleep(2)
         content = self.driver.find_id_text('content')
-        content_check = '推荐社团是根据当前正在开启招募社团按活跃度（在线、聊天、作品互动）高的推荐给其他用户加入哦。'
-        if content !=content_check:
-            print('推荐社团简介内容校验不一致')
+        content_check = '推荐社团是根据当前正在开启招募社团按活跃度'
+        if content not in content_check:
+            print('推荐社团简介内容校验失败')
         time.sleep(2)
         self.driver.find_id_click('delete')
         time.sleep(2)
