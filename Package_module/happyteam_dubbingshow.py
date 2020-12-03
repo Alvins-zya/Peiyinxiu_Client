@@ -8,12 +8,15 @@
 '''
 
 import datetime
-import re
+import re,os,sys
 import time, random
 # from time import sleep,ctime
 from typing import Counter
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
 
-file = open('D:/Git_pyhthon/Package_module/topic_words.txt', 'r', encoding='UTF-8')
+file = open('D:\GIT\Peiyinxiu_Client\Package_module\\topic_words.txt', 'r', encoding='UTF-8')
 from Public.Driver_Operate import BaseOperate
 from Package_module.Location_list import location
 
@@ -6041,8 +6044,11 @@ class Video_detail:
         self.driver.find_id_send('txtKeyword','举报功能测试')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
-        toast1 = self.driver.wait_toast('//android.widget.Toast')
-        assert check_toast in toast1
+        try:
+            toast1 = self.driver.wait_toast('//android.widget.Toast')
+            assert check_toast in toast1
+        except:
+            pass
         time.sleep(2)
 
     # 评论列表上滑加载
