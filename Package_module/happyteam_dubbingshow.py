@@ -2210,7 +2210,6 @@ class Follow:
         self.driver.find_id_click('item_theme_image')
         time.sleep(2)
 
-
     #首页关注列表进入个人空间
     def Follow_person_zoom(self):
         name = self.driver.find_id_text('textView')
@@ -2248,7 +2247,7 @@ class Follow:
         # 朋友圈
         self.loc.share_pyq()
         self.driver.wait_xpath('发表')
-        self.driver.find_id_click('com.tencent.mm:id/dn')
+        self.driver.find_id_third_part('com.tencent.mm:id/dn')
         time.sleep(3)
 
         # QQ空间
@@ -2256,7 +2255,7 @@ class Follow:
         time.sleep(2)
         self.loc.share_QQ_zone()
         self.driver.wait_xpath('发表')
-        self.driver.find_id_click('com.tencent.mobileqq:id/ivTitleBtnLeft')
+        self.driver.find_id_third_part('com.tencent.mobileqq:id/ivTitleBtnLeft')
         time.sleep(3)
 
         # 点击新浪
@@ -2265,7 +2264,7 @@ class Follow:
         self.loc.share_sina()
         self.driver.wait_xpath('发送')
         time.sleep(2)
-        self.driver.find_id_click('com.sina.weibo:id/titleBack')
+        self.driver.find_id_third_part('com.sina.weibo:id/titleBack')
         time.sleep(2)
         try:
             self.driver.find_xpath('不保存')
@@ -5722,7 +5721,7 @@ class Person:
         self.loc.share_pyq()
         self.driver.wait_xpath('发表')
         time.sleep(2)
-        self.driver.find_id_click('com.tencent.mm:id/dn')
+        self.driver.find_id_third_part('com.tencent.mm:id/dn')
         time.sleep(3)
 
         # QQ空间
@@ -5731,7 +5730,7 @@ class Person:
         self.loc.share_QQ_zone()
         self.driver.wait_xpath('发表')
         time.sleep(2)
-        self.driver.find_id_click('com.tencent.mobileqq:id/ivTitleBtnLeft')
+        self.driver.find_id_third_part('com.tencent.mobileqq:id/ivTitleBtnLeft')
         time.sleep(3)
 
         # 点击复制链接（QQ取消分享返回应用，分享弹窗还会显示）
@@ -6036,7 +6035,6 @@ class Video_detail:
             assert check_toast in toast,toast
         except:
             pass
-        time.sleep(2)
         self.driver.find_id_click('item_comment_video_more')
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
@@ -6121,7 +6119,7 @@ class Video_detail:
         # 朋友圈
         self.loc.share_pyq()
         self.driver.wait_xpath('发表')
-        self.driver.find_id_click('com.tencent.mm:id/dn')
+        self.driver.find_id_third_part('com.tencent.mm:id/dn')
         time.sleep(3)
 
         # QQ空间
@@ -6129,7 +6127,7 @@ class Video_detail:
         time.sleep(2)
         self.loc.share_QQ_zone()
         self.driver.wait_xpath('发表')
-        self.driver.find_id_click('com.tencent.mobileqq:id/ivTitleBtnLeft')
+        self.driver.find_id_third_part('com.tencent.mobileqq:id/ivTitleBtnLeft')
         time.sleep(3)
 
         # 点击新浪
@@ -6138,7 +6136,7 @@ class Video_detail:
         self.loc.share_sina()
         self.driver.wait_xpath('发送')
         time.sleep(2)
-        self.driver.find_id_click('com.sina.weibo:id/titleBack')
+        self.driver.find_id_third_part('com.sina.weibo:id/titleBack')
         time.sleep(2)
         try:
             self.driver.find_xpath('不保存')
@@ -6668,7 +6666,6 @@ class Society:
         self.x = self.driver.touch_X()
         self.y = self.driver.touch_Y()
         self.loc = location()
-
 
     #点击进入社团主界面
     def Society_Home(self):

@@ -192,6 +192,11 @@ class BaseOperate():
         :return:
         '''
         self.driver.find_element_by_id(self.id + id).click()
+    def find_id_third_part(self,id):
+        '''
+        第三方空间点击
+        '''
+        self.driver.find_element_by_id(id).click()
 
     def find_id_text(self,id):
         '''

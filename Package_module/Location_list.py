@@ -9,6 +9,7 @@ from Public.Driver_Operate import BaseOperate
 
 class location():
     def __init__(self):
+        self.driver = BaseOperate()
         self.x = BaseOperate().touch_X()
         self.y = BaseOperate().touch_Y()
 
