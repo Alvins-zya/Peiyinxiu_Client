@@ -35,6 +35,8 @@ def appium_desired():
     # desired_caps['unicodeKeyboard'] = True     #Android8.1系统不支持此项设置,运行是报错：io.appium.settings/.UnicodeIME' exited with code 137'; Stderr: ''; Code: '13
     desired_caps['resetKeyboard'] = True
     desired_caps['normalizeTagNames'] = True
+    desired_caps['fullReset'] = False
+    desired_caps['dontStopOnReset'] = True
     desired_caps['systemPort'] = 8100
     # print('appium port: %s start run %s at %s' % (port, udid ,ctime()))
 

@@ -9,8 +9,8 @@ from Public.Driver_Operate import BaseOperate
 
 class location():
     def __init__(self):
-        self.x = BaseOperate.touch_X()
-        self.y = BaseOperate.touch_Y()
+        self.x = BaseOperate().touch_X()
+        self.y = BaseOperate().touch_Y()
 
     #首页顶部功能列表入口查找
     def home_func(self):

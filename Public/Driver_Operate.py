@@ -199,7 +199,8 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        self.driver.find_element_by_id(self.id + id).text
+        el = self.driver.find_element_by_id(self.id + id).text
+        return el
 
     def find_xpath(self, xpath):
         '''
