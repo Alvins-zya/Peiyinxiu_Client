@@ -14,7 +14,7 @@ cigam==0.0.3
 click==7.1.2
 colorama==0.4.3
 coverage==5.1
-cryptography==2.9.2
+cryptography==3.2
 decorator==4.4.2
 Deprecated==1.2.10
 deprecation==2.1.0
