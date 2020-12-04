@@ -191,12 +191,15 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        self.driver.find_element_by_id(self.id + id).click()
+        el = self.driver.find_element_by_id(self.id + id).click()
+        return el
+
     def find_id_third_part(self,id):
         '''
-        第三方空间点击
+        第三方控件点击
         '''
-        self.driver.find_element_by_id(id).click()
+        el = self.driver.find_element_by_id(id).click()
+        return el
 
     def find_id_text(self,id):
         '''
@@ -266,7 +269,8 @@ class BaseOperate():
         :param id:显示选择的ID
         :return:点击元素ID
         '''
-        WebDriverWait(self.driver,60).until(EC.element_to_be_clickable((By.ID,self.id + id))).click()
+        el = WebDriverWait(self.driver,60).until(EC.element_to_be_clickable((By.ID,self.id + id))).click()
+        return el
         # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='u1']/a[8]"))).click()
 
     def wait_id(self,id):
@@ -276,6 +280,7 @@ class BaseOperate():
         :return:
         '''
         WebDriverWait(self.driver, 60,).until(lambda x: self.driver.find_element_by_id(self.id + id))
+
     def wait_not_id(self, id):
         '''
         等待元素消失
@@ -302,8 +307,8 @@ class BaseOperate():
         '''
         toast_element = '%s' % xpath
         WebDriverWait(self.driver, 10).until(lambda x: self.driver.find_element_by_xpath(toast_element))
-        toast = self.driver.find_element_by_xpath(toast_element)
-        return toast.text
+        toast = self.driver.find_element_by_xpath(toast_element).text
+        return toast
 
     def wait_download(self, id):
         '''

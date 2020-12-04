@@ -28,20 +28,17 @@ def appium_desired():
     desired_caps['appPackage'] = data['appPackage']
     desired_caps['appActivity'] = data['appActivity']
     desired_caps['noReset'] = data['noReset']
-    desired_caps['ignoreUnimportantViews'] = True
+    # desired_caps['ignoreUnimportantViews'] = True
     desired_caps['dontStopAppOnReset'] = True
     desired_caps['newCommandTimeout'] = 10000
     desired_caps['automationName'] = 'Uiautomator2'
     # desired_caps['unicodeKeyboard'] = True     #Android8.1系统不支持此项设置,运行是报错：io.appium.settings/.UnicodeIME' exited with code 137'; Stderr: ''; Code: '13
     desired_caps['resetKeyboard'] = True
-    desired_caps['normalizeTagNames'] = True
     desired_caps['fullReset'] = False
-    desired_caps['dontStopOnReset'] = True
     desired_caps['systemPort'] = 8100
     # print('appium port: %s start run %s at %s' % (port, udid ,ctime()))
 
     # logging.info("启动APP...")
     driver = webdriver.Remote('http://localhost' + ':' + '4725' +'/wd/hub', desired_caps)
-    # driver.implicitly_wait(5)
     return driver
 
