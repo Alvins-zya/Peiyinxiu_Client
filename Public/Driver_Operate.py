@@ -120,7 +120,8 @@ class BaseOperate():
         # el_y = el.location.get('y')
         # TouchAction(self.driver).long_press(x=int(el_x), y=int(el_y), duration=3000).release().perform()
         # time.sleep(2)
-    def Long_Touches(self,EL,num,time):
+
+    def Long_Touches(self,El,num,time):
         '''
         控件list中选择一个
         :return:
@@ -165,8 +166,6 @@ class BaseOperate():
     def tap_el(self,El):
         '''
         获取控件按钮后点击控件居中坐标位置
-        :param X:
-        :param Y:
         :return:
         '''
         el = self.driver.find_element_by_id(self.id + El).rect
@@ -175,7 +174,13 @@ class BaseOperate():
         TouchAction(self.driver).tap(x=el_x,y=el_y).perform()
 
     def find_id(self,id):
-        self.driver.find_element_by_id(self.id + id)
+        el = self.driver.find_element_by_id(self.id + id)
+        return el
+    def find_id_clear(self,id):
+        '''
+        清楚输入框内容
+        '''
+        self.driver.find_element_by_id(self.id + id).clear()
 
     def find_id_send(self,id,value):
         el = self.driver.find_element_by_id(self.id + id).send_keys(value)
@@ -199,6 +204,13 @@ class BaseOperate():
         第三方控件点击
         '''
         el = self.driver.find_element_by_id(id).click()
+        return el
+
+    def find_id_state(self,id):
+        '''
+        获取控件的状态：true or false
+        '''
+        el = self.driver.find_element_by_id(self.id + id).get_attribute('checked')
         return el
 
     def find_id_text(self,id):
@@ -279,26 +291,31 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        WebDriverWait(self.driver, 60,).until(lambda x: self.driver.find_element_by_id(self.id + id))
+        WebDriverWait(self.driver, 60,).until(
+            lambda x: self.driver.find_element_by_id(self.id + id))
 
+    def wait_id_three_party(self,id):
+        '''
+        第三方空间识别等待
+        '''
+        WebDriverWait(self.driver, 60, ).until(lambda x: self.driver.find_element_by_id(id))
     def wait_not_id(self, id):
         '''
         等待元素消失
         :param id:
         :return:
         '''
-        WebDriverWait(self.driver).until_not(lambda x: self.driver.find_element_by_id(self.id + id))
+        WebDriverWait(self.driver,30).until_not(lambda x: self.driver.find_element_by_id(self.id + id))
 
     def wait_xpath(self, xpath):
         '''
         等待元素
-        :param id:
+        :param xpath:
         :return:
         '''
         xpath_element = ("//*[@text = '%s']" % xpath)
         WebDriverWait(self.driver, 30).until(lambda x: self.driver.find_element_by_xpath(xpath_element))
         time.sleep(2)
-
 
     def wait_toast(self, xpath):
         '''
