@@ -1,6 +1,6 @@
 platformName: Android
 platformVersion: '10'
-deviceName: 88Y5T19B23000968
+deviceName: 4ebc78fd
 appPackage: com.happyteam.dubbingshow
 appActivity: ui.StartActivity
 noReset: True
@@ -8,6 +8,19 @@ unicodeKeyboard: True
 resetKeyboard: True
 ip: 127.0.0.1
 port: 4723
+
+
+#platformName: Android
+#platformVersion: '7.1.2'
+#deviceName: b490dce3
+#appPackage: com.happyteam.dubbingshow
+#appActivity: ui.StartActivity
+#noReset: True
+#unicodeKeyboard: True
+#resetKeyboard: True
+#ip: 127.0.0.1
+#port: 4723
+
 
 
 

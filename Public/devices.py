@@ -10,6 +10,7 @@ from time import ctime
 import logging
 import logging.config
 import os,sys
+
 # CON_LOG = '../config/log.conf'
 # logging.config.fileConfig(CON_LOG)
 # logging = logging.getLogger()
@@ -31,7 +32,7 @@ def appium_desired():
     # desired_caps['ignoreUnimportantViews'] = True
     desired_caps['dontStopAppOnReset'] = True
     desired_caps['newCommandTimeout'] = 10000
-    desired_caps['automationName'] = 'Uiautomator2'
+    desired_caps['automationName'] = 'uiautomator2'
     # desired_caps['unicodeKeyboard'] = True     #Android8.1系统不支持此项设置,运行是报错：io.appium.settings/.UnicodeIME' exited with code 137'; Stderr: ''; Code: '13
     desired_caps['resetKeyboard'] = True
     desired_caps['fullReset'] = False

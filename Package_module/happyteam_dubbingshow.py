@@ -18,9 +18,9 @@ rootpath = os.path.split(curpath)[0]
 sys.path.append(rootpath)
 
 file = open('D:\Git_pyhthon\Package_module\\topic_words.txt', 'r', encoding='utf-8')
-from Public.Driver_Operate import BaseOperate
+from Public.Driver_Operate import BaseOperate,location,touche_Y,touche_X
 # from public.unittest_import import dubbing
-from Package_module.Location_list import location
+# from Package_module.Location_list import location
 
 class home(unittest.TestCase):
     @classmethod
@@ -74,7 +74,7 @@ class home(unittest.TestCase):
         try:
             self.driver.find_id('img_double')
             time.sleep(2)
-            self.driver.wait_id_click('btnback')
+            self.driver.wait_id_click('btnBack')
             time.sleep(2)
             self.driver.find_id_click('img_one')
             self.driver.wait_toast('//android.widget.toast')
@@ -107,7 +107,7 @@ class home(unittest.TestCase):
                 self.driver.find_ids_click('tv_lingqu',num)
                 self.driver.wait_id('rl_coor')
                 time.sleep(1)
-                self.driver.find_id_click('ivdubbingtab')
+                self.driver.find_id_click('ivDubbingTab')
                 time.sleep(2)
                 self.driver.find_id_click('task_box')
                 time.sleep(2)
@@ -115,25 +115,25 @@ class home(unittest.TestCase):
             elif task_list[num] == '分享作品至朋友圈':
                 self.driver.find_ids_click('tv_lingqu',num)
                 time.sleep(2)
-                self.driver.wait_id_click('btnback')
+                self.driver.wait_id_click('btnBack')
                 time.sleep(2)
 
             elif task_list[num] == '收听语聊10分钟':
                 self.driver.find_ids_click('tv_lingqu',num)
                 time.sleep(2)
-                self.driver.wait_id_click('btnback')
+                self.driver.wait_id_click('btnBack')
                 time.sleep(2)
 
             elif task_list[num] == '用钻石曝光1个作品':
                 self.driver.find_ids_click('tv_lingqu',num)
                 time.sleep(2)
-                self.driver.wait_id_click('btnback')
+                self.driver.wait_id_click('btnBack')
                 time.sleep(2)
 
             elif task_list[num] == '评论5个曝光区作品':
                 self.driver.find_ids_click('tv_lingqu',num)
                 time.sleep(2)
-                self.driver.wait_id_click('btnback')
+                self.driver.wait_id_click('btnBack')
                 time.sleep(2)
 
             elif task_list[num] == '看完5个作品':
@@ -141,13 +141,13 @@ class home(unittest.TestCase):
                 self.driver.wait_id_click('task_box')
                 time.sleep(2)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 首页搜索
     def test_d_home_search(self):
         self.driver.find_id_click('iv_search')
-        self.driver.wait_id('txtkeyword')
+        self.driver.wait_id('txtKeyword')
 
     #首页素材搜索
     def test_e_source_search(self):
@@ -156,9 +156,9 @@ class home(unittest.TestCase):
         self.driver.find_id_click('tv')
         self.driver.wait_id_click('iv_source')
         self.driver.wait_id('dubbing_fake')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnclear')
+        self.driver.find_id_click('btnClear')
         time.sleep(1)
         self.driver.find_id_click('clear')
         time.sleep(2)
@@ -168,11 +168,11 @@ class home(unittest.TestCase):
         self.driver.find_id_click('tv_work')
         time.sleep(2)
         self.driver.find_id_click('tv')
-        self.driver.wait_id_click('filmbg')
+        self.driver.wait_id_click('filmBg')
         self.driver.wait_id('tv_comment')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnclear')
+        self.driver.find_id_click('btnClear')
         time.sleep(2)
         self.driver.find_id_click('clear')
         time.sleep(2)
@@ -181,14 +181,14 @@ class home(unittest.TestCase):
     def test_g_user_search(self):
         self.driver.find_id_click('tv_user')
         time.sleep(2)
-        self.driver.find_id_click('txtkeyword')
+        self.driver.find_id_click('txtKeyword')
         user_list = ['148207791', '152726825', '159420264', '141130466']
         for i in user_list:
-            self.driver.find_id_send('txtkeyword',i)
+            self.driver.find_id_send('txtKeyword',i)
             time.sleep(2)
-            self.driver.find_id_click('btnsearch')
+            self.driver.find_id_click('btnSearch')
             self.driver.wait_id('userhead')
-            self.driver.find_id_click('btnclear')
+            self.driver.find_id_click('btnClear')
             time.sleep(2)
         self.driver.find_id_click('clear')
         time.sleep(2)
@@ -201,11 +201,11 @@ class home(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('fanscount')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('status_icon')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #列表上、下滑动
@@ -223,35 +223,35 @@ class home(unittest.TestCase):
         self.driver.find_id_click('film_img2')
         self.driver.wait_id('userhead')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #列表界面点击用户头像进入视频详情
         self.driver.find_id_click('user_head')
-        self.driver.wait_id('btnback')
-        self.driver.background()
+        self.driver.wait_id('btnBack')
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #列表界面点击作品标题进入视频详情
         self.driver.find_id_click('title2')
-        self.driver.wait_id('btnback')
-        self.driver.background()
+        self.driver.wait_id('btnBack')
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #列表界面点击作品标签
         self.driver.find_id_click('film2_channel1')
-        self.driver.wait_id('btnback')
+        self.driver.wait_id('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('film2_channel2')
-        self.driver.wait_id('btnback')
+        self.driver.wait_id('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
 class home_function(unittest.TestCase):
@@ -302,11 +302,11 @@ class home_function(unittest.TestCase):
             name = self.driver.find_ids_text('tv',i)
             self.driver.find_ids_click('tv',i)
             self.driver.wait_xpath('排行榜')
-            channel_name = self.driver.find_id_text('txttitle')
+            channel_name = self.driver.find_id_text('txtTitle')
             if name != channel_name:
                 print('频道列表界面标签名称与标签详情界面标签名称校验不一致')
             time.sleep(1)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
 
     # 热门频道
@@ -314,17 +314,17 @@ class home_function(unittest.TestCase):
         title = self.driver.find_id_text('tv2')
         self.driver.find_id_click('tv2')
         self.driver.wait_id('follow_ta')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         video_title = self.driver.find_id_text('tv_video_detail_title')
         if title not in video_title:
             print('频道主界面点击的视频标题与视频详情的标题校验失败')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('count')
-        self.driver.wait_id('txttitle')
-        self.driver.find_id_click('btnback')
+        self.driver.wait_id('txtTitle')
+        self.driver.find_id_click('btnBack')
         self.driver.swip_up()
         time.sleep(2)
 
@@ -357,7 +357,7 @@ class home_function(unittest.TestCase):
                 self.driver.wait_id('distance')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
         time.sleep(2)
 
@@ -386,7 +386,7 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click('title')
         for i in range(len(name)):
             self.driver.wait_id('follow_ta')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
             name = self.driver.find_id_text('tv_video_detail_title')
             label1 = 'ch'
@@ -403,7 +403,7 @@ class home_function(unittest.TestCase):
                 assert name in title_list,'视频详情标题不在标题列表中'
             self.driver.swip_up()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #进入曝光区
@@ -420,19 +420,19 @@ class home_function(unittest.TestCase):
         time.sleep(2)
         while true:
             try:
-                self.driver.wait_id('filmbg')
+                self.driver.wait_id('filmBg')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
         time.sleep(2)
 
     #曝光作品评论
     def test_h_function_exposure_comment(self):
         progress_before = self.driver.find_id_text('progress_bar')
-        self.driver.find_id_click('filmbg')
+        self.driver.find_id_click('filmBg')
         self.driver.wait_id('follow_ta')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         while true:
             try:
@@ -444,7 +444,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv_comment')
         time.sleep(2)
-        self.driver.find_id_send('editcontent','哈哈')
+        self.driver.find_id_send('editContent','哈哈')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         try:
@@ -452,7 +452,7 @@ class home_function(unittest.TestCase):
         except:
             print('未检测到发送的评论')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.swip_down()
         time.sleep(2)
@@ -479,7 +479,7 @@ class home_function(unittest.TestCase):
                 self.driver.wait_id('iv_source')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
         time.sleep(2)
 
@@ -488,10 +488,10 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click('tv_rich_rank')
         while true:
             try:
-                self.driver.wait_id('userhead1')
+                self.driver.wait_id('userHead1')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
                 self.driver.find_id_click('tv_rich_rank')
             time.sleep(2)
@@ -514,12 +514,12 @@ class home_function(unittest.TestCase):
     #获赞榜-用户信息
     def test_l_function_rank_good_rank_userinfo(self):
         no1_name = self.driver.find_id_text('username1')
-        self.driver.find_id_click('userhead1')
+        self.driver.find_id_click('userHead1')
         self.driver.wait_id('ll_fan')
         no1_zoom_name = self.driver.find_id_text('username')
         assert no1_name == no1_zoom_name, '获赞榜第一用户名称与空间中的用户名称校验不一致'
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         for i in range(5):
             self.driver.swip_up()
@@ -530,12 +530,12 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click('rl_tag2')
         time.sleep(2)
         no1_name = self.driver.find_id_text('username1')
-        self.driver.find_id_click('userhead1')
+        self.driver.find_id_click('userHead1')
         self.driver.wait_id('ll_follow')
         no1_zoom_name = self.driver.find_id_text('username')
         assert no1_name == no1_zoom_name, '榜一用户名称与空间中的用户名称校验不一致'
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         for i in range(5):
             self.driver.swip_up()
@@ -543,12 +543,12 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click('rl_tag3')
         time.sleep(2)
         no1_name = self.driver.find_id_text('username1')
-        self.driver.find_id_click('userhead1')
+        self.driver.find_id_click('userHead1')
         self.driver.wait_id('ll_follow')
         no1_zoom_name = self.driver.find_id_text('username')
         assert no1_name == no1_zoom_name, '榜一用户名称与空间中的用户名称校验不一致'
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         for i in range(5):
             self.driver.swip_up()
@@ -560,10 +560,10 @@ class home_function(unittest.TestCase):
         while true:
             time.sleep(2)
             try:
-                self.driver.wait_id('userhead1')
+                self.driver.wait_id('userHead1')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
                 self.driver.find_id_click('tv_live_rank')
         time.sleep(2)
@@ -589,10 +589,10 @@ class home_function(unittest.TestCase):
         while true:
             time.sleep(2)
             try:
-                self.driver.wait_id('userhead1')
+                self.driver.wait_id('userHead1')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
                 self.driver.find_id_click('tv_society_rank')
         time.sleep(2)
@@ -618,10 +618,10 @@ class home_function(unittest.TestCase):
         while true:
             time.sleep(2)
             try:
-                self.driver.wait_id('userhead1')
+                self.driver.wait_id('userHead1')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
                 self.driver.find_id_click('tv_source_rank')
         time.sleep(2)
@@ -656,7 +656,7 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click('tv_source_title')
         for i in range(len(list_title)):
             self.driver.wait_id('follow_ta')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
             name = self.driver.find_id_text('tv_video_detail_title')
             # label1 = 'ch'
@@ -673,7 +673,7 @@ class home_function(unittest.TestCase):
                 time.sleep(2)
             self.driver.swip_up()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #热门标签tab-列表切换数据检查
@@ -750,10 +750,10 @@ class home_function(unittest.TestCase):
         name = self.driver.find_id_text('tv_source_title')
         self.driver.find_id_click('iv_source')
         self.driver.wait_id('tv_video_detail_title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         name1 = self.driver.find_id_text('tv_video_detail_title')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         assert name in name1, '列表标题与视频详情标题不一致'
         time.sleep(2)
         for i in range(3):
@@ -768,7 +768,7 @@ class home_function(unittest.TestCase):
         for i in range(len(titles)):
             self.driver.find_ids_click('iv_source',i)
             self.driver.wait_id('tv_video_detail_title')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
 
             try:
@@ -776,7 +776,7 @@ class home_function(unittest.TestCase):
                 print('社团作品显示有配音按钮')
             except:
                 pass
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
 
     # 榜单列表加载
@@ -807,13 +807,13 @@ class home_function(unittest.TestCase):
                 self.driver.wait_id('start')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
         time.sleep(2)
 
     # 勋章列表
     def test_z_a_function_pia_medal_list(self):
-        self.driver.find_id_click('goxun')
+        self.driver.find_id_click('goXun')
         time.sleep(2)
         try:
             self.driver.find_id('userhead')
@@ -845,7 +845,7 @@ class home_function(unittest.TestCase):
             self.driver.find_id_click('smoke_ten')
             time.sleep(2)
             try:
-                self.driver.find_id_click('btnsubmit')
+                self.driver.find_id_click('btnSubmit')
                 time.sleep(2)
                 self.driver.find_id_click('back')
                 time.sleep(2)
@@ -877,7 +877,7 @@ class home_function(unittest.TestCase):
     def test_z_f_function_pia_room_comment(self):
         self.driver.find_id_click('show_comment')
         time.sleep(2)
-        self.driver.find_id_send('editcontent','哈哈哈')
+        self.driver.find_id_send('editContent','哈哈哈')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         self.driver.wait_id('rl')
@@ -913,7 +913,7 @@ class home_function(unittest.TestCase):
     def test_z_h_function_pia_room_private(self):
         self.driver.find_id_click('private_btn')
         time.sleep(2)
-        tip = self.driver.find_id_text('btnsubmit')
+        tip = self.driver.find_id_text('btnSubmit')
         check = '升级房间(5钻/小时)'
         assert tip == check, '普通房间设置私密，提示文案错误'
         time.sleep(2)
@@ -924,7 +924,7 @@ class home_function(unittest.TestCase):
     def test_z_i_function_pia_room_invite_friend(self):
         self.driver.find_ids_click('head',-1)
         time.sleep(2)
-        tip = self.driver.find_id_text('btnsubmit')
+        tip = self.driver.find_id_text('btnSubmit')
         check = '升级房间(5钻/小时)'
         assert tip == check, '普通房间邀请好友，提示文案错误'
         time.sleep(2)
@@ -947,7 +947,7 @@ class home_function(unittest.TestCase):
         # 添加剧本
         self.driver.find_id_click('add_drama')
         time.sleep(2)
-        tip = self.driver.find_id_text('btnsubmit')
+        tip = self.driver.find_id_text('btnSubmit')
         check = '升级房间(5钻/小时)'
         assert tip == check, '添加剧本，提示文案错误'
         time.sleep(2)
@@ -958,7 +958,7 @@ class home_function(unittest.TestCase):
     def test_z_k_function_pia_room_exit(self):
         self.driver.find_id_click('home_close')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_id('create_room')
         time.sleep(2)
 
@@ -971,7 +971,7 @@ class home_function(unittest.TestCase):
         except:
             self.driver.find_id_click('home_close')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             self.driver.wait_id('create_room')
         time.sleep(2)
 
@@ -1009,7 +1009,7 @@ class home_function(unittest.TestCase):
                 self.driver.wait_id('collect')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
         time.sleep(2)
 
@@ -1018,7 +1018,7 @@ class home_function(unittest.TestCase):
         name = self.driver.find_id_text('title')
         self.driver.find_id_click('title')
         self.driver.wait_id('start_play')
-        detail_name = self.driver.find_id_text('tvtitle')
+        detail_name = self.driver.find_id_text('tvTitle')
         assert name == detail_name, '推荐列表中声漫名称与声漫详情界面名称不一致'
         time.sleep(2)
 
@@ -1036,12 +1036,12 @@ class home_function(unittest.TestCase):
     def test_z_r_function_cartoon_episodes_detail(self):
         i = 0
         while i <= 10:
-            self.driver.find_id_click('imghead')
+            self.driver.find_id_click('imgHead')
             try:
                 self.driver.wait_id('start_play')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
             time.sleep(2)
             if i == 10:
                 break
@@ -1081,7 +1081,7 @@ class home_function(unittest.TestCase):
         num = self.driver.find_id_text('name')
         self.driver.find_id_click('name')
         self.driver.wait_id('userhead')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         re_num = re.findall(r'第 (.*) 话', num)
         new_num = ''.join(re_num)
@@ -1098,7 +1098,7 @@ class home_function(unittest.TestCase):
         # new_update = re.findall(r'更新至(.*)', update)
         self.driver.find_id_click('play')
         self.driver.wait_id('userhead')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         detail_name = self.driver.find_id_text('user_name')
         assert union == detail_name, '社团名称校验不一致'
@@ -1126,9 +1126,9 @@ class home_function(unittest.TestCase):
     def test_z_y_function_cartoon_detail(self):
         self.driver.find_id_click('btn_add')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword','你听说过女大学生吗')
+        self.driver.find_id_send('txtKeyword','你听说过女大学生吗')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         time.sleep(2)
         self.driver.find_id_click('iv_pic1')
         time.sleep(2)
@@ -1141,8 +1141,8 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click('tv_make')
         time.sleep(2)
         try:
-            self.driver.find_id('btnsubmit')
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id('btnSubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
             self.driver.find_id_click('tv_make')
             time.sleep(2)
@@ -1183,7 +1183,7 @@ class home_function(unittest.TestCase):
         time.sleep(1)
         self.driver.find_ids_click('socialstatus',-1)
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_toast('//android.widget.toast')
         time.sleep(2)
         self.driver.find_id_click('change')
@@ -1192,7 +1192,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
         self.driver.wait_id_click('socialstatus')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_toast('//android.widget.toast')
         time.sleep(2)
 
@@ -1235,7 +1235,7 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click("add")
         self.driver.find_id_click('tv_preview')
         time.sleep(2)
-        # 声漫背景音界面裁剪添加背景音
+        # 声漫背景音界面裁剪添加背景
         self.loc.carton_cut_music()
         time.sleep(2)
         self.driver.find_id_click('tv_preview')
@@ -1284,7 +1284,7 @@ class home_function(unittest.TestCase):
             self.driver.find_id('imgurl')
             self.driver.find_id_click('imgurl')
             self.driver.wait_id('userhead')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
             self.driver.find_id_click('tv_good')
             time.sleep(2)
@@ -1295,17 +1295,17 @@ class home_function(unittest.TestCase):
             elif self.y >= 2280:
                 self.driver.tap(0.5 * self.x, 0.883 * self.y)
                 time.sleep(2)
-                self.driver.find_id_click('btnsubmit')
+                self.driver.find_id_click('btnSubmit')
                 try:
                     self.driver.wait_toast('//android.widget.toast')
                 except:
                     print('未检测到声漫删除toast')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(3)
                 self.driver.find_id_click('close1')
                 time.sleep(2)
-                self.driver.find_id_click('btnsubmit')
+                self.driver.find_id_click('btnSubmit')
                 time.sleep(2)
         except:
             print('未位于声漫剧集列表界面')
@@ -1384,11 +1384,11 @@ class dub(unittest.TestCase):
     def test_c_dub_exit_dubbing(self):
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btncancel')
+        self.driver.find_id_click('btnCancel')
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(3)
         self.test_b_into_dubbing_double()
 
@@ -1412,11 +1412,11 @@ class dub(unittest.TestCase):
         self.driver.find_id_click('headset')
         time.sleep(2)
         try:
-            tips = self.driver.find_id_text('txtcontent')
+            tips = self.driver.find_id_text('txtContent')
             check = '开启背景音需要插上耳机！'
             assert tips == check, '耳机提示文案不一致'
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
         except:
             pass
 
@@ -1443,7 +1443,7 @@ class dub(unittest.TestCase):
                     pass
         time.sleep(2)
         try:
-            self.driver.find_id('cameraview2')
+            self.driver.find_id('cameraView2')
         except:
             self.driver.find_id_click('living')
             time.sleep(4)
@@ -1453,7 +1453,7 @@ class dub(unittest.TestCase):
         self.driver.find_id_click('living')
         time.sleep(4)
         try:
-            self.driver.find_id('cameraview2')
+            self.driver.find_id('cameraView2')
             self.driver.find_id_click('living')
         except:
             pass
@@ -1463,13 +1463,13 @@ class dub(unittest.TestCase):
     def test_h_dub_script_list_swip(self):
         self.driver.find_id_click('scirpt')
         time.sleep(2)
-        self.driver.wait_id('titletextview')
-        count = self.driver.find_ids('titletextview')
+        self.driver.wait_id('titletextView')
+        count = self.driver.find_ids('titletextView')
         num = len(count)
         if num > 4:
             self.driver.swip_up()
         time.sleep(2)
-        self.driver.find_id_click('cancelbn')
+        self.driver.find_id_click('cancelBn')
         self.driver.wait_id('scirpt')
         time.sleep(2)
 
@@ -1478,10 +1478,10 @@ class dub(unittest.TestCase):
         script_cout = int(self.driver.find_id_text('scirpt_count'))
         if script_cout > 1:
             self.driver.find_id_click('scirpt')
-            self.driver.wait_id('titletextview')
-            count = self.driver.find_ids('titletextview')
+            self.driver.wait_id('titletextView')
+            count = self.driver.find_ids('titletextView')
             for i in range(len(count) -1, -1, -1):
-                self.driver.find_ids_click('titletextview',i)
+                self.driver.find_ids_click('titletextView',i)
                 try:
                     self.driver.find_id('roleall')
                     self.driver.find_id_click('roleall')
@@ -1489,9 +1489,9 @@ class dub(unittest.TestCase):
                     pass
                 self.driver.wait_id('edit_subtitle')
                 self.driver.find_id_click('scirpt')
-                self.driver.wait_id('titletextview')
+                self.driver.wait_id('titletextView')
                 time.sleep(2)
-            self.driver.find_id_click('cancelbn')
+            self.driver.find_id_click('cancelBn')
         time.sleep(2)
 
     # 修改台词后点击完成，再次进入编辑界面查看修改后的台词
@@ -1505,11 +1505,11 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('complete')
         time.sleep(2)
-        tip = self.driver.find_id_text('txtcontent')
+        tip = self.driver.find_id_text('txtContent')
         tip_check = '修改台词将移除当前的配音进度'
         assert tip == tip_check
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         try:
             self.driver.find_id('roleall')
@@ -1526,7 +1526,7 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
 
     # 修改首句台词后不保存返回配音界面再进，查看台词首句显示
@@ -1538,17 +1538,17 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        tip = self.driver.find_id_text('txtcontent')
+        tip = self.driver.find_id_text('txtContent')
         tip_check = '真的要放弃本次台词编辑吗？'
         assert tip_check in tip
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(3)
 
     # 切换系统默认台词
     def test_l_dub_script_default(self):
         self.driver.find_id_click('scirpt')
-        self.driver.wait_id_click('titletextview')
+        self.driver.wait_id_click('titletextView')
         time.sleep(3)
         try:
             self.driver.find_id('roleall')
@@ -1577,7 +1577,7 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
 
     # 编辑台词输入特殊符号后保存
@@ -1591,7 +1591,7 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('complete')
         time.sleep(3)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         try:
             self.driver.find_id('roleall')
@@ -1614,7 +1614,7 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_id('edit_subtitle')
 
     #耳返开关
@@ -1641,14 +1641,14 @@ class dub(unittest.TestCase):
     def test_r_dub_video_pause(self):
         self.driver.find_id_click('play')
         self.driver.find_id_click('fl_video')
-        # self.driver.background()
+        # self.driver.Background()
         self.driver.wait_download('play')
         time.sleep(2)
 
     # 播放过程中推到后台
     def test_s_dub_video_background(self):
         self.driver.find_id_click('play')
-        self.driver.background()
+        self.driver.Background()
         self.driver.wait_id('play')
         time.sleep(2)
 
@@ -1666,7 +1666,7 @@ class dub(unittest.TestCase):
                 self.driver.wait_sys('允许')
         except:
             self.driver.wait_download('title')
-            self.driver.background()
+            self.driver.Background()
             self.driver.find_id_click('back')
             time.sleep(2)
         time.sleep(2)
@@ -1675,7 +1675,7 @@ class dub(unittest.TestCase):
     def test_u_dub_manual_into_preview(self):
         self.driver.find_id_click('complete')
         self.driver.wait_download('title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
@@ -1700,11 +1700,11 @@ class dub(unittest.TestCase):
     # 试听过程中点击提交进入预览界面
     def test_x_dub_review_into_preview(self):
         self.driver.find_id_click('review')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('complete')
         self.driver.wait_id('title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
@@ -1714,10 +1714,10 @@ class dub(unittest.TestCase):
         self.driver.find_id_click('review')
         self.driver.back()
         time.sleep(2)
-        tip = self.driver.find_id_text('txtcontent')
+        tip = self.driver.find_id_text('txtContent')
         tip_check = '确定放弃吗？'
         assert tip == tip_check, "退出配音界面弹窗提示文案错误"
-        self.driver.find_id_click('btncancel')
+        self.driver.find_id_click('btnCancel')
         time.sleep(2)
 
     # 点击回撤按钮
@@ -1734,10 +1734,10 @@ class dub(unittest.TestCase):
     def test_z_a_dub_record_pause(self):
         self.driver.find_id_click('action')
         time.sleep(2)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         try:
-            self.driver.find_id('dubbingwaveform')
+            self.driver.find_id('dubbingWaveform')
         except:
             print('没有显示音轨，未录制进人声')
         time.sleep(2)
@@ -1746,7 +1746,7 @@ class dub(unittest.TestCase):
     def test_z_b_preview_back_dubbing(self):
         self.driver.find_id_click('action')
         self.driver.wait_download('title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
@@ -1761,7 +1761,7 @@ class dub(unittest.TestCase):
         self.driver.wait_id('play')
         self.driver.find_id_click('action')
         self.driver.wait_download('title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(4)
@@ -1775,14 +1775,14 @@ class dub(unittest.TestCase):
     def test_z_f_dub_into_preview(self):
         self.driver.find_id_click('action')
         self.driver.wait_download('title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
     # 播放完整的视频
     def test_z_g_preview_video_play(self):
         self.driver.find_id_click('play_button')
         time.sleep(3)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.wait_download('play_button')
         time.sleep(2)
@@ -1796,7 +1796,7 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('complete')
         self.driver.wait_id('title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         el1 = self.driver.find_id_state('add_subtitle_cb')
         if el != el1:
@@ -1811,12 +1811,12 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('complete')
         self.driver.wait_id('title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         el1 = self.driver.find_id_state('clear_voice')
         assert el != el1,'降噪开关状态校验失败'
         self.driver.find_id_click('clear_voice')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
     # 预览界面人声
@@ -1832,10 +1832,10 @@ class dub(unittest.TestCase):
         self.driver.find_id_click('trim')
         time.sleep(2)
         self.loc.voice_increase()
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.loc.voice_reduce()
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
     # 人声变声调节
@@ -1843,10 +1843,10 @@ class dub(unittest.TestCase):
         self.driver.find_id_click('pitch')
         time.sleep(2)
         self.loc.voice_increase()
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.loc.voice_reduce()
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
     #人声混响调节
@@ -1855,18 +1855,18 @@ class dub(unittest.TestCase):
         time.sleep(2)
         self.loc.voice_reverberation_increase()
         self.driver.find_id_click('play_button')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.loc.voice_reverberation_reduce()
         self.driver.find_id_click('play_button')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
     # 背景音音量调节
     def test_z_n_preview_background_music(self):
         self.loc.back_music_increase()
         self.driver.find_id_click('play_button')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.loc.back_music_reduce()
         time.sleep(2)
@@ -1881,14 +1881,14 @@ class dub(unittest.TestCase):
             print ('状态点击背景音关闭按钮后，状态没有显示关闭')
         self.driver.find_id_click('play_button')
         time.sleep(2)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
     # 背景音音乐列表中选择其它音乐
     def test_z_p_preview_change_music(self):
-        count = self.driver.find_id_text('tvbgcount')
+        count = self.driver.find_id_text('tvBgCount')
         if int(count) > 1:
-            self.driver.find_id_click('imgbgcount')
+            self.driver.find_id_click('imgBgCount')
             time.sleep(4)
             if self.y == 1920:
                 self.driver.tap(self.x*0.5,self.y*0.469)
@@ -1917,14 +1917,14 @@ class dub(unittest.TestCase):
     def test_z_r_preview_download_music(self):
         self.driver.find_id_click('bgvol')
         time.sleep(2)
-        self.driver.find_id_click('imgbgcount')
+        self.driver.find_id_click('imgBgCount')
         time.sleep(2)
         self.loc.one_from_last()
-        self.driver.wait_id('btnright')
+        self.driver.wait_id('btnRight')
         while true:
             try:
-                self.driver.find_id('btndownload')
-                self.driver.find_id_click('btndownload')
+                self.driver.find_id('btnDownload')
+                self.driver.find_id_click('btnDownload')
             except:
                 break
 
@@ -1934,7 +1934,7 @@ class dub(unittest.TestCase):
         select = random.randint(0,len(count)-1)
         self.driver.find_ids_click('title',select)
         time.sleep(2)
-        self.driver.find_id_click('btnright')
+        self.driver.find_id_click('btnRight')
         time.sleep(2)
         self.driver.find_id_click('play_button')
         self.driver.wait_download('play_button')
@@ -1971,7 +1971,7 @@ class dub(unittest.TestCase):
     #预览界面点击完成
     def test_z_u_preview_into_upload(self):
         self.driver.find_xpath('完成').click()
-        self.driver.wait_id('txttitle')
+        self.driver.wait_id('txtTitle')
         time.sleep(2)
 
     #修改作品封面-视频截图
@@ -2067,7 +2067,7 @@ class dub(unittest.TestCase):
         try:
             self.driver.find_id('tv')
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.find_xpath('添加').click()
             self.driver.wait_id('edit_text')
@@ -2087,7 +2087,7 @@ class dub(unittest.TestCase):
             assert label_name == label_check,'标签对比不一致，%s,%s' % (label_name, label_check)
             time.sleep(2)
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #上传界面设置私密
@@ -2142,9 +2142,9 @@ class dub(unittest.TestCase):
             #点击查看视频详情
             self.driver.find_id_click('img_url')
             self.driver.wait_id('tv_video_detail_title')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
 
             #微信分享
@@ -2166,14 +2166,14 @@ class dub(unittest.TestCase):
 
             #qq分享
             self.driver.find_id_click('qq')
-            self.driver.wait_id_three_party('com.tencent.mobileqq:id/ivtitlebtnrighttext')
+            self.driver.wait_id_three_party('com.tencent.mobileqq:id/ivtitlebtnRighttext')
             time.sleep(2)
             self.driver.find_id_third_part('com.tencent.mobileqq:id/ivtitlebtnleftbutton')
             time.sleep(2)
 
             #qq空间分享
             self.driver.find_id_click('qqz')
-            self.driver.wait_id_three_party('com.tencent.mobileqq:id/ivtitlebtnrighttext')
+            self.driver.wait_id_three_party('com.tencent.mobileqq:id/ivtitlebtnRighttext')
             time.sleep(2)
             self.driver.find_id_third_part('com.tencent.mobileqq:id/ivtitlebtnleft')
             time.sleep(2)
@@ -2186,34 +2186,34 @@ class dub(unittest.TestCase):
             try:
                 self.driver.find_xpath('直接下载')
                 self.driver.find_xpath('直接下载').click()
-                self.driver.wait_id('btnsubmit')
-                self.driver.find_id_click('btnsubmit')
+                self.driver.wait_id('btnSubmit')
+                self.driver.find_id_click('btnSubmit')
             except:
-                self.driver.wait_id('btnsubmit')
-                self.driver.find_id_click('btnsubmit')
+                self.driver.wait_id('btnSubmit')
+                self.driver.find_id_click('btnSubmit')
             time.sleep(2)
 
             #上传成功进入视频详情删除视频
             self.driver.find_id_click('img_url')
-            self.driver.wait_id('btnback')
-            self.driver.background()
+            self.driver.wait_id('btnBack')
+            self.driver.Background()
             time.sleep(2)
             self.driver.find_id_click('setting')
             time.sleep(2)
             self.loc.two_from_last()
             time.sleep(2)
-            tip = self.driver.find_id_text('txtcontent')
+            tip = self.driver.find_id_text('txtContent')
             check = '删除作品'
             assert check in tip,'作品删除提示内容校验不一致'
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
         #上传失败保存草稿箱
         elif self.test_z_z_a_e_upload_result() == false:
-            self.driver.find_id_click('savetodraft')
+            self.driver.find_id_click('saveToDraft')
             time.sleep(3)
             self.driver.find_xpath('保存草稿').click()
-            self.driver.wait_id_click('btnsubmit')
+            self.driver.wait_id_click('btnSubmit')
             time.sleep(2)
             #上传失败查看失败原因
             self.driver.find_id_click('re_update')
@@ -2233,7 +2233,7 @@ class dub(unittest.TestCase):
                 self.driver.find_id_clear('edit')
                 time.sleep(2)
                 self.driver.find_id_send('edit','标题修改')
-                self.driver.find_id_click('btnsubmit')
+                self.driver.find_id_click('btnSubmit')
                 time.sleep(2)
                 try:
                     self.driver.wait_id('wx')
@@ -2277,13 +2277,13 @@ class follow(unittest.TestCase):
 
     #首页关注主界面
     def test_a_follow_jump(self):
-        self.driver.find_id_click('ivcirclestab')
-        self.driver.wait_id('musicplayview')
+        self.driver.find_id_click('ivCirclesTab')
+        self.driver.wait_id('musicPlayView')
         time.sleep(2)
 
     #语聊推荐列表
     def test_b_follow_chat_list(self):
-        self.driver.find_id_click('musicplayview')
+        self.driver.find_id_click('musicPlayView')
         self.driver.wait_id_click('item_theme_image')
         self.driver.wait_download('user_list')
         self.driver.find_id_click('home_close')
@@ -2293,7 +2293,7 @@ class follow(unittest.TestCase):
 
     #首页关注列表进入个人空间
     def test_c_follow_person_zoom(self):
-        name = self.driver.find_id_text('textview')
+        name = self.driver.find_id_text('textView')
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_follow')
         name = self.driver.find_id_text('username')
@@ -2311,16 +2311,16 @@ class follow(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_fan')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('content')
         self.driver.wait_id('tv_video_detail_title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('play')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('item_attention_share_num')
         time.sleep(2)
@@ -2345,7 +2345,7 @@ class follow(unittest.TestCase):
         self.loc.share_sina()
         self.driver.wait_xpath('发送')
         time.sleep(2)
-        self.driver.find_id_third_part('com.sina.weibo:id/titleback')
+        self.driver.find_id_third_part('com.sina.weibo:id/titleBack')
         time.sleep(2)
         try:
             self.driver.find_xpath('不保存')
@@ -2362,7 +2362,7 @@ class follow(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_send('filter_edit',"15697802")
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         try:
             self.driver.wait_id('userhead')
             name = self.driver.find_id_click('name').text
@@ -2371,14 +2371,14 @@ class follow(unittest.TestCase):
                 self.driver.find_id_click('name')
                 self.driver.wait_id('right_icon1')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
             else:
                 print("未搜索到指定用户")
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         # 点击下载视频到本地
@@ -2394,10 +2394,10 @@ class follow(unittest.TestCase):
             try:
                 self.driver.find_xpath('直接下载')
                 self.driver.find_xpath('直接下载').click()
-                self.driver.wait_id_click('btnsubmit')
+                self.driver.wait_id_click('btnSubmit')
             except:
                 try:
-                    self.driver.wait_id_click('btnsubmit')
+                    self.driver.wait_id_click('btnSubmit')
                 except:
                     pass
 
@@ -2409,9 +2409,9 @@ class follow(unittest.TestCase):
             self.driver.wait_toast('//android.widget.toast')
         except:
             try:
-                self.driver.wait_id('txtcontent')
+                self.driver.wait_id('txtContent')
                 time.sleep(2)
-                self.driver.find_id_click('btnsubmit')
+                self.driver.find_id_click('btnSubmit')
             except:
                 pass
         time.sleep(2)
@@ -2468,7 +2468,7 @@ class follow(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('item_attention_comment_count')
         time.sleep(2)
-        self.driver.find_id_send('editcontent','日常评论下！^.^')
+        self.driver.find_id_send('editContent','日常评论下！^.^')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         try:
@@ -2493,7 +2493,7 @@ class follow(unittest.TestCase):
         self.driver.find_id_click('check')
         self.driver.wait_toast('//android.widget.toast')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         # 特别关注
@@ -2516,8 +2516,8 @@ class follow(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('group_chat')
         self.driver.wait_id_click('userhead')
-        self.driver.wait_id('editcontent')
-        self.driver.find_id_click('btnback')
+        self.driver.wait_id('editContent')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #帖子举报
@@ -2527,7 +2527,7 @@ class follow(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword','举报功能测试！')
+        self.driver.find_id_send('txtKeyword','举报功能测试！')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         try:
@@ -2535,7 +2535,7 @@ class follow(unittest.TestCase):
             check = '举报成功'
             if toast != check:
                 print(toast)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
         except:
             print('未检测到举报toast提示')
         time.sleep(2)
@@ -2546,7 +2546,7 @@ class follow(unittest.TestCase):
         self.driver.find_id_click('content')
         self.driver.wait_id('right_icon1')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         try:
             self.driver.find_id('img1')
@@ -2560,8 +2560,8 @@ class follow(unittest.TestCase):
                 time.sleep(2)
             except:
                 try:
-                    self.driver.find_id('playbtn')
-                    self.driver.find_id_click('playbtn')
+                    self.driver.find_id('playBtn')
+                    self.driver.find_id_click('playBtn')
                     self.driver.wait_id('tv_video_detail_title')
                     self.driver.back()
                 except:
@@ -2573,7 +2573,7 @@ class follow(unittest.TestCase):
         time.sleep(3)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_fan')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('more')
         time.sleep(2)
@@ -2586,7 +2586,7 @@ class follow(unittest.TestCase):
         self.driver.find_id_click('check')
         self.driver.wait_toast('//android.widget.toast')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         #设置特别关注
         for i in range(2):
@@ -2604,25 +2604,25 @@ class follow(unittest.TestCase):
 
         self.driver.find_id_click('content')
         self.driver.wait_id('right_icon1')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #点击素材标签
         self.driver.find_id_click('tv_source_from')
         self.driver.wait_id('right_icon1')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         try:
             self.driver.find_id('tv_source_right')
             self.driver.find_id_click('tv_source_right')
             self.driver.wait_id('right_icon1')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             pass
@@ -2630,8 +2630,8 @@ class follow(unittest.TestCase):
         self.driver.find_id_click('action')
         while true:
             try:
-                self.driver.find_id('btnsubmit')
-                self.driver.find_id_click('btnsubmit')
+                self.driver.find_id('btnSubmit')
+                self.driver.find_id_click('btnSubmit')
                 try:
                     self.driver.find_id('roleall')
                     self.driver.find_id_click('roleall')
@@ -2648,7 +2648,7 @@ class follow(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
 
         #特别关注
@@ -2741,12 +2741,12 @@ class live(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         self.driver.find_id_click('right')
-        self.driver.wait_id_click('btnclose')
+        self.driver.wait_id_click('btnClose')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #创建进入语聊间
@@ -2756,7 +2756,7 @@ class live(unittest.TestCase):
         self.driver.find_id_click('check_box')
         self.driver.find_id_click('start_live')
         time.sleep(2)
-        self.driver.find_id_click('btncancel')
+        self.driver.find_id_click('btnCancel')
         self.driver.wait_id('name')
 
     #闭麦
@@ -2817,7 +2817,7 @@ class live(unittest.TestCase):
     def test_k_live_comments(self):
         self.driver.find_id_click('function_comment_layout')
         time.sleep(2)
-        self.driver.find_id_send('editcontent', '这是一个语聊间！')
+        self.driver.find_id_send('editContent', '这是一个语聊间！')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         self.driver.wait_id('home_comment_comments')
@@ -2828,8 +2828,8 @@ class live(unittest.TestCase):
     def test_l_live_at(self):
         self.driver.long_touche('username', 3000)
         try:
-            self.driver.find_id_click('editcontent')
-            content = self.driver.find_id_text('editcontent')
+            self.driver.find_id_click('editContent')
+            content = self.driver.find_id_text('editContent')
             check = '@'
             assert check in content
             time.sleep(1)
@@ -2852,7 +2852,7 @@ class live(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('generate_red_packet')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_id('rl_red')
         time.sleep(2)
         self.driver.find_id_click('tv_more')
@@ -2870,7 +2870,7 @@ class live(unittest.TestCase):
         #私信
         self.loc.chat_share_message_friend()
         self.driver.wait_id('group_chat')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(3)
 
     #语聊间私信
@@ -2879,7 +2879,7 @@ class live(unittest.TestCase):
         time.sleep(2)
         self.loc.chat_message_friend()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #语聊间黑名单
@@ -2945,7 +2945,7 @@ class live(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv_check')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         self.driver.find_id_click('name')
         time.sleep(2)
@@ -2983,7 +2983,7 @@ class live(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('fast_room_check')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         self.driver.find_id_click('close')
         time.sleep(2)
@@ -2991,7 +2991,7 @@ class live(unittest.TestCase):
     #房间详情
     def test_x_live_room_detail(self):
         self.driver.find_id_click('user_list')
-        self.driver.wait_id_click('btnclose')
+        self.driver.wait_id_click('btnClose')
         time.sleep(2)
 
     #房间背景音音乐
@@ -3087,7 +3087,7 @@ class material(unittest.TestCase):
         for i in range(len(tv_name)):
             self.driver.find_ids_click('tv',i)
             self.driver.wait_id('rl_left2')
-            self.driver.find_id_click('btnclear')
+            self.driver.find_id_click('btnClear')
             time.sleep(2)
 
         # 历史搜索记录
@@ -3095,7 +3095,7 @@ class material(unittest.TestCase):
             self.driver.find_id('item')
             self.driver.wait_id('iv_source')
             time.sleep(2)
-            self.driver.find_id_click('btnclear')
+            self.driver.find_id_click('btnClear')
             time.sleep(2)
         except:
             print('未显示有历史搜索记录')
@@ -3109,7 +3109,7 @@ class material(unittest.TestCase):
         self.driver.wait_id_click('rank_name')
         try:
             self.driver.wait_id('iv_source')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             print('素材标签详情界面未显示素材信息')
@@ -3122,7 +3122,7 @@ class material(unittest.TestCase):
             self.driver.swip_up()
             label_name1 = self.driver.find_ids_text('rank_name',-1)
             if label_name == label_name1:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 break
             else:
                 pass
@@ -3141,7 +3141,7 @@ class material(unittest.TestCase):
             try:
                 self.driver.find_id('iv_source')
                 self.driver.wait_id('userhead')
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
             except:
                 pass
@@ -3152,18 +3152,18 @@ class material(unittest.TestCase):
             self.driver.swip_up()
             time.sleep(2)
         time.sleep(2)
-        self.driver.find_id_click('btnclear')
+        self.driver.find_id_click('btnClear')
         time.sleep(2)
 
     # 搜索素材
     def test_d_source_search(self):
-        self.driver.find_id_send('txtkeyword','配音')
+        self.driver.find_id_send('txtKeyword','配音')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         self.driver.wait_id_click('iv_source')
         self.driver.wait_id('userhead')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         el = self.driver.find_ids('types_name')
         for i in reversed(el):
@@ -3171,7 +3171,7 @@ class material(unittest.TestCase):
             time.sleep(2)
         self.driver.swip_up()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 素材库主界面8个大分类
@@ -3185,12 +3185,12 @@ class material(unittest.TestCase):
             for x in range(len(tv_branch)):
                 self.driver.find_ids_click('tv',x)
                 self.driver.wait_id('img_url')
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
             # 更多热门标签
             self.driver.find_id_click('tv1')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             screening = self.driver.find_ids('types_name')
             for j in range(len(screening) - 1, -1, -1):
@@ -3199,9 +3199,9 @@ class material(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('iv_source')
             self.driver.wait_id('userhead')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         time.sleep(2)
 
@@ -3211,7 +3211,7 @@ class material(unittest.TestCase):
         self.driver.wait_id('item_sh_cooperate_article_image')
         self.driver.find_id_click('userhead')
         self.driver.wait_id('followcount')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('item_sh_cooperate_article_image')
         self.driver.wait_download('play')
@@ -3225,7 +3225,7 @@ class material(unittest.TestCase):
         self.driver.wait_download('action')
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_id('item_sh_cooperate_article_image')
 
         # 点击广场列表中的配音按钮进入配音界面
@@ -3233,7 +3233,7 @@ class material(unittest.TestCase):
         self.driver.wait_download('action')
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_id('item_sh_cooperate_article_image')
         time.sleep(2)
 
@@ -3305,7 +3305,7 @@ class material(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('followcount')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 合作广场-搜索
@@ -3314,7 +3314,7 @@ class material(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_send('et_search_keyword','配音')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         self.driver.wait_id_click('item_sh_cooperate_article_image')
         time.sleep(2)
         self.driver.wait_download('play')
@@ -3323,29 +3323,29 @@ class material(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_id('item_sh_cooperate_article_image')
         # 滑动加载列表
         for i in range(5):
             self.driver.swip_up()
             time.sleep(2)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
         self.driver.find_id_send('et_search_keyword','槛花笼鹤')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         time.sleep(5)
         try:
             self.driver.find_xpath('没有搜索到任何内容')
         except:
             print('检查搜索无结果显示失败')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # # 声音鉴定
@@ -3408,7 +3408,7 @@ class material(unittest.TestCase):
     #         time.sleep(2)
     #         self.driver.find_id_click()('title')
     #         self.driver.wait_id('userhead')
-    #         self.driver.find_id_click()('btnback')
+    #         self.driver.find_id_click()('btnBack')
     #         time.sleep(2)
     #         for i in range(3):
     #             self.driver.swip_up()
@@ -3426,16 +3426,16 @@ class material(unittest.TestCase):
     #         self.driver.wait_download('action')
     #         self.driver.find_id_click()('action')
     #         self.driver.wait_download('title')
-    #         self.driver.background()
+    #         self.driver.Background()
     #         time.sleep(2)
     #         self.driver.find_id_click()('complete')
-    #         self.driver.wait_id('txttitle')
+    #         self.driver.wait_id('txtTitle')
     #         time.sleep(2)
     #         self.driver.find_id_click()('pri_switch_tv')
     #         time.sleep(2)
-    #         self.driver.find_id_click()('savetodraft')
+    #         self.driver.find_id_click()('saveToDraft')
     #         time.sleep(2)
-    #         self.driver.find_id_click()('btnsubmit')
+    #         self.driver.find_id_click()('btnSubmit')
     #         time.sleep(2)
     #         self.driver.wait_xpath('退出配音')
     #         self.driver.find_xpath('退出配音')
@@ -3479,13 +3479,13 @@ class material(unittest.TestCase):
         self.driver.swip_up()
         self.driver.find_id_click('bg_view')
         time.sleep(2)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('subtitleview')
+        self.driver.find_id_click('subtitleView')
         self.driver.wait_id('userhead')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('change_type')
         time.sleep(2)
@@ -3493,9 +3493,9 @@ class material(unittest.TestCase):
         # 点击进入素材预览界面
         self.driver.find_id_click('iv_source')
         self.driver.wait_id('userhead')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         # 切换角色筛选项
@@ -3542,8 +3542,8 @@ class material(unittest.TestCase):
             assert check in follow_toast, '关注toast内容校验不一致'
         except:
             try:
-                self.driver.find_id('editcontent')
-                self.driver.find_id_click('btnback')
+                self.driver.find_id('editContent')
+                self.driver.find_id_click('btnBack')
             except:
                 pass
         time.sleep(2)
@@ -3562,7 +3562,7 @@ class material(unittest.TestCase):
             name1 = self.driver.find_id_text('tag_name')
             assert name1 in name,'素材预览界面点击的标签与标签详情界面的标签校验不一致'
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         time.sleep(2)
 
@@ -3570,11 +3570,11 @@ class material(unittest.TestCase):
     def test_p_source_detail_exit(self):
         try:
             self.driver.find_id('tag_name')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         except:
             pass
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         self.driver.wait_id('iv_source')
         time.sleep(2)
 
@@ -3585,32 +3585,19 @@ class material(unittest.TestCase):
         time.sleep(2)
         self.driver.wait_id('tv_upload')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
 class person(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         warnings.simplefilter('ignore', ResourceWarning)
-        # self.driver = BaseOperate()
-        # self.x = self.driver.touch_X()
-        # self.y = self.driver.touch_Y()
-        # self.id = resource_id
-        # self.d = dub()
-        # self.home_enter = home_function()
-        # self.l = live()
-        # self.f = follow()
-        # self.m = material()
-        # self.p = person()
-        # self.v = video_detail()
-        # self.c = circle()
-        # self.s = society()
         self.driver = BaseOperate()
         self.loc = location()
-        self.y = self.driver.touch_Y()
-        self.x = self.driver.touch_X()
+        self.x = touche_X()
+        self.y = touche_Y()
 
     @classmethod
     def tearDownClass(self):
@@ -3619,22 +3606,22 @@ class person(unittest.TestCase):
 
     # 退出当前界面
     def bcak(self):
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 首页进入“我的”界面
     def test_a_person_my(self):
-        self.driver.wait_id('ivminetab')
-        self.driver.find_id_click('ivminetab')
+        self.driver.wait_id('ivMineTab')
+        self.driver.find_id_click('ivMineTab')
         self.driver.wait_id('username')
-        time.sleep(2)
-        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 我的界面点击头像进入个人空间
     def test_b_person_into_my_zoom(self):
         self.driver.find_id_click('userhead')
         self.driver.wait_id('followcount')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 我的界面点击关注进入关注列表
@@ -3650,7 +3637,7 @@ class person(unittest.TestCase):
             follow_count1 = self.driver.find_ids('username')
             assert int(len(follow_count1)) == int(follow_count)
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 我的界面点击粉丝进入粉丝列表
@@ -3660,14 +3647,12 @@ class person(unittest.TestCase):
         self.driver.find_id_click('fans_count')
         self.driver.wait_id('vip_tag')
         time.sleep(2)
-        if int(fan_count) > 8:
-            pass
-        else:
+        if int(fan_count) < 8:
             fan_count1 = self.driver.find_ids('username')
             assert int(len(fan_count1)) == int(fan_count)
             time.sleep(2)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 用户id
@@ -3683,19 +3668,19 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('photo')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword',search_title)
+        self.driver.find_id_send('txtKeyword',search_title)
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
-        self.driver.wait_id_click('filmbg')
+        self.driver.find_id_click('btnSearch')
+        self.driver.wait_id_click('filmBg')
         self.driver.wait_id('userhead')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(4)
         self.driver.find_id_click('photo')
-        self.driver.wait_id('txtkeyword')
+        self.driver.wait_id('txtKeyword')
         try:
             self.driver.find_id('clear')
             self.driver.find_id_click('clear')
@@ -3710,15 +3695,15 @@ class person(unittest.TestCase):
         time.sleep(2)
 
         # 个人空间搜索——作品搜索无结果显示
-        self.driver.find_id_send('txtkeyword','配音秀')
+        self.driver.find_id_send('txtKeyword','配音秀')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         try:
-            self.driver.wait_xpath('ll_nosearchresult')
+            self.driver.wait_xpath('ll_noSearchResult')
         except:
             print('作品搜索无结果时未显示任何提示信息')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 个人空间—搜索-搜索个人素材
@@ -3731,9 +3716,9 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('ll_source')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword','配音秀')
+        self.driver.find_id_send('txtKeyword','配音秀')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         try:
             self.driver.wait_xpath('没有搜到任何内容')
         except:
@@ -3741,9 +3726,9 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('ll_source')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword',search_title)
+        self.driver.find_id_send('txtKeyword',search_title)
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         time.sleep(4)
         try:
             self.driver.find_id('iv_source')
@@ -3752,11 +3737,11 @@ class person(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('tv_source_title')
             self.driver.wait_id('userhead')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             pass
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 编辑资料
@@ -3910,7 +3895,7 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_clear('et_nickname')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('android:id/button1')
         time.sleep(2)
@@ -3920,27 +3905,27 @@ class person(unittest.TestCase):
         self.driver.find_id_click('userhead')
         time.sleep(2)
         self.loc.three_from_last()
-        self.driver.wait_id('txttitle')
+        self.driver.wait_id('txtTitle')
         count = self.driver.find_ids('img')
         for i in range(len(count) - 1, -1, -1):
             self.driver.find_ids_click('img',i)
             time.sleep(1)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         try:
-            self.driver.find_id('txtcontent')
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id('txtContent')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
             try:
                 self.driver.find_id('renew')
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
             except:
                 pass
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('btncancel')
+            self.driver.find_id_click('btnCancel')
             time.sleep(2)
         except:
             pass
@@ -3950,14 +3935,14 @@ class person(unittest.TestCase):
         self.driver.find_id_click('userhead')
         time.sleep(2)
         self.loc.two_from_last()
-        self.driver.wait_id('txttitle')
+        self.driver.wait_id('txtTitle')
         time.sleep(2)
         count = self.driver.find_ids('img')
         for i in range(len(count) - 1, -1, -1):
             self.driver.find_ids_click('img',i)
             time.sleep(2)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 用户演绎等级
@@ -3969,23 +3954,23 @@ class person(unittest.TestCase):
         try:
             self.driver.find_id('renew')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.find_id_click('guize1')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
 
     # 身份认证
     def test_s_person_zoom_authentication(self):
         self.driver.find_id_click('vip_description')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 粉丝列表
@@ -3998,21 +3983,21 @@ class person(unittest.TestCase):
         try:
             self.driver.find_id('renew')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         except:
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_fan')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('status_icon')
         time.sleep(3)
         self.driver.find_id_click('status_icon')
         time.sleep(3)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
 
     # 关注列表
     def test_u_person_zoom_follows(self):
@@ -4021,13 +4006,13 @@ class person(unittest.TestCase):
         self.driver.find_id_click('username')
         self.driver.wait_id('ll_fan')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('status_icon')
         time.sleep(3)
         self.driver.find_id_click('status_icon')
         time.sleep(3)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
 
     # 社团列表
     def test_v_person_zoom_societies(self):
@@ -4039,10 +4024,10 @@ class person(unittest.TestCase):
         self.driver.find_id_click('user_image')
         self.driver.wait_id('ll_fan')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         time.sleep(3)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
 
     # 作品上榜列表
     def test_w_person_zoom_crunchies_list(self):
@@ -4060,9 +4045,9 @@ class person(unittest.TestCase):
         except:
             self.driver.find_id_click('img_url')
             self.driver.wait_id('userhead')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
@@ -4073,7 +4058,7 @@ class person(unittest.TestCase):
             self.driver.swip_up()
             time.sleep(2)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_follow')
@@ -4095,7 +4080,7 @@ class person(unittest.TestCase):
 
     # 置顶作品
     def test_z_person_zoom_work_top(self):
-        self.driver.long_touche('filmbg1', 3000)
+        self.driver.long_touche('filmBg1', 3000)
         time.sleep(2)
         self.loc.three_from_last()
         time.sleep(4)
@@ -4104,21 +4089,21 @@ class person(unittest.TestCase):
         except:
             self.loc.one_from_last()
             time.sleep(2)
-            self.driver.find_id_click('filmbg1')
+            self.driver.find_id_click('filmBg1')
             self.driver.wait_id('tv_video_detail_title')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
             self.driver.find_id_click('setting')
             time.sleep(2)
             self.loc.four_from_last()
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(3)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.swip_down()
             time.sleep(4)
-            self.driver.long_touche('filmbg1', 3000)
+            self.driver.long_touche('filmBg1', 3000)
             time.sleep(2)
             self.loc.three_from_last()
             time.sleep(4)
@@ -4130,11 +4115,11 @@ class person(unittest.TestCase):
 
     # 作品列表界面长按删除作品
     def test_z_a_person_zoom_work_delete(self):
-        self.driver.long_touche('filmbg1', 3000)
+        self.driver.long_touche('filmBg1', 3000)
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(4)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(4)
 
     # 个人空间-求合作
@@ -4150,7 +4135,7 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         for i in range(5):
             self.driver.swip_up()
@@ -4159,7 +4144,7 @@ class person(unittest.TestCase):
 
     # 求合作-邀请好友
     def test_z_c_person_zoom_coor_invite(self):
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('invitation_count')
         self.driver.wait_id('item_sh_cooperate_article_image')
@@ -4181,7 +4166,7 @@ class person(unittest.TestCase):
             elif toast == not_accept_check:
                 self.driver.find_id_click('cancel')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
         except:
             print('发送邀请后未检测到toast提示')
         time.sleep(2)
@@ -4200,7 +4185,7 @@ class person(unittest.TestCase):
             try:
                 self.driver.find_id_click('renew')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
                 self.driver.back()
                 time.sleep(2)
@@ -4214,7 +4199,7 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         try:
             toast = self.driver.wait_toast('//android.widget.toast')
             check = '删除'
@@ -4225,57 +4210,57 @@ class person(unittest.TestCase):
 
     # 素材-视频预览
     def test_z_f_person_zoom_source_preview(self):
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id_click('source_text')
-        self.driver.wait_id_click('imgsource')
+        self.driver.wait_id_click('imgSource')
         self.driver.wait_id('right_icon1')
         time.sleep(10)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 素材配音
     def test_z_g_person_zoom_source_dubbing(self):
-        self.driver.find_id_click('imgsource')
+        self.driver.find_id_click('imgSource')
         self.driver.wait_id('right_icon1')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         try:
             self.driver.find_id('yinpin')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('imgtip')
+            self.driver.find_id_click('imgTip')
             while true:
                 try:
                     self.driver.find_id('roleall')
                     break
                 except:
-                    self.driver.find_id('btnsubmit')
+                    self.driver.find_id('btnSubmit')
                     time.sleep(1)
-                    self.driver.find_id_click('btnsubmit')
+                    self.driver.find_id_click('btnSubmit')
                     break
             self.driver.wait_id_click('roleall')
             time.sleep(2)
             self.driver.find_id_click('back')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('imgtip')
+            self.driver.find_id_click('imgTip')
             while true:
                 try:
                     self.driver.find_id('action')
                     break
                 except:
                     try:
-                        self.driver.find_id('btnsubmit')
+                        self.driver.find_id('btnSubmit')
                         time.sleep(1)
-                        self.driver.find_id_click('btnsubmit')
+                        self.driver.find_id_click('btnSubmit')
                         break
                     except:
                         pass
@@ -4283,7 +4268,7 @@ class person(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('back')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
         time.sleep(2)
 
@@ -4291,17 +4276,17 @@ class person(unittest.TestCase):
     def test_z_h_person_zoom_goods_record(self):
         self.driver.find_id_click('more_text')
         time.sleep(2)
-        self.driver.wait_id('filmbg')
+        self.driver.wait_id('filmBg')
         time.sleep(2)
         num = self.driver.find_id_text('look')
         if num == '0':
-            self.driver.long_touche('filmbg', 3000)
+            self.driver.long_touche('filmBg', 3000)
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
-        self.driver.find_id_click('filmbg')
+        self.driver.find_id_click('filmBg')
         self.driver.wait_id('tv_video_detail_title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('tv_good')
         good1 = self.driver.find_id_text('tv_good')
@@ -4311,7 +4296,7 @@ class person(unittest.TestCase):
         if good1 != good2:
             print(good1,good2)
         time.sleep(3)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 更多-转发
@@ -4319,29 +4304,29 @@ class person(unittest.TestCase):
         self.driver.find_id_click('film_all_count')
         time.sleep(2)
         self.driver.find_xpath('转发').click()
-        self.driver.wait_id('filmbg')
+        self.driver.wait_id('filmBg')
         name = self.driver.find_id_text('username')
-        self.driver.find_id_click('filmbg')
+        self.driver.find_id_click('filmBg')
         try:
             tip = self.driver.wait_toast('//android.widget.toast')
             check = '不存在'
             assert check in tip, '转发作品点击进入失败，提示信息错误'
         except:
             self.driver.wait_id('tv_video_detail_title')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
             detail_name = self.driver.find_id_text('user_name')
             assert name == detail_name,'转发列表界面用户名与视频详情界面用户名不一致'
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         # 作品转发列表——删除作品
         title = self.driver.find_id_text('title')
         count = self.driver.find_id_text('film_all_count')
-        self.driver.long_touche('filmbg', 3000)
+        self.driver.long_touche('filmBg', 3000)
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         try:
             self.driver.find_xpath(title)
@@ -4366,8 +4351,8 @@ class person(unittest.TestCase):
         self.driver.find_id_click('back')
         time.sleep(2)
         self.driver.find_id_click('comment')
-        self.driver.wait_id('editcontent')
-        self.driver.find_id_click('btnback')
+        self.driver.wait_id('editContent')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 帖子-转发私信-删除
@@ -4380,13 +4365,13 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('name')
         time.sleep(4)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('action')
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         try:
             toast = self.driver.wait_toast('//android.widget.toast')
             check = '成功'
@@ -4394,7 +4379,7 @@ class person(unittest.TestCase):
         except:
             print('帖子删除未检测到toast提示')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('username')
         self.driver.wait_id('film_all_count')
@@ -4411,7 +4396,7 @@ class person(unittest.TestCase):
 
     # 创建合辑
     def test_z_m_person_zoom_create_compilation(self):
-        self.driver.find_id_click('btnright')
+        self.driver.find_id_click('btnRight')
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
@@ -4432,9 +4417,9 @@ class person(unittest.TestCase):
             except:
                 pass
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
 
     # 合辑删除
@@ -4444,12 +4429,12 @@ class person(unittest.TestCase):
         self.driver.find_id_click('film_all_count')
         time.sleep(2)
         self.driver.find_xpath('合辑')
-        self.driver.wait_id('filmbg')
-        self.driver.long_touche('filmbg', 3000)
+        self.driver.wait_id('filmBg')
+        self.driver.long_touche('filmBg', 3000)
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         try:
             toast = self.driver.wait_toast('//android.widget.toast')
             check = '成功'
@@ -4460,7 +4445,7 @@ class person(unittest.TestCase):
 
     # 退出个人空间
     def test_z_o_person_zoom_quit(self):
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 我的界面vip入口
@@ -4469,7 +4454,7 @@ class person(unittest.TestCase):
         try:
             self.driver.find_id('right_huiyuan')
             self.driver.wait_id('renew')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         except:
             pass
         time.sleep(2)
@@ -4512,15 +4497,15 @@ class person(unittest.TestCase):
         self.driver.wait_id_click('user_head')
         self.driver.wait_id('ll_follow')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('send')
         time.sleep(2)
         self.driver.wait_id('renew')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 会员特权
@@ -4548,7 +4533,7 @@ class person(unittest.TestCase):
                                 '作品编辑', '云端存储', '语聊麦位', '专属挂件', '空间装扮']
         assert sorted(privileges_list) == sorted(privileges_check_list)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #cp邀请
@@ -4561,30 +4546,30 @@ class person(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_send('filter_edit','1247792')
             time.sleep(2)
-            self.driver.find_id_click('btnsearch')
+            self.driver.find_id_click('btnSearch')
             time.sleep(2)
             self.driver.wait_xpath('逍遥剑仙')
             time.sleep(2)
             self.driver.find_id_click('userhead')
             self.driver.wait_id('right_icon1')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         except:
             self.driver.find_id_click('cancel_invite')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             self.driver.wait_id_click('invite')
             time.sleep(2)
             self.driver.find_id_send('filter_edit','1247792')
             time.sleep(2)
-            self.driver.find_id_click('btnsearch')
+            self.driver.find_id_click('btnSearch')
             time.sleep(2)
             self.driver.wait_xpath('逍遥剑仙')
             time.sleep(2)
             self.driver.find_id_click('userhead')
             self.driver.wait_id('right_icon1')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #cp空间
@@ -4602,7 +4587,7 @@ class person(unittest.TestCase):
         self.driver.wait_id_click('userhead')
         self.driver.wait_id('ll_follow')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         try:
             self.driver.find_id('agree')
@@ -4612,9 +4597,9 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('more')
         time.sleep(2)
-        self.driver.find_id_click('btncancel')
+        self.driver.find_id_click('btnCancel')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 点赞消息
@@ -4624,7 +4609,7 @@ class person(unittest.TestCase):
             self.driver.find_id_click('gift')
             self.driver.wait_id('userhead')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             try:
                 self.driver.find_id('gift_point')
@@ -4639,7 +4624,7 @@ class person(unittest.TestCase):
         self.driver.wait_id_click('userhead')
         self.driver.wait_id('ll_follow')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('content')
         try:
@@ -4648,7 +4633,7 @@ class person(unittest.TestCase):
         except:
             self.driver.wait_id('tv_video_detail_title')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         time.sleep(2)
 
@@ -4656,19 +4641,19 @@ class person(unittest.TestCase):
         self.driver.find_id_click('guanzhu')
         self.driver.wait_id('tv_video_detail_title')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 合作消息
     def test_z_z_person_coor_notices(self):
         try:
             self.driver.find_id_click('cooper_count')
-            self.driver.find_id_click('textview15')
+            self.driver.find_id_click('textView15')
             self.driver.wait_id('userhead')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             try:
                 self.driver.find_id('cooper_count')
@@ -4678,13 +4663,13 @@ class person(unittest.TestCase):
         except:
             pass
         time.sleep(2)
-        self.driver.find_id_click('textview15')
+        self.driver.find_id_click('textView15')
         self.driver.wait_id('more')
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_follow')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 合作配音
@@ -4695,7 +4680,7 @@ class person(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('back')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
             self.driver.find_id_click('play')
             time.sleep(3)
@@ -4789,9 +4774,9 @@ class person(unittest.TestCase):
             assert check in toast,'视频详情界面进入失败'
         except:
             self.driver.wait_id('tv_video_detail_title')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
 
     # 合作消息设置
@@ -4803,23 +4788,23 @@ class person(unittest.TestCase):
         # print(count)
         # self.id = re.findall(r'resource-id="com.happyteam.dubbingshow:id/(.*?)"',count)
         # print(self.id)
-        el_list = ['acceptall','acceptfirends','acceptnone','clearallinviter','btncancel']
+        el_list = ['acceptAll','acceptFirends','acceptNone','clearAllInviter','btnCancel']
         for i in el_list:
             self.driver.find_id_click(i)
             time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 评论消息-跳转个人空间
     def test_z_z_f_person_comment_notices(self):
         try:
             self.driver.find_id('comment_count')
-            self.driver.find_id_click('textview16')
+            self.driver.find_id_click('textView16')
             self.driver.wait_id('reply')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             try:
                 self.driver.find_id('comment_count')
@@ -4829,10 +4814,10 @@ class person(unittest.TestCase):
         except:
             pass
         time.sleep(2)
-        self.driver.find_id_click('textview16')
+        self.driver.find_id_click('textView16')
         self.driver.wait_id('reply')
         time.sleep(2)
-        name = self.driver.find_id_text('textview')
+        name = self.driver.find_id_text('textView')
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_follow')
@@ -4840,7 +4825,7 @@ class person(unittest.TestCase):
         zoom_name = self.driver.find_id_text('username')
         assert name == zoom_name
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 评论消息-关注
@@ -4848,7 +4833,7 @@ class person(unittest.TestCase):
         self.driver.find_id_click('guanzhu')
         time.sleep(2)
         try:
-            self.driver.find_id_click('editcontent')
+            self.driver.find_id_click('editContent')
             time.sleep(2)
             self.driver.find_id_click('right_icon1')
             time.sleep(2)
@@ -4857,9 +4842,9 @@ class person(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('follow_status')
             time.sleep(3)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.swip_down()
         except:
@@ -4872,9 +4857,9 @@ class person(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('follow_status')
             time.sleep(3)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.swip_down()
         time.sleep(2)
@@ -4890,9 +4875,9 @@ class person(unittest.TestCase):
             assert check in toast
         except:
             self.driver.wait_id('tv_video_detail_title')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         time.sleep(2)
 
@@ -4900,12 +4885,12 @@ class person(unittest.TestCase):
     def test_z_z_i_person_comment_reply(self):
         self.driver.find_id_click('reply_btn')
         time.sleep(2)
-        self.driver.find_id_send('editcontent','哈哈哈')
+        self.driver.find_id_send('editContent','哈哈哈')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         self.driver.wait_toast('//android.widget.toast')
         try:
-            self.driver.find_id_click('editcontent')
+            self.driver.find_id_click('editContent')
             self.driver.back()
         except:
             pass
@@ -4919,9 +4904,9 @@ class person(unittest.TestCase):
             check = '删除'
             assert check == toast, '帖子跳转失败'
         except:
-            self.driver.wait_id('editcontent')
+            self.driver.wait_id('editContent')
             time.sleep(2)
-            self.driver.find_id_send('editcontent','hhh')
+            self.driver.find_id_send('editContent','hhh')
             time.sleep(2)
             self.driver.find_id_click('btn_send')
             try:
@@ -4931,9 +4916,9 @@ class person(unittest.TestCase):
             except:
                 pass
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
 
     # 聊天消息
@@ -4945,16 +4930,16 @@ class person(unittest.TestCase):
             time.sleep(2)
             while true:
                 try:
-                    self.driver.find_id('txtcount')
-                    self.driver.find_id_click('txtcount')
-                    self.driver.wait_id('editcontent')
+                    self.driver.find_id('txtCount')
+                    self.driver.find_id_click('txtCount')
+                    self.driver.wait_id('editContent')
                     time.sleep(2)
-                    self.driver.find_id_click('btnback')
+                    self.driver.find_id_click('btnBack')
                     time.sleep(2)
                 except:
                     break
                 time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             try:
                 self.driver.find_id('chat_count')
@@ -4975,9 +4960,9 @@ class person(unittest.TestCase):
             count = self.driver.find_ids('userhead')
             for i in range(len(count)):
                 self.driver.find_ids_click('userhead',i)
-                self.driver.wait_id('editcontent')
+                self.driver.wait_id('editContent')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
         except:
             pass
@@ -4991,13 +4976,13 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_send('filter_edit','1247792')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         self.driver.wait_xpath('逍遥剑仙')
         self.driver.find_id_click('name')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_xpath('逍遥剑仙').click()
         time.sleep(2)
@@ -5011,7 +4996,7 @@ class person(unittest.TestCase):
         time.sleep(2)
 
         # 发送文字
-        self.driver.find_id_send('editcontent','功能测试')
+        self.driver.find_id_send('editContent','功能测试')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         time.sleep(2)
@@ -5111,9 +5096,9 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('film')
         time.sleep(4)
-        self.driver.find_id_click('filmbg')
+        self.driver.find_id_click('filmBg')
         time.sleep(3)
-        self.driver.find_id_click('btnselect')
+        self.driver.find_id_click('btnSelect')
         self.driver.wait_id('chat_film_title')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
@@ -5132,7 +5117,7 @@ class person(unittest.TestCase):
         time.sleep(3)
         self.driver.find_id_click('generate_red_packet')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_id_click('red_packet')
         time.sleep(2)
         self.driver.find_id_click('open_red_packet_btn')
@@ -5157,7 +5142,7 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.wait_id('ll_fan')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
@@ -5174,9 +5159,9 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
-        self.driver.find_id_clear('txtkeyword')
+        self.driver.find_id_clear('txtKeyword')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword','功能测试，可忽略此举报信息')
+        self.driver.find_id_send('txtKeyword','功能测试，可忽略此举报信息')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         try:
@@ -5190,8 +5175,8 @@ class person(unittest.TestCase):
     # 私信聊天界面-进入对方空间
     def test_z_z_o_person_chat_user_zoom(self):
         try:
-            self.driver.find_id('txtkeyword')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id('txtKeyword')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             pass
@@ -5201,19 +5186,19 @@ class person(unittest.TestCase):
         self.loc.two_from_last()
         self.driver.wait_id('ll_fan')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 私信列表界面长按删除
     def test_z_z_p_person_chat_list_delete(self):
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        el = 'textview'
+        el = 'textView'
         self.driver.long_touche(el, 3000)
         time.sleep(2)
         self.driver.find_id_click('delete')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         try:
             self.driver.find_xpath('逍遥剑仙')
@@ -5235,19 +5220,19 @@ class person(unittest.TestCase):
             except:
                 print('私信未关注界面，私信详情界面未显示谨防诈骗信息')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             el = 'userhead'
             self.driver.long_touche(el, 3000)
             time.sleep(2)
             self.driver.find_id_click('delete')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
         except:
             pass
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 草稿箱-会员同步
@@ -5259,7 +5244,7 @@ class person(unittest.TestCase):
         try:
             self.driver.find_id('renew')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             self.driver.wait_load('同步')
@@ -5285,11 +5270,11 @@ class person(unittest.TestCase):
 
     # 草稿箱-草稿箱作品视频预览
     def test_z_z_t_person_draft_video_preview(self):
-        self.driver.find_id_click('imgsource')
+        self.driver.find_id_click('imgSource')
         time.sleep(10)
         try:
-            self.driver.find_id('imgsource')
-            self.driver.find_id_click('imgsource')
+            self.driver.find_id('imgSource')
+            self.driver.find_id_click('imgSource')
         except:
             pass
         self.driver.wait_download('video_play_btn')
@@ -5315,16 +5300,16 @@ class person(unittest.TestCase):
 
     # 草稿箱作品重配
     def test_z_z_v_person_draft_reassignment(self):
-        count = self.driver.find_ids('imgsource')
+        count = self.driver.find_ids('imgSource')
         for i in range(len(count)):
             self.driver.find_ids_click('upload',i)
             time.sleep(2)
             try:
-                self.driver.find_id('redubbing')
-                self.driver.find_id_click('redubbing')
+                self.driver.find_id('reDubbing')
+                self.driver.find_id_click('reDubbing')
                 break
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
             time.sleep(2)
         time.sleep(2)
         while true:
@@ -5334,8 +5319,8 @@ class person(unittest.TestCase):
                 break
             except:
                 try:
-                    self.driver.find_id('btnsubmit')
-                    self.driver.find_id_click('btnsubmit')
+                    self.driver.find_id('btnSubmit')
+                    self.driver.find_id_click('btnSubmit')
                     try:
                         self.driver.find_id('roleall')
                         self.driver.find_id_click('roleall')
@@ -5348,16 +5333,16 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.wait_id_click('action')
         self.driver.wait_download('title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('complete')
-        self.driver.wait_id('txttitle')
+        self.driver.wait_id('txtTitle')
         time.sleep(2)
         self.driver.find_id_click('pri_switch_tv')
         time.sleep(2)
-        self.driver.find_id_click('savetodraft')
+        self.driver.find_id_click('saveToDraft')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         self.driver.wait_xpath('退出配音')
         self.driver.find_xpath('退出配音').click()
@@ -5386,8 +5371,8 @@ class person(unittest.TestCase):
                     break
                 except:
                     try:
-                        self.driver.find_id('btnsubmit')
-                        self.driver.find_id_click('btnsubmit')
+                        self.driver.find_id('btnSubmit')
+                        self.driver.find_id_click('btnSubmit')
                         try:
                             self.driver.find_id('roleall')
                             self.driver.find_id_click('roleall')
@@ -5402,7 +5387,7 @@ class person(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('back')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
 
     # 已配素材列表界面删除已配素材
@@ -5410,7 +5395,7 @@ class person(unittest.TestCase):
         source = 'iv_source'
         self.driver.long_touche(source, 3000)
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         try:
             toast = self.driver.wait_toast('//android.widget.toast')
             check = '删除成功'
@@ -5428,7 +5413,7 @@ class person(unittest.TestCase):
         el = 'tv_source_title'
         self.driver.long_touche(el, 3000)
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         try:
             self.driver.wait_toast('//android.widget.toast')
         except:
@@ -5449,9 +5434,9 @@ class person(unittest.TestCase):
         time.sleep(2)
         delete = self.driver.find_id_text('tv_source_title')
         time.sleep(2)
-        self.driver.find_id_click('todelete')
+        self.driver.find_id_click('toDelete')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_toast('//android.widget.toast')
         delete_after = self.driver.find_id_text('tv_source_title')
         assert delete != delete_after, '批量删除未成功删除'
@@ -5466,7 +5451,7 @@ class person(unittest.TestCase):
         time.sleep(2)
         try:
             self.driver.find_xpath('您还没有收藏任何素材哦~')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.find_id_click('btn_more')
             self.driver.wait_id('iv_source')
@@ -5477,15 +5462,15 @@ class person(unittest.TestCase):
             for i in range(len(count)):
                 self.driver.find_ids_click('iv_source',i)
                 self.driver.wait_id('btn_video_detail_follow')
-                self.driver.background()
+                self.driver.Background()
                 time.sleep(2)
                 self.driver.find_id_click('shouchang_tv_fake')
                 self.driver.wait_toast('//android.widget.toast')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
             time.sleep(2)
-            self.driver.find_id_click('ivminetab')
+            self.driver.find_id_click('ivMineTab')
             time.sleep(2)
             self.driver.find_id_click('collect')
             self.driver.wait_id('iv_source')
@@ -5503,7 +5488,7 @@ class person(unittest.TestCase):
             assert check in toast, '进入素材详情失败'
         except:
             self.driver.wait_id('userhead')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
             cancel_before = self.driver.find_id_text('source_title')
             self.driver.find_id_click('shouchang_tv_fake')
@@ -5511,10 +5496,10 @@ class person(unittest.TestCase):
                 toast = self.driver.wait_toast('//android.widget.toast')
                 check = '取消收藏成功'
                 assert check in toast, '素材取消收藏失败'
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
             except:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 print("未检测到取消收藏的toast提示")
             time.sleep(2)
             self.driver.swip_down()
@@ -5538,15 +5523,15 @@ class person(unittest.TestCase):
         self.driver.find_id_click('upload_source')
         time.sleep(2)
         self.driver.find_id_click('middle')
-        self.driver.wait_id('btnclose')
+        self.driver.wait_id('btnClose')
         time.sleep(2)
         try:
             self.driver.find_id('titlebar')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             print('未加载出素材收录标准文案')
         time.sleep(2)
 
@@ -5564,7 +5549,7 @@ class person(unittest.TestCase):
     def test_z_z_z_f_person_self_control_video_clip(self):
         self.driver.find_id_click('play_button')
         time.sleep(5)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.wait_id('play_button')
         time.sleep(2)
@@ -5633,7 +5618,7 @@ class person(unittest.TestCase):
         # time.sleep(2)
         self.driver.find_id_click('tv_delete_zimu')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
 
         # 裁剪视频预览
@@ -5651,15 +5636,15 @@ class person(unittest.TestCase):
         time.sleep(2)
 
         # 退出素材制作再进
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
         self.driver.find_id_click('ll_upload')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
 
         # 进入上传素材界面
@@ -5669,7 +5654,7 @@ class person(unittest.TestCase):
         # 素材上传封面中添加文字
         self.driver.find_id_click('add_text')
         time.sleep(2)
-        self.driver.find_id_send('editcontent','素材封面图')
+        self.driver.find_id_send('editContent','素材封面图')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         time.sleep(2)
@@ -5685,7 +5670,7 @@ class person(unittest.TestCase):
         time.sleep(2)
 
         # 添加素材音乐
-        self.driver.find_id_click('addmusic')
+        self.driver.find_id_click('addMusic')
         self.driver.wait_id_click('title')
         time.sleep(2)
         self.driver.find_id_click('local_music')
@@ -5698,7 +5683,7 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.back()
         time.sleep(2)
-        self.driver.find_id_click('btndownload')
+        self.driver.find_id_click('btnDownload')
         self.driver.wait_id_click('tv_use')
         time.sleep(2)
         self.driver.find_id_click('complete')
@@ -5730,7 +5715,7 @@ class person(unittest.TestCase):
         self.driver.find_id_click('iv_source')
         self.driver.wait_id('userhead')
         time.sleep(2)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         try:
             self.driver.find_id('video_play_btn')
@@ -5745,7 +5730,7 @@ class person(unittest.TestCase):
         self.driver.find_id_click('iv_source')
         self.driver.wait_id('userhead')
         time.sleep(2)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
         #素材信息编辑
@@ -5770,7 +5755,7 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(4)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(4)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
@@ -5784,8 +5769,8 @@ class person(unittest.TestCase):
         time.sleep(2)
 
         # 个人中心-我的账单
-        self.driver.find_id_click('tobill')
-        self.driver.wait_id_click('btnclose')
+        self.driver.find_id_click('toBill')
+        self.driver.wait_id_click('btnClose')
         time.sleep(2)
 
         # 点击购买钻石
@@ -5814,13 +5799,13 @@ class person(unittest.TestCase):
 
         # 常见问题
         self.driver.find_id_click('tv_right')
-        self.driver.wait_id('btnclose')
+        self.driver.wait_id('btnClose')
         time.sleep(2)
         # ids = self.driver.search_id()
         # print(ids)
         # list = re.findall('content-desc="(.*?)"', ids)
         # print(list)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         # 绑定支付宝
@@ -5836,25 +5821,25 @@ class person(unittest.TestCase):
         except:
             print('未检测到验证码发送toast提示')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         try:
             self.driver.find_id('userhead')
             self.driver.find_id_click('userhead')
             self.driver.wait_id('ll_fan')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             pass
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 我的成就
     def test_z_z_z_j_person_my_achievements(self):
         self.driver.find_id_click('achievement')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 邀请好友
@@ -5865,9 +5850,9 @@ class person(unittest.TestCase):
         # 规则
         self.driver.find_id_click('tv_right')
         time.sleep(2)
-        self.driver.wait_id('btnclose')
+        self.driver.wait_id('btnClose')
         time.sleep(2)
-        self.driver.find_id_click('btnclose')
+        self.driver.find_id_click('btnClose')
         time.sleep(2)
 
         # 邀请好友
@@ -5917,27 +5902,27 @@ class person(unittest.TestCase):
             except:
                 pass
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 积分商城
     def test_z_z_z_l_person_points_mall(self):
         self.driver.find_id_click('exchange')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 夜间模式
     def test_z_z_z_m_person_mode_switch(self):
-        self.driver.find_id_click('tvchange')
+        self.driver.find_id_click('tvChange')
         time.sleep(5)
         self.driver.swip_up()
         time.sleep(2)
-        self.driver.find_id_click('tvchange')
+        self.driver.find_id_click('tvChange')
         time.sleep(5)
 
 class video_detail(unittest.TestCase):
@@ -5980,9 +5965,9 @@ class video_detail(unittest.TestCase):
             self.driver.wait_toast('//android.widget.Toast')
         except:
             try:
-                self.driver.find_id_click('right_icon1')
+                self.driver.find_id('right_icon1')
                 time.sleep(2)
-                self.btnback()
+                self.btnBack()
             except:
                 pass
         time.sleep(2)
@@ -5990,29 +5975,27 @@ class video_detail(unittest.TestCase):
     # 视频-弹幕开关
     def test_d_video_danmu(self):
         try:
-            self.driver.find_id('play')
+            self.driver.find_id('media_danmu_img')
+            self.driver.find_id_click('media_danmu_img')
+            time.sleep(2)
+            self.driver.find_id_click('video_play_btn')
+            time.sleep(20)
+            self.driver.Background()
+            self.driver.wait_id('video_play_btn')
+            time.sleep(2)
         except:
             pass
-        self.driver.find_id_click('media_danmu_img')
-        time.sleep(2)
-        self.driver.find_id_click('play')
-        time.sleep(20)
-        self.driver.background()
-        self.driver.wait_id('play')
-        time.sleep(2)
 
     # 全屏播放
     def test_e_video_fullscreen(self):
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('iv_fullscreen_open')
         time.sleep(2)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.back
-        time.sleep(2)
-        self.driver.background
-        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        self.test_a_into_video()
 
     # 点赞
     def test_f_video_good(self):
@@ -6037,7 +6020,7 @@ class video_detail(unittest.TestCase):
     def test_g_video_exposure_touch(self):
         tv_title = self.driver.find_id_text('tv_video_detail_title')
         self.driver.find_id_click('tv_exposure')
-        self.driver.wait_id('txttitle')
+        self.driver.wait_id('txtTitle')
         time.sleep(2)
         tv_title1 = self.driver.find_id_text('tv_source_title')
         try:
@@ -6054,9 +6037,9 @@ class video_detail(unittest.TestCase):
         self.driver.find_id_click('tab1')
         time.sleep(2)
         self.driver.find_id_click('tv_right')
-        self.driver.wait_id('btnclose')
-        self.btnback()
-        self.btnback()
+        self.driver.wait_id('btnClose')
+        self.btnBack()
+        self.btnBack()
 
 
         #评论推荐人简介预览
@@ -6083,12 +6066,12 @@ class video_detail(unittest.TestCase):
 
         #曝光服务协议
         self.driver.find_id_click('tv_xieyi')
-        self.driver.wait_id_click('btnclose')
+        self.driver.wait_id_click('btnClose')
         time.sleep(2)
 
         #作品曝光要求
         self.driver.find_id_click('tv_yaoqiu')
-        self.driver.wait_id_click('btnclose')
+        self.driver.wait_id_click('btnClose')
         time.sleep(2)
 
         #自定义钻石价格
@@ -6098,7 +6081,7 @@ class video_detail(unittest.TestCase):
         time.sleep(1)
         self.driver.find_id_click('sure')
         time.sleep(2)
-        self.btnback()
+        self.btnBack()
 
     # 金币曝光
     def test_h_video_exposure_gold(self):
@@ -6115,8 +6098,8 @@ class video_detail(unittest.TestCase):
             check = '金币余额不足'
             if check not in gold_toast:
                 print('金币曝光余额不足toast提示校验失败')
-        self.driver.wait_id('btnback')
-        self.btnback()
+        self.driver.wait_id('btnBack')
+        self.btnBack()
 
     # 会员曝光
     def test_i_video_exposure_freevip(self):
@@ -6132,10 +6115,10 @@ class video_detail(unittest.TestCase):
         time.sleep(2)
         try:
             self.driver.find_xpath('会员中心')
-            self.btnback()  # 返回曝光界面
+            self.btnBack()  # 返回曝光界面
         except:
             pass
-        self.btnback()#返回视频详情
+        self.btnBack()#返回视频详情
 
     # 自定义钻石曝光
     def test_j_video_exposure_diamond(self):
@@ -6153,7 +6136,7 @@ class video_detail(unittest.TestCase):
         time.sleep(2)
         self.driver.wait_xpath('钻石余额不足')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         self.driver.find_id_click('price_tv')
         time.sleep(2)
@@ -6161,7 +6144,7 @@ class video_detail(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.btnback()
+        self.btnBack()
 
     # 视频评论
     def test_k_video_comments(self):
@@ -6171,17 +6154,17 @@ class video_detail(unittest.TestCase):
                 break
             except:
                 self.driver.swip_up()
-                self.driver.background()
+                self.driver.Background()
             time.sleep(2)
 
     # 发送评论
     def test_l_video_comment_send(self):
         self.driver.find_id_click('comment_count')
         time.sleep(2)
-        self.driver.find_id_send('editcontent','暖一个！')
+        self.driver.find_id_send('editContent','暖一个！')
         time.sleep(2)
         self.driver.find_id_click('btn_send')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         try:
             self.driver.find_id('item_comment_video_more')
@@ -6198,7 +6181,7 @@ class video_detail(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv_action_one')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         try:
             toast = self.driver.wait_toast('//android.widget.toast')
             check_toast = '举报'
@@ -6209,7 +6192,7 @@ class video_detail(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword','举报功能测试')
+        self.driver.find_id_send('txtKeyword','举报功能测试')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         try:
@@ -6235,11 +6218,11 @@ class video_detail(unittest.TestCase):
                 self.driver.find_xpath('配音/合作').click()
                 break
             except:
-                self.btnback()
+                self.btnBack()
                 self.driver.swip_down()
                 time.sleep(2)
                 self.driver.find_id_click('film_img2')
-                self.driver.background()
+                self.driver.Background()
             time.sleep(2)
         time.sleep(2)
         try:
@@ -6257,15 +6240,15 @@ class video_detail(unittest.TestCase):
                     except:
                         #限制素材进入配音界面显示限制弹窗
                         try:
-                            self.driver.find_id('btnsubmit')
-                            self.driver.find_id_click('btnsubmit')
+                            self.driver.find_id('btnSubmit')
+                            self.driver.find_id_click('btnSubmit')
                             break
                         except:
                             pass
             time.sleep(2)
             self.driver.find_id_click('back')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(3)
         except:
             print('未显示合作按钮')
@@ -6277,9 +6260,9 @@ class video_detail(unittest.TestCase):
     def test_p_video_source(self):
         self.driver.find_id_click('tvsource')
         self.driver.wait_id('source_title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.btnback()
+        self.btnBack()
 
     # 作品分享
     def test_q_video_share(self):
@@ -6306,7 +6289,7 @@ class video_detail(unittest.TestCase):
         self.loc.share_sina()
         self.driver.wait_xpath('发送')
         time.sleep(2)
-        self.driver.find_id_third_part('com.sina.weibo:id/titleback')
+        self.driver.find_id_third_part('com.sina.weibo:id/titleBack')
         time.sleep(2)
         try:
             self.driver.find_xpath('不保存')
@@ -6323,7 +6306,7 @@ class video_detail(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_send('filter_edit',"15697802")
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         time.sleep(2)
         try:
             self.driver.wait_id('userhead')
@@ -6333,14 +6316,14 @@ class video_detail(unittest.TestCase):
                 self.driver.find_id_click('name')
                 self.driver.wait_id('right_icon1')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
             else:
                 print("未搜索到指定用户")
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         # 点击下载视频到本地
@@ -6356,10 +6339,10 @@ class video_detail(unittest.TestCase):
             try:
                 self.driver.find_xpath('直接下载')
                 self.driver.find_xpath('直接下载').click()
-                self.driver.wait_id_click('btnsubmit')
+                self.driver.wait_id_click('btnSubmit')
             except:
                 try:
-                    self.driver.wait_id_click('btnsubmit')
+                    self.driver.wait_id_click('btnSubmit')
                 except:
                     pass
 
@@ -6373,9 +6356,9 @@ class video_detail(unittest.TestCase):
             try:
                 self.driver.find_id('tv_action_one')
                 self.driver.find_id_click('tv_action_one')
-                self.driver.wait_id('txtcontent')
+                self.driver.wait_id('txtContent')
                 time.sleep(2)
-                self.driver.find_id_click('btnsubmit')
+                self.driver.find_id_click('btnSubmit')
             except:
                 pass
         time.sleep(2)
@@ -6409,11 +6392,11 @@ class video_detail(unittest.TestCase):
         for i in range(10):
             self.driver.swip_up()
             self.driver.wait_id('userhead')
-            self.driver.background()
+            self.driver.Background()
             time.sleep(2)
             self.driver.swip_left()
             self.driver.wait_id('ll_fan')
-            self.btnback()
+            self.btnBack()
 
     #热门作品标签
     def test_s_video_hot_work(self):
@@ -6423,8 +6406,8 @@ class video_detail(unittest.TestCase):
             if hot_tv in title:
                 self.driver.find_xpath('ch')
                 try:
-                    self.driver.find_id('txttitle')
-                    self.driver.find_id_click('btnback')
+                    self.driver.find_id('txtTitle')
+                    self.driver.find_id_click('btnBack')
                     time.sleep(2)
                 except:
                     try:
@@ -6481,7 +6464,7 @@ class circle(unittest.TestCase):
             except:
                 self.driver.wait_id('userhead')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
         except exception as e:
             print(e)
@@ -6492,7 +6475,7 @@ class circle(unittest.TestCase):
         el = 'title'
         self.driver.long_touche(el, 3000)
         time.sleep(1)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
         try:
             self.driver.find_xpath(delete_before)
@@ -6510,7 +6493,7 @@ class circle(unittest.TestCase):
             try:
                 self.driver.wait_toast('//android.widget.toast')
             except:
-                self.driver.find_id('btnsubmit')
+                self.driver.find_id('btnSubmit')
                 time.sleep(2)
                 try:
                     self.driver.find_id('title')
@@ -6518,7 +6501,7 @@ class circle(unittest.TestCase):
                 except:
                     pass
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 圈子主界面帖子转发
@@ -6531,7 +6514,7 @@ class circle(unittest.TestCase):
         time.sleep(2)
         self.driver.wait_id_click('name')
         self.driver.wait_id('btn_change_input_mode')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #圈子列表界面点击圈子标签
@@ -6549,7 +6532,7 @@ class circle(unittest.TestCase):
     def test_h_circle_comment_detail(self):
         self.driver.find_id_click('comment')
         self.driver.wait_id('guanzhu')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #圈子热门帖子列表界面点赞
@@ -6571,7 +6554,7 @@ class circle(unittest.TestCase):
         self.driver.find_id_click('content')
         self.driver.wait_id('right_icon1')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #圈子热门列表刷新
@@ -6596,7 +6579,7 @@ class circle(unittest.TestCase):
                 break
             except:
                 #界面显示失败时返回上一界面再进
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
             #尝试10次后停止以上操作
             if i == 10:
                 break
@@ -6642,7 +6625,7 @@ class circle(unittest.TestCase):
         time.sleep(1)
         self.driver.find_id_send('et_key_word','测试')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         time.sleep(2)
         self.driver.find_id_click('title')
         self.driver.wait_id('img_subscribe')
@@ -6651,7 +6634,7 @@ class circle(unittest.TestCase):
         assert check in tv_detail_name, '标签名称校验不一致'
         self.driver.find_id_click('back')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #圈子主界面发帖-图文贴
@@ -6679,7 +6662,7 @@ class circle(unittest.TestCase):
     #选择图片
     def test_t_circle_word_topic_select_image(self):
         self.driver.find_id_click('tv_photo')
-        self.driver.wait_id('imgqueue')
+        self.driver.wait_id('imgQueue')
         num = self.driver.find_ids('cb_select_tag')
         for i in range(len(num)):
             self.driver.find_ids_click('cb_select_tag',i)
@@ -6731,7 +6714,7 @@ class circle(unittest.TestCase):
         self.driver.wait_id('tv')
         self.driver.find_id_send('et_key_word','一个人的话题')
         time.sleep(1)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         time.sleep(2)
         self.driver.wait_id_click('title')
         time.sleep(2)
@@ -6742,11 +6725,11 @@ class circle(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_send('filter_edit','16461675')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         time.sleep(2)
         try:
             self.driver.find_id('no_data_msg')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         except:
             self.driver.find_id_click('name')
         time.sleep(2)
@@ -6759,9 +6742,9 @@ class circle(unittest.TestCase):
             self.driver.swip_down()
             time.sleep(2)
             self.driver.find_id_click('content')
-            self.driver.wait_id('editcontent')
+            self.driver.wait_id('editContent')
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             print('帖子发布失败')
         time.sleep(2)
 
@@ -6771,7 +6754,7 @@ class circle(unittest.TestCase):
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         del_toast = self.driver.wait_toast('//android.widget.toast')
         check = '帖子已被删除'
         assert del_toast == check
@@ -6790,17 +6773,17 @@ class circle(unittest.TestCase):
     def test_z_a_circle_voice_topic_record(self):
         self.driver.find_id_click('dubbing')
         time.sleep(10)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
         #试听
         self.driver.find_id_click('review')
         time.sleep(10)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
 
         #重录
-        self.driver.find_id_click('redo')
+        self.driver.find_id_click('reDo')
         time.sleep(2)
         date_check = '00:00'
         el = self.driver.find_id_text('time')
@@ -6809,7 +6792,7 @@ class circle(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('dubbing')
         time.sleep(10)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(4)
 
     #语音帖发布界面
@@ -6821,7 +6804,7 @@ class circle(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('play')
         time.sleep(10)
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('change_cover')
         time.sleep(2)
@@ -6840,12 +6823,12 @@ class circle(unittest.TestCase):
     #听评帖添加作品
     def test_z_d_circle_listen_insert_work(self):
         self.driver.find_id_click('add_img')
-        self.driver.wait_id('filmbg')
-        self.driver.find_id_click('mylike')
+        self.driver.wait_id('filmBg')
+        self.driver.find_id_click('myLike')
         time.sleep(2)
-        self.driver.wait_id_click('filmbg')
-        self.driver.wait_id('playbtn')
-        self.driver.find_id_click('btnselect')
+        self.driver.wait_id_click('filmBg')
+        self.driver.wait_id('playBtn')
+        self.driver.find_id_click('btnSelect')
         time.sleep(2)
 
 class society(unittest.TestCase):
@@ -6882,14 +6865,14 @@ class society(unittest.TestCase):
 
     #我的社团-检查是否拥有社团
     def test_b_society_my_society(self):
-        self.driver.find_id_click('ivminetab')
+        self.driver.find_id_click('ivMineTab')
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_fan')
-        num = self.driver.find_id_text('societycount')
+        num = self.driver.find_id_text('societyCount')
         check = '0'
         if num == check:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.find_id_click('ivnewstab')
             time.sleep(2)
@@ -6903,9 +6886,9 @@ class society(unittest.TestCase):
                 title = self.driver.find_ids_text('username',i)
                 list_society.append(title)
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
             self.driver.find_id_click('ivnewstab')
             time.sleep(2)
@@ -6916,7 +6899,7 @@ class society(unittest.TestCase):
         self.driver.find_id_click('time')
         self.driver.wait_id('btn_change_input_mode')
         select = random.choice('社团聊天文字测试')
-        self.driver.find_id_send('editcontent',select)
+        self.driver.find_id_send('editContent',select)
         time.sleep(2)
         self.driver.find_id_click('btn_send')
         try:
@@ -6927,7 +6910,7 @@ class society(unittest.TestCase):
             check = self.driver.find_ids_text('content',-1)
             assert select == check,'发送文字校验不一致'
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #我的社团聊天-语音
@@ -6952,7 +6935,7 @@ class society(unittest.TestCase):
         #录制语音过程中上滑取消
         self.driver.long_press_move(el, self.x * 0.5, self.y * 0.5)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #我的社团聊天-发送表情
@@ -6966,7 +6949,7 @@ class society(unittest.TestCase):
         self.driver.find_id_click('btn_send')
         self.driver.wait_id('content')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #我的社团聊天-其它按钮
@@ -7011,11 +6994,11 @@ class society(unittest.TestCase):
         self.driver.find_id_click('show_action')
         time.sleep(2)
         self.driver.find_id_click('film')
-        self.driver.wait_id('filmbg')
-        self.driver.find_id_click('mylike')
-        self.driver.wait_id_click('filmbg')
-        self.driver.background()
-        self.driver.find_id_click('btnselect')
+        self.driver.wait_id('filmBg')
+        self.driver.find_id_click('myLike')
+        self.driver.wait_id_click('filmBg')
+        self.driver.Background()
+        self.driver.find_id_click('btnSelect')
         time.sleep(2)
         self.driver.swip_up()
         self.driver.wait_id('chat_film_title')
@@ -7032,7 +7015,7 @@ class society(unittest.TestCase):
         time.sleep(3)
         self.driver.find_id_click('generate_red_packet')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         self.driver.wait_id_click('red_packet')
         time.sleep(2)
         self.driver.find_id_click('open_red_packet_btn')
@@ -7040,7 +7023,7 @@ class society(unittest.TestCase):
         time.sleep(2)
         self.driver.back()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #我的社团-活动-每日活动
@@ -7063,28 +7046,28 @@ class society(unittest.TestCase):
             try:
                 self.driver.find_xpath('给社团成员作品点赞2次')
             except:
-                self.driver.wait_id('filmbg')
-                self.driver.find_ids_click('filmbg',0)
+                self.driver.wait_id('filmBg')
+                self.driver.find_ids_click('filmBg',0)
                 self.driver.wait_id('tv_video_detail_title')
-                self.driver.background()
+                self.driver.Background()
                 try:
                     self.driver.find_id_click('tv_good1')
                 except:
                     self.driver.find_id_click('tv_good')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
-                self.driver.find_ids('filmbg', 1)
+                self.driver.find_ids('filmBg', 1)
                 self.driver.wait_id('tv_video_detail_title')
-                self.driver.background()
+                self.driver.Background()
                 try:
                     self.driver.find_id_click('tv_good1')
                 except:
                     self.driver.find_id_click('tv_good')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
                 self.driver.swip_up()
                 time.sleep(2)
@@ -7101,13 +7084,13 @@ class society(unittest.TestCase):
             try:
                 self.driver.find_xpath('评论社团成员的作品2次')
             except:
-                self.driver.wait_id('filmbg')
-                self.driver.find_ids_click('filmbg',0)
+                self.driver.wait_id('filmBg')
+                self.driver.find_ids_click('filmBg',0)
                 self.driver.wait_id('tv_video_detail_title')
-                self.driver.background()
+                self.driver.Background()
                 self.driver.find_id_click('tv_comment')
                 time.sleep(2)
-                self.driver.find_id_send('editcontent','作品评论')
+                self.driver.find_id_send('editContent','作品评论')
                 time.sleep(2)
                 self.driver.find_id_click('btn_send')
                 try:
@@ -7117,14 +7100,14 @@ class society(unittest.TestCase):
                 except:
                     pass
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
-                self.driver.find_ids_click('filmbg',1)
+                self.driver.find_ids_click('filmBg',1)
                 self.driver.wait_id('tv_video_detail_title')
-                self.driver.background()
+                self.driver.Background()
                 self.driver.find_id_click('tv_comment')
                 time.sleep(2)
-                self.driver.find_id_send('editcontent','作品评论')
+                self.driver.find_id_send('editContent','作品评论')
                 time.sleep(2)
                 self.driver.find_id_click('btn_send')
                 try:
@@ -7134,9 +7117,9 @@ class society(unittest.TestCase):
                 except:
                     pass
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
                 self.driver.swip_up()
                 time.sleep(2)
@@ -7153,13 +7136,13 @@ class society(unittest.TestCase):
             try:
                 self.driver.find_xpath('与社团成员完成合作作品')
             except:
-                self.driver.wait_id('filmbg')
+                self.driver.wait_id('filmBg')
                 self.driver.find_xpath('求合作')
                 self.driver.wait_id_click('btncooperate')
                 while true:
                     try:
-                        self.driver.find_id('btnsubmit')
-                        self.driver.find_id_click('btnsubmit')
+                        self.driver.find_id('btnSubmit')
+                        self.driver.find_id_click('btnSubmit')
                         break
                     except:
                         try:
@@ -7169,7 +7152,7 @@ class society(unittest.TestCase):
                             pass
                 self.driver.find_id_click('action')
                 self.driver.wait_download('title')
-                self.driver.background()
+                self.driver.Background()
                 self.driver.find_id_click('complete')
                 self.driver.wait_id('pri_switch_tv')
                 self.driver.swip_up()
@@ -7197,10 +7180,10 @@ class society(unittest.TestCase):
             self.driver.find_id_click('film_look')
             self.driver.wait_id('userhead')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('playbtn')
-            self.driver.wait_download('playbtn')
+            self.driver.find_id_click('playBtn')
+            self.driver.wait_download('playBtn')
             self.driver.back()
             time.sleep(2)
         except:
@@ -7211,17 +7194,17 @@ class society(unittest.TestCase):
         try:
             self.driver.find_id('choice_source')
             self.driver.find_id_click('choice_source')
-            self.driver.wait_id('txtkeyword')
-            self.driver.find_id_send('txtkeyword','配音')
-            self.driver.find_id_click('btnsearch')
+            self.driver.wait_id('txtKeyword')
+            self.driver.find_id_send('txtKeyword','配音')
+            self.driver.find_id_click('btnSearch')
             self.driver.wait_id_click('iv_source')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             toast = self.driver.wait_toast('//android.widget.toast')
             check = '创建成功'
             check1 = '配音秀:创建成功'
             if toast != check and toast != check1:
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
         except:
             pass
         time.sleep(2)
@@ -7238,8 +7221,8 @@ class society(unittest.TestCase):
         except:
             while true:
                 try:
-                    self.driver.find_id('btnsubmit')
-                    self.driver.find_id_click('btnsubmit')
+                    self.driver.find_id('btnSubmit')
+                    self.driver.find_id_click('btnSubmit')
                     try:
                         self.driver.find_id('roleall')
                         self.driver.find_id_click('roleall')
@@ -7260,7 +7243,7 @@ class society(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('action')
             self.driver.wait_download('title')
-            self.driver.background()
+            self.driver.Background()
             self.driver.find_id_click('complete')
             self.driver.wait_id('pri_switch_tv')
             self.driver.swip_up()
@@ -7289,7 +7272,7 @@ class society(unittest.TestCase):
             self.driver.find_id('username')
             self.driver.find_id_click('username')
             self.driver.wait_id('ll_fan')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             pass
@@ -7299,19 +7282,19 @@ class society(unittest.TestCase):
         time.sleep(2)
         try:
             self.driver.find_id('username1')
-            self.driver.find_id_click('userhead1')
+            self.driver.find_id_click('userHead1')
             self.driver.wait_id('ll_fan')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             pass
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         ranks = self.driver.find_ids('img_rank')
         for i in range(len(ranks)):
             self.driver.find_ids_click('img_rank',i)
             self.driver.wait_id('tv_right')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(1)
         time.sleep(2)
 
@@ -7342,7 +7325,7 @@ class society(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv_action_other')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword','测试')
+        self.driver.find_id_send('txtKeyword','测试')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         try:
@@ -7365,20 +7348,20 @@ class society(unittest.TestCase):
         except:
             print ('社团财富界面未显示余额信息')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #社团空间-聊天
         self.driver.find_id_click('photo')
         time.sleep(2)
-        self.driver.wait_id('editcontent')
-        self.driver.find_id_click('btnback')
+        self.driver.wait_id('editContent')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         # 设置关注区权限
-        self.driver.find_id_click('btnright')
+        self.driver.find_id_click('btnRight')
         time.sleep(2)
         self.loc.six_from_last()
         time.sleep(2)
@@ -7388,11 +7371,11 @@ class society(unittest.TestCase):
         except:
             print ('动态开关设置后没有toast提示')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #特别关注
-        self.driver.find_id_click('btnright')
+        self.driver.find_id_click('btnRight')
         time.sleep(2)
         self.loc.five_from_last()
         try:
@@ -7402,7 +7385,7 @@ class society(unittest.TestCase):
         time.sleep(2)
 
         #消息免打扰
-        self.driver.find_id_click('btnright')
+        self.driver.find_id_click('btnRight')
         time.sleep(2)
         self.loc.four_from_last()
         try:
@@ -7412,31 +7395,31 @@ class society(unittest.TestCase):
         time.sleep(2)
 
         #添加社团素材
-        self.driver.find_id_click('btnright')
+        self.driver.find_id_click('btnRight')
         time.sleep(2)
         self.loc.three_from_last()
         time.sleep(2)
         self.driver.wait_id_click('iv_source')
         time.sleep(2)
-        self.driver.background()
-        self.driver.find_id_click('btnselect')
+        self.driver.Background()
+        self.driver.find_id_click('btnSelect')
         insert_toast = self.driver.wait_toast('//android.widget.toast')
         if insert_toast == '该素材存在':
-            self.driver.find_id_click('btncancelselect')
+            self.driver.find_id_click('btnCancelselect')
             time.sleep(2)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #管理/退出社团
-        self.driver.find_id_click('btnright')
+        self.driver.find_id_click('btnRight')
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
         try:
-            self.driver.find_id('btnsubmit')
-            self.driver.find_id_click('btncancel')
+            self.driver.find_id('btnSubmit')
+            self.driver.find_id_click('btnCancel')
         except:
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #社团空间-粉丝
@@ -7450,7 +7433,7 @@ class society(unittest.TestCase):
         self.driver.find_ids_click('username',-1)
         self.driver.wait_id('ll_fan')
         user_name1 = self.driver.find_id_text('username')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         assert user_name == user_name1,'粉丝列表用户名与空间用户名校验失败'
         time.sleep(2)
         user_list = self.driver.find_ids('username')
@@ -7464,7 +7447,7 @@ class society(unittest.TestCase):
             if value > 1:
                 print(key,'粉丝列表用户信息显示重复')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #社团空间-成员
@@ -7474,7 +7457,7 @@ class society(unittest.TestCase):
         self.driver.find_ids_click('userhead',-1)
         self.driver.wait_id('ll_fan')
         user_name1 = self.driver.find_id_text('username')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         assert user_name == user_name1,'成员列表用户名与空间用户名校验失败'
         time.sleep(2)
         user_list = self.driver.find_ids('username')
@@ -7488,35 +7471,35 @@ class society(unittest.TestCase):
             if value > 1:
                 print(key, '成员列表用户信息显示重复')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #社团空间-社团作品
-        self.driver.find_id_click('filmbg')
+        self.driver.find_id_click('filmBg')
         self.driver.wait_id('tv_video_detail_title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #社团空间-社团素材
-        self.driver.find_id_click('btnmember')
+        self.driver.find_id_click('btnMember')
         time.sleep(2)
         count = self.driver.find_id_text('film_all_count')
         num = re.findall(r'素材(.*)',count)
         new = "".join(num)
         if new != '0':
             time.sleep(2)
-            self.driver.find_id_click('imgsource')
+            self.driver.find_id_click('imgSource')
             self.driver.wait_id('shouchang_tv_fake')
-            self.driver.background()
-            self.driver.find_id_click('btnback')
+            self.driver.Background()
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
-            self.driver.find_id_click('imgtip')
+            self.driver.find_id_click('imgTip')
             while true:
                 try:
-                    self.driver.find_id('btnsubmit')
-                    self.driver.find_id_click('btnsubmit')
+                    self.driver.find_id('btnSubmit')
+                    self.driver.find_id_click('btnSubmit')
                     try:
                         self.driver.find_id('roleall')
                         self.driver.find_id_click('roleall')
@@ -7538,22 +7521,22 @@ class society(unittest.TestCase):
             time.sleep(2)
             self.driver.find_id_click('back')
             time.sleep(2)
-            self.driver.find_id_click('btnsubmit')
+            self.driver.find_id_click('btnSubmit')
             time.sleep(2)
 
         #社团空间-合辑
-        self.driver.find_id_click('btncollect')
+        self.driver.find_id_click('btnCollect')
         time.sleep(2)
         count = self.driver.find_id_text('film_all_count')
         num = re.findall(r'合辑(.*)', count)
         new = ''.join(num)
         if new != '0':
-            self.driver.find_id_click('filmbg')
+            self.driver.find_id_click('filmBg')
             try:
                 self.driver.wait_id('username')
-                self.driver.find_id_click('filmbg')
+                self.driver.find_id_click('filmBg')
                 self.driver.wait_id('tv_video_detail_title')
-                self.driver.background()
+                self.driver.Background()
                 try:
                     self.driver.find_id('follow_ta')
                     self.driver.find_id_click('follow_ta')
@@ -7566,27 +7549,27 @@ class society(unittest.TestCase):
                 except:
                     pass
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
                 time.sleep(2)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
             except exception as e:
                 print(e)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #社团管理
     def test_h_society_manager(self):
         self.driver.find_id_click('tv_key_word_help')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword','141095541')
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_send('txtKeyword','141095541')
+        self.driver.find_id_click('btnSearch')
         time.sleep(1)
         self.driver.wait_id_click('userhead')
         self.driver.wait_id('ll_fan')
-        self.driver.find_id_click('btnright')
+        self.driver.find_id_click('btnRight')
         time.sleep(2)
         self.loc.two_from_last()
         self.driver.wait_id('userhead')
@@ -7702,7 +7685,7 @@ class society(unittest.TestCase):
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_fan')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         #添加成员
         self.driver.find_id_click('right_icon1')
@@ -7711,7 +7694,7 @@ class society(unittest.TestCase):
         #搜索用户
         self.driver.find_id_send('filter_edit','15697799')
         time.sleep(2)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         self.driver.wait_xpath('大黑')
         self.driver.find_id_click('ischeck')
         time.sleep(2)
@@ -7720,7 +7703,7 @@ class society(unittest.TestCase):
         check = '成功'
         try:
             self.driver.find_id('ischeck')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
         except:
             pass
         assert check in invited_toast, '社团成员邀请发送失败'
@@ -7771,14 +7754,14 @@ class society(unittest.TestCase):
         #社团管理-移除成员
         self.driver.long_touche('username', -1, 2000)
         time.sleep(2)
-        self.driver.find_id_click('txtcontent')
-        content = self.driver.find_id_text('txtcontent')
+        self.driver.find_id_click('txtContent')
+        content = self.driver.find_id_text('txtContent')
         check = '移出'
         assert check in content
         time.sleep(2)
-        self.driver.find_id_click('btncancel')
+        self.driver.find_id_click('btnCancel')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #社团管理-社团公告
@@ -7800,14 +7783,14 @@ class society(unittest.TestCase):
     #社团作品-作品管理
     def test_l_society_work_manager(self):
         self.driver.find_id_click('film_manage')
-        self.driver.wait_id('filmbg')
+        self.driver.wait_id('filmBg')
         #审核标准协议
         self.driver.find_id_click('middle')
-        self.driver.wait_id_click('btnclose')
+        self.driver.wait_id_click('btnClose')
         time.sleep(2)
 
         #社团作品-添加作品
-        self.driver.find_id_click('addfilm')
+        self.driver.find_id_click('addFilm')
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
@@ -7843,7 +7826,7 @@ class society(unittest.TestCase):
                     self.driver.tap(self.x * 0.5, self.y * 0.547)
                     time.sleep(6)
             try:
-                self.driver.find_id('filmbg')
+                self.driver.find_id('filmBg')
                 break
             except:
                 pass
@@ -7857,15 +7840,15 @@ class society(unittest.TestCase):
         time.sleep(2)
 
         #社团作品-删除作品
-        self.driver.find_id_click('filmbg')
+        self.driver.find_id_click('filmBg')
         self.driver.wait_id('tv_video_detail_title')
-        self.driver.background()
+        self.driver.Background()
         time.sleep(2)
         self.driver.find_id_click('setting')
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         delete_toast = self.driver.wait_toast('//android.widget.toast')
         check = '删除作品成功'
         assert check in delete_toast
@@ -7877,7 +7860,7 @@ class society(unittest.TestCase):
     def test_m_society_create_collection(self):
         self.driver.find_id_click('tab2')
         time.sleep(2)
-        self.driver.find_id_click('addfilm')
+        self.driver.find_id_click('addFilm')
         time.sleep(2)
         self.loc.three_from_last()
         time.sleep(2)
@@ -7912,7 +7895,7 @@ class society(unittest.TestCase):
         #点击合辑作品
         self.driver.find_id_click('img')
         self.driver.wait_id('tv_video_detail_title')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #长按调节作品列表
@@ -7942,7 +7925,7 @@ class society(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('tv_shanchu')
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         del_toast = self.driver.wait_toast('//android.widget.toast')
         if del_toast != '无权操作' and del_toast != '删除失败':
             print('合辑作品移除失败')
@@ -7964,11 +7947,11 @@ class society(unittest.TestCase):
         except:
             print('合辑作品列表未显示添加的新作品')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
         #我的社团-编辑合辑
-        self.driver.long_touche('filmbg', 2000)
+        self.driver.long_touche('filmBg', 2000)
         time.sleep(2)
         #合辑置顶
         self.loc.three_from_last()
@@ -7979,18 +7962,18 @@ class society(unittest.TestCase):
         time.sleep(2)
 
         #删除合辑
-        self.driver.long_touche('filmbg', 2000)
+        self.driver.long_touche('filmBg', 2000)
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
-        self.driver.find_id_click('btnsubmit')
+        self.driver.find_id_click('btnSubmit')
         del_toast = self.driver.wait_toast('//android.widget.toast')
         if del_toast == '无权操作' or del_toast == '删除成功':
             pass
         else:
             print('合辑删除失败')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #我的社团-申请蓝v
@@ -7999,7 +7982,7 @@ class society(unittest.TestCase):
         time.sleep(2)
         try:
             self.driver.find_xpath('立即申请')
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         except:
             pass
@@ -8016,9 +7999,9 @@ class society(unittest.TestCase):
         self.driver.find_id_click('complete')
         time.sleep(2)
         #申请要求
-        self.driver.find_id_click('addfilm')
+        self.driver.find_id_click('addFilm')
         time.sleep(1)
-        self.driver.find_id_click('addsource')
+        self.driver.find_id_click('addSource')
         time.sleep(1)
         #入社申请开关
         self.driver.find_id_click('choice')
@@ -8052,7 +8035,7 @@ class society(unittest.TestCase):
         if check not in diamond_toast:
             print('社团分配钻石',diamond_toast)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         # 分配金币
         self.driver.find_id_click('distribution_gold')
@@ -8068,9 +8051,9 @@ class society(unittest.TestCase):
         if check1 not in gold_toast:
             print('社团分配金币', gold_toast)
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     def test_r_society_works_download(self):
@@ -8083,7 +8066,7 @@ class society(unittest.TestCase):
         #我的社团-社团管理须知
         self.driver.find_xpath('《社团管理须知》')
         self.driver.wait_id('titlebar')
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #我的社团-转让社团/解散社团
@@ -8094,22 +8077,22 @@ class society(unittest.TestCase):
         self.driver.wait_xpath('转让社团')
         self.driver.find_ids_click('username', -1)
         time.sleep(2)
-        transfer_content = self.driver.find_id_text('txtcontent')
+        transfer_content = self.driver.find_id_text('txtContent')
         check = '您确定要将社团转让给'
         if check not in transfer_content:
             print(transfer_content)
-        self.driver.find_id_click('btncancel')
+        self.driver.find_id_click('btnCancel')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('right_icon1')
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
-        dissolved_content = self.driver.find_id_text('txtcontent')
+        dissolved_content = self.driver.find_id_text('txtContent')
         check1 = '你真的要解散社团吗？请提前处理好社团钱包中的收益，解散后无法恢复社团'
         assert check1 in dissolved_content
-        self.driver.find_id_click('btncancel')
+        self.driver.find_id_click('btnCancel')
         time.sleep(2)
 
     #返回社团主界面#
@@ -8144,27 +8127,27 @@ class society(unittest.TestCase):
             member = self.driver.find_id_text('membercount')
             if member not in members:
                 print('社团成员显示不一致',members,member)
-            self.driver.find_id_click('btnback')
+            self.driver.find_id_click('btnBack')
             time.sleep(2)
         self.driver.find_id_click('join')
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('ivnewstab')
         time.sleep(3)
         self.driver.find_id_click('tv_key_word_help')
         time.sleep(2)
-        self.driver.find_id_send('txtkeyword','10885432')
+        self.driver.find_id_send('txtKeyword','10885432')
         time.sleep(1)
-        self.driver.find_id_click('btnsearch')
+        self.driver.find_id_click('btnSearch')
         self.driver.wait_xpath('天魔琴音')
         self.driver.find_id_click('join')
         time.sleep(2)
         self.driver.find_id_send('content','社团加入申请测试')
         time.sleep(2)
         self.driver.find_id_click('bg_rl1')
-        self.driver.wait_id_click('filmbg')
-        self.driver.wait_id_click('btnselect')
+        self.driver.wait_id_click('filmBg')
+        self.driver.wait_id_click('btnSelect')
         time.sleep(2)
         self.driver.find_id_click('bg_rl2')
         time.sleep(2)
@@ -8176,9 +8159,9 @@ class society(unittest.TestCase):
             check = '已提交申请'
             if check not in toast:
                 print(toast)
-                self.driver.find_id_click('btnback')
+                self.driver.find_id_click('btnBack')
         except:
             pass
         time.sleep(2)
-        self.driver.find_id_click('btnback')
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
