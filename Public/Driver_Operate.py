@@ -27,6 +27,8 @@ class BaseOperate():
         self.driver = appium_desired()
         self.dev = get_connect_device_id()
         self.id = resource_id
+        self.x = touche_X()
+        self.y = touche_Y()
 
     def lanuch_app(self):
         '''
@@ -41,22 +43,6 @@ class BaseOperate():
         :return:
         '''
         os.system('adb -s %s shell input keyevent 4' % (dev))
-
-    def touch_X(self):
-        # x = self.driver.get_window_size()['width']
-        # y = self.driver.get_window_size()['height']
-        out = os.popen("adb -s %s shell wm size" % (dev)).read()
-        m = re.search(r'(\d+)x(\d+)', out)
-        # y = ("{height}".format(height=m.group(2)))
-        x = ("{width}".format(width=m.group(1)))
-        return int(x)
-
-    def touch_Y(self):
-        out = os.popen("adb -s %s shell wm size" % (dev)).read()
-        m = re.search(r'(\d+)x(\d+)', out)
-        y = ("{height}".format(height=m.group(2)))
-        # x = ("{width}".format(width=m.group(1)))
-        return int(y)
 
     def swip_up(self):
         '''
@@ -497,7 +483,7 @@ class BaseOperate():
 
 class location():
     def __init__(self):
-        self.driver = appium_desired()
+        self.driver = BaseOperate()
         self.x = touche_X()
         self.y = touche_Y()
 
