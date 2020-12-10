@@ -127,7 +127,7 @@ class BaseOperate():
         el = self.driver.find_element_by_id(self.id + El).rect
         el_x = int(el['x'] + el['width'] / 2.0)
         el_y = int(el['y'] + el['height'] / 2.0)
-        TouchAction(self.driver).press(x=el_x,y=el_y).wait(2000).move_to(x=int(point_x),y=int(point_y)).wait(2000).release().perform()
+        TouchAction(self.driver).press(x=el_x,y=el_y).wait(3000).move_to(x=int(point_x),y=int(point_y)).wait(3000).release().perform()
 
     def Double_touche(self,X,Y):
         '''
@@ -277,8 +277,7 @@ class BaseOperate():
         :param id:
         :return:
         '''
-        WebDriverWait(self.driver, 60,).until(
-            lambda x: self.driver.find_element_by_id(self.id + id))
+        WebDriverWait(self.driver, 60,).until(lambda x: self.driver.find_element_by_id(self.id + id))
 
     def wait_id_three_party(self,id):
         '''

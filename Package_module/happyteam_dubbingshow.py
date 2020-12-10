@@ -4138,53 +4138,53 @@ class person(unittest.TestCase):
     #     time.sleep(4)
 
     # 个人空间-求合作
-    def test_z_b_person_zoom_coors(self):
-        self.driver.find_id_click('coor_text')
-        self.driver.wait_id('btnCooperate')
-        self.driver.find_id_click('islook')
-        self.driver.wait_download('video_play_btn')
-        self.driver.back()
-        time.sleep(2)
-        self.driver.find_id_click('btnCooperate')
-        self.driver.wait_download('action')
-        time.sleep(2)
-        self.driver.find_id_click('back')
-        time.sleep(2)
-        self.driver.find_id_click('btnSubmit')
-        time.sleep(2)
-        for i in range(5):
-            self.driver.swip_up()
-            time.sleep(2)
-        time.sleep(2)
-
-    # 求合作-邀请好友
-    def test_z_c_person_zoom_coor_invite(self):
-        self.driver.find_id_click('btnBack')
-        time.sleep(2)
-        self.driver.find_id_click('invitation_count')
-        self.driver.wait_id('item_sh_cooperate_article_image')
-        time.sleep(2)
-        self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
-        time.sleep(2)
-        self.loc.five_from_last()
-        self.driver.wait_id_click('socialstatus')
-        time.sleep(2)
-        self.driver.find_id_send('content','给自己的合作！')
-        time.sleep(2)
-        self.driver.find_id_click('reprint')
-        try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            success_check = '邀请成功'
-            not_accept_check = '该用户暂不接受合作'
-            if toast == success_check:
-                pass
-            elif toast == not_accept_check:
-                self.driver.find_id_click('cancel')
-                time.sleep(2)
-                self.driver.find_id_click('btnBack')
-        except:
-            print('发送邀请后未检测到toast提示')
-        time.sleep(2)
+    # def test_z_b_person_zoom_coors(self):
+    #     self.driver.find_id_click('coor_text')
+    #     self.driver.wait_id('btnCooperate')
+    #     self.driver.find_id_click('islook')
+    #     self.driver.wait_download('video_play_btn')
+    #     self.driver.back()
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnCooperate')
+    #     self.driver.wait_download('action')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('back')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnSubmit')
+    #     time.sleep(2)
+    #     for i in range(5):
+    #         self.driver.swip_up()
+    #         time.sleep(2)
+    #     time.sleep(2)
+    #
+    # # 求合作-邀请好友
+    # def test_z_c_person_zoom_coor_invite(self):
+    #     self.driver.find_id_click('btnBack')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('invitation_count')
+    #     self.driver.wait_id('item_sh_cooperate_article_image')
+    #     time.sleep(2)
+    #     self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
+    #     time.sleep(2)
+    #     self.loc.five_from_last()
+    #     self.driver.wait_id_click('socialstatus')
+    #     time.sleep(2)
+    #     self.driver.find_id_send('content','给自己的合作！')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('reprint')
+    #     try:
+    #         toast = self.driver.wait_toast('//android.widget.Toast')
+    #         success_check = '邀请成功'
+    #         not_accept_check = '该用户暂不接受合作'
+    #         if toast == success_check:
+    #             pass
+    #         elif toast == not_accept_check:
+    #             self.driver.find_id_click('cancel')
+    #             time.sleep(2)
+    #             self.driver.find_id_click('btnBack')
+    #     except:
+    #         print('发送邀请后未检测到toast提示')
+    #     time.sleep(2)
 
     # 求合作-私密（公开）
     def test_z_d_person_zoom_coor_private_public(self):
@@ -4228,6 +4228,7 @@ class person(unittest.TestCase):
         self.driver.find_id_click('btnBack')
         time.sleep(2)
         self.driver.find_id_click('userhead')
+        time.sleep(2)
         self.driver.wait_id_click('source_text')
         self.driver.wait_id_click('imgSource')
         self.driver.wait_id('right_icon1')
@@ -4287,6 +4288,11 @@ class person(unittest.TestCase):
             time.sleep(2)
         time.sleep(2)
 
+    def test_z_g_a_person_zoom_sorce_collection(self):
+        self.test_z_m_person_zoom_create_compilation()
+        self.test_z_n_person_zoom_collection_Add_delete_change()
+
+
     # 更多-点赞
     def test_z_h_person_zoom_goods_record(self):
         self.driver.find_id_click('more_text')
@@ -4308,9 +4314,9 @@ class person(unittest.TestCase):
         self.driver.find_id_click('tv_good')
         time.sleep(1)
         good2 = self.driver.find_id_text('tv_good')
-        if good1 != good2:
+        if good1 == good2:
             print(good1,good2)
-        time.sleep(3)
+        time.sleep(1)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
 
@@ -4325,7 +4331,9 @@ class person(unittest.TestCase):
         try:
             tip = self.driver.wait_toast('//android.widget.Toast')
             check = '不存在'
-            assert check in tip, '转发作品点击进入失败，提示信息错误'
+            check1 = '私密'
+            if check in tip and check1 in tip:
+                print('转发作品点击进入失败，提示信息错误')
         except:
             self.driver.wait_id('tv_video_detail_title')
             self.driver.Background()
@@ -4366,7 +4374,7 @@ class person(unittest.TestCase):
         self.driver.find_id_click('back')
         time.sleep(2)
         self.driver.find_id_click('comment')
-        self.driver.wait_id('editContent')
+        self.driver.wait_id('qiehuan')
         self.driver.find_id_click('btnBack')
         time.sleep(2)
 
@@ -4411,52 +4419,196 @@ class person(unittest.TestCase):
 
     # 创建合辑
     def test_z_m_person_zoom_create_compilation(self):
-        self.driver.find_id_click('btnRight')
-        time.sleep(2)
-        self.loc.two_from_last()
-        time.sleep(2)
-        self.driver.find_id_send('content','合辑')
-        time.sleep(2)
-        self.driver.find_id_click('ok')
-        time.sleep(3)
-        try:
-            self.driver.find_id('choice')
-            self.driver.find_id_click('choice')
-            time.sleep(2)
-            self.driver.find_id_click('tv_right')
+        #创建9个合辑后进入合辑列表界面
+        i = 0
+        while True:
             try:
-                toast = self.driver.wait_toast('//android.widget.Toast')
-                check = '创建成功'
-                assert toast == check
+                self.driver.find_id('create')
+                self.driver.find_id_click('create')
                 time.sleep(2)
+                self.driver.find_id_click('title')
+                time.sleep(1)
+                self.driver.find_id_send('title','合辑'+ str(i))
+                self.driver.back()
+                time.sleep(2)
+                self.driver.find_id_click('ok')
+                self.driver.wait_id_click('choice')
+                time.sleep(1)
+                self.driver.find_id_click('tv_right')
+                try:
+                    toast = self.driver.wait_toast('//android.widget.Toast')
+                    if '成功' not in toast:
+                        print(toast)
+                except:
+                    pass
             except:
-                pass
-        except:
-            self.driver.find_id_click('btnBack')
-            time.sleep(2)
-            self.driver.find_id_click('btnSubmit')
-            time.sleep(2)
-
-    # 合辑删除
-    def test_z_n_person_zoom_delete_compilation(self):
-        self.driver.find_id_click('single_text')
-        time.sleep(4)
-        self.driver.find_id_click('film_all_count')
+                try:
+                    self.driver.find_id('right_icon1')
+                    break
+                except:
+                    pass
+            self.driver.swip_move(self.x * 0.935, self.y * 0.585, self.x * 0.148, self.y * 0.586)
+            i +=1
         time.sleep(2)
-        self.driver.find_xpath('合辑')
-        self.driver.wait_id('filmBg')
-        self.driver.Long_Touche('filmBg', 3000)
+
+        #作品合辑详情界面编辑
+        self.driver.find_id_click('img3')
+        self.driver.wait_id('head')
+        try:
+            self.driver.find_id('playnum')
+            try:
+                self.driver.find_id('xianshi')
+            except:
+                try:
+                    self.driver.find_id('tv_source_from')
+                except:
+                    print('合辑详情未显示标签')
+        except:
+            print('合辑详情未显示作品时间')
+        time.sleep(1)
+        work_num = len(self.driver.find_ids('img'))
+        total_num = self.driver.find_id_text('count')
+        if str(work_num) not in total_num:
+            name = self.driver.find_id_text('title')
+            print(name,'合辑作品数量错误')
+        time.sleep(2)
+
+        #合辑置顶
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.six_from_last()
+        toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in toast:
+            print(toast)
+        time.sleep(2)
+
+        #编辑合辑信息
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.five_from_last()
+        time.sleep(2)
+        self.driver.find_id_send('title','合辑名称编辑')
+        time.sleep(1)
+        self.driver.find_id_send('content','合辑内容编辑')
+        time.sleep(1)
+        self.driver.back() #收起系统输入键盘
+        time.sleep(1)
+        self.driver.find_id_click('ok')
+        edit_toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in edit_toast:
+            print(edit_toast)
+
+        # 添加作品
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.four_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('choice')
+        time.sleep(1)
+        self.driver.find_id_click('tv_right')
+        add_toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in add_toast:
+            print(add_toast)
+
+        #更改作品顺序
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.three_from_last()
+        time.sleep(2)
+        el = 'iv_source'
+        self.driver.Long_press_move(el,self.x * 0.5, self.y * 0.5)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+        #合辑收藏
+        try:
+            self.driver.find_id('collect_img')
+            self.driver.find_id_click('collect_img')
+            collection_toast = self.driver.wait_toast('//android.widget.Toast')
+            if '成功' not in collection_toast:
+                print(collection_toast)
+        except:
+            pass
+
+        #合辑分享
+        self.driver.find_id_click('share_img')
+        time.sleep(2)
+        self.driver.find_id_send('content','合辑分享')
+        self.driver.find_id_click('reprint')
+        share_toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in share_toast:
+            print(share_toast)
+        time.sleep(2)
+
+        #头像跳转个人空间
+        self.driver.find_id_click('head')
+        self.driver.wait_id('ll_fan')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+        # 删除合辑
+        self.driver.find_id_click('right_icon1')
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
+        delete_toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in delete_toast:
+            print(delete_toast)
+        time.sleep(2)
+
+
+    # 作品合辑列表界面添加/删除合辑
+    def test_z_n_person_zoom_collection_Add_delete_change(self):
+        #add
+        self.driver.find_id_click('right_icon1')
+        time.sleep(1)
+        self.driver.find_id_click('title')
+        time.sleep(1)
+        self.driver.find_id_send('title', '合集列表界面添加合辑')
+        self.driver.back()
+        time.sleep(2)
+        self.driver.find_id_click('ok')
+        self.driver.wait_id_click('choice')
+        time.sleep(1)
+        self.driver.find_id_click('tv_right')
         try:
-            toast = self.driver.wait_toast('//android.widget.Toast')
-            check = '成功'
-            assert check in toast
+            create_toast = self.driver.wait_toast('//android.widget.Toast')
+            if '成功' not in create_toast:
+                print(create_toast)
         except:
             pass
+
+        #change
+        el = 'img3'
+        self.driver.Long_Touches(el, -1, 3000)
         time.sleep(2)
+        self.loc.three_from_last()
+        self.driver.wait_toast('//android.widget.Toast')
+        try:
+            self.driver.find_id('tag')
+        except:
+            print('未显示作品合集置顶标签')
+
+        #delete
+        while True:
+            try:
+                self.driver.find_id('img3')
+                self.driver.Long_Touche(el,3000)
+                time.sleep(1)
+                self.loc.two_from_last()
+                time.sleep(2)
+                self.driver.find_id_click('btnSubmit')
+                delete_toast = self.driver.wait_toast('//android.widget.Toast')
+                if '成功' not in delete_toast:
+                    print(delete_toast)
+            except:
+                self.driver.find_id_click('btnBack')
+                break
+        time.sleep(2)
+
 
     # 退出个人空间
     def test_z_o_person_zoom_quit(self):
