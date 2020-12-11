@@ -208,9 +208,18 @@ class BaseOperate():
         el = self.driver.find_element_by_id(self.id + id).text
         return el
 
-    def find_xpath(self, xpath):
+    def find_xpath_click(self, xpath):
         '''
         xpath元素
+        :param xpath:
+        :return:
+        '''
+        xpath_elemnt = ("//*[@text='%s']" % xpath)
+        el = self.driver.find_element_by_xpath(xpath_elemnt).click()
+        return el
+
+    def find_xpath(self,xpath):
+        '''
         :param xpath:
         :return:
         '''
@@ -224,6 +233,18 @@ class BaseOperate():
         '''
         el = self.driver.find_element_by_xpath(Xpath)
         return el
+
+    def long_touche_xpath(self,xpath):
+        '''
+        :param xpath:
+        :return:
+        '''
+        el_xpath = ("//*[@text='%s']" % xpath)
+        el = self.driver.find_element_by_xpath(el_xpath).rect
+        el_x = int(el['x'] + el['width'] / 2.0)
+        el_y = int(el['y'] + el['height'] / 2.0)
+        TouchAction(self.driver).long_press(x=el_x, y=el_y).perform()
+
 
     def find_desc(self,desc):
         '''
@@ -618,7 +639,7 @@ class location():
         if self.y == 1920:
             self.driver.tap(self.x * 0.5, self.y * 0.94)
         elif self.y > 2250:
-            self.driver.tap(self.x*0.5, self.y*0.94)
+            self.driver.tap(self.x*0.5, self.y*0.96)
 
     # 点击倒数第二个按钮
     def two_from_last(self):
