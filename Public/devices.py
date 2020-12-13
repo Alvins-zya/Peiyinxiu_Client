@@ -6,10 +6,7 @@ appium 自动化测试-多进程并发测试
 '''
 from appium import webdriver
 import yaml
-from time import ctime
-import logging
-import logging.config
-import os,sys
+import os
 
 # CON_LOG = '../config/log.conf'
 # logging.config.fileConfig(CON_LOG)

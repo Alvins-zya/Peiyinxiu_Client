@@ -192,6 +192,14 @@ class BaseOperate():
         el = self.driver.find_element_by_id(id).click()
         return el
 
+    def find_ids_third_part(self,id,count):
+        '''
+        :param id:
+        :return:
+        '''
+        el = self.driver.find_elements_by_id(id)[count].click()
+        return el
+
     def find_id_state(self,id):
         '''
         获取控件的状态：true or false
@@ -508,7 +516,7 @@ class location():
         self.y = touche_Y()
 
     #首页顶部功能列表入口查找
-    def home_func(self):
+    def home_func_enter(self):
         if self.y == 1920:
             self.driver.swip_move(self.x * 0.854, self.y * 0.197, self.x * 0.249, self.y * 0.197)
             time.sleep(2)

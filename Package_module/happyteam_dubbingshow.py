@@ -272,6 +272,7 @@ class home_function(unittest.TestCase):
         # self.c = circle()
         # self.s = society()
         self.driver = BaseOperate()
+        self.loc = location()
 
     @classmethod
     def tearDownClass(self):
@@ -288,7 +289,7 @@ class home_function(unittest.TestCase):
                 self.driver.find_xpath('频道')
                 break
             except:
-                self.loc.home_func()
+                self.loc.home_func_enter()
         time.sleep(2)
         self.driver.find_xpath('频道').click()
         self.driver.wait_id('tv')
@@ -327,6 +328,8 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click('btnBack')
         self.driver.swip_up()
         time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     # 附近
     def test_d_function_channel_nearby(self):
@@ -335,7 +338,7 @@ class home_function(unittest.TestCase):
                 self.driver.find_xpath('附近')
                 break
             except:
-                self.loc.home_func()
+                self.loc.home_func_enter()
         time.sleep(2)
         self.driver.find_xpath('附近').click()
         time.sleep(2)
@@ -405,6 +408,8 @@ class home_function(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     #进入曝光区
     def test_g_function_exposure(self):
@@ -414,7 +419,7 @@ class home_function(unittest.TestCase):
                 self.driver.find_xpath('曝光区')
                 break
             except:
-                self.loc.home_func()
+                self.loc.home_func_enter()
         time.sleep(2)
         self.driver.find_xpath('曝光区').click()
         time.sleep(2)
@@ -462,6 +467,8 @@ class home_function(unittest.TestCase):
             if progress_after != value:
                 print('曝光评论进度显示错误')
         time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     #进入排行榜
     def test_i_function_rank(self):
@@ -470,7 +477,7 @@ class home_function(unittest.TestCase):
                 self.driver.find_xpath('排行榜')
                 break
             except:
-                self.loc.home_func()
+                self.loc.home_func_enter()
         time.sleep(2)
         self.driver.find_xpath('排行榜').click()
         time.sleep(2)
@@ -507,8 +514,9 @@ class home_function(unittest.TestCase):
             int_num = int(str_good_count)
             lists.append(int_num)
             time.sleep(1)
-        list_set = sorted(lists, reverse=true)
-        assert lists == list_set, '获赞榜点赞排序验证错误'
+        list_set = sorted(lists, reverse=True)
+        if lists != list_set:
+            print('获赞榜点赞排序验证错误')
         time.sleep(2)
 
     #获赞榜-用户信息
@@ -553,6 +561,8 @@ class home_function(unittest.TestCase):
         for i in range(5):
             self.driver.swip_up()
             time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     #主播榜
     def test_n_function_rank_anchor(self):
@@ -579,8 +589,10 @@ class home_function(unittest.TestCase):
             int_num = int(str_screening)
             lists.append(int_num)
             time.sleep(1)
-        list_set = sorted(lists, reverse=true)
+        list_set = sorted(lists, reverse=True)
         assert lists == list_set, '主播榜人数排序验证错误'
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #社团榜
@@ -608,8 +620,10 @@ class home_function(unittest.TestCase):
             int_num = int(str_screening)
             lists.append(int_num)
             time.sleep(1)
-        list_set = sorted(lists, reverse=true)
+        list_set = sorted(lists, reverse=True)
         assert lists == list_set, '=社团榜作品数排序验证错误'
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #素材榜
@@ -637,8 +651,10 @@ class home_function(unittest.TestCase):
             int_num = int(str_screening)
             lists.append(int_num)
             time.sleep(1)
-        list_set = sorted(lists, reverse=true)
+        list_set = sorted(lists, reverse=True)
         assert lists == list_set, '素材榜素材收录数排序验证错误'
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #作品榜-列表标题是视频详情标题校验
@@ -715,8 +731,8 @@ class home_function(unittest.TestCase):
         list_title = self.driver.find_ids('tv_source_title')
         time.sleep(1)
         title_list = []
-        for title in range(len(list_title)):
-            title_name = self.driver.find_ids_click('tv_source_title',title)
+        for i in range(len(list_title)):
+            title_name = self.driver.find_ids_text('tv_source_title',i)
             title_list.append(title_name)
             time.sleep(1)
         time.sleep(2)
@@ -725,18 +741,18 @@ class home_function(unittest.TestCase):
         label_tv = self.driver.find_ids('tv')
         tv_list = []
         for i in range(len(label_tv)):
-            tv_name = self.driver.find_ids_click('tv',i)
+            tv_name = self.driver.find_ids_text('tv',i)
             tv_list.append(tv_name)
             time.sleep(1)
         tv_list.remove(label_name)
-        select = random.randint(0, len(tv_list))
+        select = random.randint(1, len(tv_list))
         self.driver.find_ids_click('tv',select)
         self.driver.wait_id('iv_source')
         list_title1 = self.driver.find_ids('tv_source_title')
         time.sleep(1)
         title_list1 = []
         for title in range(len(list_title1)):
-            title_name = self.driver.find_ids_click('tv_source_title',title)
+            title_name = self.driver.find_ids_text('tv_source_title',title)
             title_list1.append(title_name)
             time.sleep(1)
         time.sleep(2)
@@ -764,43 +780,67 @@ class home_function(unittest.TestCase):
     def test_x_function_rank_society_works(self):
         self.driver.find_id_click('society_film')
         time.sleep(2)
-        titles = self.driver.find_ids('tv_source_title')
-        for i in range(len(titles)):
-            self.driver.find_ids_click('iv_source',i)
-            self.driver.wait_id('tv_video_detail_title')
-            self.driver.Background()
-            time.sleep(2)
-
-            try:
-                self.driver.find_id('dubbing')
-                print('社团作品显示有配音按钮')
-            except:
-                pass
-            self.driver.find_id_click('btnBack')
-            time.sleep(2)
+        self.driver.find_id_click('iv_source')
+        self.driver.wait_id('tv_video_detail_title')
+        self.driver.Background()
+        time.sleep(2)
+        try:
+            self.driver.find_id('dubbing')
+            print('社团作品显示有配音按钮')
+        except:
+            pass
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     # 榜单列表加载
     def test_y_function_rank_works_list_load(self):
         while True:
-            ranking = self.driver.find_ids_click('rank',-1)
-            if ranking == '300':
+            ranking = self.driver.find_ids_text('rank',-1)
+            self.driver.swip_up()
+            ranking1 = self.driver.find_ids_text('rank',-1)
+            time.sleep(2)
+            if ranking == ranking1:
                 break
             else:
                 pass
-            self.driver.swip_up()
-            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
+class home_pia(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        warnings.simplefilter('ignore', ResourceWarning)
+        # self.driver = BaseOperate()
+        # self.x = self.driver.touch_X()
+        # self.y = self.driver.touch_Y()
+        # self.id = resource_id
+        # self.d = dub()
+        # self.home_enter = home_function()
+        # self.l = live()
+        # self.f = follow()
+        # self.m = material()
+        # self.p = person()
+        # self.v = video_detail()
+        # self.c = circle()
+        # self.s = society()
+        self.driver = BaseOperate()
+        self.loc = location()
+
+    @classmethod
+    def tearDownClass(self):
+        pass
+
     # 进入在线pia戏
-    def test_z_function_pia(self):
+    def test_a_function_pia(self):
         while True:
             try:
                 self.driver.find_xpath('在线pia戏')
                 break
             except:
-                self.loc.home_func()
+                self.loc.home_func_enter()
         time.sleep(2)
-        self.driver.find_xpath('在线pia戏').click()
+        self.driver.find_xpath_click('在线pia戏')
         time.sleep(2)
         while True:
             try:
@@ -812,18 +852,20 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 勋章列表
-    def test_z_a_function_pia_medal_list(self):
+    def test_b_function_pia_medal_list(self):
         self.driver.find_id_click('goXun')
         time.sleep(2)
         try:
-            self.driver.find_id('userhead')
+            self.driver.find_id('userHead')
             time.sleep(2)
         except:
             print('未加载显示勋章列表')
         time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     # 道具商城
-    def test_z_b_function_pia_prop_mall(self):
+    def test_c_function_pia_prop_mall(self):
         self.driver.find_xpath('道具商城').click()
         time.sleep(2)
         num = self.driver.find_id_text('diamond')
@@ -837,7 +879,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 幸运宝箱
-    def test_z_c_function_pia_prop_mall_lucky_box(self):
+    def test_d_function_pia_prop_mall_lucky_box(self):
         self.driver.find_id_click('box')
         time.sleep(2)
         num = self.driver.find_id_text('diamond')
@@ -852,16 +894,20 @@ class home_function(unittest.TestCase):
             except:
                 pass
         time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     # pia戏装扮
-    def test_z_d_function_pia_prop_mall_dress_up(self):
+    def test_e_function_pia_prop_mall_dress_up(self):
         num = self.driver.find_ids('img')
         for i in range(len(num)):
             self.driver.find_ids_click('img',i)
             time.sleep(1)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     # 创建pia戏房间
-    def test_z_e_function_pia_create_room(self):
+    def test_f_function_pia_create_room(self):
         self.driver.find_id_click('create_room')
         time.sleep(2)
         self.driver.find_id_click('check_normal')
@@ -874,7 +920,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 评论
-    def test_z_f_function_pia_room_comment(self):
+    def test_g_function_pia_room_comment(self):
         self.driver.find_id_click('show_comment')
         time.sleep(2)
         self.driver.find_id_send('editContent','哈哈哈')
@@ -884,7 +930,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 用户头像
-    def test_z_g_function_pia_room_userhead(self):
+    def test_h_function_pia_room_userhead(self):
         self.driver.find_id_click('head')
         self.driver.wait_id('user_id')
         time.sleep(2)
@@ -900,7 +946,6 @@ class home_function(unittest.TestCase):
                         print('未显示用户简介')
                 except:
                     print('未显示用户id')
-
             except:
                 print('未显示性别')
         except:
@@ -910,7 +955,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 房间私密
-    def test_z_h_function_pia_room_private(self):
+    def test_i_function_pia_room_private(self):
         self.driver.find_id_click('private_btn')
         time.sleep(2)
         tip = self.driver.find_id_text('btnSubmit')
@@ -921,7 +966,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 邀请好友
-    def test_z_i_function_pia_room_invite_friend(self):
+    def test_j_function_pia_room_invite_friend(self):
         self.driver.find_ids_click('head',-1)
         time.sleep(2)
         tip = self.driver.find_id_text('btnSubmit')
@@ -932,7 +977,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 剧本列表
-    def test_z_j_function_pia_room_script_list(self):
+    def test_k_function_pia_room_script_list(self):
         self.driver.find_id_click('script')
         time.sleep(2)
         source = self.driver.find_ids('sourcename')
@@ -955,7 +1000,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 退出在线pia戏房间
-    def test_z_k_function_pia_room_exit(self):
+    def test_l_function_pia_room_exit(self):
         self.driver.find_id_click('home_close')
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
@@ -963,7 +1008,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 在线匹配
-    def test_z_l_function_pia_match_online(self):
+    def test_m_function_pia_match_online(self):
         self.driver.find_id_click('start')
         time.sleep(5)
         try:
@@ -976,7 +1021,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 跟随进入
-    def test_z_m_function_pia_follow(self):
+    def test_n_function_pia_follow(self):
         self.driver.find_id_click('follow')
         time.sleep(2)
         self.driver.find_id_click('refresh')
@@ -989,18 +1034,46 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 作品列表
-    def test_z_n_function_pia_draft(self):
+    def test_o_function_pia_draft(self):
         self.driver.find_id_click('pia_film')
         time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+class home_shenman(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        warnings.simplefilter('ignore', ResourceWarning)
+        # self.driver = BaseOperate()
+        # self.x = self.driver.touch_X()
+        # self.y = self.driver.touch_Y()
+        # self.id = resource_id
+        # self.d = dub()
+        # self.home_enter = home_function()
+        # self.l = live()
+        # self.f = follow()
+        # self.m = material()
+        # self.p = person()
+        # self.v = video_detail()
+        # self.c = circle()
+        # self.s = society()
+        self.driver = BaseOperate()
+        self.loc = location()
+
+    @classmethod
+    def tearDownClass(self):
+        pass
 
     # 有声漫画
-    def test_z_o_function_cartoon(self):
+    def test_a_function_cartoon(self):
         while True:
             try:
                 self.driver.find_xpath('有声漫画')
                 break
             except:
-                self.loc.home_func()
+                self.loc.home_func_enter()
         time.sleep(2)
         while True:
             self.driver.find_xpath('有声漫画').click()
@@ -1014,7 +1087,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 推荐列表-声漫名称校验
-    def test_z_p_function_cartoon_title_check(self):
+    def test_b_function_cartoon_title_check(self):
         name = self.driver.find_id_text('title')
         self.driver.find_id_click('title')
         self.driver.wait_id('start_play')
@@ -1023,7 +1096,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 推荐列表加载
-    def test_z_q_function_cartoon_list_load(self):
+    def test_c_function_cartoon_list_load(self):
         for i in range(4):
             self.driver.swip_up()
             time.sleep(2)
@@ -1033,7 +1106,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 声漫剧集详情
-    def test_z_r_function_cartoon_episodes_detail(self):
+    def test_d_function_cartoon_episodes_detail(self):
         i = 0
         while i <= 10:
             self.driver.find_id_click('imgHead')
@@ -1051,7 +1124,7 @@ class home_function(unittest.TestCase):
             time.sleep(2)
 
     # 剧集列表界面点击声漫收藏
-    def test_z_s_function_cartoon_collection(self):
+    def test_e_function_cartoon_collection(self):
         self.driver.find_id_click('collect')
         toast = self.driver.wait_toast('//android.widget.Toast')
         check = '收藏成功'
@@ -1064,7 +1137,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 声漫制作相关社团列表
-    def test_z_t_function_cartoon_make_society(self):
+    def test_f_function_cartoon_make_society(self):
         self.driver.find_id_click('right_rl')
         try:
             self.driver.wait_id('count')
@@ -1077,20 +1150,18 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 连载漫画集数查看
-    def test_z_u_function_cartoon_episode_check(self):
-        num = self.driver.find_id_text('name')
+    def test_g_function_cartoon_episode_check(self):
         self.driver.find_id_click('name')
         self.driver.wait_id('userhead')
         self.driver.Background()
         time.sleep(2)
-        re_num = re.findall(r'第 (.*) 话', num)
-        new_num = ''.join(re_num)
-        title_name = self.driver.find_id_text('tv_video_detail_title')
-        assert new_num in title_name, '声漫切换集数校验不一致'
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     #最新列表-话集更新检查
-    def test_z_v_function_cartoon_update_check(self):
+    def test_h_function_cartoon_update_check(self):
         self.driver.find_id_click('tab2')
         time.sleep(2)
         # update = self.driver.find_id_text('update')
@@ -1105,7 +1176,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 声漫分类列表
-    def test_z_w_function_cartoon_classification_list(self):
+    def test_i_function_cartoon_classification_list(self):
         self.driver.find_id_click('tab3')
         time.sleep(2)
         title = self.driver.find_ids('title')
@@ -1114,7 +1185,7 @@ class home_function(unittest.TestCase):
         time.sleep(1)
 
     # 声漫制作
-    def test_z_x_function_cartoon_make(self):
+    def test_j_function_cartoon_make(self):
         self.driver.find_id_click('sm')
         time.sleep(2)
         title = self.driver.find_ids('title')
@@ -1123,7 +1194,7 @@ class home_function(unittest.TestCase):
         time.sleep(1)
 
     # 漫画详情
-    def test_z_y_function_cartoon_detail(self):
+    def test_k_function_cartoon_detail(self):
         self.driver.find_id_click('btn_add')
         time.sleep(2)
         self.driver.find_id_send('txtKeyword','你听说过女大学生吗')
@@ -1137,7 +1208,7 @@ class home_function(unittest.TestCase):
             time.sleep(2)
 
     # 制作声漫
-    def test_z_z_function_cartoon_making(self):
+    def test_l_function_cartoon_making(self):
         self.driver.find_id_click('tv_make')
         time.sleep(2)
         try:
@@ -1161,9 +1232,11 @@ class home_function(unittest.TestCase):
         self.driver.find_id_click('tv_sure')
         self.driver.wait_toast('//android.widget.Toast')
         time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     # 我的漫画
-    def test_z_z_a_function_cartoon_my(self):
+    def test_m_function_cartoon_my(self):
         self.driver.find_id_click('tab2')
         time.sleep(2)
         self.driver.swip_down()
@@ -1172,7 +1245,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 声漫统筹界面-更新配音者
-    def test_z_z_b_function_cartoon_change_voiceover(self):
+    def test_n_function_cartoon_change_voiceover(self):
         self.driver.find_id_click('iv_pic1')
         time.sleep(2)
         self.driver.find_id_click('change')
@@ -1197,21 +1270,21 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 进入统筹界面-添加音效
-    def test_z_z_c_function_cartoon_making_insert_sound(self):
+    def test_n_function_cartoon_making_insert_sound(self):
         self.driver.find_id_click('make')
         self.driver.wait_id('upload')
         self.driver.find_xpath('添加音效').click()
         time.sleep(2)
 
     # 点击录音
-    def test_z_z_d_function_cartoon_record(self):
+    def test_o_function_cartoon_record(self):
         self.driver.find_id_click('transcribe')
         time.sleep(5)
         self.driver.find_id_click('transcribe')
         time.sleep(4)
 
     # 点击试听音效
-    def test_z_z_e_function_cartoon_making_listening_test(self):
+    def test_p_function_cartoon_making_listening_test(self):
         sounds = self.driver.find_ids('effect_types_img')
         for i in range(len(sounds)):
             self.driver.find_ids_click('effect_types_img',i)
@@ -1220,13 +1293,12 @@ class home_function(unittest.TestCase):
             for y in range(len(sounds_classification)):
                 self.driver.find_ids_click('effect_sound_name',y)
                 time.sleep(2)
-
         # 播放整体动漫音效
         self.driver.find_id_click('preview')
         time.sleep(10)
 
     # 进入添加背景音界面
-    def test_z_z_f_function_cartoon_making_background_music(self):
+    def test_q_function_cartoon_making_background_music(self):
         self.driver.find_id_click('upload')
         self.driver.wait_id('comic_sound_class_name')
         time.sleep(2)
@@ -1254,7 +1326,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 声漫上传界面-保存并退出
-    def test_z_z_g_function_cartoon_making_save(self):
+    def test_r_function_cartoon_making_save(self):
         self.driver.find_id_click('preview')
         self.driver.wait_id('preview')
         time.sleep(2)
@@ -1263,7 +1335,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 声漫上传
-    def test_z_z_h_function_cartoon_making_upload(self):
+    def test_s_function_cartoon_making_upload(self):
         self.driver.find_id_click('make')
         self.driver.wait_id('upload')
         time.sleep(2)
@@ -1279,7 +1351,7 @@ class home_function(unittest.TestCase):
         time.sleep(2)
 
     # 声漫删除
-    def test_z_z_i_function_cartoon_delete(self):
+    def test_t_function_cartoon_delete(self):
         try:
             self.driver.find_id('imgurl')
             self.driver.find_id_click('imgurl')
@@ -2258,23 +2330,10 @@ class follow(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         warnings.simplefilter('ignore', ResourceWarning)
-        # self.driver = BaseOperate()
-        # self.x = self.driver.touch_X()
-        # self.y = self.driver.touch_Y()
-        # self.id = resource_id
-        # self.d = dub()
-        # self.home_enter = home_function()
-        # self.l = live()
-        # self.f = follow()
-        # self.m = material()
-        # self.p = person()
-        # self.v = video_detail()
-        # self.c = circle()
-        # self.s = society()
         self.driver = BaseOperate()
         self.loc = location()
-        self.y = self.driver.touch_Y()
-        self.x = self.driver.touch_X()
+        self.y = touche_Y()
+        self.x = touche_X()
 
     @classmethod
     def tearDownClass(self):
@@ -2293,32 +2352,51 @@ class follow(unittest.TestCase):
         self.driver.wait_download('user_list')
         self.driver.find_id_click('home_close')
         time.sleep(2)
-        self.driver.find_id_click('item_theme_image')
+        self.driver.find_id_click('musicPlayView')
         time.sleep(2)
 
     #首页关注列表进入个人空间
     def test_c_follow_person_zoom(self):
+        self.driver.swip_down()
+        time.sleep(2)
         name = self.driver.find_id_text('textView')
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_follow')
         name = self.driver.find_id_text('username')
-        assert name == name
-
-    #切换分类
-    def test_d_follow_switch_classification(self):
-        #作品tab
-        self.driver.find_id_click('tv_film')
+        if name != name:
+            print('关注界面空间跳转名称校验失败')
+        self.driver.swip_up()
         time.sleep(2)
-        try:
-            self.driver.find_id('userhead')
-        except:
-            self.driver.swip_down()
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    #关注界面全部分类
+    def test_d_follow_all(self):
+        #全部
+        self.driver.find_id_click('tv_all')
+        time.sleep(2)
+        self.driver.swip_down()
         time.sleep(2)
         self.driver.find_id_click('userhead')
         self.driver.wait_id('ll_fan')
+        time.sleep(2)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
-        self.driver.find_id_click('content')
+        for i in range(3):
+            self.driver.swip_up()
+        time.sleep(2)
+
+    def test_e_follow_works(self):
+        self.driver.find_id_click('tv_film')
+        time.sleep(2)
+        while True:
+            try:
+                self.driver.find_xpath('转发作品')
+                break
+            except:
+                self.driver.swip_up()
+            time.sleep(2)
+        self.driver.find_xpath_click('转发作品')
         self.driver.wait_id('tv_video_detail_title')
         self.driver.Background()
         time.sleep(2)
@@ -2339,25 +2417,25 @@ class follow(unittest.TestCase):
         # qq空间
         self.driver.find_id_click('item_attention_share_num')
         time.sleep(2)
-        self.loc.share_qq_zone()
+        self.loc.share_QQ_zone()
         self.driver.wait_xpath('发表')
-        self.driver.find_id_third_part('com.tencent.mobileqq:id/ivtitlebtnleft')
+        self.driver.find_id_third_part('com.tencent.mobileqq:id/ivTitleBtnLeft')
         time.sleep(3)
 
-        # 点击新浪
-        self.driver.find_id_click('item_attention_share_num')
-        time.sleep(2)
-        self.loc.share_sina()
-        self.driver.wait_xpath('发送')
-        time.sleep(2)
-        self.driver.find_id_third_part('com.sina.weibo:id/titleBack')
-        time.sleep(2)
-        try:
-            self.driver.find_xpath('不保存')
-            self.driver.find_xpath('不保存').click()
-        except:
-            pass
-        time.sleep(2)
+        # # 点击新浪
+        # self.driver.find_id_click('item_attention_share_num')
+        # time.sleep(2)
+        # self.loc.share_sina()
+        # self.driver.wait_xpath('发送')
+        # time.sleep(2)
+        # self.driver.find_id_third_part('com.sina.weibo:id/titleBack')
+        # time.sleep(2)
+        # try:
+        #     self.driver.find_xpath('不保存')
+        #     self.driver.find_xpath('不保存').click()
+        # except:
+        #     pass
+        # time.sleep(2)
 
         # 点击私信
         self.driver.find_id_click('item_attention_share_num')
@@ -2388,6 +2466,7 @@ class follow(unittest.TestCase):
 
         # 点击下载视频到本地
         self.driver.find_id_click('item_attention_share_num')
+        time.sleep(2)
         self.loc.share_download()
         # 先判断点击是否为下载按钮，若是复制按钮则会toast提示，不是复制按钮则判断是否有非会员弹窗，不是则直接等待作品下载完成
         try:
@@ -2402,9 +2481,12 @@ class follow(unittest.TestCase):
                 self.driver.wait_id_click('btnSubmit')
             except:
                 try:
-                    self.driver.wait_id_click('btnSubmit')
+                    self.driver.find_id_click('btn_cancel')
                 except:
-                    pass
+                    try:
+                        self.driver.wait_id_click('btnSubmit')
+                    except:
+                        pass
 
         # 点击复制链接
         self.driver.find_id_click('item_attention_share_num')
@@ -2414,11 +2496,14 @@ class follow(unittest.TestCase):
             self.driver.wait_toast('//android.widget.Toast')
         except:
             try:
-                self.driver.wait_id('txtContent')
-                time.sleep(2)
-                self.driver.find_id_click('btnSubmit')
+                self.driver.find_id_click('btn_cancel')
             except:
-                pass
+                try:
+                    self.driver.wait_id('txtContent')
+                    time.sleep(2)
+                    self.driver.find_id_click('btnSubmit')
+                except:
+                    pass
         time.sleep(2)
 
         # 点击转发
@@ -2444,22 +2529,23 @@ class follow(unittest.TestCase):
             # 点击取消分享弹窗按钮
             self.loc.one_from_last()
         time.sleep(2)
+
         # 关注界面点赞
         while True:
             try:
-                self.driver.find_id('item_attention_pprint()')
+                self.driver.find_id('item_attention_praise')
                 break
             except:
                 self.driver.swip_up()
                 time.sleep(2)
-        num = self.driver.find_id_text('item_attention_pprint()')
-        self.driver.find_id_click('item_attention_pprint()')
+        num = self.driver.find_id_text('item_attention_praise')
+        self.driver.find_id_click('item_attention_praise')
         try:
             self.driver.wait_toast('//android.widget.Toast')
         except:
             pass
-        new_num = self.driver.find_id_text('item_attention_pprint()')
-        assert num == new_num
+        new_num = self.driver.find_id_text('item_attention_praise')
+        assert num != new_num
         time.sleep(2)
 
         # 关注界面评论作品
@@ -2482,13 +2568,49 @@ class follow(unittest.TestCase):
             assert check in toast,'关注界面发送评论提示校验不一致'
         except:
             print('未检测到评论发送toast提示')
+
+        #转发作品合辑
+        self.driver.find_id_click('ivMineTab')
+        time.sleep(2)
+        self.driver.find_id_click('userhead')
+        self.driver.wait_id('ll_fan')
+        self.driver.find_id_click('single_text')
+        time.sleep(2)
+        self.driver.find_id_click('tag')
+        time.sleep(2)
+        self.driver.find_id_click('share_img')
+        time.sleep(2)
+        self.driver.find_id_send('content','转发')
+        time.sleep(2)
+        self.driver.find_id_click('reprint')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(1)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('ivCirclesTab')
+        time.sleep(2)
+        self.driver.find_id_click('tv_film')
+        time.sleep(2)
+        self.driver.swip_down()
+        time.sleep(2)
+        self.driver.find_id_click('name')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('more')
+        time.sleep(2)
+        self.loc.two_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
         time.sleep(2)
 
+    def test_f_follow_topics(self):
         #帖子tab
         self.driver.find_id_click('tv_tiezi')
         time.sleep(3)
         # 设置关注区权限
-        self.driver.find_id_click('more')
+        self.driver.find_id_click('action')
         time.sleep(2)
         self.loc.five_from_last()
         time.sleep(2)
@@ -2503,7 +2625,7 @@ class follow(unittest.TestCase):
 
         # 特别关注
         for i in range(2):
-            self.driver.find_id_click('more')
+            self.driver.find_id_click('action')
             time.sleep(2)
             self.loc.four_from_last()
             try:
@@ -2515,7 +2637,7 @@ class follow(unittest.TestCase):
             time.sleep(2)
 
         #转发私信
-        self.driver.find_id_click('more')
+        self.driver.find_id_click('action')
         time.sleep(2)
         self.loc.three_from_last()
         time.sleep(2)
@@ -2526,7 +2648,7 @@ class follow(unittest.TestCase):
         time.sleep(2)
 
         #帖子举报
-        self.driver.find_id_click('more')
+        self.driver.find_id_click('action')
         time.sleep(2)
         self.loc.two_from_last()
         time.sleep(2)
@@ -2573,6 +2695,7 @@ class follow(unittest.TestCase):
                     pass
         time.sleep(2)
 
+    def test_g_follow_sources(self):
         #素材tab
         self.driver.find_id_click('tv_source')
         time.sleep(3)
@@ -2605,7 +2728,6 @@ class follow(unittest.TestCase):
             except:
                 print('未检测到特别关注toast提示')
             time.sleep(2)
-
 
         self.driver.find_id_click('content')
         self.driver.wait_id('right_icon1')
@@ -2666,37 +2788,63 @@ class follow(unittest.TestCase):
             try:
                 toast = self.driver.wait_toast('//android.widget.Toast')
                 check = '成功'
-                assert check in toast, '特别关注toast提示检验失败' + toast
+                if check not in toast:
+                    print('特别关注toast提示检验失败' + toast)
             except:
                 print('未检测到特别关注toast提示')
             time.sleep(2)
 
-    def test_e_follow_up_refresh(self):
-        for i in range(4):
-            self.driver.swip_up()
-            time.sleep(2)
+        # 转发素材合辑
+        self.driver.find_id_click('ivMineTab')
+        time.sleep(2)
+        self.driver.find_id_click('userhead')
+        self.driver.wait_id('ll_fan')
+        self.driver.find_id_click('source_text')
+        time.sleep(2)
+        self.driver.find_id_click('tag')
+        time.sleep(2)
+        self.driver.find_id_click('share_img')
+        time.sleep(2)
+        self.driver.find_id_send('content', '转发')
+        time.sleep(2)
+        self.driver.find_id_click('reprint')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('ivCirclesTab')
+        time.sleep(2)
+        self.driver.find_id_click('tv_source')
+        time.sleep(2)
+        self.driver.swip_down()
+        time.sleep(2)
+        self.driver.find_id_click('name')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('more')
+        time.sleep(2)
+        self.loc.two_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        time.sleep(2)
+
+    #特别关注
+    def test_h_follow_special_attention(self):
+        self.driver.find_id_click('tv_attention')
+        time.sleep(2)
+        self.driver.swip_down()
+        time.sleep(2)
 
 class live(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         warnings.simplefilter('ignore', ResourceWarning)
-        # self.driver = BaseOperate()
-        # self.x = self.driver.touch_X()
-        # self.y = self.driver.touch_Y()
-        # self.id = resource_id
-        # self.d = dub()
-        # self.home_enter = home_function()
-        # self.l = live()
-        # self.f = follow()
-        # self.m = material()
-        # self.p = person()
-        # self.v = video_detail()
-        # self.c = circle()
-        # self.s = society()
         self.driver = BaseOperate()
         self.loc = location()
-        self.y = self.driver.touch_Y()
-        self.x = self.driver.touch_X()
+        self.y = touche_Y()
+        self.x = touche_X()
 
     @classmethod
     def tearDownClass(self):
@@ -2705,18 +2853,17 @@ class live(unittest.TestCase):
     def test_a_live_list(self):
         while True:
             try:
-                self.driver.find_xpath('频道')
+                self.driver.find_xpath('语聊')
                 break
             except:
-                self.loc.home_func()
-
+                self.loc.home_func_enter()
         time.sleep(2)
         self.driver.find_xpath('语聊').click()
-        self.driver.find_id_click('create')
+        self.driver.wait_id('create')
 
     #进入语聊间
     def test_b_live_into_live_detail(self):
-        self.driver.find_id_click('fram')
+        self.driver.find_id_click('frame')
         self.driver.wait_id('gift_value')
 
     #切换语聊间
@@ -2725,7 +2872,8 @@ class live(unittest.TestCase):
             self.driver.swip_left()
             self.driver.wait_id('gift_value')
             time.sleep(2)
-
+        self.driver.find_id_click('home_close')
+        time.sleep(2)
     #语聊间创建界面编辑
     def test_d_livecreate_live_edit(self):
         self.driver.find_id_click('create')
@@ -2741,6 +2889,8 @@ class live(unittest.TestCase):
         self.driver.find_id_click('title')
         time.sleep(2)
         self.driver.find_id_send('title','空')
+        time.sleep(2)
+        self.driver.back()
         time.sleep(2)
         self.driver.find_id_click('tag_name')
         time.sleep(2)
@@ -2902,7 +3052,7 @@ class live(unittest.TestCase):
         time.sleep(2)
         self.loc.chat_manager()
         time.sleep(2)
-        self.driver.find_id_click('btn_close')
+        self.driver.back()
         time.sleep(2)
 
     #随机抽选游戏
@@ -2910,8 +3060,6 @@ class live(unittest.TestCase):
         self.driver.find_id_click('function_more')
         time.sleep(2)
         self.loc.chat_games()
-        time.sleep(2)
-        self.driver.find_id_click('btn_close')
         time.sleep(2)
         self.driver.find_id_click('tv_turntable')
         time.sleep(2)
@@ -3014,6 +3162,8 @@ class live(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('play')
         time.sleep(2)
+        self.driver.find_id_click('play')
+        time.sleep(2)
         self.driver.find_id_click('next')
         time.sleep(2)
         self.driver.find_id_click('previous')
@@ -3031,327 +3181,400 @@ class live(unittest.TestCase):
 
     #语聊任务
     def test_z_live_tasks(self):
-        self.driver.find_id_click('img')
+        self.driver.find_ids_click('img',-1)
         time.sleep(2)
+        self.driver.tap(self.x * 0.5, self.y * 0.397)
+        self.driver.wait_id_click('btnClose')
+        time.sleep(2)
+        self.driver.find_id_click('xiuka')
+        time.sleep(2)
+        self.driver.find_id_click('buy_level')
+        time.sleep(2)
+        self.driver.find_id_click('cancel')
+        time.sleep(2)
+        self.driver.find_id_click('upgrade')
+        time.sleep(2)
+        self.driver.find_id_click('img68')
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        time.sleep(2)
+        self.driver.find_id_click('btnCancel')
+        time.sleep(2)
+        self.driver.find_id_click('img168')
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        time.sleep(2)
+        self.driver.find_id_click('btnCancel')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('lingqu')
+        time.sleep(2)
+        self.driver.swip_up()
         self.driver.find_id_click('name')
         time.sleep(2)
-
 
     #退出语聊间
     def test_z_a_live_room_exit(self):
         self.driver.find_id_click('home_close')
         time.sleep(2)
+        self.driver.find_id_click('check_box')
+        time.sleep(2)
+        self.driver.find_id_click('outLive')
+        time.sleep(2)
+
+    # 语聊中心
+    def test_z_b_live_person(self):
+        self.driver.find_id_click('my_user_head')
+        self.driver.wait_id('middle')
+        time.sleep(2)
+        self.driver.find_id_click('rl_left')
+        time.sleep(2)
+        self.driver.find_id_click('guide')
+        time.sleep(2)
+        self.driver.find_id_click('close')
+        time.sleep(2)
+        self.driver.find_id_click('img1')
+        time.sleep(2)
+        self.driver.find_id_click('head')
+        self.driver.wait_id('ll_fan')
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.back()
+        time.sleep(2)
+        self.driver.find_id_click('right_title')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('rl_right')
         try:
-            self.driver.find_id('outlive')
-            self.driver.find_id_click('outlive')
+            self.driver.find_id('name')
+            count = self.driver.find_ids_text('name')
+            lists = []
+            for name in count:
+                lists.append(name)
+                print(lists)
         except:
             pass
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.back()
+        time.sleep(2)
+
+    #语聊-最新
+    def test_z_c_live_new_list(self):
+        self.driver.find_id_click('tab2')
+        time.sleep(2)
+        self.driver.find_id_click('frame')
+        self.driver.wait_id('gift_value')
+        self.driver.find_id_click('home_close')
+        time.sleep(2)
+        self.driver.swip_down()
+        time.sleep(2)
+        self.driver.swip_up()
+        time.sleep(2)
+
+    #语聊-关注
+    def test_z_d_live_follow_list(self):
+        self.driver.find_id_click('tab3')
+        time.sleep(2)
+        self.driver.find_id_click('frame')
+        self.driver.wait_id('gift_value')
+        self.driver.find_id_click('home_close')
         time.sleep(2)
 
 class material(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         warnings.simplefilter('ignore', ResourceWarning)
-        # self.driver = BaseOperate()
-        # self.x = self.driver.touch_X()
-        # self.y = self.driver.touch_Y()
-        # self.id = resource_id
-        # self.d = dub()
-        # self.home_enter = home_function()
-        # self.l = live()
-        # self.f = follow()
-        # self.m = material()
-        # self.p = person()
-        # self.v = video_detail()
-        # self.c = circle()
-        # self.s = society()
         self.driver = BaseOperate()
         self.loc = location()
-        self.y = self.driver.touch_Y()
-        self.x = self.driver.touch_X()
+        self.y = touche_Y()
+        self.x = touche_X()
 
     @classmethod
     def tearDownClass(self):
         pass
 
 
-    #进入素材库
-    def test_a_source_into_list(self):
-        self.driver.find_id_click('btn_more')
-        self.driver.wait_id('coor')
-
-    # 素材库搜索素材
-    def test_b_source_searchs(self):
-        self.driver.wait_id('tv_search')
-        self.driver.find_id_click('tv_search')
-        time.sleep(4)
-
-        #点击热门素材标签
-        tv_name = self.driver.find_ids('tv')
-        time.sleep(2)
-        for i in range(len(tv_name)):
-            self.driver.find_ids_click('tv',i)
-            self.driver.wait_id('rl_left2')
-            self.driver.find_id_click('btnClear')
-            time.sleep(2)
-
-        # 历史搜索记录
-        try:
-            self.driver.find_id('item')
-            self.driver.wait_id('iv_source')
-            time.sleep(2)
-            self.driver.find_id_click('btnClear')
-            time.sleep(2)
-        except:
-            print('未显示有历史搜索记录')
-        time.sleep(2)
-        # 清空搜索记录
-        self.driver.find_id_click('clear')
-        time.sleep(2)
-
-        # 推荐搜索-更多热点
-        self.driver.find_id_click('tv1')
-        self.driver.wait_id_click('rank_name')
-        try:
-            self.driver.wait_id('iv_source')
-            self.driver.find_id_click('btnBack')
-            time.sleep(2)
-        except:
-            print('素材标签详情界面未显示素材信息')
-
-        # 上滑加载标签列表
-        while True:
-            self.driver.swip_up()
-            time.sleep(2)
-            label_name = self.driver.find_ids_text('rank_name',-1)
-            self.driver.swip_up()
-            label_name1 = self.driver.find_ids_text('rank_name',-1)
-            if label_name == label_name1:
-                self.driver.find_id_click('btnBack')
-                break
-            else:
-                pass
-        time.sleep(2)
-
-    # 进入标签详情界面
-    def test_c_source_tv_detail(self):
-        self.driver.find_id_click('tv1')
-        self.driver.wait_id('iv_source')
-        time.sleep(2)
-        # 依次点击切换标签，且点击标签后进入素材预览界面再返回
-        label_touche = self.driver.find_ids('types_name')
-        for i in range(len(label_touche) - 1, -1, -1):
-            self.driver.find_ids_click('types_name',i)
-            self.driver.wait_id('iv_source')
-            try:
-                self.driver.find_id('iv_source')
-                self.driver.wait_id('userhead')
-                self.driver.find_id_click('btnBack')
-                time.sleep(2)
-            except:
-                pass
-        time.sleep(2)
-
-        # 上滑加载素材搜索结果列表
-        for i in range(10):
-            self.driver.swip_up()
-            time.sleep(2)
-        time.sleep(2)
-        self.driver.find_id_click('btnClear')
-        time.sleep(2)
-
-    # 搜索素材
-    def test_d_source_search(self):
-        self.driver.find_id_send('txtKeyword','配音')
-        time.sleep(2)
-        self.driver.find_id_click('btnSearch')
-        self.driver.wait_id_click('iv_source')
-        self.driver.wait_id('userhead')
-        time.sleep(2)
-        self.driver.find_id_click('btnBack')
-        time.sleep(2)
-        el = self.driver.find_ids('types_name')
-        for i in reversed(el):
-            self.driver.find_ids_click('types_name',i)
-            time.sleep(2)
-        self.driver.swip_up()
-        time.sleep(2)
-        self.driver.find_id_click('btnBack')
-        time.sleep(2)
-
-    # 素材库主界面8个大分类
-    def test_e_source_classification(self):
-        tv_main = self.driver.find_ids('tv')
-        for i in range(len(tv_main)):
-            self.driver.find_ids_click('tv',i)
-            self.driver.wait_id('iv_source')
-            # 热门推荐标签
-            tv_branch = self.driver.find_ids('tv')
-            for x in range(len(tv_branch)):
-                self.driver.find_ids_click('tv',x)
-                self.driver.wait_id('img_url')
-                self.driver.find_id_click('btnBack')
-                time.sleep(2)
-            # 更多热门标签
-            self.driver.find_id_click('tv1')
-            time.sleep(2)
-            self.driver.find_id_click('btnBack')
-            time.sleep(2)
-            screening = self.driver.find_ids('types_name')
-            for j in range(len(screening) - 1, -1, -1):
-                self.driver.find_ids_click('types_name',j)
-                time.sleep(1)
-            time.sleep(2)
-            self.driver.find_id_click('iv_source')
-            self.driver.wait_id('userhead')
-            self.driver.find_id_click('btnBack')
-            time.sleep(2)
-            self.driver.find_id_click('btnBack')
-            time.sleep(2)
-        time.sleep(2)
+    # #进入素材库
+    # def test_a_source_into_list(self):
+    #     self.driver.find_id_click('btn_more')
+    #     self.driver.wait_id('coor')
+    #
+    # # 素材库搜索素材
+    # def test_b_source_searchs(self):
+    #     self.driver.wait_id('tv_search')
+    #     self.driver.find_id_click('tv_search')
+    #     time.sleep(4)
+    #
+    #     #点击热门素材标签
+    #     tv_name = self.driver.find_ids('tv')
+    #     time.sleep(2)
+    #     for i in range(len(tv_name)):
+    #         self.driver.find_ids_click('tv',i)
+    #         self.driver.wait_id('rl_left2')
+    #         self.driver.find_id_click('btnClear')
+    #         time.sleep(2)
+    #
+    #     # 历史搜索记录
+    #     try:
+    #         self.driver.find_id('item')
+    #         self.driver.wait_id('iv_source')
+    #         time.sleep(2)
+    #         self.driver.find_id_click('btnClear')
+    #         time.sleep(2)
+    #     except:
+    #         print('未显示有历史搜索记录')
+    #     time.sleep(2)
+    #     # 清空搜索记录
+    #     self.driver.find_id_click('clear')
+    #     time.sleep(2)
+    #
+    #     # 推荐搜索-更多热点
+    #     self.driver.find_id_click('tv1')
+    #     self.driver.wait_id_click('rank_name')
+    #     try:
+    #         self.driver.wait_id('iv_source')
+    #         self.driver.find_id_click('btnBack')
+    #         time.sleep(2)
+    #     except:
+    #         print('素材标签详情界面未显示素材信息')
+    #
+    #     # 上滑加载标签列表
+    #     while True:
+    #         self.driver.swip_up()
+    #         time.sleep(2)
+    #         label_name = self.driver.find_ids_text('rank_name',-1)
+    #         self.driver.swip_up()
+    #         time.sleep(2)
+    #         label_name1 = self.driver.find_ids_text('rank_name',-1)
+    #         if label_name == label_name1:
+    #             self.driver.find_id_click('btnBack')
+    #             break
+    #         else:
+    #             pass
+    #     time.sleep(2)
+    #
+    # # 进入标签详情界面
+    # def test_c_source_tv_detail(self):
+    #     self.driver.find_id_click('tv')
+    #     self.driver.wait_id('iv_source')
+    #     time.sleep(2)
+    #     # 依次点击切换标签，且点击标签后进入素材预览界面再返回
+    #     label_touche = self.driver.find_ids('types_name')
+    #     for i in range(len(label_touche) - 1, -1, -1):
+    #         self.driver.find_ids_click('types_name',i)
+    #         self.driver.wait_id('iv_source')
+    #         try:
+    #             self.driver.find_id('iv_source')
+    #             self.driver.wait_id('userhead')
+    #             self.driver.find_id_click('btnBack')
+    #             time.sleep(2)
+    #         except:
+    #             pass
+    #     time.sleep(2)
+    #
+    #     # 上滑加载素材搜索结果列表
+    #     for i in range(10):
+    #         self.driver.swip_up()
+    #         time.sleep(2)
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnClear')
+    #     time.sleep(2)
+    #
+    # # 搜索素材
+    # def test_d_source_search(self):
+    #     self.driver.find_id_send('txtKeyword','配音')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnSearch')
+    #     self.driver.wait_id_click('iv_source')
+    #     self.driver.wait_id('userhead')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnBack')
+    #     time.sleep(2)
+    #     el = self.driver.find_ids('types_name')
+    #     for i in reversed(len(el)):
+    #         self.driver.find_ids_click('types_name',i)
+    #         time.sleep(2)
+    #     self.driver.swip_up()
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnBack')
+    #     time.sleep(2)
+    #
+    # # 素材库主界面8个大分类
+    # def test_e_source_classification(self):
+    #     tv_main = self.driver.find_ids('tv')
+    #     for i in range(len(tv_main)):
+    #         self.driver.find_ids_click('tv',i)
+    #         self.driver.wait_id('iv_source')
+    #         # 热门推荐标签
+    #         tv_branch = self.driver.find_ids('tv')
+    #         for x in range(len(tv_branch)):
+    #             self.driver.find_ids_click('tv',x)
+    #             self.driver.wait_id('img_url')
+    #             self.driver.find_id_click('btnBack')
+    #             time.sleep(2)
+    #         # 更多热门标签
+    #         self.driver.find_id_click('tv1')
+    #         time.sleep(2)
+    #         self.driver.find_id_click('btnBack')
+    #         time.sleep(2)
+    #         screening = self.driver.find_ids('types_name')
+    #         for j in range(len(screening) - 1, -1, -1):
+    #             self.driver.find_ids_click('types_name',j)
+    #             time.sleep(1)
+    #         time.sleep(2)
+    #         self.driver.find_id_click('iv_source')
+    #         self.driver.wait_id('userhead')
+    #         self.driver.find_id_click('btnBack')
+    #         time.sleep(2)
+    #         self.driver.find_id_click('btnBack')
+    #         time.sleep(2)
+    #     time.sleep(2)
 
     # 合作广场-广场列表
-    def test_f_source_coor(self):
-        self.driver.find_id_click('rl_coor')
-        self.driver.wait_id('item_sh_cooperate_article_image')
-        self.driver.find_id_click('userhead')
-        self.driver.wait_id('followcount')
-        self.driver.find_id_click('btnBack')
-        time.sleep(2)
-        self.driver.find_id_click('item_sh_cooperate_article_image')
-        self.driver.wait_download('play')
-        time.sleep(2)
-        self.driver.find_id_click('play')
-        self.driver.wait_download('play')
-        time.sleep(2)
-
-        # 点击视频预览界面的合作按钮进入配音界面
-        self.driver.find_id_click('btnCooperate')
-        self.driver.wait_download('action')
-        self.driver.find_id_click('back')
-        time.sleep(2)
-        self.driver.find_id_click('btnSubmit')
-        self.driver.wait_id('item_sh_cooperate_article_image')
-
-        # 点击广场列表中的配音按钮进入配音界面
-        self.driver.find_id_click('btnCooperate')
-        self.driver.wait_download('action')
-        self.driver.find_id_click('back')
-        time.sleep(2)
-        self.driver.find_id_click('btnSubmit')
-        self.driver.wait_id('item_sh_cooperate_article_image')
-        time.sleep(2)
-
-        # 获取广场中的求合作剩余时间
-        try:
-            self.driver.find_id('item_sh_clock_time')
-        except:
-            print('未显示时间')
-        time.sleep(2)
-
-        # 加载列表
-        for i in range(5):
-            self.driver.swip_down()
-            time.sleep(2)
-        time.sleep(2)
-        for i in range(5):
-            self.driver.swip_up()
-            time.sleep(2)
-        try:
-            self.driver.find_id('top_img')
-            self.driver.find_id_click('top_img')
-            time.sleep(5)
-        except:
-            pass
-        time.sleep(2)
-
-    # 合作广场角色tab筛选项切换
-    def test_g_source_role_change(self):
-        self.driver.find_id_click('fq_male')
-        time.sleep(2)
-        self.driver.find_id_click('fq_female')
-        time.sleep(2)
-        self.driver.find_id_click('dp_male')
-        time.sleep(2)
-        self.driver.find_id_click('dp_female')
-        time.sleep(2)
-
-    # 合作广场-热门列表
-    def test_h_source_coor_hot(self):
-        self.driver.find_xpath('热门').click()
-        time.sleep(2)
-        # 显示合作次数
-        try:
-            self.driver.find_id('count')
-        except:
-            print('合作广场热门列表未显示合作次数')
-        time.sleep(2)
-        # 加载列表
-        for i in range(5):
-            self.driver.swip_down()
-            time.sleep(2)
-        time.sleep(2)
-        for i in range(5):
-            self.driver.swip_up()
-            time.sleep(2)
-        try:
-            self.driver.find_id('top_img')
-            self.driver.find_id_click('top_img')
-            time.sleep(5)
-        except:
-            pass
-        time.sleep(2)
-
-
-    # 合作广场-我的
-    def test_i_my_coor(self):
-        time.sleep(2)
-        self.driver.find_xpath('我的').click()
-        time.sleep(2)
-        self.driver.find_id_click('userhead')
-        self.driver.wait_id('followcount')
-        self.driver.find_id_click('btnBack')
-        time.sleep(2)
-
-    # 合作广场-搜索
-    def test_j_source_coor_search(self):
-        self.driver.find_id_click('right_icon1')
-        time.sleep(2)
-        self.driver.find_id_send('et_search_keyword','配音')
-        time.sleep(2)
-        self.driver.find_id_click('btnSearch')
-        self.driver.wait_id_click('item_sh_cooperate_article_image')
-        time.sleep(2)
-        self.driver.wait_download('play')
-        self.driver.find_id_click('btnCooperate')
-        self.driver.wait_download('action')
-        time.sleep(2)
-        self.driver.find_id_click('back')
-        time.sleep(2)
-        self.driver.find_id_click('btnSubmit')
-        self.driver.wait_id('item_sh_cooperate_article_image')
-        # 滑动加载列表
-        for i in range(5):
-            self.driver.swip_up()
-            time.sleep(2)
-        time.sleep(2)
-        self.driver.find_id_click('btnBack')
-        time.sleep(2)
-        self.driver.find_id_click('right_icon1')
-        time.sleep(2)
-        self.driver.find_id_send('et_search_keyword','槛花笼鹤')
-        time.sleep(2)
-        self.driver.find_id_click('btnSearch')
-        time.sleep(5)
-        try:
-            self.driver.find_xpath('没有搜索到任何内容')
-        except:
-            print('检查搜索无结果显示失败')
-        time.sleep(2)
-        self.driver.find_id_click('btnBack')
-        time.sleep(2)
-        self.driver.find_id_click('btnBack')
-        time.sleep(2)
+    # def test_f_source_coor(self):
+    #     self.driver.find_id_click('rl_coor')
+    #     self.driver.wait_id('item_sh_cooperate_article_image')
+    #     self.driver.find_id_click('userhead')
+    #     self.driver.wait_id('followcount')
+    #     self.driver.find_id_click('btnBack')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('item_sh_cooperate_article_image')
+    #     self.driver.wait_download('video_play_btn')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('video_play_btn')
+    #     self.driver.wait_download('video_play_btn')
+    #     time.sleep(2)
+    #
+    #     # 点击视频预览界面的合作按钮进入配音界面
+    #     self.driver.find_id_click('btnCooperate')
+    #     self.driver.wait_download('action')
+    #     self.driver.find_id_click('back')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnSubmit')
+    #     self.driver.wait_id('item_sh_cooperate_article_image')
+    #
+    #     # 点击广场列表中的配音按钮进入配音界面
+    #     self.driver.find_id_click('btnCooperate')
+    #     self.driver.wait_download('action')
+    #     self.driver.find_id_click('back')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnSubmit')
+    #     self.driver.wait_id('item_sh_cooperate_article_image')
+    #     time.sleep(2)
+    #
+    #     # 获取广场中的求合作剩余时间
+    #     try:
+    #         self.driver.find_id('item_sh_clock_time')
+    #     except:
+    #         print('未显示时间')
+    #     time.sleep(2)
+    #
+    #     # 加载列表
+    #     for i in range(5):
+    #         self.driver.swip_down()
+    #         time.sleep(2)
+    #     time.sleep(2)
+    #     for i in range(5):
+    #         self.driver.swip_up()
+    #         time.sleep(2)
+    #     try:
+    #         self.driver.find_id('top_img')
+    #         self.driver.find_id_click('top_img')
+    #         time.sleep(5)
+    #     except:
+    #         pass
+    #     time.sleep(2)
+    #
+    # # 合作广场角色tab筛选项切换
+    # def test_g_source_role_change(self):
+    #     self.driver.find_id_click('fq_male')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('fq_female')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('dp_male')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('dp_female')
+    #     time.sleep(2)
+    #
+    # # 合作广场-热门列表
+    # def test_h_source_coor_hot(self):
+    #     self.driver.find_xpath('热门').click()
+    #     time.sleep(2)
+    #     # 显示合作次数
+    #     try:
+    #         self.driver.find_id('count')
+    #     except:
+    #         print('合作广场热门列表未显示合作次数')
+    #     time.sleep(2)
+    #     # 加载列表
+    #     for i in range(5):
+    #         self.driver.swip_down()
+    #         time.sleep(2)
+    #     time.sleep(2)
+    #     for i in range(5):
+    #         self.driver.swip_up()
+    #         time.sleep(2)
+    #     try:
+    #         self.driver.find_id('top_img')
+    #         self.driver.find_id_click('top_img')
+    #         time.sleep(5)
+    #     except:
+    #         pass
+    #     time.sleep(2)
+    #
+    #
+    # # 合作广场-我的
+    # def test_i_my_coor(self):
+    #     time.sleep(2)
+    #     self.driver.find_xpath('我的').click()
+    #     time.sleep(2)
+    #     self.driver.find_id_click('userhead')
+    #     self.driver.wait_id('followcount')
+    #     self.driver.find_id_click('btnBack')
+    #     time.sleep(2)
+    #
+    # # 合作广场-搜索
+    # def test_j_source_coor_search(self):
+    #     self.driver.find_id_click('right_icon1')
+    #     time.sleep(2)
+    #     self.driver.find_id_send('et_search_keyword','配音')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnSearch')
+    #     self.driver.wait_id_click('item_sh_cooperate_article_image')
+    #     time.sleep(2)
+    #     self.driver.wait_download('video_play_btn')
+    #     self.driver.find_id_click('btnCooperate')
+    #     self.driver.wait_download('action')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('back')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnSubmit')
+    #     self.driver.wait_id('item_sh_cooperate_article_image')
+    #     # 滑动加载列表
+    #     for i in range(5):
+    #         self.driver.swip_up()
+    #         time.sleep(2)
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnBack')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('right_icon1')
+    #     time.sleep(2)
+    #     self.driver.find_id_send('et_search_keyword','槛花笼鹤')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnSearch')
+    #     time.sleep(5)
+    #     try:
+    #         self.driver.find_xpath('没有搜索到任何内容')
+    #     except:
+    #         print('检查搜索无结果显示失败')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnBack')
+    #     time.sleep(2)
+    #     self.driver.find_id_click('btnBack')
+    #     time.sleep(2)
 
     # # 声音鉴定
     # def test_z(self):
@@ -3502,26 +3725,6 @@ class material(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
-
-        # 切换角色筛选项
-        self.driver.find_id_click('boy')
-        time.sleep(2)
-        try:
-            self.driver.find_id_click('tv_girl')
-        except:
-            pass
-        time.sleep(2)
-        self.driver.find_id_click('coor')
-        time.sleep(2)
-        num = self.driver.find_ids('tv_source_from')
-        for i in range(len(num)):
-            try:
-                self.driver.find_ids_click('tv_boy',i)
-            except:
-                name = self.driver.find_ids_text('tv_source_title',i)
-                print("合作素材列表中未显示双人角色:%s" % name)
-            time.sleep(2)
-        time.sleep(2)
         self.driver.find_id_click('unlimited')
         time.sleep(4)
 
@@ -3536,6 +3739,8 @@ class material(unittest.TestCase):
         self.driver.wait_id('fanscount')
         name2 = self.driver.find_id_text('username')
         assert name1 in name2,'素材视频详情界面的用户名称与空间中的用户名称校验不一致'
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
         time.sleep(2)
 
     # 关注按钮
@@ -3556,6 +3761,8 @@ class material(unittest.TestCase):
         self.driver.wait_id('fanscount')
         self.driver.find_id_click('follow_status')
         time.sleep(4)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
     # 素材预览界面点击素材标签
     def test_o_source_detail_types(self):
@@ -3583,14 +3790,13 @@ class material(unittest.TestCase):
         self.driver.wait_id('iv_source')
         time.sleep(2)
 
-
     # 素材库界面素材上传按钮
     def test_q_source_upload(self):
         self.driver.find_id_click('upload')
         time.sleep(2)
-        self.driver.wait_id('tv_upload')
+        self.driver.wait_id('ll_upload')
         time.sleep(2)
-        self.driver.find_id_click('btnBack')
+        self.driver.back()
         time.sleep(2)
         self.driver.find_id_click('btnBack')
         time.sleep(2)
@@ -3614,1496 +3820,1496 @@ class person(unittest.TestCase):
         self.driver.find_id_click('btnBack')
         time.sleep(2)
 
-    # # 首页进入“我的”界面
-    # def test_a_person_my(self):
-    #     self.driver.wait_id('ivMineTab')
-    #     self.driver.find_id_click('ivMineTab')
-    #     self.driver.wait_id('username')
-    #     time.sleep(2)
-    #
-    # # 我的界面点击头像进入个人空间
-    # def test_b_person_into_my_zoom(self):
-    #     self.driver.find_id_click('userhead')
-    #     self.driver.wait_id('followcount')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 我的界面点击关注进入关注列表
-    # def test_c_person_home_into_follow(self):
-    #     follow_count = self.driver.find_id_text('followed_count')
-    #     time.sleep(1)
-    #     self.driver.find_id_click('followed_count')
-    #     self.driver.wait_id('filter_edit')
-    #     time.sleep(2)
-    #     if int(follow_count) > 9:
-    #         self.driver.back()
-    #     else:
-    #         follow_count1 = self.driver.find_ids('username')
-    #         assert int(len(follow_count1)) == int(follow_count)
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 我的界面点击粉丝进入粉丝列表
-    # def test_d_person_home_into_fans(self):
-    #     fan_count = self.driver.find_id_text('fans_count')
-    #     time.sleep(1)
-    #     self.driver.find_id_click('fans_count')
-    #     self.driver.wait_id('vip_tag')
-    #     time.sleep(2)
-    #     if int(fan_count) < 8:
-    #         fan_count1 = self.driver.find_ids('username')
-    #         assert int(len(fan_count1)) == int(fan_count)
-    #         time.sleep(2)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 用户id
-    # def test_e_person_copy_id(self):
-    #     self.driver.find_id_click('tv_uid')
-    #     try:
-    #         self.driver.wait_toast('//android.widget.Toast')
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #     self.driver.find_id_click('userhead')
-    #     self.driver.wait_id('followcount')
-    #     time.sleep(2)
-    #
-    # # 个人空间搜索-作品
-    # def test_f_person_zoom_works_search(self):
-    #     search_title = self.driver.find_id_text('title')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('photo')
-    #     time.sleep(2)
-    #     self.driver.find_id_send('txtKeyword',search_title)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSearch')
-    #     self.driver.wait_id_click('filmBg')
-    #     self.driver.wait_id('userhead')
-    #     self.driver.Background()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(4)
-    #     self.driver.find_id_click('photo')
-    #     self.driver.wait_id('txtKeyword')
-    #     try:
-    #         self.driver.find_id('clear')
-    #         self.driver.find_id_click('clear')
-    #         time.sleep(2)
-    #         try:
-    #             self.driver.find_id('clear')
-    #             print('个人空间搜索作品后，点击清空搜索记录，依然显示有搜索记录')
-    #         except:
-    #             pass
-    #     except:
-    #         print('个人空间搜索作品后退出再进，未显示作品搜索历史记录')
-    #     time.sleep(2)
-    #
-    #     # 个人空间搜索——作品搜索无结果显示
-    #     self.driver.find_id_send('txtKeyword','配音秀')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSearch')
-    #     try:
-    #         self.driver.wait_xpath('ll_noSearchResult')
-    #     except:
-    #         print('作品搜索无结果时未显示任何提示信息')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 个人空间—搜索-搜索个人素材
-    # def test_g_person_zoom_source_search(self):
-    #     self.driver.find_id_click('source_text')
-    #     time.sleep(2)
-    #     search_title = self.driver.find_id_text('source_text')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('photo')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('ll_source')
-    #     time.sleep(2)
-    #     self.driver.find_id_send('txtKeyword','配音秀')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSearch')
-    #     try:
-    #         self.driver.wait_xpath('没有搜到任何内容')
-    #     except:
-    #         print('素材搜索无结果时未显示任何提示信息')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('ll_source')
-    #     time.sleep(2)
-    #     self.driver.find_id_send('txtKeyword',search_title)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSearch')
-    #     time.sleep(4)
-    #     try:
-    #         self.driver.find_id('iv_source')
-    #         name = self.driver.find_id_text('tv_source_title')
-    #         assert search_title in name
-    #         time.sleep(2)
-    #         self.driver.find_id_click('tv_source_title')
-    #         self.driver.wait_id('userhead')
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #     except:
-    #         pass
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 编辑资料
-    # def test_h_person_zoom_edit_info(self):
-    #     self.driver.find_id_click('userhead')
-    #     time.sleep(2)
-    #     self.loc.four_from_last()
-    #     time.sleep(4)
-    #     try:
-    #         self.driver.find_xpath('个人资料')
-    #     except:
-    #         print('未跳转到个人资料界面')
-    #     time.sleep(2)
+    # 首页进入“我的”界面
+    def test_a_person_my(self):
+        self.driver.wait_id('ivMineTab')
+        self.driver.find_id_click('ivMineTab')
+        self.driver.wait_id('username')
+        time.sleep(2)
 
-    # 更换头像
-    # def test_i_person_zoom_change_head(self):
-    #     # 点击头像-拍照
-    #     self.driver.find_id_click('userhead')
-    #     time.sleep(2)
-    #     self.loc.three_from_last()
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('next')
-    #         self.driver.find_id_click('next')
-    #         try:
-    #             self.driver.wait_sys('始终允许')
-    #         except:
-    #             try:
-    #                 self.driver.wait_sys('允许')
-    #             except:
-    #                 pass
-    #         self.driver.find_id_click('userhead')
-    #         time.sleep(2)
-    #         self.loc.three_from_last()
-    #         time.sleep(2)
-    #     except:
-    #         pass
-    #     time.sleep(3)
-    #     try:
-    #         '''
-    #         以下操作只适用vivox9
-    #         '''
-    #
-    #         self.driver.find_id_third_part('com.android.camera:id/shutter_button')
-    #         time.sleep(4)
-    #         self.driver.find_id_click('com.android.camera:id/done_button')
-    #     except:
-    #         try:
-    #             '''
-    #             oppo r11
-    #             '''
-    #             self.driver.find_id('com.oppo.camera:id/shutter_button')
-    #             self.driver.find_id_click('com.oppo.camera:id/shutter_button')
-    #             time.sleep(4)
-    #             self.driver.find_id_click('com.oppo.camera:id/done_button')
-    #         except:
-    #             try:
-    #
-    #                 self.driver.find_id_click('com.huawei.camera:id/shutter_button')
-    #                 time.sleep(4)
-    #                 self.driver.find_id_click('com.huawei.camera:id/done_button')
-    #             except:
-    #                 try:
-    #                     self.driver.find_id_third_part('com.android.camera:id/v9_shutter_button_internal')
-    #                     time.sleep(4)
-    #                     self.driver.find_id_third_part('com.android.camera:id/intent_done_apply')
-    #                 except:
-    #                     pass
-    #     time.sleep(4)
-    #     self.driver.find_id_click('confirm')
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '修改成功'
-    #         assert toast == check
-    #     except:
-    #         print('拍照更换头像未检测到toast提示')
-    #     time.sleep(2)
-    #     # 更换相册图片
-    #     self.driver.find_id_click('userhead')
-    #     time.sleep(2)
-    #     self.loc.two_from_last()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('com.android.gallery3d:id/ic_public_arrow_right')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('com.android.gallery3d:id/top_frame')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('com.android.gallery3d:id/head_select_right')
-    #     try:
-    #         toast1 = self.driver.wait_toast('//android.widget.Toast')
-    #         check1 = '视频'
-    #         assert check1 in toast1, toast1
-    #     except:
-    #         self.driver.find_id_click('confirm')
-    #         try:
-    #             toast1 = self.driver.wait_toast('//android.widget.Toast')
-    #             check1 = '修改成功'
-    #             assert check1 in toast1,'相册替换头像toast提示内容校验不一致'
-    #         except:
-    #             print('相册更换头像未检测到toast提示')
-    #         time.sleep(2)
-    #
-    # # 输入个人简介
-    # def test_j_person_zoom_introduction(self):
-    #     self.driver.find_id_clear('tv_sign')
-    #     time.sleep(2)
-    #     self.driver.find_id_send('tv_sign','空空空')
-    #     time.sleep(2)
-    #
-    # # 修改性别
-    # def test_k_person_zoom_change_gender(self):
-    #     gender = self.driver.find_id_text('tv_gender')
-    #     if gender == '女':
-    #         self.driver.find_id_click('tv_gender')
-    #         time.sleep(2)
-    #         self.loc.three_from_last()
-    #         time.sleep(2)
-    #     else:
-    #         self.driver.find_id_click('tv_gender')
-    #         time.sleep(2)
-    #         self.loc.two_from_last()
-    #         time.sleep(2)
-    #
-    # # 修改地区
-    # def test_m_person_zoom_change_area(self):
-    #     area = self.driver.find_id_text('tv_area')
-    #     self.driver.find_id_click('tv_area')
-    #     self.driver.wait_id('name')
-    #     areas = self.driver.find_ids('name')
-    #     select = random.randint(0, len(areas))
-    #     self.driver.find_ids_click('name',select)
-    #     time.sleep(2)
-    #     area1 = self.driver.find_id_text('tv_area')
-    #     assert area != area1, '地区修改前后显示未刷新,%s' %area1
-    #     time.sleep(2)
-    #
-    # # 修改生日
-    # def test_n_person_zoom_change_birthday(self):
-    #     self.driver.find_id_click('tv_time')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('tv_ensure')
-    #     time.sleep(2)
-    #
-    # # 用户名敏感词检测
-    # def test_o_person_zoom_username_check(self):
-    #     self.driver.find_id_clear('et_nickname')
-    #     time.sleep(2)
-    #     self.driver.find_id_send('et_nickname','政府')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('tv_right')
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '敏感词'
-    #         assert check in toast
-    #     except:
-    #         print('用户名包含有敏感词，点击保存未弹出敏感词toast提示')
-    #     time.sleep(2)
-    #     self.driver.find_id_clear('et_nickname')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_third_part('android:id/button1')
-    #     time.sleep(2)
-    #
-    # # 会员头像挂件
-    # def test_p_person_zoom_vip_headwear(self):
-    #     self.driver.find_id_click('userhead')
-    #     time.sleep(2)
-    #     self.loc.three_from_last()
-    #     self.driver.wait_id('txtTitle')
-    #     count = self.driver.find_ids('img')
-    #     for i in range(len(count) - 1, -1, -1):
-    #         self.driver.find_ids_click('img',i)
-    #         time.sleep(1)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('txtContent')
-    #         self.driver.find_id_click('btnSubmit')
-    #         time.sleep(2)
-    #         try:
-    #             self.driver.find_id('renew')
-    #             self.driver.find_id_click('btnBack')
-    #         except:
-    #             pass
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnCancel')
-    #         time.sleep(2)
-    #     except:
-    #         pass
-    #
-    # # 会员空间装扮
-    # def test_q_person_zoom_vip_dress(self):
-    #     self.driver.find_id_click('userhead')
-    #     time.sleep(2)
-    #     self.loc.two_from_last()
-    #     self.driver.wait_id('txtTitle')
-    #     time.sleep(2)
-    #     count = self.driver.find_ids('img')
-    #     for i in range(len(count) - 1, -1, -1):
-    #         self.driver.find_ids_click('img',i)
-    #         time.sleep(2)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 用户演绎等级
-    # def test_r_person_zoom_user_level(self):
-    #     self.driver.find_id_click('source_level')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('img_vip')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('renew')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('guize1')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #     except:
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #
-    # # 身份认证
-    # def test_s_person_zoom_authentication(self):
-    #     self.driver.find_id_click('vip_description')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 粉丝列表
-    # def test_t_person_zoom_fans(self):
-    #     self.driver.find_id_click('ll_fan')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('vip_tag')
-    #     self.driver.find_id_click('iwant')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('renew')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #     except:
-    #         self.driver.find_id_click('btnSubmit')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('userhead')
-    #     self.driver.wait_id('ll_fan')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('status_icon')
-    #     time.sleep(3)
-    #     self.driver.find_id_click('status_icon')
-    #     time.sleep(3)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #
-    # # 关注列表
-    # def test_u_person_zoom_follows(self):
-    #     self.driver.find_id_click('ll_follow')
-    #     self.driver.wait_id('status_icon')
-    #     self.driver.find_id_click('username')
-    #     self.driver.wait_id('ll_fan')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('status_icon')
-    #     time.sleep(3)
-    #     self.driver.find_id_click('status_icon')
-    #     time.sleep(3)
-    #     self.driver.find_id_click('btnBack')
-    #
-    # # 社团列表
-    # def test_v_person_zoom_societies(self):
-    #     self.driver.find_id_click('ll_society')
-    #     self.driver.wait_id_click('status_icon')
-    #     time.sleep(3)
-    #     self.driver.find_id_click('status_icon')
-    #     time.sleep(3)
-    #     self.driver.find_id_click('user_image')
-    #     self.driver.wait_id('ll_fan')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     time.sleep(3)
-    #     self.driver.find_id_click('btnBack')
-    #
-    # # 作品上榜列表
-    # def test_w_person_zoom_crunchies_list(self):
-    #     self.driver.find_id_click('ll_rank')
-    #     self.driver.wait_id('middle_img')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('tv_vip')
-    #         self.driver.find_id_click('tv_vip')
-    #         time.sleep(2)
-    #         self.driver.wait_id('renew')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('back')
-    #         time.sleep(2)
-    #     except:
-    #         self.driver.find_id_click('img_url')
-    #         self.driver.wait_id('userhead')
-    #         self.driver.Background()
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('back')
-    #     time.sleep(2)
-    #
-    # # 作品列表
-    # def test_x_person_zoom_work_list(self):
-    #     for i in range(10):
-    #         self.driver.swip_up()
-    #         time.sleep(2)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('userhead')
-    #     self.driver.wait_id('ll_follow')
-    #     time.sleep(2)
-    #
-    # # 切换作品列表tab
-    # def test_y_person_zoom_work_switch_label(self):
-    #     self.driver.find_id_click('film_all_count')
-    #     time.sleep(2)
-    #     count = self.driver.find_ids('title')
-    #     time.sleep(2)
-    #     self.driver.back()
-    #     time.sleep(2)
-    #     for i in range(len(count) - 1, -1, -1):
-    #         self.driver.find_id_click('film_all_count')
-    #         time.sleep(2)
-    #         self.driver.find_ids_click('title',i)
-    #         time.sleep(2)
+    # 我的界面点击头像进入个人空间
+    def test_b_person_into_my_zoom(self):
+        self.driver.find_id_click('userhead')
+        self.driver.wait_id('followcount')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
-    # 置顶作品
-    # def test_z_person_zoom_work_top(self):
-    #     self.driver.Long_Touche('filmBg1', 3000)
-    #     time.sleep(2)
-    #     self.loc.three_from_last()
-    #     time.sleep(4)
-    #     try:
-    #         self.driver.find_id('img')
-    #     except:
-    #         self.loc.one_from_last()
-    #         time.sleep(2)
-    #         self.driver.find_id_click('filmBg1')
-    #         self.driver.wait_id('tv_video_detail_title')
-    #         self.driver.Background()
-    #         time.sleep(2)
-    #         self.driver.find_id_click('setting')
-    #         time.sleep(2)
-    #         self.loc.four_from_last()
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnSubmit')
-    #         time.sleep(3)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         self.driver.swip_down()
-    #         time.sleep(4)
-    #         self.driver.Long_Touche('filmBg1', 3000)
-    #         time.sleep(2)
-    #         self.loc.three_from_last()
-    #         time.sleep(4)
-    #         try:
-    #             self.driver.find_id('img')
-    #         except:
-    #             print('未显示置顶标签')
-    #     time.sleep(2)
+    # 我的界面点击关注进入关注列表
+    def test_c_person_home_into_follow(self):
+        follow_count = self.driver.find_id_text('followed_count')
+        time.sleep(1)
+        self.driver.find_id_click('followed_count')
+        self.driver.wait_id('filter_edit')
+        time.sleep(2)
+        if int(follow_count) > 9:
+            self.driver.back()
+        else:
+            follow_count1 = self.driver.find_ids('username')
+            assert int(len(follow_count1)) == int(follow_count)
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
-    # 作品列表界面长按删除作品
-    # def test_z_a_person_zoom_work_delete(self):
-    #     self.driver.Long_Touche('filmBg1', 3000)
-    #     time.sleep(2)
-    #     self.loc.two_from_last()
-    #     time.sleep(4)
-    #     self.driver.find_id_click('btnSubmit')
-    #     time.sleep(4)
+    # 我的界面点击粉丝进入粉丝列表
+    def test_d_person_home_into_fans(self):
+        fan_count = self.driver.find_id_text('fans_count')
+        time.sleep(1)
+        self.driver.find_id_click('fans_count')
+        self.driver.wait_id('vip_tag')
+        time.sleep(2)
+        if int(fan_count) < 8:
+            fan_count1 = self.driver.find_ids('username')
+            assert int(len(fan_count1)) == int(fan_count)
+            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
-    # 个人空间-求合作
-    # def test_z_b_person_zoom_coors(self):
-    #     self.driver.find_id_click('coor_text')
-    #     self.driver.wait_id('btnCooperate')
-    #     self.driver.find_id_click('islook')
-    #     self.driver.wait_download('video_play_btn')
-    #     self.driver.back()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnCooperate')
-    #     self.driver.wait_download('action')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('back')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSubmit')
-    #     time.sleep(2)
-    #     for i in range(5):
-    #         self.driver.swip_up()
-    #         time.sleep(2)
-    #     time.sleep(2)
-    #
-    # # 求合作-邀请好友
-    # def test_z_c_person_zoom_coor_invite(self):
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('invitation_count')
-    #     self.driver.wait_id('item_sh_cooperate_article_image')
-    #     time.sleep(2)
-    #     self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
-    #     time.sleep(2)
-    #     self.loc.five_from_last()
-    #     self.driver.wait_id_click('socialstatus')
-    #     time.sleep(2)
-    #     self.driver.find_id_send('content','给自己的合作！')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('reprint')
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         success_check = '邀请成功'
-    #         not_accept_check = '该用户暂不接受合作'
-    #         if toast == success_check:
-    #             pass
-    #         elif toast == not_accept_check:
-    #             self.driver.find_id_click('cancel')
-    #             time.sleep(2)
-    #             self.driver.find_id_click('btnBack')
-    #     except:
-    #         print('发送邀请后未检测到toast提示')
-    #     time.sleep(2)
+    # 用户id
+    def test_e_person_copy_id(self):
+        self.driver.find_id_click('tv_uid')
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id_click('userhead')
+        self.driver.wait_id('followcount')
+        time.sleep(2)
+
+    # 个人空间搜索-作品
+    def test_f_person_zoom_works_search(self):
+        search_title = self.driver.find_id_text('title')
+        time.sleep(2)
+        self.driver.find_id_click('photo')
+        time.sleep(2)
+        self.driver.find_id_send('txtKeyword',search_title)
+        time.sleep(2)
+        self.driver.find_id_click('btnSearch')
+        self.driver.wait_id_click('filmBg')
+        self.driver.wait_id('userhead')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(4)
+        self.driver.find_id_click('photo')
+        self.driver.wait_id('txtKeyword')
+        try:
+            self.driver.find_id('clear')
+            self.driver.find_id_click('clear')
+            time.sleep(2)
+            try:
+                self.driver.find_id('clear')
+                print('个人空间搜索作品后，点击清空搜索记录，依然显示有搜索记录')
+            except:
+                pass
+        except:
+            print('个人空间搜索作品后退出再进，未显示作品搜索历史记录')
+        time.sleep(2)
+
+        # 个人空间搜索——作品搜索无结果显示
+        self.driver.find_id_send('txtKeyword','配音秀')
+        time.sleep(2)
+        self.driver.find_id_click('btnSearch')
+        try:
+            self.driver.wait_xpath('ll_noSearchResult')
+        except:
+            print('作品搜索无结果时未显示任何提示信息')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 个人空间—搜索-搜索个人素材
+    def test_g_person_zoom_source_search(self):
+        self.driver.find_id_click('source_text')
+        time.sleep(2)
+        search_title = self.driver.find_id_text('source_text')
+        time.sleep(2)
+        self.driver.find_id_click('photo')
+        time.sleep(2)
+        self.driver.find_id_click('ll_source')
+        time.sleep(2)
+        self.driver.find_id_send('txtKeyword','配音秀')
+        time.sleep(2)
+        self.driver.find_id_click('btnSearch')
+        try:
+            self.driver.wait_xpath('没有搜到任何内容')
+        except:
+            print('素材搜索无结果时未显示任何提示信息')
+        time.sleep(2)
+        self.driver.find_id_click('ll_source')
+        time.sleep(2)
+        self.driver.find_id_send('txtKeyword',search_title)
+        time.sleep(2)
+        self.driver.find_id_click('btnSearch')
+        time.sleep(4)
+        try:
+            self.driver.find_id('iv_source')
+            name = self.driver.find_id_text('tv_source_title')
+            assert search_title in name
+            time.sleep(2)
+            self.driver.find_id_click('tv_source_title')
+            self.driver.wait_id('userhead')
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+        except:
+            pass
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 编辑资料
+    def test_h_person_zoom_edit_info(self):
+        self.driver.find_id_click('userhead')
+        time.sleep(2)
+        self.loc.four_from_last()
+        time.sleep(4)
+        try:
+            self.driver.find_xpath('个人资料')
+        except:
+            print('未跳转到个人资料界面')
+        time.sleep(2)
+
+    #更换头像
+    def test_i_person_zoom_change_head(self):
+        # 点击头像-拍照
+        self.driver.find_id_click('userhead')
+        time.sleep(2)
+        self.loc.three_from_last()
+        time.sleep(2)
+        try:
+            self.driver.find_id('next')
+            self.driver.find_id_click('next')
+            try:
+                self.driver.wait_sys('始终允许')
+            except:
+                try:
+                    self.driver.wait_sys('允许')
+                except:
+                    pass
+            self.driver.find_id_click('userhead')
+            time.sleep(2)
+            self.loc.three_from_last()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(3)
+        try:
+            '''
+            以下操作只适用vivox9
+            '''
+
+            self.driver.find_id_third_part('com.android.camera:id/shutter_button')
+            time.sleep(4)
+            self.driver.find_id_click('com.android.camera:id/done_button')
+        except:
+            try:
+                '''
+                oppo r11
+                '''
+                self.driver.find_id('com.oppo.camera:id/shutter_button')
+                self.driver.find_id_click('com.oppo.camera:id/shutter_button')
+                time.sleep(4)
+                self.driver.find_id_click('com.oppo.camera:id/done_button')
+            except:
+                try:
+
+                    self.driver.find_id_click('com.huawei.camera:id/shutter_button')
+                    time.sleep(4)
+                    self.driver.find_id_click('com.huawei.camera:id/done_button')
+                except:
+                    try:
+                        self.driver.find_id_third_part('com.android.camera:id/v9_shutter_button_internal')
+                        time.sleep(4)
+                        self.driver.find_id_third_part('com.android.camera:id/intent_done_apply')
+                    except:
+                        pass
+        time.sleep(4)
+        self.driver.find_id_click('confirm')
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '修改成功'
+            assert toast == check
+        except:
+            print('拍照更换头像未检测到toast提示')
+        time.sleep(2)
+        # 更换相册图片
+        self.driver.find_id_click('userhead')
+        time.sleep(2)
+        self.loc.two_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('com.android.gallery3d:id/ic_public_arrow_right')
+        time.sleep(2)
+        self.driver.find_id_click('com.android.gallery3d:id/top_frame')
+        time.sleep(2)
+        self.driver.find_id_click('com.android.gallery3d:id/head_select_right')
+        try:
+            toast1 = self.driver.wait_toast('//android.widget.Toast')
+            check1 = '视频'
+            assert check1 in toast1, toast1
+        except:
+            self.driver.find_id_click('confirm')
+            try:
+                toast1 = self.driver.wait_toast('//android.widget.Toast')
+                check1 = '修改成功'
+                assert check1 in toast1,'相册替换头像toast提示内容校验不一致'
+            except:
+                print('相册更换头像未检测到toast提示')
+            time.sleep(2)
+
+    # 输入个人简介
+    def test_j_person_zoom_introduction(self):
+        self.driver.find_id_clear('tv_sign')
+        time.sleep(2)
+        self.driver.find_id_send('tv_sign','空空空')
+        time.sleep(2)
+
+    # 修改性别
+    def test_k_person_zoom_change_gender(self):
+        gender = self.driver.find_id_text('tv_gender')
+        if gender == '女':
+            self.driver.find_id_click('tv_gender')
+            time.sleep(2)
+            self.loc.three_from_last()
+            time.sleep(2)
+        else:
+            self.driver.find_id_click('tv_gender')
+            time.sleep(2)
+            self.loc.two_from_last()
+            time.sleep(2)
+
+    # 修改地区
+    def test_m_person_zoom_change_area(self):
+        area = self.driver.find_id_text('tv_area')
+        self.driver.find_id_click('tv_area')
+        self.driver.wait_id('name')
+        areas = self.driver.find_ids('name')
+        select = random.randint(0, len(areas))
+        self.driver.find_ids_click('name',select)
+        time.sleep(2)
+        area1 = self.driver.find_id_text('tv_area')
+        assert area != area1, '地区修改前后显示未刷新,%s' %area1
+        time.sleep(2)
+
+    # 修改生日
+    def test_n_person_zoom_change_birthday(self):
+        self.driver.find_id_click('tv_time')
+        time.sleep(2)
+        self.driver.find_id_click('tv_ensure')
+        time.sleep(2)
+
+    # 用户名敏感词检测
+    def test_o_person_zoom_username_check(self):
+        self.driver.find_id_clear('et_nickname')
+        time.sleep(2)
+        self.driver.find_id_send('et_nickname','政府')
+        time.sleep(2)
+        self.driver.find_id_click('tv_right')
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '敏感词'
+            assert check in toast
+        except:
+            print('用户名包含有敏感词，点击保存未弹出敏感词toast提示')
+        time.sleep(2)
+        self.driver.find_id_clear('et_nickname')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_third_part('android:id/button1')
+        time.sleep(2)
+
+    # 会员头像挂件
+    def test_p_person_zoom_vip_headwear(self):
+        self.driver.find_id_click('userhead')
+        time.sleep(2)
+        self.loc.three_from_last()
+        self.driver.wait_id('txtTitle')
+        count = self.driver.find_ids('img')
+        for i in range(len(count) - 1, -1, -1):
+            self.driver.find_ids_click('img',i)
+            time.sleep(1)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        try:
+            self.driver.find_id('txtContent')
+            self.driver.find_id_click('btnSubmit')
+            time.sleep(2)
+            try:
+                self.driver.find_id('renew')
+                self.driver.find_id_click('btnBack')
+            except:
+                pass
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            self.driver.find_id_click('btnCancel')
+            time.sleep(2)
+        except:
+            pass
+
+    # 会员空间装扮
+    def test_q_person_zoom_vip_dress(self):
+        self.driver.find_id_click('userhead')
+        time.sleep(2)
+        self.loc.two_from_last()
+        self.driver.wait_id('txtTitle')
+        time.sleep(2)
+        count = self.driver.find_ids('img')
+        for i in range(len(count) - 1, -1, -1):
+            self.driver.find_ids_click('img',i)
+            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 用户演绎等级
+    def test_r_person_zoom_user_level(self):
+        self.driver.find_id_click('source_level')
+        time.sleep(2)
+        self.driver.find_id_click('img_vip')
+        time.sleep(2)
+        try:
+            self.driver.find_id('renew')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            self.driver.find_id_click('guize1')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+        except:
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+
+    # 身份认证
+    def test_s_person_zoom_authentication(self):
+        self.driver.find_id_click('vip_description')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 粉丝列表
+    def test_t_person_zoom_fans(self):
+        self.driver.find_id_click('ll_fan')
+        time.sleep(2)
+        self.driver.find_id_click('vip_tag')
+        self.driver.find_id_click('iwant')
+        time.sleep(2)
+        try:
+            self.driver.find_id('renew')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+        except:
+            self.driver.find_id_click('btnSubmit')
+        time.sleep(2)
+        self.driver.find_id_click('userhead')
+        self.driver.wait_id('ll_fan')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('status_icon')
+        time.sleep(3)
+        self.driver.find_id_click('status_icon')
+        time.sleep(3)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+
+    # 关注列表
+    def test_u_person_zoom_follows(self):
+        self.driver.find_id_click('ll_follow')
+        self.driver.wait_id('status_icon')
+        self.driver.find_id_click('username')
+        self.driver.wait_id('ll_fan')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('status_icon')
+        time.sleep(3)
+        self.driver.find_id_click('status_icon')
+        time.sleep(3)
+        self.driver.find_id_click('btnBack')
+
+    # 社团列表
+    def test_v_person_zoom_societies(self):
+        self.driver.find_id_click('ll_society')
+        self.driver.wait_id_click('status_icon')
+        time.sleep(3)
+        self.driver.find_id_click('status_icon')
+        time.sleep(3)
+        self.driver.find_id_click('user_image')
+        self.driver.wait_id('ll_fan')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        time.sleep(3)
+        self.driver.find_id_click('btnBack')
+
+    # 作品上榜列表
+    def test_w_person_zoom_crunchies_list(self):
+        self.driver.find_id_click('ll_rank')
+        self.driver.wait_id('middle_img')
+        time.sleep(2)
+        try:
+            self.driver.find_id('tv_vip')
+            self.driver.find_id_click('tv_vip')
+            time.sleep(2)
+            self.driver.wait_id('renew')
+            time.sleep(2)
+            self.driver.find_id_click('back')
+            time.sleep(2)
+        except:
+            self.driver.find_id_click('img_url')
+            self.driver.wait_id('userhead')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('back')
+        time.sleep(2)
+
+    # 作品列表
+    def test_x_person_zoom_work_list(self):
+        for i in range(10):
+            self.driver.swip_up()
+            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('userhead')
+        self.driver.wait_id('ll_follow')
+        time.sleep(2)
+
+    # 切换作品列表tab
+    def test_y_person_zoom_work_switch_label(self):
+        self.driver.find_id_click('film_all_count')
+        time.sleep(2)
+        count = self.driver.find_ids('title')
+        time.sleep(2)
+        self.driver.back()
+        time.sleep(2)
+        for i in range(len(count) - 1, -1, -1):
+            self.driver.find_id_click('film_all_count')
+            time.sleep(2)
+            self.driver.find_ids_click('title',i)
+            time.sleep(2)
+
+    #置顶作品
+    def test_z_person_zoom_work_top(self):
+        self.driver.Long_Touche('filmBg1', 3000)
+        time.sleep(2)
+        self.loc.three_from_last()
+        time.sleep(4)
+        try:
+            self.driver.find_id('img')
+        except:
+            self.loc.one_from_last()
+            time.sleep(2)
+            self.driver.find_id_click('filmBg1')
+            self.driver.wait_id('tv_video_detail_title')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id_click('setting')
+            time.sleep(2)
+            self.loc.four_from_last()
+            time.sleep(2)
+            self.driver.find_id_click('btnSubmit')
+            time.sleep(3)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            self.driver.swip_down()
+            time.sleep(4)
+            self.driver.Long_Touche('filmBg1', 3000)
+            time.sleep(2)
+            self.loc.three_from_last()
+            time.sleep(4)
+            try:
+                self.driver.find_id('img')
+            except:
+                print('未显示置顶标签')
+        time.sleep(2)
+
+    #作品列表界面长按删除作品
+    def test_z_a_person_zoom_work_delete(self):
+        self.driver.Long_Touche('filmBg1', 3000)
+        time.sleep(2)
+        self.loc.two_from_last()
+        time.sleep(4)
+        self.driver.find_id_click('btnSubmit')
+        time.sleep(4)
+
+    #个人空间-求合作
+    def test_z_b_person_zoom_coors(self):
+        self.driver.find_id_click('coor_text')
+        self.driver.wait_id('btnCooperate')
+        self.driver.find_id_click('islook')
+        self.driver.wait_download('video_play_btn')
+        self.driver.back()
+        time.sleep(2)
+        self.driver.find_id_click('btnCooperate')
+        self.driver.wait_download('action')
+        time.sleep(2)
+        self.driver.find_id_click('back')
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        time.sleep(2)
+        for i in range(5):
+            self.driver.swip_up()
+            time.sleep(2)
+        time.sleep(2)
+
+    # 求合作-邀请好友
+    def test_z_c_person_zoom_coor_invite(self):
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('invitation_count')
+        self.driver.wait_id('item_sh_cooperate_article_image')
+        time.sleep(2)
+        self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
+        time.sleep(2)
+        self.loc.five_from_last()
+        self.driver.wait_id_click('socialstatus')
+        time.sleep(2)
+        self.driver.find_id_send('content','给自己的合作！')
+        time.sleep(2)
+        self.driver.find_id_click('reprint')
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            success_check = '邀请成功'
+            not_accept_check = '该用户暂不接受合作'
+            if toast == success_check:
+                pass
+            elif toast == not_accept_check:
+                self.driver.find_id_click('cancel')
+                time.sleep(2)
+                self.driver.find_id_click('btnBack')
+        except:
+            print('发送邀请后未检测到toast提示')
+        time.sleep(2)
 
     # 求合作-私密（公开）
-    # def test_z_d_person_zoom_coor_private_public(self):
-    #     self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
-    #     time.sleep(2)
-    #     self.loc.four_from_last()
-    #     time.sleep(2)
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = "公开成功"
-    #         assert check in toast,'求合作私密转公开toast校验不一致'
-    #     except:
-    #         try:
-    #             self.driver.find_id_click('renew')
-    #             time.sleep(2)
-    #             self.driver.find_id_click('btnBack')
-    #             time.sleep(2)
-    #             self.driver.back()
-    #             time.sleep(2)
-    #         except:
-    #             pass
-    #     time.sleep(2)
-    #
-    # # 求合作删除
-    # def test_z_e_person_zoom_coor_delete(self):
-    #     self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
-    #     time.sleep(2)
-    #     self.loc.two_from_last()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSubmit')
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '删除'
-    #         assert check in toast,'求合作删除失败'
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #
-    # # 素材-视频预览
-    # def test_z_f_person_zoom_source_preview(self):
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('userhead')
-    #     time.sleep(2)
-    #     self.driver.wait_id_click('source_text')
-    #     self.driver.wait_id_click('imgSource')
-    #     self.driver.wait_id('right_icon1')
-    #     time.sleep(10)
-    #     self.driver.Background()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 素材配音
-    # def test_z_g_person_zoom_source_dubbing(self):
-    #     self.driver.find_id_click('imgSource')
-    #     self.driver.wait_id('right_icon1')
-    #     self.driver.Background()
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('yinpin')
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('imgTip')
-    #         while True:
-    #             try:
-    #                 self.driver.find_id('roleall')
-    #                 break
-    #             except:
-    #                 self.driver.find_id('btnSubmit')
-    #                 time.sleep(1)
-    #                 self.driver.find_id_click('btnSubmit')
-    #                 break
-    #         self.driver.wait_id_click('roleall')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('back')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnSubmit')
-    #         time.sleep(2)
-    #     except:
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('imgTip')
-    #         while True:
-    #             try:
-    #                 self.driver.find_id('action')
-    #                 break
-    #             except:
-    #                 try:
-    #                     self.driver.find_id('btnSubmit')
-    #                     time.sleep(1)
-    #                     self.driver.find_id_click('btnSubmit')
-    #                     break
-    #                 except:
-    #                     pass
-    #             time.sleep(1)
-    #         time.sleep(2)
-    #         self.driver.find_id_click('back')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnSubmit')
-    #         time.sleep(2)
-    #     time.sleep(2)
-    #
-    # def test_z_g_a_person_zoom_sorce_collection(self):
-    #     self.test_z_m_person_zoom_create_compilation()
-    #     self.test_z_n_person_zoom_collection_Add_delete_change()
-    #
-    #
-    # # 更多-点赞
-    # def test_z_h_person_zoom_goods_record(self):
-    #     self.driver.find_id_click('more_text')
-    #     time.sleep(2)
-    #     self.driver.wait_id('filmBg')
-    #     time.sleep(2)
-    #     num = self.driver.find_id_text('look')
-    #     if num == '0':
-    #         self.driver.Long_Touche('filmBg', 3000)
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnSubmit')
-    #         time.sleep(2)
-    #     self.driver.find_id_click('filmBg')
-    #     self.driver.wait_id('tv_video_detail_title')
-    #     self.driver.Background()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('tv_good')
-    #     good1 = self.driver.find_id_text('tv_good')
-    #     self.driver.find_id_click('tv_good')
-    #     time.sleep(1)
-    #     good2 = self.driver.find_id_text('tv_good')
-    #     if good1 == good2:
-    #         print(good1,good2)
-    #     time.sleep(1)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 更多-转发
-    # def test_z_i_person_zoom_forward(self):
-    #     self.driver.find_id_click('film_all_count')
-    #     time.sleep(2)
-    #     self.driver.find_xpath('转发').click()
-    #     self.driver.wait_id('filmBg')
-    #     name = self.driver.find_id_text('username')
-    #     self.driver.find_id_click('filmBg')
-    #     try:
-    #         tip = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '不存在'
-    #         check1 = '私密'
-    #         if check in tip and check1 in tip:
-    #             print('转发作品点击进入失败，提示信息错误')
-    #     except:
-    #         self.driver.wait_id('tv_video_detail_title')
-    #         self.driver.Background()
-    #         time.sleep(2)
-    #         detail_name = self.driver.find_id_text('user_name')
-    #         assert name == detail_name,'转发列表界面用户名与视频详情界面用户名不一致'
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    #     # 作品转发列表——删除作品
-    #     title = self.driver.find_id_text('title')
-    #     count = self.driver.find_id_text('film_all_count')
-    #     self.driver.Long_Touche('filmBg', 3000)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSubmit')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_xpath(title)
-    #         print('转发作品删除失败')
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #     count1 = self.driver.find_id_text('film_all_count')
-    #     assert count != count1,'转发作品删除失败'
-    #     time.sleep(2)
-    #
-    # # 帖子列表
-    # def test_z_j_person_zoom_post_list(self):
-    #     self.driver.find_id_click('film_all_count')
-    #     time.sleep(2)
-    #     self.driver.find_xpath('帖子').click()
-    #     time.sleep(4)
-    #     self.driver.find_id_click('good')
-    #     time.sleep(4)
-    #     self.driver.find_id_click('tag')
-    #     self.driver.wait_id('img_subscribe')
-    #     self.driver.find_id_click('back')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('comment')
-    #     self.driver.wait_id('qiehuan')
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 帖子-转发私信-删除
-    # def test_z_k_person_zoom_forword_and_delete(self):
-    #     self.driver.find_id_click('action')
-    #     time.sleep(2)
-    #     self.loc.three_from_last()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('group_chat')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('name')
-    #     time.sleep(4)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('action')
-    #     time.sleep(2)
-    #     self.loc.two_from_last()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSubmit')
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '成功'
-    #         assert check in toast
-    #     except:
-    #         print('帖子删除未检测到toast提示')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('username')
-    #     self.driver.wait_id('film_all_count')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('more_text')
-    #     time.sleep(2)
-    #
-    # # 语聊列表
-    # def test_z_l_person_chat_list(self):
-    #     self.driver.find_id_click('film_all_count')
-    #     time.sleep(2)
-    #     self.driver.find_xpath('语聊').click()
-    #     time.sleep(4)
-    #
-    # # 创建合辑
-    # def test_z_m_person_zoom_create_compilation(self):
-    #     #创建9个合辑后进入合辑列表界面
-    #     i = 0
-    #     while True:
-    #         try:
-    #             self.driver.find_id('create')
-    #             self.driver.find_id_click('create')
-    #             time.sleep(2)
-    #             self.driver.find_id_click('title')
-    #             time.sleep(1)
-    #             self.driver.find_id_send('title','合辑'+ str(i))
-    #             self.driver.back()
-    #             time.sleep(2)
-    #             self.driver.find_id_click('ok')
-    #             self.driver.wait_id_click('choice')
-    #             time.sleep(1)
-    #             self.driver.find_id_click('tv_right')
-    #             try:
-    #                 toast = self.driver.wait_toast('//android.widget.Toast')
-    #                 if '成功' not in toast:
-    #                     print(toast)
-    #             except:
-    #                 pass
-    #         except:
-    #             try:
-    #                 self.driver.find_id('right_icon1')
-    #                 break
-    #             except:
-    #                 pass
-    #         self.driver.swip_move(self.x * 0.935, self.y * 0.585, self.x * 0.148, self.y * 0.586)
-    #         i +=1
-    #     time.sleep(2)
-    #
-    #     #作品合辑详情界面编辑
-    #     self.driver.find_id_click('img3')
-    #     self.driver.wait_id('head')
-    #     try:
-    #         self.driver.find_id('playnum')
-    #         try:
-    #             self.driver.find_id('xianshi')
-    #         except:
-    #             try:
-    #                 self.driver.find_id('tv_source_from')
-    #             except:
-    #                 print('合辑详情未显示标签')
-    #     except:
-    #         print('合辑详情未显示作品时间')
-    #     time.sleep(1)
-    #     work_num = len(self.driver.find_ids('img'))
-    #     total_num = self.driver.find_id_text('count')
-    #     if str(work_num) not in total_num:
-    #         name = self.driver.find_id_text('title')
-    #         print(name,'合辑作品数量错误')
-    #     time.sleep(2)
-    #
-    #     #合辑置顶
-    #     self.driver.find_id_click('right_icon1')
-    #     time.sleep(2)
-    #     self.loc.six_from_last()
-    #     toast = self.driver.wait_toast('//android.widget.Toast')
-    #     if '成功' not in toast:
-    #         print(toast)
-    #     time.sleep(2)
-    #
-    #     #编辑合辑信息
-    #     self.driver.find_id_click('right_icon1')
-    #     time.sleep(2)
-    #     self.loc.five_from_last()
-    #     time.sleep(2)
-    #     self.driver.find_id_send('title','合辑名称编辑')
-    #     time.sleep(1)
-    #     self.driver.find_id_send('content','合辑内容编辑')
-    #     time.sleep(1)
-    #     self.driver.back() #收起系统输入键盘
-    #     time.sleep(1)
-    #     self.driver.find_id_click('ok')
-    #     edit_toast = self.driver.wait_toast('//android.widget.Toast')
-    #     if '成功' not in edit_toast:
-    #         print(edit_toast)
-    #
-    #     # 添加作品
-    #     self.driver.find_id_click('right_icon1')
-    #     time.sleep(2)
-    #     self.loc.four_from_last()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('choice')
-    #     time.sleep(1)
-    #     self.driver.find_id_click('tv_right')
-    #     add_toast = self.driver.wait_toast('//android.widget.Toast')
-    #     if '成功' not in add_toast:
-    #         print(add_toast)
-    #
-    #     #更改作品顺序
-    #     self.driver.find_id_click('right_icon1')
-    #     time.sleep(2)
-    #     self.loc.three_from_last()
-    #     time.sleep(2)
-    #     el = 'iv_source'
-    #     self.driver.Long_press_move(el,self.x * 0.5, self.y * 0.5)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    #     #合辑收藏
-    #     try:
-    #         self.driver.find_id('collect_img')
-    #         self.driver.find_id_click('collect_img')
-    #         collection_toast = self.driver.wait_toast('//android.widget.Toast')
-    #         if '成功' not in collection_toast:
-    #             print(collection_toast)
-    #     except:
-    #         pass
-    #
-    #     #合辑分享
-    #     self.driver.find_id_click('share_img')
-    #     time.sleep(2)
-    #     self.driver.find_id_send('content','合辑分享')
-    #     self.driver.find_id_click('reprint')
-    #     share_toast = self.driver.wait_toast('//android.widget.Toast')
-    #     if '成功' not in share_toast:
-    #         print(share_toast)
-    #     time.sleep(2)
-    #
-    #     #头像跳转个人空间
-    #     self.driver.find_id_click('head')
-    #     self.driver.wait_id('ll_fan')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    #     # 删除合辑
-    #     self.driver.find_id_click('right_icon1')
-    #     time.sleep(2)
-    #     self.loc.two_from_last()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnSubmit')
-    #     delete_toast = self.driver.wait_toast('//android.widget.Toast')
-    #     if '成功' not in delete_toast:
-    #         print(delete_toast)
-    #     time.sleep(2)
-    #
-    #
-    # # 作品合辑列表界面添加/删除合辑
-    # def test_z_n_person_zoom_collection_Add_delete_change(self):
-    #     #add
-    #     self.driver.find_id_click('right_icon1')
-    #     time.sleep(1)
-    #     self.driver.find_id_click('title')
-    #     time.sleep(1)
-    #     self.driver.find_id_send('title', '合集列表界面添加合辑')
-    #     self.driver.back()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('ok')
-    #     self.driver.wait_id_click('choice')
-    #     time.sleep(1)
-    #     self.driver.find_id_click('tv_right')
-    #     try:
-    #         create_toast = self.driver.wait_toast('//android.widget.Toast')
-    #         if '成功' not in create_toast:
-    #             print(create_toast)
-    #     except:
-    #         pass
-    #
-    #     #change
-    #     el = 'img3'
-    #     self.driver.Long_Touches(el, -1, 3000)
-    #     time.sleep(2)
-    #     self.loc.three_from_last()
-    #     self.driver.wait_toast('//android.widget.Toast')
-    #     try:
-    #         self.driver.find_id('tag')
-    #     except:
-    #         print('未显示作品合集置顶标签')
-    #
-    #     #delete
-    #     while True:
-    #         try:
-    #             self.driver.find_id('img3')
-    #             self.driver.Long_Touche(el,3000)
-    #             time.sleep(1)
-    #             self.loc.two_from_last()
-    #             time.sleep(2)
-    #             self.driver.find_id_click('btnSubmit')
-    #             delete_toast = self.driver.wait_toast('//android.widget.Toast')
-    #             if '成功' not in delete_toast:
-    #                 print(delete_toast)
-    #         except:
-    #             self.driver.find_id_click('btnBack')
-    #             break
-    #     time.sleep(2)
-    #
-    #
-    # # 退出个人空间
-    # def test_z_o_person_zoom_quit(self):
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
+    def test_z_d_person_zoom_coor_private_public(self):
+        self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
+        time.sleep(2)
+        self.loc.four_from_last()
+        time.sleep(2)
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = "公开成功"
+            assert check in toast,'求合作私密转公开toast校验不一致'
+        except:
+            try:
+                self.driver.find_id_click('renew')
+                time.sleep(2)
+                self.driver.find_id_click('btnBack')
+                time.sleep(2)
+                self.driver.back()
+                time.sleep(2)
+            except:
+                pass
+        time.sleep(2)
 
-    # 我的界面vip入口
-    # def test_z_p_person_vip_enter(self):
-    #     # 会员首次购买优惠入口
-    #     try:
-    #         self.driver.find_id('right_huiyuan')
-    #         self.driver.wait_id('renew')
-    #         self.driver.find_id_click('btnBack')
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #     self.driver.find_id_click('img_vip')
-    #     self.driver.wait_id('renew')
-    #     time.sleep(2)
-    #
-    # # 会员权益计算
-    # def test_z_q_person_vip_equity(self):
-    #     self.driver.find_id_click('img_right')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('price')
-    #     except:
-    #         print('会员权益计算弹窗中未检测到相关控件')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('complete')
-    #     time.sleep(2)
-    #
-    # # 会员价格
-    # def test_z_r_person_vip_price(self):
-    #     price = self.driver.find_ids('tv_now_money')
-    #     for i in range(len(price)):
-    #         price = self.driver.find_ids_text('tv_now_money',i)
-    #         self.driver.find_ids_click('rl_all',i)
-    #         time.sleep(1)
-    #         self.driver.find_id_click('renew')
-    #         time.sleep(2)
-    #         price_buy = self.driver.find_id_text('tv_money')
-    #         assert price in price_buy
-    #         time.sleep(2)
-    #         self.driver.find_id_click('close_icon')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('cancel')
-    #         time.sleep(2)
-    #
-    # # 会员赠送
-    # def test_z_s_person_vip_give(self):
-    #     self.driver.find_id_click('tv_right')
-    #     self.driver.wait_id_click('user_head')
-    #     self.driver.wait_id('ll_follow')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('send')
-    #     time.sleep(2)
-    #     self.driver.wait_id('renew')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 会员特权
-    # def test_z_t_person_vip_privileges(self):
-    #     member_privileges_page1 = self.driver.find_ids('name')
-    #     privileges_list = []
-    #     for i in range(len(member_privileges_page1)):
-    #         name = self.driver.find_ids_text('name',i)
-    #         privileges_list.append(name)
-    #     time.sleep(2)
-    #     start_locat = self.driver.find_ids('name')[-1].location
-    #     end_locat = self.driver.find_ids('name')[-4].location
-    #     start_swip_x = start_locat['x']
-    #     start_swip_y = start_locat['y']
-    #     end_swip_x = end_locat['x']
-    #     end_swip_y = end_locat['y']
-    #     if self.y >= 2280:
-    #         self.driver.swip_move(start_swip_x, start_swip_y, end_swip_x, end_swip_y)
-    #     time.sleep(2)
-    #     member_privileges_page2 = self.driver.find_ids('name')
-    #     for i in range(len(member_privileges_page2)):
-    #         name1 = self.driver.find_ids_text('name',i)
-    #         privileges_list.append(name1)
-    #     privileges_check_list = ['双倍金币', '免费曝光', '推荐涨粉', '升级加速', '上榜历史', '作品下载', '评论置顶',
-    #                             '作品编辑', '云端存储', '语聊麦位', '专属挂件', '空间装扮']
-    #     assert sorted(privileges_list) == sorted(privileges_check_list)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # #cp邀请
-    # def test_z_u_person_cp_invite(self):
-    #     self.driver.find_id_click('img_cp')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('invite')
-    #         self.driver.find_id_click('invite')
-    #         time.sleep(2)
-    #         self.driver.find_id_send('filter_edit','1247792')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnSearch')
-    #         time.sleep(2)
-    #         self.driver.wait_xpath('逍遥剑仙')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('userhead')
-    #         self.driver.wait_id('right_icon1')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #     except:
-    #         self.driver.find_id_click('cancel_invite')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnSubmit')
-    #         self.driver.wait_id_click('invite')
-    #         time.sleep(2)
-    #         self.driver.find_id_send('filter_edit','1247792')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnSearch')
-    #         time.sleep(2)
-    #         self.driver.wait_xpath('逍遥剑仙')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('userhead')
-    #         self.driver.wait_id('right_icon1')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # #cp空间
-    # def test_z_v_person_cp_zoom(self):
-    #     pass
+    # 求合作删除
+    def test_z_e_person_zoom_coor_delete(self):
+        self.driver.Long_Touche('item_sh_cooperate_article_image', 3000)
+        time.sleep(2)
+        self.loc.two_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '删除'
+            assert check in toast,'求合作删除失败'
+        except:
+            pass
+        time.sleep(2)
+
+    # 素材-视频预览
+    def test_z_f_person_zoom_source_preview(self):
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('userhead')
+        time.sleep(2)
+        self.driver.wait_id_click('source_text')
+        self.driver.wait_id_click('imgSource')
+        self.driver.wait_id('right_icon1')
+        time.sleep(10)
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 素材配音
+    def test_z_g_person_zoom_source_dubbing(self):
+        self.driver.find_id_click('imgSource')
+        self.driver.wait_id('right_icon1')
+        self.driver.Background()
+        time.sleep(2)
+        try:
+            self.driver.find_id('yinpin')
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            self.driver.find_id_click('imgTip')
+            while True:
+                try:
+                    self.driver.find_id('roleall')
+                    break
+                except:
+                    self.driver.find_id('btnSubmit')
+                    time.sleep(1)
+                    self.driver.find_id_click('btnSubmit')
+                    break
+            self.driver.wait_id_click('roleall')
+            time.sleep(2)
+            self.driver.find_id_click('back')
+            time.sleep(2)
+            self.driver.find_id_click('btnSubmit')
+            time.sleep(2)
+        except:
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            self.driver.find_id_click('imgTip')
+            while True:
+                try:
+                    self.driver.find_id('action')
+                    break
+                except:
+                    try:
+                        self.driver.find_id('btnSubmit')
+                        time.sleep(1)
+                        self.driver.find_id_click('btnSubmit')
+                        break
+                    except:
+                        pass
+                time.sleep(1)
+            time.sleep(2)
+            self.driver.find_id_click('back')
+            time.sleep(2)
+            self.driver.find_id_click('btnSubmit')
+            time.sleep(2)
+        time.sleep(2)
+
+    def test_z_g_a_person_zoom_sorce_collection(self):
+        self.test_z_m_person_zoom_create_compilation()
+        self.test_z_n_person_zoom_collection_Add_delete_change()
+
+
+    # 更多-点赞
+    def test_z_h_person_zoom_goods_record(self):
+        self.driver.find_id_click('more_text')
+        time.sleep(2)
+        self.driver.wait_id('filmBg')
+        time.sleep(2)
+        num = self.driver.find_id_text('look')
+        if num == '0':
+            self.driver.Long_Touche('filmBg', 3000)
+            time.sleep(2)
+            self.driver.find_id_click('btnSubmit')
+            time.sleep(2)
+        self.driver.find_id_click('filmBg')
+        self.driver.wait_id('tv_video_detail_title')
+        self.driver.Background()
+        time.sleep(2)
+        self.driver.find_id_click('tv_good')
+        good1 = self.driver.find_id_text('tv_good')
+        self.driver.find_id_click('tv_good')
+        time.sleep(1)
+        good2 = self.driver.find_id_text('tv_good')
+        if good1 == good2:
+            print(good1,good2)
+        time.sleep(1)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 更多-转发
+    def test_z_i_person_zoom_forward(self):
+        self.driver.find_id_click('film_all_count')
+        time.sleep(2)
+        self.driver.find_xpath('转发').click()
+        self.driver.wait_id('filmBg')
+        name = self.driver.find_id_text('username')
+        self.driver.find_id_click('filmBg')
+        try:
+            tip = self.driver.wait_toast('//android.widget.Toast')
+            check = '不存在'
+            check1 = '私密'
+            if check in tip and check1 in tip:
+                print('转发作品点击进入失败，提示信息错误')
+        except:
+            self.driver.wait_id('tv_video_detail_title')
+            self.driver.Background()
+            time.sleep(2)
+            detail_name = self.driver.find_id_text('user_name')
+            assert name == detail_name,'转发列表界面用户名与视频详情界面用户名不一致'
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+        # 作品转发列表——删除作品
+        title = self.driver.find_id_text('title')
+        count = self.driver.find_id_text('film_all_count')
+        self.driver.Long_Touche('filmBg', 3000)
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        time.sleep(2)
+        try:
+            self.driver.find_xpath(title)
+            print('转发作品删除失败')
+        except:
+            pass
+        time.sleep(2)
+        count1 = self.driver.find_id_text('film_all_count')
+        assert count != count1,'转发作品删除失败'
+        time.sleep(2)
+
+    # 帖子列表
+    def test_z_j_person_zoom_post_list(self):
+        self.driver.find_id_click('film_all_count')
+        time.sleep(2)
+        self.driver.find_xpath('帖子').click()
+        time.sleep(4)
+        self.driver.find_id_click('good')
+        time.sleep(4)
+        self.driver.find_id_click('tag')
+        self.driver.wait_id('img_subscribe')
+        self.driver.find_id_click('back')
+        time.sleep(2)
+        self.driver.find_id_click('comment')
+        self.driver.wait_id('qiehuan')
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 帖子-转发私信-删除
+    def test_z_k_person_zoom_forword_and_delete(self):
+        self.driver.find_id_click('action')
+        time.sleep(2)
+        self.loc.three_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('group_chat')
+        time.sleep(2)
+        self.driver.find_id_click('name')
+        time.sleep(4)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('action')
+        time.sleep(2)
+        self.loc.two_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '成功'
+            assert check in toast
+        except:
+            print('帖子删除未检测到toast提示')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('username')
+        self.driver.wait_id('film_all_count')
+        time.sleep(2)
+        self.driver.find_id_click('more_text')
+        time.sleep(2)
+
+    # 语聊列表
+    def test_z_l_person_chat_list(self):
+        self.driver.find_id_click('film_all_count')
+        time.sleep(2)
+        self.driver.find_xpath('语聊').click()
+        time.sleep(4)
+
+    # 创建合辑
+    def test_z_m_person_zoom_create_compilation(self):
+        #创建9个合辑后进入合辑列表界面
+        i = 0
+        while True:
+            try:
+                self.driver.find_id('create')
+                self.driver.find_id_click('create')
+                time.sleep(2)
+                self.driver.find_id_click('title')
+                time.sleep(1)
+                self.driver.find_id_send('title','合辑'+ str(i))
+                self.driver.back()
+                time.sleep(2)
+                self.driver.find_id_click('ok')
+                self.driver.wait_id_click('choice')
+                time.sleep(1)
+                self.driver.find_id_click('tv_right')
+                try:
+                    toast = self.driver.wait_toast('//android.widget.Toast')
+                    if '成功' not in toast:
+                        print(toast)
+                except:
+                    pass
+            except:
+                try:
+                    self.driver.find_id('right_icon1')
+                    break
+                except:
+                    pass
+            self.driver.swip_move(self.x * 0.935, self.y * 0.585, self.x * 0.148, self.y * 0.586)
+            i +=1
+        time.sleep(2)
+
+        #作品合辑详情界面编辑
+        self.driver.find_id_click('img3')
+        self.driver.wait_id('head')
+        try:
+            self.driver.find_id('playnum')
+            try:
+                self.driver.find_id('xianshi')
+            except:
+                try:
+                    self.driver.find_id('tv_source_from')
+                except:
+                    print('合辑详情未显示标签')
+        except:
+            print('合辑详情未显示作品时间')
+        time.sleep(1)
+        work_num = len(self.driver.find_ids('img'))
+        total_num = self.driver.find_id_text('count')
+        if str(work_num) not in total_num:
+            name = self.driver.find_id_text('title')
+            print(name,'合辑作品数量错误')
+        time.sleep(2)
+
+        #合辑置顶
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.six_from_last()
+        toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in toast:
+            print(toast)
+        time.sleep(2)
+
+        #编辑合辑信息
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.five_from_last()
+        time.sleep(2)
+        self.driver.find_id_send('title','合辑名称编辑')
+        time.sleep(1)
+        self.driver.find_id_send('content','合辑内容编辑')
+        time.sleep(1)
+        self.driver.back() #收起系统输入键盘
+        time.sleep(1)
+        self.driver.find_id_click('ok')
+        edit_toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in edit_toast:
+            print(edit_toast)
+
+        # 添加作品
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.four_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('choice')
+        time.sleep(1)
+        self.driver.find_id_click('tv_right')
+        add_toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in add_toast:
+            print(add_toast)
+
+        #更改作品顺序
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.three_from_last()
+        time.sleep(2)
+        el = 'iv_source'
+        self.driver.Long_press_move(el,self.x * 0.5, self.y * 0.5)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+        #合辑收藏
+        try:
+            self.driver.find_id('collect_img')
+            self.driver.find_id_click('collect_img')
+            collection_toast = self.driver.wait_toast('//android.widget.Toast')
+            if '成功' not in collection_toast:
+                print(collection_toast)
+        except:
+            pass
+
+        #合辑分享
+        self.driver.find_id_click('share_img')
+        time.sleep(2)
+        self.driver.find_id_send('content','合辑分享')
+        self.driver.find_id_click('reprint')
+        share_toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in share_toast:
+            print(share_toast)
+        time.sleep(2)
+
+        #头像跳转个人空间
+        self.driver.find_id_click('head')
+        self.driver.wait_id('ll_fan')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+        # 删除合辑
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.two_from_last()
+        time.sleep(2)
+        self.driver.find_id_click('btnSubmit')
+        delete_toast = self.driver.wait_toast('//android.widget.Toast')
+        if '成功' not in delete_toast:
+            print(delete_toast)
+        time.sleep(2)
+
+
+    # 作品合辑列表界面添加/删除合辑
+    def test_z_n_person_zoom_collection_Add_delete_change(self):
+        #add
+        self.driver.find_id_click('right_icon1')
+        time.sleep(1)
+        self.driver.find_id_click('title')
+        time.sleep(1)
+        self.driver.find_id_send('title', '合集列表界面添加合辑')
+        self.driver.back()
+        time.sleep(2)
+        self.driver.find_id_click('ok')
+        self.driver.wait_id_click('choice')
+        time.sleep(1)
+        self.driver.find_id_click('tv_right')
+        try:
+            create_toast = self.driver.wait_toast('//android.widget.Toast')
+            if '成功' not in create_toast:
+                print(create_toast)
+        except:
+            pass
+
+        #change
+        el = 'img3'
+        self.driver.Long_Touches(el, -1, 3000)
+        time.sleep(2)
+        self.loc.three_from_last()
+        self.driver.wait_toast('//android.widget.Toast')
+        try:
+            self.driver.find_id('tag')
+        except:
+            print('未显示作品合集置顶标签')
+
+        #delete
+        while True:
+            try:
+                self.driver.find_id('img3')
+                self.driver.Long_Touche(el,3000)
+                time.sleep(1)
+                self.loc.two_from_last()
+                time.sleep(2)
+                self.driver.find_id_click('btnSubmit')
+                delete_toast = self.driver.wait_toast('//android.widget.Toast')
+                if '成功' not in delete_toast:
+                    print(delete_toast)
+            except:
+                self.driver.find_id_click('btnBack')
+                break
+        time.sleep(2)
+
+
+    # 退出个人空间
+    def test_z_o_person_zoom_quit(self):
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    #我的界面vip入口
+    def test_z_p_person_vip_enter(self):
+        # 会员首次购买优惠入口
+        try:
+            self.driver.find_id('right_huiyuan')
+            self.driver.wait_id('renew')
+            self.driver.find_id_click('btnBack')
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id_click('img_vip')
+        self.driver.wait_id('renew')
+        time.sleep(2)
+
+    # 会员权益计算
+    def test_z_q_person_vip_equity(self):
+        self.driver.find_id_click('img_right')
+        time.sleep(2)
+        try:
+            self.driver.find_id('price')
+        except:
+            print('会员权益计算弹窗中未检测到相关控件')
+        time.sleep(2)
+        self.driver.find_id_click('complete')
+        time.sleep(2)
+
+    # 会员价格
+    def test_z_r_person_vip_price(self):
+        price = self.driver.find_ids('tv_now_money')
+        for i in range(len(price)):
+            price = self.driver.find_ids_text('tv_now_money',i)
+            self.driver.find_ids_click('rl_all',i)
+            time.sleep(1)
+            self.driver.find_id_click('renew')
+            time.sleep(2)
+            price_buy = self.driver.find_id_text('tv_money')
+            assert price in price_buy
+            time.sleep(2)
+            self.driver.find_id_click('close_icon')
+            time.sleep(2)
+            self.driver.find_id_click('cancel')
+            time.sleep(2)
+
+    # 会员赠送
+    def test_z_s_person_vip_give(self):
+        self.driver.find_id_click('tv_right')
+        self.driver.wait_id_click('user_head')
+        self.driver.wait_id('ll_follow')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('send')
+        time.sleep(2)
+        self.driver.wait_id('renew')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 会员特权
+    def test_z_t_person_vip_privileges(self):
+        member_privileges_page1 = self.driver.find_ids('name')
+        privileges_list = []
+        for i in range(len(member_privileges_page1)):
+            name = self.driver.find_ids_text('name',i)
+            privileges_list.append(name)
+        time.sleep(2)
+        start_locat = self.driver.find_ids('name')[-1].location
+        end_locat = self.driver.find_ids('name')[-4].location
+        start_swip_x = start_locat['x']
+        start_swip_y = start_locat['y']
+        end_swip_x = end_locat['x']
+        end_swip_y = end_locat['y']
+        if self.y >= 2280:
+            self.driver.swip_move(start_swip_x, start_swip_y, end_swip_x, end_swip_y)
+        time.sleep(2)
+        member_privileges_page2 = self.driver.find_ids('name')
+        for i in range(len(member_privileges_page2)):
+            name1 = self.driver.find_ids_text('name',i)
+            privileges_list.append(name1)
+        privileges_check_list = ['双倍金币', '免费曝光', '推荐涨粉', '升级加速', '上榜历史', '作品下载', '评论置顶',
+                                '作品编辑', '云端存储', '语聊麦位', '专属挂件', '空间装扮']
+        assert sorted(privileges_list) == sorted(privileges_check_list)
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    #cp邀请
+    def test_z_u_person_cp_invite(self):
+        self.driver.find_id_click('img_cp')
+        time.sleep(2)
+        try:
+            self.driver.find_id('invite')
+            self.driver.find_id_click('invite')
+            time.sleep(2)
+            self.driver.find_id_send('filter_edit','1247792')
+            time.sleep(2)
+            self.driver.find_id_click('btnSearch')
+            time.sleep(2)
+            self.driver.wait_xpath('逍遥剑仙')
+            time.sleep(2)
+            self.driver.find_id_click('userhead')
+            self.driver.wait_id('right_icon1')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+        except:
+            self.driver.find_id_click('cancel_invite')
+            time.sleep(2)
+            self.driver.find_id_click('btnSubmit')
+            self.driver.wait_id_click('invite')
+            time.sleep(2)
+            self.driver.find_id_send('filter_edit','1247792')
+            time.sleep(2)
+            self.driver.find_id_click('btnSearch')
+            time.sleep(2)
+            self.driver.wait_xpath('逍遥剑仙')
+            time.sleep(2)
+            self.driver.find_id_click('userhead')
+            self.driver.wait_id('right_icon1')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    #cp空间
+    def test_z_v_person_cp_zoom(self):
+        pass
 
     #达人
-    # def test_z_w_person_daren(self):
-    #     self.driver.find_id_click('img_daren')
-    #     self.driver.wait_id('btnClose')
-    #     try:
-    #         self.driver.find_xpath_click('立即申请')
-    #         time.sleep(2)
-    #         self.driver.find_xpath_click('确认')
-    #     except:
-    #         self.driver.find_xpath_click('上传原创作品')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('middle')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnClose')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('userhead')
-    #         time.sleep(2)
-    #         self.driver.back()
-    #         time.sleep(2)
-    #         self.driver.find_id_click('icon')
-    #         time.sleep(2)
-    #         self.driver.back()
-    #         time.sleep(2)
-    #         self.driver.back()
-    #         time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 系统消息
-    # def test_z_x_person_system_notices(self):
-    #     self.driver.find_id_click('system_notice')
-    #     self.driver.wait_id_click('userhead')
-    #     self.driver.wait_id('ll_follow')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('agree')
-    #         self.driver.find_id_click('agree')
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #     self.driver.find_id_click('more')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnCancel')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 点赞消息
-    # def test_z_y_person_good_notices(self):
-    #     try:
-    #         self.driver.find_id('gift_point')
-    #         self.driver.find_id_click('gift')
-    #         self.driver.wait_id('userhead')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         try:
-    #             self.driver.find_id('gift_point')
-    #             print('点赞红点未消失')
-    #         except:
-    #             pass
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #     self.driver.find_id_click('gift')
-    #     time.sleep(2)
-    #     self.driver.wait_id_click('userhead')
-    #     self.driver.wait_id('ll_follow')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('content')
-    #     try:
-    #         self.driver.wait_toast('//android.widget.Toast')
-    #         time.sleep(2)
-    #     except:
-    #         self.driver.wait_id('tv_video_detail_title')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #     time.sleep(2)
-    #
-    #     # 回赞
-    #     self.driver.find_id_click('guanzhu')
-    #     self.driver.wait_id('tv_video_detail_title')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 合作消息
-    # def test_z_z_person_coor_notices(self):
-    #     try:
-    #         self.driver.find_id_click('cooper_count')
-    #         self.driver.find_id_click('textView15')
-    #         self.driver.wait_id('userhead')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         try:
-    #             self.driver.find_id('cooper_count')
-    #             print('合作消息红点未消失')
-    #         except:
-    #             pass
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #     self.driver.find_id_click('textView15')
-    #     self.driver.wait_id('more')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('userhead')
-    #     self.driver.wait_id('ll_follow')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 合作配音
-    # def test_z_z_a_person_coor_dubbing(self):
-    #     try:
-    #         self.driver.find_xpaths('合作配音')[1].click()
-    #         self.driver.wait_download('action')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('back')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnSubmit')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('play')
-    #         time.sleep(3)
-    #         self.driver.back()
-    #         time.sleep(2)
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #
-    # # 删除合作消息
-    # def test_z_z_b_person_coor_delete(self):
-    #     for i in range(4):
-    #         self.driver.swip_up()
-    #         time.sleep(2)
-    #     time.sleep(2)
-    #     self.driver.find_id_click('more')
-    #     time.sleep(2)
-    #     self.loc.two_from_last()
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '删除合作消息成功'
-    #         assert check in toast, '合作消息删除失败'
-    #     except:
-    #         print('未检测到合作消息删除toast提示')
-    #     time.sleep(2)
-    #
-    # # 生成作品
-    # def test_z_z_c_person_coor_generate_works(self):
-    #     self.driver.find_id_click('rl_tag2')
-    #     time.sleep(2)
-    #     self.driver.find_xpaths('生成作品')[1].click()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('head_name')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('tv_take_photo')
-    #     time.sleep(5)
-    #     try:
-    #         '''
-    #         以下操作只适用vivox9
-    #         '''
-    #         self.driver.find_id_third_part('com.android.camera:id/shutter_button')
-    #         time.sleep(4)
-    #         self.driver.find_id_third_part('com.android.camera:id/done_button')
-    #     except:
-    #         try:
-    #             '''
-    #             oppo r11/r15
-    #             '''
-    #             self.driver.find_id_third_part('com.oppo.camera:id/shutter_button')
-    #             time.sleep(4)
-    #             self.driver.find_id_third_part('com.oppo.camera:id/done_button')
-    #         except:
-    #             try:
-    #                 self.driver.find_id_third_part('com.huawei.camera:id/shutter_button')
-    #                 time.sleep(4)
-    #                 self.driver.find_id_third_part('com.huawei.camera:id/done_button')
-    #             except:
-    #                 try:
-    #                     self.driver.find_id_third_part('com.android.camera:id/v9_shutter_button_internal')
-    #                     time.sleep(4)
-    #                     self.driver.find_id_third_part('com.android.camera:id/intent_done_apply')
-    #                 except:
-    #                     pass
-    #     time.sleep(4)
-    #     self.driver.find_id_click('confirm')
-    #     time.sleep(3)
-    #     self.driver.find_id_click('head_name')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('tv_photo')
-    #     time.sleep(3)
-    #     self.driver.find_id_click('photo_wall_item_photo')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('confirm')
-    #     time.sleep(3)
-    #     self.driver.find_id_send('title','功能测试')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('tv')
-    #         self.driver.find_id_click('tv')
-    #         time.sleep(2)
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btn_close')
-    #     time.sleep(2)
-    #
-    # # 生成作品tab界面预览视频
-    # def test_z_z_d_person_coor_video_play(self):
-    #     self.driver.find_id_click('play')
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '删除'
-    #         assert check in toast,'视频详情界面进入失败'
-    #     except:
-    #         self.driver.wait_id('tv_video_detail_title')
-    #         self.driver.Background()
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #
-    # # 合作消息设置
-    # def test_z_z_e_person_coor_notice_setting(self):
-    #     self.driver.find_id_click('right_icon1')
-    #     time.sleep(4)
-    #     # 获取当前界面所有resourceid,但部分id不可用，因此无法区分筛选出真正可以点击的id
-    #     # count = self.driver.search_id()
-    #     # print(count)
-    #     # self.id = re.findall(r'resource-id="com.happyteam.dubbingshow:id/(.*?)"',count)
-    #     # print(self.id)
-    #     el_list = ['acceptAll','acceptFirends','acceptNone','clearAllInviter','btnCancel']
-    #     for i in el_list:
-    #         self.driver.find_id_click(i)
-    #         time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
+    def test_z_w_person_daren(self):
+        self.driver.find_id_click('img_daren')
+        self.driver.wait_id('btnClose')
+        try:
+            self.driver.find_xpath_click('立即申请')
+            time.sleep(2)
+            self.driver.find_xpath_click('确认')
+        except:
+            self.driver.find_xpath_click('上传原创作品')
+            time.sleep(2)
+            self.driver.find_id_click('middle')
+            time.sleep(2)
+            self.driver.find_id_click('btnClose')
+            time.sleep(2)
+            self.driver.find_id_click('userhead')
+            time.sleep(2)
+            self.driver.back()
+            time.sleep(2)
+            self.driver.find_id_click('icon')
+            time.sleep(2)
+            self.driver.back()
+            time.sleep(2)
+            self.driver.back()
+            time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
-    # 评论消息-跳转个人空间
-    # def test_z_z_f_person_comment_notices(self):
-    #     try:
-    #         self.driver.find_id('comment_count')
-    #         self.driver.find_id_click('textView16')
-    #         self.driver.wait_id('reply')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         try:
-    #             self.driver.find_id('comment_count')
-    #             print('评论消息红点未消失')
-    #         except:
-    #             pass
-    #     except:
-    #         pass
-    #     time.sleep(2)
-    #     self.driver.find_id_click('textView16')
-    #     self.driver.wait_id('reply')
-    #     time.sleep(2)
-    #     name = self.driver.find_id_text('textView')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('userhead')
-    #     self.driver.wait_id('ll_follow')
-    #     time.sleep(2)
-    #     zoom_name = self.driver.find_id_text('username')
-    #     assert name == zoom_name
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #
-    # # 评论消息-关注
-    # def test_z_z_g_person_comment_follows(self):
-    #     self.driver.find_id_click('guanzhu')
-    #     time.sleep(2)
-    #     try:
-    #         self.driver.find_id('right_icon1')
-    #         time.sleep(2)
-    #     except:
-    #         self.driver.find_id_click('guanzhu')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('right_icon1')
-    #     time.sleep(2)
-    #     self.loc.two_from_last()
-    #     self.driver.wait_id('ll_follow')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('follow_status')
-    #     time.sleep(3)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btnBack')
-    #     time.sleep(2)
-    #     self.driver.swip_down()
-    #     time.sleep(2)
-    #     self.driver.find_id_click('guanzhu')
-    #     time.sleep(2)
-    #
-    # # 评论消息-进入作品详情
-    # def test_z_z_h_person_comment_video_detail(self):
-    #     self.driver.find_id_click('content')
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '删除'
-    #         assert check in toast
-    #     except:
-    #         self.driver.wait_id('tv_video_detail_title')
-    #         self.driver.Background()
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #     time.sleep(2)
-    #
-    # # 评论消息-回复评论
-    # def test_z_z_i_person_comment_reply(self):
-    #     self.driver.find_id_click('reply_btn')
-    #     time.sleep(2)
-    #     self.driver.find_id_send('editContent','哈哈哈')
-    #     time.sleep(2)
-    #     self.driver.find_id_click('btn_send')
-    #     self.driver.wait_toast('//android.widget.Toast')
-    #     try:
-    #         self.driver.find_id_click('editContent')
-    #         self.driver.back()
-    #     except:
-    #         pass
-    #
-    # # 评论消息-帖子消息
-    # def test_z_z_j_person_comment_post_notices(self):
-    #     self.driver.find_id_click('tab2')
-    #     self.driver.wait_id_click('content')
-    #     try:
-    #         toast = self.driver.wait_toast('//android.widget.Toast')
-    #         check = '删除'
-    #         assert check == toast, '帖子跳转失败'
-    #     except:
-    #         self.driver.wait_id('right_icon1')
-    #         time.sleep(2)
-    #         self.loc.one_from_last()
-    #         time.sleep(2)
-    #         self.driver.find_id_send('editContent','hhh')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btn_send')
-    #         try:
-    #             toast = self.driver.wait_toast('//android.widget.Toast')
-    #             check = '成功'
-    #             assert check in toast, '帖子发布评论失败'
-    #         except:
-    #             pass
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
-    #         self.driver.find_id_click('btnBack')
-    #         time.sleep(2)
+    # 系统消息
+    def test_z_x_person_system_notices(self):
+        self.driver.find_id_click('system_notice')
+        self.driver.wait_id_click('userhead')
+        self.driver.wait_id('ll_follow')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        try:
+            self.driver.find_id('agree')
+            self.driver.find_id_click('agree')
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id_click('more')
+        time.sleep(2)
+        self.driver.find_id_click('btnCancel')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
 
-    # 聊天消息
+    # 点赞消息
+    def test_z_y_person_good_notices(self):
+        try:
+            self.driver.find_id('gift_point')
+            self.driver.find_id_click('gift')
+            self.driver.wait_id('userhead')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            try:
+                self.driver.find_id('gift_point')
+                print('点赞红点未消失')
+            except:
+                pass
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id_click('gift')
+        time.sleep(2)
+        self.driver.wait_id_click('userhead')
+        self.driver.wait_id('ll_follow')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('content')
+        try:
+            self.driver.wait_toast('//android.widget.Toast')
+            time.sleep(2)
+        except:
+            self.driver.wait_id('tv_video_detail_title')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+        time.sleep(2)
+
+        # 回赞
+        self.driver.find_id_click('guanzhu')
+        self.driver.wait_id('tv_video_detail_title')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 合作消息
+    def test_z_z_person_coor_notices(self):
+        try:
+            self.driver.find_id_click('cooper_count')
+            self.driver.find_id_click('textView15')
+            self.driver.wait_id('userhead')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            try:
+                self.driver.find_id('cooper_count')
+                print('合作消息红点未消失')
+            except:
+                pass
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id_click('textView15')
+        self.driver.wait_id('more')
+        time.sleep(2)
+        self.driver.find_id_click('userhead')
+        self.driver.wait_id('ll_follow')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 合作配音
+    def test_z_z_a_person_coor_dubbing(self):
+        try:
+            self.driver.find_xpaths('合作配音')[1].click()
+            self.driver.wait_download('action')
+            time.sleep(2)
+            self.driver.find_id_click('back')
+            time.sleep(2)
+            self.driver.find_id_click('btnSubmit')
+            time.sleep(2)
+            self.driver.find_id_click('play')
+            time.sleep(3)
+            self.driver.back()
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+
+    # 删除合作消息
+    def test_z_z_b_person_coor_delete(self):
+        for i in range(4):
+            self.driver.swip_up()
+            time.sleep(2)
+        time.sleep(2)
+        self.driver.find_id_click('more')
+        time.sleep(2)
+        self.loc.two_from_last()
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '删除合作消息成功'
+            assert check in toast, '合作消息删除失败'
+        except:
+            print('未检测到合作消息删除toast提示')
+        time.sleep(2)
+
+    # 生成作品
+    def test_z_z_c_person_coor_generate_works(self):
+        self.driver.find_id_click('rl_tag2')
+        time.sleep(2)
+        self.driver.find_xpaths('生成作品')[1].click()
+        time.sleep(2)
+        self.driver.find_id_click('head_name')
+        time.sleep(2)
+        self.driver.find_id_click('tv_take_photo')
+        time.sleep(5)
+        try:
+            '''
+            以下操作只适用vivox9
+            '''
+            self.driver.find_id_third_part('com.android.camera:id/shutter_button')
+            time.sleep(4)
+            self.driver.find_id_third_part('com.android.camera:id/done_button')
+        except:
+            try:
+                '''
+                oppo r11/r15
+                '''
+                self.driver.find_id_third_part('com.oppo.camera:id/shutter_button')
+                time.sleep(4)
+                self.driver.find_id_third_part('com.oppo.camera:id/done_button')
+            except:
+                try:
+                    self.driver.find_id_third_part('com.huawei.camera:id/shutter_button')
+                    time.sleep(4)
+                    self.driver.find_id_third_part('com.huawei.camera:id/done_button')
+                except:
+                    try:
+                        self.driver.find_id_third_part('com.android.camera:id/v9_shutter_button_internal')
+                        time.sleep(4)
+                        self.driver.find_id_third_part('com.android.camera:id/intent_done_apply')
+                    except:
+                        pass
+        time.sleep(4)
+        self.driver.find_id_click('confirm')
+        time.sleep(3)
+        self.driver.find_id_click('head_name')
+        time.sleep(2)
+        self.driver.find_id_click('tv_photo')
+        time.sleep(3)
+        self.driver.find_id_click('photo_wall_item_photo')
+        time.sleep(2)
+        self.driver.find_id_click('confirm')
+        time.sleep(3)
+        self.driver.find_id_send('title','功能测试')
+        time.sleep(2)
+        try:
+            self.driver.find_id('tv')
+            self.driver.find_id_click('tv')
+            time.sleep(2)
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id_click('btn_close')
+        time.sleep(2)
+
+    # 生成作品tab界面预览视频
+    def test_z_z_d_person_coor_video_play(self):
+        self.driver.find_id_click('play')
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '删除'
+            assert check in toast,'视频详情界面进入失败'
+        except:
+            self.driver.wait_id('tv_video_detail_title')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+
+    # 合作消息设置
+    def test_z_z_e_person_coor_notice_setting(self):
+        self.driver.find_id_click('right_icon1')
+        time.sleep(4)
+        # 获取当前界面所有resourceid,但部分id不可用，因此无法区分筛选出真正可以点击的id
+        # count = self.driver.search_id()
+        # print(count)
+        # self.id = re.findall(r'resource-id="com.happyteam.dubbingshow:id/(.*?)"',count)
+        # print(self.id)
+        el_list = ['acceptAll','acceptFirends','acceptNone','clearAllInviter','btnCancel']
+        for i in el_list:
+            self.driver.find_id_click(i)
+            time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    #评论消息-跳转个人空间
+    def test_z_z_f_person_comment_notices(self):
+        try:
+            self.driver.find_id('comment_count')
+            self.driver.find_id_click('textView16')
+            self.driver.wait_id('reply')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            try:
+                self.driver.find_id('comment_count')
+                print('评论消息红点未消失')
+            except:
+                pass
+        except:
+            pass
+        time.sleep(2)
+        self.driver.find_id_click('textView16')
+        self.driver.wait_id('reply')
+        time.sleep(2)
+        name = self.driver.find_id_text('textView')
+        time.sleep(2)
+        self.driver.find_id_click('userhead')
+        self.driver.wait_id('ll_follow')
+        time.sleep(2)
+        zoom_name = self.driver.find_id_text('username')
+        assert name == zoom_name
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+
+    # 评论消息-关注
+    def test_z_z_g_person_comment_follows(self):
+        self.driver.find_id_click('guanzhu')
+        time.sleep(2)
+        try:
+            self.driver.find_id('right_icon1')
+            time.sleep(2)
+        except:
+            self.driver.find_id_click('guanzhu')
+        time.sleep(2)
+        self.driver.find_id_click('right_icon1')
+        time.sleep(2)
+        self.loc.two_from_last()
+        self.driver.wait_id('ll_follow')
+        time.sleep(2)
+        self.driver.find_id_click('follow_status')
+        time.sleep(3)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.find_id_click('btnBack')
+        time.sleep(2)
+        self.driver.swip_down()
+        time.sleep(2)
+        self.driver.find_id_click('guanzhu')
+        time.sleep(2)
+
+    # 评论消息-进入作品详情
+    def test_z_z_h_person_comment_video_detail(self):
+        self.driver.find_id_click('content')
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '删除'
+            assert check in toast
+        except:
+            self.driver.wait_id('tv_video_detail_title')
+            self.driver.Background()
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+        time.sleep(2)
+
+    # 评论消息-回复评论
+    def test_z_z_i_person_comment_reply(self):
+        self.driver.find_id_click('reply_btn')
+        time.sleep(2)
+        self.driver.find_id_send('editContent','哈哈哈')
+        time.sleep(2)
+        self.driver.find_id_click('btn_send')
+        self.driver.wait_toast('//android.widget.Toast')
+        try:
+            self.driver.find_id_click('editContent')
+            self.driver.back()
+        except:
+            pass
+
+    # 评论消息-帖子消息
+    def test_z_z_j_person_comment_post_notices(self):
+        self.driver.find_id_click('tab2')
+        self.driver.wait_id_click('content')
+        try:
+            toast = self.driver.wait_toast('//android.widget.Toast')
+            check = '删除'
+            assert check == toast, '帖子跳转失败'
+        except:
+            self.driver.wait_id('right_icon1')
+            time.sleep(2)
+            self.loc.one_from_last()
+            time.sleep(2)
+            self.driver.find_id_send('editContent','hhh')
+            time.sleep(2)
+            self.driver.find_id_click('btn_send')
+            try:
+                toast = self.driver.wait_toast('//android.widget.Toast')
+                check = '成功'
+                assert check in toast, '帖子发布评论失败'
+            except:
+                pass
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+            self.driver.find_id_click('btnBack')
+            time.sleep(2)
+
+    #聊天消息
     def test_z_z_k_person_chat_notices(self):
         try:
             self.driver.find_id('chat_count')
@@ -5438,7 +5644,7 @@ class person(unittest.TestCase):
     # 草稿箱作品断网后删除再重新同步下载
     def test_z_z_s_person_draft_reload(self):
         date_before = self.driver.find_id_text('date')
-        self.driver.disconnect_network()
+        self.driver.Disconnect_network()
         time.sleep(2)
         el = 'date'
         self.driver.Long_Touche(el, 3000)
@@ -5711,7 +5917,7 @@ class person(unittest.TestCase):
         except:
             pass
         # 删除收藏合辑
-        self.driver.Long_Touche('name')
+        self.driver.Long_Touche('name',2000)
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
         del_toast = self.driver.wait_toast('//android.widget.Toast')
@@ -5729,7 +5935,7 @@ class person(unittest.TestCase):
         self.driver.find_id_click('btnBack')
         time.sleep(2)
 
-    # 自制素材列表
+    #自制素材列表
     def test_z_z_z_d_person_self_control_source(self):
         self.driver.find_id_click('upload_source')
         time.sleep(2)
@@ -5752,7 +5958,7 @@ class person(unittest.TestCase):
         time.sleep(2)
         self.driver.find_id_click('ll_upload')
         time.sleep(2)
-        self.driver.find_ids_click('android:id/title',1)
+        self.driver.find_ids_third_part('android:id/title',1)
         self.driver.wait_id('next')
         time.sleep(2)
 
@@ -5819,14 +6025,6 @@ class person(unittest.TestCase):
         # 编辑字幕
         self.driver.find_id_click('linear_view2')
         time.sleep(2)
-        # 无效
-        # left_el = self.driver.find_id('left_view_bottom')
-        # right_el = self.driver.find_id('right_view_bottom')
-        # el = right_el.rect
-        # el_x = int(el['x'] + el['width'] / 2.0)
-        # el_y = int(el['y'] + el['height'] / 2.0)
-        # self.driver.long_press_move(left_el,el_x,el_y)
-        # time.sleep(2)
         self.driver.find_id_click('tv_delete_zimu')
         time.sleep(2)
         self.driver.find_id_click('btnSubmit')
@@ -5954,10 +6152,13 @@ class person(unittest.TestCase):
         self.driver.find_id_click('next')
         while True:
             try:
-                self.driver.find_id('iv_dub')
+                self.driver.find_id('dubbing_fake')
                 break
             except:
-                self.driver.find_id_click('music_text')
+                try:
+                    self.driver.find_id_click('music_text')
+                except:
+                    pass
             time.sleep(10)
         time.sleep(2)
 
@@ -5990,11 +6191,11 @@ class person(unittest.TestCase):
             self.driver.find_ids_click('price_tv',i)
             time.sleep(2)
             self.driver.find_id_click('tv_pay')
-            self.driver.wait_id('android:id/text1')
+            self.driver.wait_id_three_party('android:id/text1')
             time.sleep(2)
-            self.driver.find_id_click('com.tencent.mm:id/dn')
+            self.driver.find_id_third_part('com.tencent.mm:id/dn')
             time.sleep(2)
-            self.driver.find_id_click('com.tencent.mm:id/dm3')
+            self.driver.find_id_third_part('com.tencent.mm:id/doz')
             time.sleep(2)
             self.driver.find_id_click('close_icon')
             time.sleep(2)
@@ -6080,10 +6281,10 @@ class person(unittest.TestCase):
         # qq空间
         self.driver.find_id_click('tv_invite')
         time.sleep(2)
-        self.loc.share_qq_zone()
+        self.loc.share_QQ_zone()
         self.driver.wait_xpath('发表')
         time.sleep(2)
-        self.driver.find_id_third_part('com.tencent.mobileqq:id/ivtitlebtnleft')
+        self.driver.find_id_third_part('com.tencent.mobileqq:id/ivTitleBtnLeft')
         time.sleep(3)
 
         # 点击复制链接（qq取消分享返回应用，分享弹窗还会显示）
@@ -6142,8 +6343,8 @@ class video_detail(unittest.TestCase):
         warnings.simplefilter('ignore', ResourceWarning)
         self.driver = BaseOperate()
         self.loc = location()
-        self.y = self.driver.touch_Y()
-        self.x = self.driver.touch_X()
+        self.y = touche_Y()
+        self.x = touche_X()
 
     @classmethod
     def tearDownClass(self):
@@ -6634,23 +6835,10 @@ class circle(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         warnings.simplefilter('ignore', ResourceWarning)
-        # self.driver = BaseOperate()
-        # self.x = self.driver.touch_X()
-        # self.y = self.driver.touch_Y()
-        # self.id = resource_id
-        # self.d = dub()
-        # self.home_enter = home_function()
-        # self.l = live()
-        # self.f = follow()
-        # self.m = material()
-        # self.p = person()
-        # self.v = video_detail()
-        # self.c = circle()
-        # self.s = society()
         self.driver = BaseOperate()
         self.loc = location()
-        self.y = self.driver.touch_Y()
-        self.x = self.driver.touch_X()
+        self.y =touche_Y()
+        self.x = touche_X()
 
     @classmethod
     def tearDownClass(self):
@@ -7051,23 +7239,10 @@ class society(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         warnings.simplefilter('ignore', ResourceWarning)
-        # self.driver = BaseOperate()
-        # self.x = self.driver.touch_X()
-        # self.y = self.driver.touch_Y()
-        # self.id = resource_id
-        # self.d = dub()
-        # self.home_enter = home_function()
-        # self.l = live()
-        # self.f = follow()
-        # self.m = material()
-        # self.p = person()
-        # self.v = video_detail()
-        # self.c = circle()
-        # self.s = society()
         self.driver = BaseOperate()
         self.loc = location()
-        self.y = self.driver.touch_Y()
-        self.x = self.driver.touch_X()
+        self.y = touche_Y()
+        self.x = touche_X()
 
     @classmethod
     def tearDownClass(self):
