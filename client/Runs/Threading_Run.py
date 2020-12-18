@@ -6,7 +6,7 @@ create on 2020年2月9日
 
 import threading
 from Test_case.test_start_app import Test
-from Thread_script.devices_list import get_conn_dev
+from client.Thread_script.devices_list import get_conn_dev
 
 devices_list = get_conn_dev()
 

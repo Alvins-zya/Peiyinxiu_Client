@@ -3,7 +3,7 @@
 配音界面功能模块，其它文件可引用
 '''
 import time, datetime
-from Public.Driver_Operate import BaseOperate,resource_id
+from client.Public.Driver_Operate import BaseOperate,resource_id
 
 
 class Dubb_funcation():

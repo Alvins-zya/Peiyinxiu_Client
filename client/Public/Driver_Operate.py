@@ -11,8 +11,8 @@ from appium.webdriver.connectiontype import ConnectionType
 import os,sys
 import re
 import time
-from Public.devices import appium_desired
-from Public.devices_list import get_connect_device_id
+from client.Public.devices import appium_desired
+from client.Public.devices_list import get_connect_device_id
 import yaml
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]

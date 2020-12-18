@@ -6,9 +6,9 @@ import sys
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
-from Package_module.Dubbing_funcation import Dubb_funcation
-from Package_module.Live_funcation import Live_funcation
-from Public.Driver_Operate import BaseOperate
+from client.Package_module import Dubb_funcation
+from client.Package_module import Live_funcation
+from client.Public.Driver_Operate import BaseOperate
 class Dubbing(unittest.TestCase):
     @classmethod
     def setUpClass(self):

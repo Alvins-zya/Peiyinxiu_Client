@@ -3,3 +3,9 @@ S、环境变量下删除：
     1、%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
     2、C:\Users\Gold\AppData\Local\Microsoft\WindowsApps
     cmd重新输入python即可正常启动。
+
+Q：requests.exceptions.SSLError: HTTPSConnectionPool(host='andapi.peiyinxiu.com', port=443)
+S：
+    pip install cryptography
+    pip install pyOpenSSL
+    pip install certifi

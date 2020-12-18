@@ -7,11 +7,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.connectiontype import ConnectionType
-import os,sys
+import os
 import re
 import time
-from Thread_script.devices import appium_desired
-from Thread_script.devices_list import get_conn_dev
+from client.Thread_script.devices import appium_desired
+from client.Thread_script.devices_list import get_conn_dev
 class BaseOperate():
     def __init__(self,udid,port,systemport):
         self.driver = appium_desired(udid,port,systemport)

@@ -12,13 +12,12 @@ import warnings
 import re,os,sys
 import time, random
 # from time import sleep,ctime
-from typing import Counter
 curpath = os.path.abspath(os.path.dirname(__file__))
 rootpath = os.path.split(curpath)[0]
 sys.path.append(rootpath)
 
 # file = open('D:\Git_pyhthon\Package_module\\topic_words.txt', 'r', encoding='utf-8')
-from Public.Driver_Operate import BaseOperate,location,touche_Y,touche_X
+from client.Public.Driver_Operate import BaseOperate,location,touche_Y,touche_X
 # from public.unittest_import import dubbing
 # from Package_module.Location_list import location
 
